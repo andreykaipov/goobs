@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"sort"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
@@ -39,7 +40,16 @@ func main() {
 	topClientFields := []Code{}
 	topClientSetters := []Code{}
 
-	for category, _ := range data.Requests {
+	// Sort the fields so we can traverse the map in a deterministic
+	// order as we want the generated code to be the same between
+	// subsequent runs.
+	categories := make([]string, 0, len(data.Requests))
+	for c := range data.Requests {
+		categories = append(categories, c)
+	}
+	sort.Strings(categories)
+
+	for _, category := range categories {
 		fmt.Printf("-- %s --\n", category)
 
 		categorySnake := strings.ReplaceAll(category, " ", "_")

@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-//go:generate go run github.com/andreykaipov/funcopgen -type Client -prefix With -factory
+//go:generate internal/bin/funcopgen -type Client -prefix With -factory
 
 type Client struct {
 	Host string

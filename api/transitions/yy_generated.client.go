@@ -1,5 +1,5 @@
 // This file has been automatically generated. Don't edit it.
-//go:generate go run github.com/andreykaipov/funcopgen -type Client -prefix With -factory -unexported
+//go:generate ../../internal/bin/funcopgen -type Client -prefix With -factory -unexported
 
 package transitions
 

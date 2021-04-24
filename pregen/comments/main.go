@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"os/exec"
 	"strings"
 
@@ -30,42 +31,52 @@ func main() {
 		panic(err)
 	}
 
+	root, err := run("git rev-parse --show-toplevel")
+	if err != nil {
+		panic(err)
+	}
+
+	topClientFields := []Code{}
+	topClientSetters := []Code{}
+
 	for category, _ := range data.Requests {
+		fmt.Printf("-- %s --\n", category)
+
 		categorySnake := strings.ReplaceAll(category, " ", "_")
 		categoryPascal := strings.ReplaceAll(strings.Title(category), " ", "")
 		categoryClaustrophic := strings.ReplaceAll(category, " ", "")
 
-		fmt.Printf("-- %s --\n", categoryPascal)
+		// For the top-level client
+		qualifier := "github.com/andreykaipov/goobs/pkg/" + categorySnake
+		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
+		topClientSetters = append(topClientSetters, Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(Qual(qualifier, "WithConn").Call(Id("c.conn"))))
 
+		// Generate the category-level client
 		f := NewFile(categoryClaustrophic)
-
 		f.HeaderComment("This file has been automatically generated. Don't edit it.")
-
 		f.HeaderComment("//go:generate go run github.com/andreykaipov/funcopgen -type Client -prefix With -factory -unexported") // lmao
-
 		f.Comment(fmt.Sprintf("Client represents a client for '%s' requests", category))
+		f.Add(Type().Id("Client").Struct(Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn")))
 
-		f.Add(
-			Type().Id("Client").Struct(
-				Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn"),
-			),
-		)
-
-		//fmt.Sprintf("%s/client.go", category)
-
-		dir, err := run(fmt.Sprintf(`
-			root="$(git rev-parse --show-toplevel)"
-			dir="$root/pkg/%s"
-			mkdir -p "$dir"
-			printf "%%s" "$dir"
-		`, categorySnake))
-		if err != nil {
+		// Write the category-level client
+		dir := fmt.Sprintf("%s/pkg/%s", root, categorySnake)
+		if err := os.MkdirAll(dir, 0777); err != nil {
 			panic(err)
 		}
 
 		if err := f.Save(fmt.Sprintf("%s/yy_generated.client.go", dir)); err != nil {
 			panic(err)
 		}
+	}
+
+	// Write utils for the top-level client
+	f := NewFile("goobs")
+	f.HeaderComment("This file has been automatically generated. Don't edit it.")
+	f.Add(Type().Id("Subclients").Struct(topClientFields...))
+	f.Add(Func().Id("setClients").Params(Id("c").Op("*").Id("Client")).Block(topClientSetters...))
+
+	if err := f.Save(fmt.Sprintf("%s/yy_generated.client.go", root)); err != nil {
+		panic(err)
 	}
 }
 
@@ -75,7 +86,7 @@ func run(cmd string) (string, error) {
 		return "", fmt.Errorf("Failed running '%s': %s\n\n%s", cmd, err, output)
 	}
 
-	return string(output), nil
+	return strings.TrimSuffix(string(output), "\n"), nil
 }
 
 // Comments the generated comments.json from Palakis

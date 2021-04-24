@@ -1,4 +1,4 @@
-# github.com/andreykaipov/funcopgen v0.2.1-0.20210424035859-6f9eed775f1a
+# github.com/andreykaipov/funcopgen v0.3.2
 ## explicit
 github.com/andreykaipov/funcopgen
 # github.com/dave/jennifer v1.4.1

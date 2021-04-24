@@ -64,7 +64,7 @@ func main() {
 		// Generate the category-level client
 		f := NewFile(categoryClaustrophic)
 		f.HeaderComment("This file has been automatically generated. Don't edit it.")
-		f.HeaderComment("//go:generate go run github.com/andreykaipov/funcopgen -type Client -prefix With -factory -unexported") // lmao
+		f.HeaderComment("//go:generate ../../internal/bin/funcopgen -type Client -prefix With -factory -unexported") // lmao
 		f.Comment(fmt.Sprintf("Client represents a client for '%s' requests", category))
 		f.Add(Type().Id("Client").Struct(Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn")))
 

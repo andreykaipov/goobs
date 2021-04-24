@@ -47,7 +47,7 @@ func main() {
 		categoryClaustrophic := strings.ReplaceAll(category, " ", "")
 
 		// For the top-level client
-		qualifier := "github.com/andreykaipov/goobs/pkg/" + categorySnake
+		qualifier := "github.com/andreykaipov/goobs/api/" + categorySnake
 		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
 		topClientSetters = append(topClientSetters, Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(Qual(qualifier, "WithConn").Call(Id("c.conn"))))
 
@@ -59,7 +59,7 @@ func main() {
 		f.Add(Type().Id("Client").Struct(Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn")))
 
 		// Write the category-level client
-		dir := fmt.Sprintf("%s/pkg/%s", root, categorySnake)
+		dir := fmt.Sprintf("%s/api/%s", root, categorySnake)
 		if err := os.MkdirAll(dir, 0777); err != nil {
 			panic(err)
 		}

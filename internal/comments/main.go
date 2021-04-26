@@ -68,7 +68,7 @@ func main() {
 		client := NewFile(categoryClaustrophic)
 		client.HeaderComment("This file has been automatically generated. Don't edit it.")
 		client.HeaderComment("//go:generate ../../../internal/bin/funcopgen -type Client -prefix With -factory -unexported") // lmao
-		client.Comment(fmt.Sprintf("Client represents a client for '%s' requests", category))
+		client.Commentf("Client represents a client for '%s' requests", category)
 		client.Add(Type().Id("Client").Struct(Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn")))
 
 		// Write the category-level client
@@ -139,7 +139,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 
 	// Params
 	structName = request.Name + "Params"
-	s.Comment(fmt.Sprintf("%1s represents the params body for the %q request.\n\n%s", structName, request.Name, note)).Line()
+	s.Commentf("%1s represents the params body for the %q request.\n\n%s", structName, request.Name, note).Line()
 	request.Params = append(request.Params, &Param{Name: "Params", Type: "~params~"}) // internal type
 	if err = genStructFromParams(s, structName, request.Params); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, request.Category)
@@ -148,12 +148,13 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	// satisfy the paramsBehavior interface
 	s.Add(
 		generateGetter(structName, "RequestType"),
+		generateGetter(structName, "MessageID"),
 		generateSetter(structName, "MessageID"),
 	)
 
 	// Returns
 	structName = request.Name + "Response"
-	s.Comment(fmt.Sprintf("%1s represents the response body for the %q request.\n\n%s", structName, request.Name, note)).Line()
+	s.Commentf("%1s represents the response body for the %q request.\n\n%s", structName, request.Name, note).Line()
 	request.Returns = append(request.Returns, &Param{Name: "Response", Type: "~params~"}) // internal type
 	if err = genStructFromParams(s, structName, request.Returns); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, request.Category)

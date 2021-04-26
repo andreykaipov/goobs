@@ -90,6 +90,8 @@ func findJenTypeOfField(field *ast.Field) *Statement {
 
 	f = func(e interface{}) (typeName *Statement) {
 		switch typ := e.(type) {
+		case *ast.InterfaceType:
+			typeName = Interface()
 		case *ast.Ident:
 			typeName = Id(typ.Name)
 		case *ast.StarExpr:
@@ -98,6 +100,9 @@ func findJenTypeOfField(field *ast.Field) *Statement {
 			typeName = Map(f(typ.Key)).Add(f(typ.Value))
 		case *ast.ArrayType:
 			typeName = Index().Add(f(typ.Elt))
+		case *ast.StructType:
+			fmt.Fprintf(os.Stderr, "TODO: anon structs\n")
+			os.Exit(2)
 		case *ast.SelectorExpr:
 			// Find the fully qualified path from the package imports
 			qualifier := fmt.Sprintf("%#v", f(typ.X))
@@ -168,12 +173,19 @@ func init() {
 }
 
 func main() {
+	types := map[string]interface{}{}
+	for _, t := range strings.Split(*typeNames, ",") {
+		types[t] = nil
+	}
+
 	// Find structs
 	structs := map[string]StructFieldMap{}
 
 	for _, file := range pkg.Syntax {
 		for objName, obj := range file.Scope.Objects {
-
+			if _, ok := types[objName]; !ok {
+				continue
+			}
 			switch obj.Kind {
 			case ast.Typ:
 				switch typ := obj.Decl.(*ast.TypeSpec).Type.(type) {
@@ -193,9 +205,7 @@ func main() {
 		}
 	}
 
-	types := strings.Split(*typeNames, ",")
-
-	for _, t := range types {
+	for t := range types {
 		fields, ok := structs[t]
 		if !ok {
 			fmt.Fprintf(os.Stderr, "Unknown type %q in %q in package %q\n", t, pkg.Name, pkg.PkgPath)

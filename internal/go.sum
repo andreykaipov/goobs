@@ -1,5 +1,5 @@
-github.com/andreykaipov/funcopgen v0.3.2 h1:2vmSl2ex2lr2Plk05BsffR9Lu4pqK2Jl84WbOJxPZyg=
-github.com/andreykaipov/funcopgen v0.3.2/go.mod h1:yKSzogD/4MlRmk88WC3+0kdav5UsZ/v/972gIwM8qfA=
+github.com/andreykaipov/funcopgen v0.4.0 h1:GpIZxspZ1C37DW8bz7Vsz4ZoQBenr0STaGYDlx8KIig=
+github.com/andreykaipov/funcopgen v0.4.0/go.mod h1:yKSzogD/4MlRmk88WC3+0kdav5UsZ/v/972gIwM8qfA=
 github.com/dave/jennifer v1.4.1 h1:XyqG6cn5RQsTj3qlWQTKlRGAyrTcsk1kUmWdZBzRjDw=
 github.com/dave/jennifer v1.4.1/go.mod h1:7jEdnm+qBcxl8PC0zyp7vxcpSRnzXSt9r39tpTVGlwA=
 github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=

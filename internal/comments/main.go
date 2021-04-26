@@ -116,22 +116,6 @@ func main() {
 	}
 }
 
-func generateGetter(strukt, name string) *Statement {
-	name = strings.Title(name)
-
-	return Func().Params(Id("o").Op("*").Id(strukt)).Id("Get" + name).Params().String().Block(
-		Return(Id("o").Dot(name)),
-	).Line()
-}
-
-func generateSetter(strukt, name string) *Statement {
-	name = strings.Title(name)
-
-	return Func().Params(Id("o").Op("*").Id(strukt)).Id("Set" + name).Params(Id("x").String()).Block(
-		Id("o").Dot(name).Op("=").Id("x"),
-	).Line()
-}
-
 func generateRequest(request *Request) (s *Statement, err error) {
 	var structName string
 	s = Line()
@@ -165,6 +149,45 @@ func generateRequest(request *Request) (s *Statement, err error) {
 		generateGetter(structName, "MessageID"),
 		generateGetter(structName, "Status"),
 		generateGetter(structName, "Error"),
+	)
+
+	// generate the request function
+
+	hasRequiredArgs := len(request.Params) > 1
+
+	s.Commentf("%s sends the corresponding request to the connected OBS WebSockets server.", request.Name).Do(func(z *Statement) {
+		if hasRequiredArgs {
+			return
+		}
+		z.Id("Note the variadic arguments as this request doesn't require any parameters.")
+	})
+	s.Line()
+	s.Func().Params(Id("c").Op("*").Id("Client")).Id(request.Name).ParamsFunc(func(g *Group) {
+		if hasRequiredArgs {
+			g.Id("params").Op("*").Id(request.Name + "Params")
+		} else {
+			g.Id("paramss").Op("...").Op("*").Id(request.Name + "Params")
+		}
+	}).Params(Op("*").Id(request.Name+"Response"), Error()).Block(
+		Do(func(z *Statement) {
+			if hasRequiredArgs {
+				return
+			}
+			z.If(Len(Id("paramss")).Op("==").Lit(0)).Block(
+				Id("paramss").Op("=").Index().Op("*").Id(request.Name + "Params").Values(Values()),
+			)
+			z.Line()
+			z.Id("params").Op(":=").Id("paramss").Index(Lit(0))
+		}),
+		Id("params").Dot("RequestType").Op("=").Lit(request.Name),
+		Id("data").Op(":=").Op("&").Id(request.Name+"Response").Values(),
+		If(
+			Id("err").Op(":=").Qual("github.com/andreykaipov/goobs/api/requests", "WriteMessage").Call(Id("c.conn"), Id("params"), Id("data")),
+			Id("err").Op("!=").Nil(),
+		).Block(
+			Return().List(Nil(), Id("err")),
+		),
+		Return().List(Id("data"), Nil()),
 	)
 
 	return s, nil
@@ -241,6 +264,30 @@ func genStructFromParams(s *Statement, name string, params []*Param) error {
 	s.Add(statement)
 
 	return nil
+}
+
+func generateGetter(strukt, name string) *Statement {
+	f := "Get" + strings.Title(name)
+
+	s := Commentf("%s returns the %s of %s", f, name, strukt).Line()
+
+	s.Func().Params(Id("o").Op("*").Id(strukt)).Id("Get" + name).Params().String().Block(
+		Return(Id("o").Dot(name)),
+	).Line()
+
+	return s
+}
+
+func generateSetter(strukt, name string) *Statement {
+	f := "Set" + strings.Title(name)
+
+	s := Commentf("%s sets the %s on %s", f, name, strukt).Line()
+
+	s.Func().Params(Id("o").Op("*").Id(strukt)).Id(f).Params(Id("x").String()).Block(
+		Id("o").Dot(name).Op("=").Id("x"),
+	).Line()
+
+	return s
 }
 
 func sanitizeText(text string) (string, error) {

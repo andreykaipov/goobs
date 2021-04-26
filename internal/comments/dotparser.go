@@ -9,12 +9,21 @@ import (
 	"github.com/dave/jennifer/jen"
 )
 
-func parseJenKeysAsMap(lines map[string]jen.Code) (map[string]interface{}, error) {
-	// e.g. keeps a reference from a.b to the corresponding struct
+type keyInfo struct {
+	Type    jen.Code
+	Comment string
+}
 
+func parseJenKeysAsMap(lines map[string]jen.Code, comments ...map[string]string) (map[string]interface{}, error) {
+	// e.g. keeps a reference from a.b to the corresponding struct
 	mapReferences := map[string]map[string]interface{}{}
 
 	for _, line := range sortedKeys(lines) {
+		comment := ""
+		if len(comments) == 1 {
+			comment = comments[0][line]
+		}
+
 		typ3 := lines[line]
 
 		// prepend $. so the following loop always runs even for parts
@@ -53,7 +62,10 @@ func parseJenKeysAsMap(lines map[string]jen.Code) (map[string]interface{}, error
 			return nil, fmt.Errorf("2: wanted to terminate '%s' at '%#v', but it was already parsed as '%#T'", line, typ3, val)
 		}
 
-		m[lastPart] = typ3
+		m[lastPart] = keyInfo{
+			Type:    typ3,
+			Comment: comment,
+		}
 	}
 
 	final := map[string]interface{}{}
@@ -66,8 +78,8 @@ func parseJenKeysAsMap(lines map[string]jen.Code) (map[string]interface{}, error
 	return final, nil
 }
 
-func parseJenKeysAsStruct(name string, lines map[string]jen.Code) (*jen.Statement, error) {
-	m, err := parseJenKeysAsMap(lines)
+func parseJenKeysAsStruct(name string, lines map[string]jen.Code, comments ...map[string]string) (*jen.Statement, error) {
+	m, err := parseJenKeysAsMap(lines, comments...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,8 +115,11 @@ func parseJenKeysAsStruct(name string, lines map[string]jen.Code) (*jen.Statemen
 					s.Do(addTag(strings.TrimSuffix(parent, " []")))
 				}
 			})
-		case *jen.Statement:
-			g.Add(jen.Id(pascal(parent)).Add(t).Do(addTag(parent)))
+		case keyInfo:
+			if t.Comment != "" {
+				g.Comment(t.Comment)
+			}
+			g.Add(jen.Id(pascal(parent)).Add(t.Type).Do(addTag(parent)))
 		default:
 			panic("unhandled case idk")
 		}

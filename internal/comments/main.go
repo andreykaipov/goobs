@@ -125,6 +125,7 @@ func main() {
 // parses "Params" or "Requests" fields from requests or event
 func parseParamsAsStruct(name string, params []*Param) (*Statement, error) {
 	keysToJenType := map[string]Code{}
+	keysToComments := map[string]string{}
 
 	for _, field := range params {
 		fieldName, err := sanitizeText(field.Name)
@@ -167,9 +168,10 @@ func parseParamsAsStruct(name string, params []*Param) (*Statement, error) {
 		}
 
 		keysToJenType[fieldName] = fieldType
+		keysToComments[fieldName] = field.Description
 	}
 
-	statement, err := parseJenKeysAsStruct(name, keysToJenType)
+	statement, err := parseJenKeysAsStruct(name, keysToJenType, keysToComments)
 	if err != nil {
 		return nil, fmt.Errorf("Failed parsing dotted key: %s", err)
 	}

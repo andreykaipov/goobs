@@ -4,14 +4,25 @@ github.com/andreykaipov/funcopgen
 # github.com/dave/jennifer v1.4.1
 ## explicit
 github.com/dave/jennifer/jen
+# github.com/davecgh/go-spew v1.1.0
+github.com/davecgh/go-spew/spew
 # github.com/fatih/structtag v1.2.0
 github.com/fatih/structtag
+# github.com/pmezard/go-difflib v1.0.0
+github.com/pmezard/go-difflib/difflib
+# github.com/stretchr/testify v1.7.0
+## explicit
+github.com/stretchr/testify/assert
 # golang.org/x/mod v0.4.2
 ## explicit
 golang.org/x/mod/semver
 # golang.org/x/sys v0.0.0-20210423185535-09eb48e85fd7
 ## explicit
 golang.org/x/sys/execabs
+# golang.org/x/text v0.3.6
+## explicit
+golang.org/x/text/transform
+golang.org/x/text/unicode/norm
 # golang.org/x/tools v0.1.0
 golang.org/x/tools/go/gcexportdata
 golang.org/x/tools/go/internal/gcimporter
@@ -27,3 +38,5 @@ golang.org/x/tools/internal/typesinternal
 # golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1
 golang.org/x/xerrors
 golang.org/x/xerrors/internal
+# gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
+gopkg.in/yaml.v3

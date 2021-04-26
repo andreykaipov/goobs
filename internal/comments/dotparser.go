@@ -124,6 +124,7 @@ func parseJenKeysAsStruct(name string, lines map[string]jen.Code, comments ...ma
 			panic("unhandled case idk")
 		}
 
+		g.Line()
 	}
 
 	return jen.Type().CustomFunc(jen.Options{}, func(g *jen.Group) {

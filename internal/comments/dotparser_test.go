@@ -59,6 +59,10 @@ func Test_parseKeysAsJenStruct_basic_3(t *testing.T) {
 		"a":   jen.String(),
 		"b":   jen.String(),
 		"c.d": jen.Int(),
+	}, map[string]string{
+		"a":   "hello",
+		"b":   "hi",
+		"c.d": "bye",
 	})
 
 	assertJenStruct(t, statement, err)

@@ -2,14 +2,18 @@
 
 package sources
 
-// GetSourcesListParams contains the request body for the
-// [GetSourcesList](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesList)
-// request.
+/*
+GetSourcesListParams represents the params body for the "GetSourcesList" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesList.
+*/
 type GetSourcesListParams struct{}
 
-// GetSourcesListResponse contains the request body for the
-// [GetSourcesList](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesList)
-// request.
+/*
+GetSourcesListResponse represents the response body for the "GetSourcesList" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesList.
+*/
 type GetSourcesListResponse struct {
 	Sources []struct {
 		// Unique source name
@@ -24,14 +28,18 @@ type GetSourcesListResponse struct {
 	} `json:"sources"`
 }
 
-// GetSourcesTypesListParams contains the request body for the
-// [GetSourcesTypesList](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesTypesList)
-// request.
+/*
+GetSourcesTypesListParams represents the params body for the "GetSourcesTypesList" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesTypesList.
+*/
 type GetSourcesTypesListParams struct{}
 
-// GetSourcesTypesListResponse contains the request body for the
-// [GetSourcesTypesList](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesTypesList)
-// request.
+/*
+GetSourcesTypesListResponse represents the response body for the "GetSourcesTypesList" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesTypesList.
+*/
 type GetSourcesTypesListResponse struct {
 	Ids []struct {
 		Caps struct {
@@ -72,17 +80,21 @@ type GetSourcesTypesListResponse struct {
 	} `json:"ids"`
 }
 
-// GetVolumeParams contains the request body for the
-// [GetVolume](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVolume)
-// request.
+/*
+GetVolumeParams represents the params body for the "GetVolume" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVolume.
+*/
 type GetVolumeParams struct {
 	// Source name.
 	Source string `json:"source"`
 }
 
-// GetVolumeResponse contains the request body for the
-// [GetVolume](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVolume)
-// request.
+/*
+GetVolumeResponse represents the response body for the "GetVolume" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVolume.
+*/
 type GetVolumeResponse struct {
 	// Indicates whether the source is muted.
 	Muted bool `json:"muted"`
@@ -94,9 +106,11 @@ type GetVolumeResponse struct {
 	Volume float64 `json:"volume"`
 }
 
-// SetVolumeParams contains the request body for the
-// [SetVolume](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetVolume)
-// request.
+/*
+SetVolumeParams represents the params body for the "SetVolume" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetVolume.
+*/
 type SetVolumeParams struct {
 	// Source name.
 	Source string `json:"source"`
@@ -105,22 +119,28 @@ type SetVolumeParams struct {
 	Volume float64 `json:"volume"`
 }
 
-// SetVolumeResponse contains the request body for the
-// [SetVolume](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetVolume)
-// request.
+/*
+SetVolumeResponse represents the response body for the "SetVolume" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetVolume.
+*/
 type SetVolumeResponse struct{}
 
-// GetMuteParams contains the request body for the
-// [GetMute](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetMute)
-// request.
+/*
+GetMuteParams represents the params body for the "GetMute" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetMute.
+*/
 type GetMuteParams struct {
 	// Source name.
 	Source string `json:"source"`
 }
 
-// GetMuteResponse contains the request body for the
-// [GetMute](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetMute)
-// request.
+/*
+GetMuteResponse represents the response body for the "GetMute" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetMute.
+*/
 type GetMuteResponse struct {
 	// Mute status of the source.
 	Muted bool `json:"muted"`
@@ -129,9 +149,11 @@ type GetMuteResponse struct {
 	Name string `json:"name"`
 }
 
-// SetMuteParams contains the request body for the
-// [SetMute](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetMute)
-// request.
+/*
+SetMuteParams represents the params body for the "SetMute" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetMute.
+*/
 type SetMuteParams struct {
 	// Desired mute status.
 	Mute bool `json:"mute"`
@@ -140,27 +162,35 @@ type SetMuteParams struct {
 	Source string `json:"source"`
 }
 
-// SetMuteResponse contains the request body for the
-// [SetMute](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetMute)
-// request.
+/*
+SetMuteResponse represents the response body for the "SetMute" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetMute.
+*/
 type SetMuteResponse struct{}
 
-// ToggleMuteParams contains the request body for the
-// [ToggleMute](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleMute)
-// request.
+/*
+ToggleMuteParams represents the params body for the "ToggleMute" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleMute.
+*/
 type ToggleMuteParams struct {
 	// Source name.
 	Source string `json:"source"`
 }
 
-// ToggleMuteResponse contains the request body for the
-// [ToggleMute](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleMute)
-// request.
+/*
+ToggleMuteResponse represents the response body for the "ToggleMute" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleMute.
+*/
 type ToggleMuteResponse struct{}
 
-// SetSyncOffsetParams contains the request body for the
-// [SetSyncOffset](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSyncOffset)
-// request.
+/*
+SetSyncOffsetParams represents the params body for the "SetSyncOffset" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSyncOffset.
+*/
 type SetSyncOffsetParams struct {
 	// The desired audio sync offset (in nanoseconds).
 	Offset int `json:"offset"`
@@ -169,22 +199,28 @@ type SetSyncOffsetParams struct {
 	Source string `json:"source"`
 }
 
-// SetSyncOffsetResponse contains the request body for the
-// [SetSyncOffset](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSyncOffset)
-// request.
+/*
+SetSyncOffsetResponse represents the response body for the "SetSyncOffset" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSyncOffset.
+*/
 type SetSyncOffsetResponse struct{}
 
-// GetSyncOffsetParams contains the request body for the
-// [GetSyncOffset](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSyncOffset)
-// request.
+/*
+GetSyncOffsetParams represents the params body for the "GetSyncOffset" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSyncOffset.
+*/
 type GetSyncOffsetParams struct {
 	// Source name.
 	Source string `json:"source"`
 }
 
-// GetSyncOffsetResponse contains the request body for the
-// [GetSyncOffset](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSyncOffset)
-// request.
+/*
+GetSyncOffsetResponse represents the response body for the "GetSyncOffset" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSyncOffset.
+*/
 type GetSyncOffsetResponse struct {
 	// Source name.
 	Name string `json:"name"`
@@ -193,9 +229,11 @@ type GetSyncOffsetResponse struct {
 	Offset int `json:"offset"`
 }
 
-// GetSourceSettingsParams contains the request body for the
-// [GetSourceSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceSettings)
-// request.
+/*
+GetSourceSettingsParams represents the params body for the "GetSourceSettings" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceSettings.
+*/
 type GetSourceSettingsParams struct {
 	// Source name.
 	SourceName string `json:"sourceName"`
@@ -205,9 +243,11 @@ type GetSourceSettingsParams struct {
 	SourceType string `json:"sourceType"`
 }
 
-// GetSourceSettingsResponse contains the request body for the
-// [GetSourceSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceSettings)
-// request.
+/*
+GetSourceSettingsResponse represents the response body for the "GetSourceSettings" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceSettings.
+*/
 type GetSourceSettingsResponse struct {
 	// Source name
 	SourceName string `json:"sourceName"`
@@ -219,9 +259,11 @@ type GetSourceSettingsResponse struct {
 	SourceType string `json:"sourceType"`
 }
 
-// SetSourceSettingsParams contains the request body for the
-// [SetSourceSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceSettings)
-// request.
+/*
+SetSourceSettingsParams represents the params body for the "SetSourceSettings" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceSettings.
+*/
 type SetSourceSettingsParams struct {
 	// Source name.
 	SourceName string `json:"sourceName"`
@@ -234,9 +276,11 @@ type SetSourceSettingsParams struct {
 	SourceType string `json:"sourceType"`
 }
 
-// SetSourceSettingsResponse contains the request body for the
-// [SetSourceSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceSettings)
-// request.
+/*
+SetSourceSettingsResponse represents the response body for the "SetSourceSettings" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceSettings.
+*/
 type SetSourceSettingsResponse struct {
 	// Source name
 	SourceName string `json:"sourceName"`
@@ -248,17 +292,21 @@ type SetSourceSettingsResponse struct {
 	SourceType string `json:"sourceType"`
 }
 
-// GetTextGDIPlusPropertiesParams contains the request body for the
-// [GetTextGDIPlusProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextGDIPlusProperties)
-// request.
+/*
+GetTextGDIPlusPropertiesParams represents the params body for the "GetTextGDIPlusProperties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
+*/
 type GetTextGDIPlusPropertiesParams struct {
 	// Source name.
 	Source string `json:"source"`
 }
 
-// GetTextGDIPlusPropertiesResponse contains the request body for the
-// [GetTextGDIPlusProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextGDIPlusProperties)
-// request.
+/*
+GetTextGDIPlusPropertiesResponse represents the response body for the "GetTextGDIPlusProperties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
+*/
 type GetTextGDIPlusPropertiesResponse struct {
 	// Text Alignment ("left", "center", "right").
 	Align string `json:"align"`
@@ -344,9 +392,11 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Vertical bool `json:"vertical"`
 }
 
-// SetTextGDIPlusPropertiesParams contains the request body for the
-// [SetTextGDIPlusProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties)
-// request.
+/*
+SetTextGDIPlusPropertiesParams represents the params body for the "SetTextGDIPlusProperties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
+*/
 type SetTextGDIPlusPropertiesParams struct {
 	// Text Alignment ("left", "center", "right").
 	Align string `json:"align"`
@@ -435,22 +485,28 @@ type SetTextGDIPlusPropertiesParams struct {
 	Vertical bool `json:"vertical"`
 }
 
-// SetTextGDIPlusPropertiesResponse contains the request body for the
-// [SetTextGDIPlusProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties)
-// request.
+/*
+SetTextGDIPlusPropertiesResponse represents the response body for the "SetTextGDIPlusProperties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
+*/
 type SetTextGDIPlusPropertiesResponse struct{}
 
-// GetTextFreetype2PropertiesParams contains the request body for the
-// [GetTextFreetype2Properties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties)
-// request.
+/*
+GetTextFreetype2PropertiesParams represents the params body for the "GetTextFreetype2Properties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties.
+*/
 type GetTextFreetype2PropertiesParams struct {
 	// Source name.
 	Source string `json:"source"`
 }
 
-// GetTextFreetype2PropertiesResponse contains the request body for the
-// [GetTextFreetype2Properties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties)
-// request.
+/*
+GetTextFreetype2PropertiesResponse represents the response body for the "GetTextFreetype2Properties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties.
+*/
 type GetTextFreetype2PropertiesResponse struct {
 	// Gradient top color.
 	Color1 int `json:"color1"`
@@ -500,9 +556,11 @@ type GetTextFreetype2PropertiesResponse struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
-// SetTextFreetype2PropertiesParams contains the request body for the
-// [SetTextFreetype2Properties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextFreetype2Properties)
-// request.
+/*
+SetTextFreetype2PropertiesParams represents the params body for the "SetTextFreetype2Properties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextFreetype2Properties.
+*/
 type SetTextFreetype2PropertiesParams struct {
 	// Gradient top color.
 	Color1 int `json:"color1"`
@@ -552,22 +610,28 @@ type SetTextFreetype2PropertiesParams struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
-// SetTextFreetype2PropertiesResponse contains the request body for the
-// [SetTextFreetype2Properties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextFreetype2Properties)
-// request.
+/*
+SetTextFreetype2PropertiesResponse represents the response body for the "SetTextFreetype2Properties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextFreetype2Properties.
+*/
 type SetTextFreetype2PropertiesResponse struct{}
 
-// GetBrowserSourcePropertiesParams contains the request body for the
-// [GetBrowserSourceProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties)
-// request.
+/*
+GetBrowserSourcePropertiesParams represents the params body for the "GetBrowserSourceProperties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties.
+*/
 type GetBrowserSourcePropertiesParams struct {
 	// Source name.
 	Source string `json:"source"`
 }
 
-// GetBrowserSourcePropertiesResponse contains the request body for the
-// [GetBrowserSourceProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties)
-// request.
+/*
+GetBrowserSourcePropertiesResponse represents the response body for the "GetBrowserSourceProperties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties.
+*/
 type GetBrowserSourcePropertiesResponse struct {
 	// CSS to inject.
 	Css string `json:"css"`
@@ -597,9 +661,11 @@ type GetBrowserSourcePropertiesResponse struct {
 	Width int `json:"width"`
 }
 
-// SetBrowserSourcePropertiesParams contains the request body for the
-// [SetBrowserSourceProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetBrowserSourceProperties)
-// request.
+/*
+SetBrowserSourcePropertiesParams represents the params body for the "SetBrowserSourceProperties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetBrowserSourceProperties.
+*/
 type SetBrowserSourcePropertiesParams struct {
 	// CSS to inject.
 	Css string `json:"css"`
@@ -632,19 +698,25 @@ type SetBrowserSourcePropertiesParams struct {
 	Width int `json:"width"`
 }
 
-// SetBrowserSourcePropertiesResponse contains the request body for the
-// [SetBrowserSourceProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetBrowserSourceProperties)
-// request.
+/*
+SetBrowserSourcePropertiesResponse represents the response body for the "SetBrowserSourceProperties" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetBrowserSourceProperties.
+*/
 type SetBrowserSourcePropertiesResponse struct{}
 
-// GetSpecialSourcesParams contains the request body for the
-// [GetSpecialSources](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSpecialSources)
-// request.
+/*
+GetSpecialSourcesParams represents the params body for the "GetSpecialSources" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSpecialSources.
+*/
 type GetSpecialSourcesParams struct{}
 
-// GetSpecialSourcesResponse contains the request body for the
-// [GetSpecialSources](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSpecialSources)
-// request.
+/*
+GetSpecialSourcesResponse represents the response body for the "GetSpecialSources" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSpecialSources.
+*/
 type GetSpecialSourcesResponse struct {
 	// Name of the first Desktop Audio capture source.
 	Desktop1 string `json:"desktop-1"`
@@ -662,17 +734,21 @@ type GetSpecialSourcesResponse struct {
 	Mic3 string `json:"mic-3"`
 }
 
-// GetSourceFiltersParams contains the request body for the
-// [GetSourceFilters](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceFilters)
-// request.
+/*
+GetSourceFiltersParams represents the params body for the "GetSourceFilters" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceFilters.
+*/
 type GetSourceFiltersParams struct {
 	// Source name
 	SourceName string `json:"sourceName"`
 }
 
-// GetSourceFiltersResponse contains the request body for the
-// [GetSourceFilters](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceFilters)
-// request.
+/*
+GetSourceFiltersResponse represents the response body for the "GetSourceFilters" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceFilters.
+*/
 type GetSourceFiltersResponse struct {
 	Filters []struct {
 		// Filter name
@@ -686,9 +762,11 @@ type GetSourceFiltersResponse struct {
 	} `json:"filters"`
 }
 
-// AddFilterToSourceParams contains the request body for the
-// [AddFilterToSource](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#AddFilterToSource)
-// request.
+/*
+AddFilterToSourceParams represents the params body for the "AddFilterToSource" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#AddFilterToSource.
+*/
 type AddFilterToSourceParams struct {
 	// Name of the new filter
 	FilterName string `json:"filterName"`
@@ -703,14 +781,18 @@ type AddFilterToSourceParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// AddFilterToSourceResponse contains the request body for the
-// [AddFilterToSource](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#AddFilterToSource)
-// request.
+/*
+AddFilterToSourceResponse represents the response body for the "AddFilterToSource" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#AddFilterToSource.
+*/
 type AddFilterToSourceResponse struct{}
 
-// RemoveFilterFromSourceParams contains the request body for the
-// [RemoveFilterFromSource](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource)
-// request.
+/*
+RemoveFilterFromSourceParams represents the params body for the "RemoveFilterFromSource" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource.
+*/
 type RemoveFilterFromSourceParams struct {
 	// Name of the filter to remove
 	FilterName string `json:"filterName"`
@@ -719,14 +801,18 @@ type RemoveFilterFromSourceParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// RemoveFilterFromSourceResponse contains the request body for the
-// [RemoveFilterFromSource](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource)
-// request.
+/*
+RemoveFilterFromSourceResponse represents the response body for the "RemoveFilterFromSource" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource.
+*/
 type RemoveFilterFromSourceResponse struct{}
 
-// ReorderSourceFilterParams contains the request body for the
-// [ReorderSourceFilter](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSourceFilter)
-// request.
+/*
+ReorderSourceFilterParams represents the params body for the "ReorderSourceFilter" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSourceFilter.
+*/
 type ReorderSourceFilterParams struct {
 	// Name of the filter to reorder
 	FilterName string `json:"filterName"`
@@ -738,14 +824,18 @@ type ReorderSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// ReorderSourceFilterResponse contains the request body for the
-// [ReorderSourceFilter](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSourceFilter)
-// request.
+/*
+ReorderSourceFilterResponse represents the response body for the "ReorderSourceFilter" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSourceFilter.
+*/
 type ReorderSourceFilterResponse struct{}
 
-// MoveSourceFilterParams contains the request body for the
-// [MoveSourceFilter](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter)
-// request.
+/*
+MoveSourceFilterParams represents the params body for the "MoveSourceFilter" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter.
+*/
 type MoveSourceFilterParams struct {
 	// Name of the filter to reorder
 	FilterName string `json:"filterName"`
@@ -758,14 +848,18 @@ type MoveSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// MoveSourceFilterResponse contains the request body for the
-// [MoveSourceFilter](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter)
-// request.
+/*
+MoveSourceFilterResponse represents the response body for the "MoveSourceFilter" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter.
+*/
 type MoveSourceFilterResponse struct{}
 
-// SetSourceFilterSettingsParams contains the request body for the
-// [SetSourceFilterSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceFilterSettings)
-// request.
+/*
+SetSourceFilterSettingsParams represents the params body for the "SetSourceFilterSettings" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceFilterSettings.
+*/
 type SetSourceFilterSettingsParams struct {
 	// Name of the filter to reconfigure
 	FilterName string `json:"filterName"`
@@ -777,7 +871,9 @@ type SetSourceFilterSettingsParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// SetSourceFilterSettingsResponse contains the request body for the
-// [SetSourceFilterSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceFilterSettings)
-// request.
+/*
+SetSourceFilterSettingsResponse represents the response body for the "SetSourceFilterSettings" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceFilterSettings.
+*/
 type SetSourceFilterSettingsResponse struct{}

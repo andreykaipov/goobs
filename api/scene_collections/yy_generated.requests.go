@@ -2,40 +2,52 @@
 
 package scenecollections
 
-// SetCurrentSceneCollectionParams contains the request body for the
-// [SetCurrentSceneCollection](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentSceneCollection)
-// request.
+/*
+SetCurrentSceneCollectionParams represents the params body for the "SetCurrentSceneCollection" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentSceneCollection.
+*/
 type SetCurrentSceneCollectionParams struct {
 	// Name of the desired scene collection.
 	ScName string `json:"sc-name"`
 }
 
-// SetCurrentSceneCollectionResponse contains the request body for the
-// [SetCurrentSceneCollection](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentSceneCollection)
-// request.
+/*
+SetCurrentSceneCollectionResponse represents the response body for the "SetCurrentSceneCollection" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentSceneCollection.
+*/
 type SetCurrentSceneCollectionResponse struct{}
 
-// GetCurrentSceneCollectionParams contains the request body for the
-// [GetCurrentSceneCollection](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentSceneCollection)
-// request.
+/*
+GetCurrentSceneCollectionParams represents the params body for the "GetCurrentSceneCollection" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentSceneCollection.
+*/
 type GetCurrentSceneCollectionParams struct{}
 
-// GetCurrentSceneCollectionResponse contains the request body for the
-// [GetCurrentSceneCollection](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentSceneCollection)
-// request.
+/*
+GetCurrentSceneCollectionResponse represents the response body for the "GetCurrentSceneCollection" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentSceneCollection.
+*/
 type GetCurrentSceneCollectionResponse struct {
 	// Name of the currently active scene collection.
 	ScName string `json:"sc-name"`
 }
 
-// ListSceneCollectionsParams contains the request body for the
-// [ListSceneCollections](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListSceneCollections)
-// request.
+/*
+ListSceneCollectionsParams represents the params body for the "ListSceneCollections" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListSceneCollections.
+*/
 type ListSceneCollectionsParams struct{}
 
-// ListSceneCollectionsResponse contains the request body for the
-// [ListSceneCollections](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListSceneCollections)
-// request.
+/*
+ListSceneCollectionsResponse represents the response body for the "ListSceneCollections" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListSceneCollections.
+*/
 type ListSceneCollectionsResponse struct {
 	// Scene collections list
 	SceneCollections []string `json:"scene-collections"`

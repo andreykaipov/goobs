@@ -2,57 +2,77 @@
 
 package recording
 
-// StartStopRecordingParams contains the request body for the
-// [StartStopRecording](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopRecording)
-// request.
+/*
+StartStopRecordingParams represents the params body for the "StartStopRecording" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopRecording.
+*/
 type StartStopRecordingParams struct{}
 
-// StartStopRecordingResponse contains the request body for the
-// [StartStopRecording](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopRecording)
-// request.
+/*
+StartStopRecordingResponse represents the response body for the "StartStopRecording" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopRecording.
+*/
 type StartStopRecordingResponse struct{}
 
-// StartRecordingParams contains the request body for the
-// [StartRecording](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartRecording)
-// request.
+/*
+StartRecordingParams represents the params body for the "StartRecording" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartRecording.
+*/
 type StartRecordingParams struct{}
 
-// StartRecordingResponse contains the request body for the
-// [StartRecording](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartRecording)
-// request.
+/*
+StartRecordingResponse represents the response body for the "StartRecording" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartRecording.
+*/
 type StartRecordingResponse struct{}
 
-// StopRecordingParams contains the request body for the
-// [StopRecording](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopRecording)
-// request.
+/*
+StopRecordingParams represents the params body for the "StopRecording" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopRecording.
+*/
 type StopRecordingParams struct{}
 
-// StopRecordingResponse contains the request body for the
-// [StopRecording](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopRecording)
-// request.
+/*
+StopRecordingResponse represents the response body for the "StopRecording" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopRecording.
+*/
 type StopRecordingResponse struct{}
 
-// SetRecordingFolderParams contains the request body for the
-// [SetRecordingFolder](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetRecordingFolder)
-// request.
+/*
+SetRecordingFolderParams represents the params body for the "SetRecordingFolder" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetRecordingFolder.
+*/
 type SetRecordingFolderParams struct {
 	// Path of the recording folder.
 	RecFolder string `json:"rec-folder"`
 }
 
-// SetRecordingFolderResponse contains the request body for the
-// [SetRecordingFolder](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetRecordingFolder)
-// request.
+/*
+SetRecordingFolderResponse represents the response body for the "SetRecordingFolder" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetRecordingFolder.
+*/
 type SetRecordingFolderResponse struct{}
 
-// GetRecordingFolderParams contains the request body for the
-// [GetRecordingFolder](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetRecordingFolder)
-// request.
+/*
+GetRecordingFolderParams represents the params body for the "GetRecordingFolder" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetRecordingFolder.
+*/
 type GetRecordingFolderParams struct{}
 
-// GetRecordingFolderResponse contains the request body for the
-// [GetRecordingFolder](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetRecordingFolder)
-// request.
+/*
+GetRecordingFolderResponse represents the response body for the "GetRecordingFolder" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetRecordingFolder.
+*/
 type GetRecordingFolderResponse struct {
 	// Path of the recording folder.
 	RecFolder string `json:"rec-folder"`

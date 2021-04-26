@@ -2,40 +2,52 @@
 
 package profiles
 
-// SetCurrentProfileParams contains the request body for the
-// [SetCurrentProfile](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentProfile)
-// request.
+/*
+SetCurrentProfileParams represents the params body for the "SetCurrentProfile" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentProfile.
+*/
 type SetCurrentProfileParams struct {
 	// Name of the desired profile.
 	ProfileName string `json:"profile-name"`
 }
 
-// SetCurrentProfileResponse contains the request body for the
-// [SetCurrentProfile](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentProfile)
-// request.
+/*
+SetCurrentProfileResponse represents the response body for the "SetCurrentProfile" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentProfile.
+*/
 type SetCurrentProfileResponse struct{}
 
-// GetCurrentProfileParams contains the request body for the
-// [GetCurrentProfile](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentProfile)
-// request.
+/*
+GetCurrentProfileParams represents the params body for the "GetCurrentProfile" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentProfile.
+*/
 type GetCurrentProfileParams struct{}
 
-// GetCurrentProfileResponse contains the request body for the
-// [GetCurrentProfile](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentProfile)
-// request.
+/*
+GetCurrentProfileResponse represents the response body for the "GetCurrentProfile" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentProfile.
+*/
 type GetCurrentProfileResponse struct {
 	// Name of the currently active profile.
 	ProfileName string `json:"profile-name"`
 }
 
-// ListProfilesParams contains the request body for the
-// [ListProfiles](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListProfiles)
-// request.
+/*
+ListProfilesParams represents the params body for the "ListProfiles" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListProfiles.
+*/
 type ListProfilesParams struct{}
 
-// ListProfilesResponse contains the request body for the
-// [ListProfiles](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListProfiles)
-// request.
+/*
+ListProfilesResponse represents the response body for the "ListProfiles" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListProfiles.
+*/
 type ListProfilesResponse struct {
 	// List of available profiles.
 	Profiles []map[string]interface{} `json:"profiles"`

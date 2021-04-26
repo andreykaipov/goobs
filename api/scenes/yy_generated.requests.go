@@ -2,27 +2,35 @@
 
 package scenes
 
-// SetCurrentSceneParams contains the request body for the
-// [SetCurrentScene](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentScene)
-// request.
+/*
+SetCurrentSceneParams represents the params body for the "SetCurrentScene" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentScene.
+*/
 type SetCurrentSceneParams struct {
 	// Name of the scene to switch to.
 	SceneName string `json:"scene-name"`
 }
 
-// SetCurrentSceneResponse contains the request body for the
-// [SetCurrentScene](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentScene)
-// request.
+/*
+SetCurrentSceneResponse represents the response body for the "SetCurrentScene" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentScene.
+*/
 type SetCurrentSceneResponse struct{}
 
-// GetCurrentSceneParams contains the request body for the
-// [GetCurrentScene](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentScene)
-// request.
+/*
+GetCurrentSceneParams represents the params body for the "GetCurrentScene" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentScene.
+*/
 type GetCurrentSceneParams struct{}
 
-// GetCurrentSceneResponse contains the request body for the
-// [GetCurrentScene](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentScene)
-// request.
+/*
+GetCurrentSceneResponse represents the response body for the "GetCurrentScene" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentScene.
+*/
 type GetCurrentSceneResponse struct {
 	// Name of the currently active scene.
 	Name string `json:"name"`
@@ -31,14 +39,18 @@ type GetCurrentSceneResponse struct {
 	Sources []map[string]interface{} `json:"sources"`
 }
 
-// GetSceneListParams contains the request body for the
-// [GetSceneList](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneList)
-// request.
+/*
+GetSceneListParams represents the params body for the "GetSceneList" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneList.
+*/
 type GetSceneListParams struct{}
 
-// GetSceneListResponse contains the request body for the
-// [GetSceneList](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneList)
-// request.
+/*
+GetSceneListResponse represents the response body for the "GetSceneList" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneList.
+*/
 type GetSceneListResponse struct {
 	// Name of the currently active scene.
 	CurrentScene string `json:"current-scene"`
@@ -48,9 +60,11 @@ type GetSceneListResponse struct {
 	Scenes []map[string]interface{} `json:"scenes"`
 }
 
-// ReorderSceneItemsParams contains the request body for the
-// [ReorderSceneItems](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSceneItems)
-// request.
+/*
+ReorderSceneItemsParams represents the params body for the "ReorderSceneItems" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSceneItems.
+*/
 type ReorderSceneItemsParams struct {
 	Items []struct {
 		// Id of a specific scene item. Unique on a scene by scene basis.
@@ -65,7 +79,9 @@ type ReorderSceneItemsParams struct {
 	Scene string `json:"scene"`
 }
 
-// ReorderSceneItemsResponse contains the request body for the
-// [ReorderSceneItems](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSceneItems)
-// request.
+/*
+ReorderSceneItemsResponse represents the response body for the "ReorderSceneItems" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSceneItems.
+*/
 type ReorderSceneItemsResponse struct{}

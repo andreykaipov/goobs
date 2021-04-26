@@ -2,14 +2,18 @@
 
 package general
 
-// GetVersionParams contains the request body for the
-// [GetVersion](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVersion)
-// request.
+/*
+GetVersionParams represents the params body for the "GetVersion" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVersion.
+*/
 type GetVersionParams struct{}
 
-// GetVersionResponse contains the request body for the
-// [GetVersion](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVersion)
-// request.
+/*
+GetVersionResponse represents the response body for the "GetVersion" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVersion.
+*/
 type GetVersionResponse struct {
 	// List of available request types, formatted as a comma-separated list string (e.g. :
 	// "Method1,Method2,Method3").
@@ -25,14 +29,18 @@ type GetVersionResponse struct {
 	Version float64 `json:"version"`
 }
 
-// GetAuthRequiredParams contains the request body for the
-// [GetAuthRequired](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetAuthRequired)
-// request.
+/*
+GetAuthRequiredParams represents the params body for the "GetAuthRequired" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetAuthRequired.
+*/
 type GetAuthRequiredParams struct{}
 
-// GetAuthRequiredResponse contains the request body for the
-// [GetAuthRequired](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetAuthRequired)
-// request.
+/*
+GetAuthRequiredResponse represents the response body for the "GetAuthRequired" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetAuthRequired.
+*/
 type GetAuthRequiredResponse struct {
 	// Indicates whether authentication is required.
 	AuthRequired bool `json:"authRequired"`
@@ -42,53 +50,69 @@ type GetAuthRequiredResponse struct {
 	Salt string `json:"salt"`
 }
 
-// AuthenticateParams contains the request body for the
-// [Authenticate](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#Authenticate)
-// request.
+/*
+AuthenticateParams represents the params body for the "Authenticate" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#Authenticate.
+*/
 type AuthenticateParams struct {
 	// Response to the auth challenge (see "Authentication" for more information).
 	Auth string `json:"auth"`
 }
 
-// AuthenticateResponse contains the request body for the
-// [Authenticate](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#Authenticate)
-// request.
+/*
+AuthenticateResponse represents the response body for the "Authenticate" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#Authenticate.
+*/
 type AuthenticateResponse struct{}
 
-// SetHeartbeatParams contains the request body for the
-// [SetHeartbeat](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetHeartbeat)
-// request.
+/*
+SetHeartbeatParams represents the params body for the "SetHeartbeat" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetHeartbeat.
+*/
 type SetHeartbeatParams struct {
 	// Starts/Stops emitting heartbeat messages
 	Enable bool `json:"enable"`
 }
 
-// SetHeartbeatResponse contains the request body for the
-// [SetHeartbeat](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetHeartbeat)
-// request.
+/*
+SetHeartbeatResponse represents the response body for the "SetHeartbeat" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetHeartbeat.
+*/
 type SetHeartbeatResponse struct{}
 
-// SetFilenameFormattingParams contains the request body for the
-// [SetFilenameFormatting](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetFilenameFormatting)
-// request.
+/*
+SetFilenameFormattingParams represents the params body for the "SetFilenameFormatting" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetFilenameFormatting.
+*/
 type SetFilenameFormattingParams struct {
 	// Filename formatting string to set.
 	FilenameFormatting string `json:"filename-formatting"`
 }
 
-// SetFilenameFormattingResponse contains the request body for the
-// [SetFilenameFormatting](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetFilenameFormatting)
-// request.
+/*
+SetFilenameFormattingResponse represents the response body for the "SetFilenameFormatting" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetFilenameFormatting.
+*/
 type SetFilenameFormattingResponse struct{}
 
-// GetFilenameFormattingParams contains the request body for the
-// [GetFilenameFormatting](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetFilenameFormatting)
-// request.
+/*
+GetFilenameFormattingParams represents the params body for the "GetFilenameFormatting" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetFilenameFormatting.
+*/
 type GetFilenameFormattingParams struct{}
 
-// GetFilenameFormattingResponse contains the request body for the
-// [GetFilenameFormatting](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetFilenameFormatting)
-// request.
+/*
+GetFilenameFormattingResponse represents the response body for the "GetFilenameFormatting" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetFilenameFormatting.
+*/
 type GetFilenameFormattingResponse struct {
 	// Current filename formatting string.
 	FilenameFormatting string `json:"filename-formatting"`

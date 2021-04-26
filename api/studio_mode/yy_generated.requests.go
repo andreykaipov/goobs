@@ -2,27 +2,35 @@
 
 package studiomode
 
-// GetStudioModeStatusParams contains the request body for the
-// [GetStudioModeStatus](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStudioModeStatus)
-// request.
+/*
+GetStudioModeStatusParams represents the params body for the "GetStudioModeStatus" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStudioModeStatus.
+*/
 type GetStudioModeStatusParams struct{}
 
-// GetStudioModeStatusResponse contains the request body for the
-// [GetStudioModeStatus](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStudioModeStatus)
-// request.
+/*
+GetStudioModeStatusResponse represents the response body for the "GetStudioModeStatus" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStudioModeStatus.
+*/
 type GetStudioModeStatusResponse struct {
 	// Indicates if Studio Mode is enabled.
 	StudioMode bool `json:"studio-mode"`
 }
 
-// GetPreviewSceneParams contains the request body for the
-// [GetPreviewScene](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetPreviewScene)
-// request.
+/*
+GetPreviewSceneParams represents the params body for the "GetPreviewScene" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetPreviewScene.
+*/
 type GetPreviewSceneParams struct{}
 
-// GetPreviewSceneResponse contains the request body for the
-// [GetPreviewScene](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetPreviewScene)
-// request.
+/*
+GetPreviewSceneResponse represents the response body for the "GetPreviewScene" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetPreviewScene.
+*/
 type GetPreviewSceneResponse struct {
 	// The name of the active preview scene.
 	Name string `json:"name"`
@@ -30,22 +38,28 @@ type GetPreviewSceneResponse struct {
 	Sources []map[string]interface{} `json:"sources"`
 }
 
-// SetPreviewSceneParams contains the request body for the
-// [SetPreviewScene](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetPreviewScene)
-// request.
+/*
+SetPreviewSceneParams represents the params body for the "SetPreviewScene" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetPreviewScene.
+*/
 type SetPreviewSceneParams struct {
 	// The name of the scene to preview.
 	SceneName string `json:"scene-name"`
 }
 
-// SetPreviewSceneResponse contains the request body for the
-// [SetPreviewScene](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetPreviewScene)
-// request.
+/*
+SetPreviewSceneResponse represents the response body for the "SetPreviewScene" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetPreviewScene.
+*/
 type SetPreviewSceneResponse struct{}
 
-// TransitionToProgramParams contains the request body for the
-// [TransitionToProgram](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#TransitionToProgram)
-// request.
+/*
+TransitionToProgramParams represents the params body for the "TransitionToProgram" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#TransitionToProgram.
+*/
 type TransitionToProgramParams struct {
 	WithTransition struct {
 		// Transition duration (in milliseconds).
@@ -56,37 +70,51 @@ type TransitionToProgramParams struct {
 	} `json:"with-transition"`
 }
 
-// TransitionToProgramResponse contains the request body for the
-// [TransitionToProgram](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#TransitionToProgram)
-// request.
+/*
+TransitionToProgramResponse represents the response body for the "TransitionToProgram" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#TransitionToProgram.
+*/
 type TransitionToProgramResponse struct{}
 
-// EnableStudioModeParams contains the request body for the
-// [EnableStudioMode](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#EnableStudioMode)
-// request.
+/*
+EnableStudioModeParams represents the params body for the "EnableStudioMode" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#EnableStudioMode.
+*/
 type EnableStudioModeParams struct{}
 
-// EnableStudioModeResponse contains the request body for the
-// [EnableStudioMode](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#EnableStudioMode)
-// request.
+/*
+EnableStudioModeResponse represents the response body for the "EnableStudioMode" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#EnableStudioMode.
+*/
 type EnableStudioModeResponse struct{}
 
-// DisableStudioModeParams contains the request body for the
-// [DisableStudioMode](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#DisableStudioMode)
-// request.
+/*
+DisableStudioModeParams represents the params body for the "DisableStudioMode" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#DisableStudioMode.
+*/
 type DisableStudioModeParams struct{}
 
-// DisableStudioModeResponse contains the request body for the
-// [DisableStudioMode](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#DisableStudioMode)
-// request.
+/*
+DisableStudioModeResponse represents the response body for the "DisableStudioMode" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#DisableStudioMode.
+*/
 type DisableStudioModeResponse struct{}
 
-// ToggleStudioModeParams contains the request body for the
-// [ToggleStudioMode](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleStudioMode)
-// request.
+/*
+ToggleStudioModeParams represents the params body for the "ToggleStudioMode" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleStudioMode.
+*/
 type ToggleStudioModeParams struct{}
 
-// ToggleStudioModeResponse contains the request body for the
-// [ToggleStudioMode](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleStudioMode)
-// request.
+/*
+ToggleStudioModeResponse represents the response body for the "ToggleStudioMode" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleStudioMode.
+*/
 type ToggleStudioModeResponse struct{}

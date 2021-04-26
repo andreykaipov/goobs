@@ -2,42 +2,58 @@
 
 package replaybuffer
 
-// StartStopReplayBufferParams contains the request body for the
-// [StartStopReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopReplayBuffer)
-// request.
+/*
+StartStopReplayBufferParams represents the params body for the "StartStopReplayBuffer" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopReplayBuffer.
+*/
 type StartStopReplayBufferParams struct{}
 
-// StartStopReplayBufferResponse contains the request body for the
-// [StartStopReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopReplayBuffer)
-// request.
+/*
+StartStopReplayBufferResponse represents the response body for the "StartStopReplayBuffer" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopReplayBuffer.
+*/
 type StartStopReplayBufferResponse struct{}
 
-// StartReplayBufferParams contains the request body for the
-// [StartReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartReplayBuffer)
-// request.
+/*
+StartReplayBufferParams represents the params body for the "StartReplayBuffer" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartReplayBuffer.
+*/
 type StartReplayBufferParams struct{}
 
-// StartReplayBufferResponse contains the request body for the
-// [StartReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartReplayBuffer)
-// request.
+/*
+StartReplayBufferResponse represents the response body for the "StartReplayBuffer" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartReplayBuffer.
+*/
 type StartReplayBufferResponse struct{}
 
-// StopReplayBufferParams contains the request body for the
-// [StopReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer)
-// request.
+/*
+StopReplayBufferParams represents the params body for the "StopReplayBuffer" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer.
+*/
 type StopReplayBufferParams struct{}
 
-// StopReplayBufferResponse contains the request body for the
-// [StopReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer)
-// request.
+/*
+StopReplayBufferResponse represents the response body for the "StopReplayBuffer" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer.
+*/
 type StopReplayBufferResponse struct{}
 
-// SaveReplayBufferParams contains the request body for the
-// [SaveReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveReplayBuffer)
-// request.
+/*
+SaveReplayBufferParams represents the params body for the "SaveReplayBuffer" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveReplayBuffer.
+*/
 type SaveReplayBufferParams struct{}
 
-// SaveReplayBufferResponse contains the request body for the
-// [SaveReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveReplayBuffer)
-// request.
+/*
+SaveReplayBufferResponse represents the response body for the "SaveReplayBuffer" request.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveReplayBuffer.
+*/
 type SaveReplayBufferResponse struct{}

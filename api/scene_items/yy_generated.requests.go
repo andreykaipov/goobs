@@ -2,12 +2,15 @@
 
 package sceneitems
 
+// GetSceneItemPropertiesParams contains the request body for the [GetSceneItemProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneItemProperties) request.
 type GetSceneItemPropertiesParams struct {
 	// The name of the source.
 	Item string `json:"item"`
 	// the name of the scene that the source item belongs to. Defaults to the current scene.
 	SceneName string `json:"scene-name"`
 }
+
+// GetSceneItemPropertiesResponse contains the request body for the [GetSceneItemProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneItemProperties) request.
 type GetSceneItemPropertiesResponse struct {
 	Bounds struct {
 		// Alignment of the bounding box.
@@ -50,6 +53,8 @@ type GetSceneItemPropertiesResponse struct {
 	// If the source is visible.
 	Visible bool `json:"visible"`
 }
+
+// SetSceneItemPropertiesParams contains the request body for the [SetSceneItemProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSceneItemProperties) request.
 type SetSceneItemPropertiesParams struct {
 	Bounds struct {
 		// The new alignment of the bounding box. (0-2, 4-6, 8-10)
@@ -94,14 +99,22 @@ type SetSceneItemPropertiesParams struct {
 	// The new visibility of the source. 'true' shows source, 'false' hides source.
 	Visible bool `json:"visible"`
 }
+
+// SetSceneItemPropertiesResponse contains the request body for the [SetSceneItemProperties](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSceneItemProperties) request.
 type SetSceneItemPropertiesResponse struct{}
+
+// ResetSceneItemParams contains the request body for the [ResetSceneItem](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ResetSceneItem) request.
 type ResetSceneItemParams struct {
 	// Name of the source item.
 	Item string `json:"item"`
 	// Name of the scene the source belongs to. Defaults to the current scene.
 	SceneName string `json:"scene-name"`
 }
+
+// ResetSceneItemResponse contains the request body for the [ResetSceneItem](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ResetSceneItem) request.
 type ResetSceneItemResponse struct{}
+
+// DeleteSceneItemParams contains the request body for the [DeleteSceneItem](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#DeleteSceneItem) request.
 type DeleteSceneItemParams struct {
 	Item struct {
 		// id of the scene item.
@@ -112,7 +125,11 @@ type DeleteSceneItemParams struct {
 	// Name of the scene the source belongs to. Defaults to the current scene.
 	Scene string `json:"scene"`
 }
+
+// DeleteSceneItemResponse contains the request body for the [DeleteSceneItem](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#DeleteSceneItem) request.
 type DeleteSceneItemResponse struct{}
+
+// DuplicateSceneItemParams contains the request body for the [DuplicateSceneItem](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#DuplicateSceneItem) request.
 type DuplicateSceneItemParams struct {
 	// Name of the scene to copy the item from. Defaults to the current scene.
 	FromScene string `json:"fromScene"`
@@ -125,6 +142,8 @@ type DuplicateSceneItemParams struct {
 	// Name of the scene to create the item in. Defaults to the current scene.
 	ToScene string `json:"toScene"`
 }
+
+// DuplicateSceneItemResponse contains the request body for the [DuplicateSceneItem](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#DuplicateSceneItem) request.
 type DuplicateSceneItemResponse struct {
 	Item struct {
 		// New item ID

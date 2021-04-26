@@ -2,7 +2,10 @@
 
 package streaming
 
+// GetStreamingStatusParams contains the request body for the [GetStreamingStatus](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamingStatus) request.
 type GetStreamingStatusParams struct{}
+
+// GetStreamingStatusResponse contains the request body for the [GetStreamingStatus](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamingStatus) request.
 type GetStreamingStatusResponse struct {
 	// Always false. Retrocompatibility with OBSRemote.
 	PreviewOnly bool `json:"preview-only"`
@@ -15,8 +18,14 @@ type GetStreamingStatusResponse struct {
 	// Current streaming status.
 	Streaming bool `json:"streaming"`
 }
-type StartStopStreamingParams struct{}
+
+// StartStopStreamingResponse contains the request body for the [StartStopStreaming](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopStreaming) request.
 type StartStopStreamingResponse struct{}
+
+// StartStopStreamingParams contains the request body for the [StartStopStreaming](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopStreaming) request.
+type StartStopStreamingParams struct{}
+
+// StartStreamingParams contains the request body for the [StartStreaming](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStreaming) request.
 type StartStreamingParams struct {
 	Stream struct {
 		// Adds the given object parameters as encoded query string parameters to the 'key' of the RTMP stream. Used to pass data to the RTMP service about the streaming. May be any String, Numeric, or Boolean field.
@@ -37,9 +46,17 @@ type StartStreamingParams struct {
 		Type string `json:"type"`
 	} `json:"stream"`
 }
+
+// StartStreamingResponse contains the request body for the [StartStreaming](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStreaming) request.
 type StartStreamingResponse struct{}
+
+// StopStreamingParams contains the request body for the [StopStreaming](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopStreaming) request.
 type StopStreamingParams struct{}
+
+// StopStreamingResponse contains the request body for the [StopStreaming](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopStreaming) request.
 type StopStreamingResponse struct{}
+
+// SetStreamSettingsParams contains the request body for the [SetStreamSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetStreamSettings) request.
 type SetStreamSettingsParams struct {
 	// Persist the settings to disk.
 	Save     bool `json:"save"`
@@ -58,8 +75,14 @@ type SetStreamSettingsParams struct {
 	// The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`.
 	Type string `json:"type"`
 }
+
+// SetStreamSettingsResponse contains the request body for the [SetStreamSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetStreamSettings) request.
 type SetStreamSettingsResponse struct{}
+
+// GetStreamSettingsParams contains the request body for the [GetStreamSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamSettings) request.
 type GetStreamSettingsParams struct{}
+
+// GetStreamSettingsResponse contains the request body for the [GetStreamSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamSettings) request.
 type GetStreamSettingsResponse struct {
 	Settings struct {
 		// The publish key of the stream.
@@ -76,5 +99,9 @@ type GetStreamSettingsResponse struct {
 	// The type of streaming service configuration. Possible values: 'rtmp_custom' or 'rtmp_common'.
 	Type string `json:"type"`
 }
-type SaveStreamSettingsParams struct{}
+
+// SaveStreamSettingsResponse contains the request body for the [SaveStreamSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveStreamSettings) request.
 type SaveStreamSettingsResponse struct{}
+
+// SaveStreamSettingsParams contains the request body for the [SaveStreamSettings](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveStreamSettings) request.
+type SaveStreamSettingsParams struct{}

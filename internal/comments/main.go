@@ -91,20 +91,19 @@ func main() {
 				continue
 			}
 
-			var structName string
-			var structDef *Statement
-
-			structName = request.Name + "Params"
-			if structDef, err = parseParamsAsStruct(structName, request.Params); err != nil {
-				panic(fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, category))
+			for k, v := range map[string][]*Param{
+				"Params":   request.Params,
+				"Response": request.Returns,
+			} {
+				structName := request.Name + k
+				comment := fmt.Sprintf("%[1]s contains the request body for the [%[2]s](https://github.com/Palakis/obs-websocket/blob/%[3]s/docs/generated/protocol.md#%[2]s) request.", structName, request.Name, version)
+				structDef, err := parseParamsAsStruct(structName, v)
+				if err != nil {
+					panic(fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, category))
+				}
+				requests.Comment(comment)
+				requests.Add(structDef)
 			}
-			requests.Add(structDef)
-
-			structName = request.Name + "Response"
-			if structDef, err = parseParamsAsStruct(structName, request.Returns); err != nil {
-				panic(fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, category))
-			}
-			requests.Add(structDef)
 		}
 		if err := requests.Save(fmt.Sprintf("%s/yy_generated.requests.go", dir)); err != nil {
 			panic(err)

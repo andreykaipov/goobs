@@ -3,17 +3,17 @@
 package goobs
 
 import (
-	general "github.com/andreykaipov/goobs/api/general"
-	profiles "github.com/andreykaipov/goobs/api/profiles"
-	recording "github.com/andreykaipov/goobs/api/recording"
-	replaybuffer "github.com/andreykaipov/goobs/api/replay_buffer"
-	scenecollections "github.com/andreykaipov/goobs/api/scene_collections"
-	sceneitems "github.com/andreykaipov/goobs/api/scene_items"
-	scenes "github.com/andreykaipov/goobs/api/scenes"
-	sources "github.com/andreykaipov/goobs/api/sources"
-	streaming "github.com/andreykaipov/goobs/api/streaming"
-	studiomode "github.com/andreykaipov/goobs/api/studio_mode"
-	transitions "github.com/andreykaipov/goobs/api/transitions"
+	general "github.com/andreykaipov/goobs/api/requests/general"
+	profiles "github.com/andreykaipov/goobs/api/requests/profiles"
+	recording "github.com/andreykaipov/goobs/api/requests/recording"
+	replaybuffer "github.com/andreykaipov/goobs/api/requests/replay_buffer"
+	scenecollections "github.com/andreykaipov/goobs/api/requests/scene_collections"
+	sceneitems "github.com/andreykaipov/goobs/api/requests/scene_items"
+	scenes "github.com/andreykaipov/goobs/api/requests/scenes"
+	sources "github.com/andreykaipov/goobs/api/requests/sources"
+	streaming "github.com/andreykaipov/goobs/api/requests/streaming"
+	studiomode "github.com/andreykaipov/goobs/api/requests/studio_mode"
+	transitions "github.com/andreykaipov/goobs/api/requests/transitions"
 )
 
 type subclients struct {

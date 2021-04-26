@@ -60,19 +60,19 @@ func main() {
 		categoryClaustrophic := strings.ReplaceAll(category, " ", "")
 
 		// For the top-level client
-		qualifier := "github.com/andreykaipov/goobs/api/" + categorySnake
+		qualifier := "github.com/andreykaipov/goobs/api/requests/" + categorySnake
 		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
 		topClientSetters = append(topClientSetters, Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(Qual(qualifier, "WithConn").Call(Id("c.conn"))))
 
 		// Generate the category-level client
 		client := NewFile(categoryClaustrophic)
 		client.HeaderComment("This file has been automatically generated. Don't edit it.")
-		client.HeaderComment("//go:generate ../../internal/bin/funcopgen -type Client -prefix With -factory -unexported") // lmao
+		client.HeaderComment("//go:generate ../../../internal/bin/funcopgen -type Client -prefix With -factory -unexported") // lmao
 		client.Comment(fmt.Sprintf("Client represents a client for '%s' requests", category))
 		client.Add(Type().Id("Client").Struct(Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn")))
 
 		// Write the category-level client
-		dir := fmt.Sprintf("%s/api/%s", root, categorySnake)
+		dir := fmt.Sprintf("%s/api/requests/%s", root, categorySnake)
 		if err := os.MkdirAll(dir, 0777); err != nil {
 			panic(err)
 		}
@@ -213,7 +213,7 @@ func genStructFromParams(s *Statement, name string, params []*Param) error {
 		case "Scene|Array":
 			fieldType = Index().Map(String()).Interface()
 		case "~params~":
-			fieldType = Qual("github.com/andreykaipov/goobs/api", field.Name)
+			fieldType = Qual("github.com/andreykaipov/goobs/api/requests", field.Name)
 			embedded = true
 		default:
 			panic(fmt.Errorf("%s is a weird type", field.Name))

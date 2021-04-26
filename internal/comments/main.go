@@ -166,9 +166,7 @@ func parseParamsAsStruct(name string, params []*Param) (*Statement, error) {
 			panic(fmt.Errorf("%s is a weird type", field.Name))
 		}
 
-		parts := strings.Split(fieldName, ".")
-		lastPart := parts[len(parts)-1]
-		keysToJenType[pascal(fieldName)] = fieldType.Tag(map[string]string{"json": lastPart})
+		keysToJenType[fieldName] = fieldType
 	}
 
 	statement, err := parseJenKeysAsStruct(name, keysToJenType)
@@ -177,13 +175,6 @@ func parseParamsAsStruct(name string, params []*Param) (*Statement, error) {
 	}
 
 	return statement, nil
-}
-
-func pascal(text string) string {
-	nodash := strings.ReplaceAll(text, "-", " ")
-	noundies := strings.ReplaceAll(nodash, "_", " ")
-	titled := strings.Title(noundies)
-	return strings.ReplaceAll(titled, " ", "")
 }
 
 func sanitizeText(text string) (string, error) {

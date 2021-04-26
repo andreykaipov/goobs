@@ -72,6 +72,12 @@ func parseJenKeysAsStruct(name string, lines map[string]jen.Code) (*jen.Statemen
 		return nil, err
 	}
 
+	addTag := func(tag string) func(g *jen.Statement) {
+		return func(s *jen.Statement) {
+			s.Tag(map[string]string{"json": tag})
+		}
+	}
+
 	// returns whether to skip the current group (slice support)
 	var f func(data interface{}, g *jen.Group, parent string)
 
@@ -82,22 +88,27 @@ func parseJenKeysAsStruct(name string, lines map[string]jen.Code) (*jen.Statemen
 			for _, k := range sortedKeys(t) {
 				v := t[k]
 				if k == "*" {
-					f(v, g, parent+"[]")
+					f(v, g, parent+" []")
 					return
 				}
 			}
 
-			g.Id(parent).StructFunc(func(subg *jen.Group) {
+			g.Id(pascal(parent)).StructFunc(func(subg *jen.Group) {
 				for _, k := range sortedKeys(t) {
 					v := t[k]
 					f(v, subg, k)
 				}
+			}).Do(func(s *jen.Statement) {
+				if parent != name {
+					s.Do(addTag(strings.TrimSuffix(parent, " []")))
+				}
 			})
 		case *jen.Statement:
-			g.Add(jen.Id(parent).Add(t))
+			g.Add(jen.Id(pascal(parent)).Add(t).Do(addTag(parent)))
 		default:
 			panic("unhandled case idk")
 		}
+
 	}
 
 	return jen.Type().CustomFunc(jen.Options{}, func(g *jen.Group) {
@@ -127,4 +138,11 @@ func sortedKeys(m interface{}) []string {
 
 	sort.Strings(sorted)
 	return sorted
+}
+
+func pascal(text string) string {
+	nodash := strings.ReplaceAll(text, "-", " ")
+	noundies := strings.ReplaceAll(nodash, "_", " ")
+	titled := strings.Title(noundies)
+	return strings.ReplaceAll(titled, " ", "")
 }

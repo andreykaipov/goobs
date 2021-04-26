@@ -9,8 +9,11 @@ import (
 	"os/exec"
 	"sort"
 	"strings"
+	"unicode"
 
 	. "github.com/dave/jennifer/jen"
+	"golang.org/x/text/transform"
+	"golang.org/x/text/unicode/norm"
 )
 
 var (
@@ -62,19 +65,48 @@ func main() {
 		topClientSetters = append(topClientSetters, Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(Qual(qualifier, "WithConn").Call(Id("c.conn"))))
 
 		// Generate the category-level client
-		f := NewFile(categoryClaustrophic)
-		f.HeaderComment("This file has been automatically generated. Don't edit it.")
-		f.HeaderComment("//go:generate ../../internal/bin/funcopgen -type Client -prefix With -factory -unexported") // lmao
-		f.Comment(fmt.Sprintf("Client represents a client for '%s' requests", category))
-		f.Add(Type().Id("Client").Struct(Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn")))
+		client := NewFile(categoryClaustrophic)
+		client.HeaderComment("This file has been automatically generated. Don't edit it.")
+		client.HeaderComment("//go:generate ../../internal/bin/funcopgen -type Client -prefix With -factory -unexported") // lmao
+		client.Comment(fmt.Sprintf("Client represents a client for '%s' requests", category))
+		client.Add(Type().Id("Client").Struct(Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn")))
 
 		// Write the category-level client
 		dir := fmt.Sprintf("%s/api/%s", root, categorySnake)
 		if err := os.MkdirAll(dir, 0777); err != nil {
 			panic(err)
 		}
+		if err := client.Save(fmt.Sprintf("%s/yy_generated.client.go", dir)); err != nil {
+			panic(err)
+		}
 
-		if err := f.Save(fmt.Sprintf("%s/yy_generated.client.go", dir)); err != nil {
+		// Generate the requests for the category
+		requests := NewFile(categoryClaustrophic)
+		requests.HeaderComment("This file has been automatically generated. Don't edit it.")
+		for _, request := range data.Requests[category] {
+			fmt.Printf("---- %s ----\n", request.Name)
+
+			if request.Deprecated != "" {
+				fmt.Fprintf(os.Stderr, "Request %q is deprecated\n", request.Name)
+				continue
+			}
+
+			var structName string
+			var structDef *Statement
+
+			structName = request.Name + "Params"
+			if structDef, err = parseParamsAsStruct(structName, request.Params); err != nil {
+				panic(fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, category))
+			}
+			requests.Add(structDef)
+
+			structName = request.Name + "Response"
+			if structDef, err = parseParamsAsStruct(structName, request.Returns); err != nil {
+				panic(fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, category))
+			}
+			requests.Add(structDef)
+		}
+		if err := requests.Save(fmt.Sprintf("%s/yy_generated.requests.go", dir)); err != nil {
 			panic(err)
 		}
 	}
@@ -90,6 +122,81 @@ func main() {
 	}
 }
 
+// parses "Params" or "Requests" fields from requests or event
+func parseParamsAsStruct(name string, params []*Param) (*Statement, error) {
+	keysToJenType := map[string]Code{}
+
+	for _, field := range params {
+		fieldName, err := sanitizeText(field.Name)
+		if err != nil {
+			return nil, fmt.Errorf("Failed sanitizing field %#v", field)
+		}
+
+		var fieldType *Statement
+		switch strings.Trim(strings.ReplaceAll(field.Type, "(optional)", ""), " ") {
+		case "String":
+			fieldType = String()
+		case "int":
+			fieldType = Int()
+		case "Integer":
+			fieldType = Int()
+		case "double":
+			fieldType = Float64()
+		case "float":
+			fieldType = Float64()
+		case "bool":
+			fieldType = Bool()
+		case "boolean":
+			fieldType = Bool()
+		case "Boolean":
+			fieldType = Bool()
+		case "Object":
+			fieldType = Map(String()).Interface()
+		case "Array<String>":
+			fieldType = Index().String()
+		case "Array<Object>":
+			fieldType = Index().Map(String()).Interface()
+		case "Array<Source>":
+			fieldType = Index().Map(String()).Interface()
+		case "Array<Scene>":
+			fieldType = Index().Map(String()).Interface()
+		case "Scene|Array":
+			fieldType = Index().Map(String()).Interface()
+		default:
+			panic(fmt.Errorf("%s is a weird type", field.Name))
+		}
+
+		parts := strings.Split(fieldName, ".")
+		lastPart := parts[len(parts)-1]
+		keysToJenType[pascal(fieldName)] = fieldType.Tag(map[string]string{"json": lastPart})
+	}
+
+	statement, err := parseJenKeysAsStruct(name, keysToJenType)
+	if err != nil {
+		return nil, fmt.Errorf("Failed parsing dotted key: %s", err)
+	}
+
+	return statement, nil
+}
+
+func pascal(text string) string {
+	nodash := strings.ReplaceAll(text, "-", " ")
+	noundies := strings.ReplaceAll(nodash, "_", " ")
+	titled := strings.Title(noundies)
+	return strings.ReplaceAll(titled, " ", "")
+}
+
+func sanitizeText(text string) (string, error) {
+	isMn := func(r rune) bool {
+		// Mn: nonspacing marks
+		return unicode.Is(unicode.Mn, r)
+	}
+
+	t := transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
+	clean, _, err := transform.String(t, text)
+	return clean, err
+}
+
 func run(cmd string) (string, error) {
 	output, err := exec.Command("/bin/sh", "-c", cmd).CombinedOutput()
 	if err != nil {
@@ -98,38 +205,3 @@ func run(cmd string) (string, error) {
 
 	return strings.TrimSuffix(string(output), "\n"), nil
 }
-
-// Comments the generated comments.json from Palakis
-/*
-type Comments struct {
-	Events struct {
-		General     []*Event `json:"general"`
-		Media       []*Event `json:"media"`
-		Other       []*Event `json:"other"`
-		Profiles    []*Event `json:"profiles"`
-		Recording   []*Event `json:"replay buffer"`
-		SceneItems  []*Event `json:"scene items"`
-		Scenes      []*Event `json:"scenes"`
-		Sources     []*Event `json:"sources"`
-		Streaming   []*Event `json:"streaming"`
-		StudioMode  []*Event `json:"studio mode"`
-		Transitions []*Event `json:"transitions"`
-	} `json:"events"`
-	Requests struct {
-		General          []*Request `json:"general"`
-		MediaControl     []*Request `json:"media control"`
-		Outputs          []*Request `json:"outputs"`
-		Profiles         []*Request `json:"profiles"`
-		Recording        []*Request `json:"recording"`
-		ReplayBuffer     []*Request `json:"replay buffer"`
-		SceneCollections []*Request `json:"scene collections"`
-		SceneItems       []*Request `json:"scene items"`
-		Scenes           []*Request `json:"scenes"`
-		Sources          []*Request `json:"sources"`
-		Streaming        []*Request `json:"streaming"`
-		StudioMode       []*Request `json:"studio mode"`
-		Transitions      []*Request `json:"transitions"`
-	} `json:"requests"`
-	Typedefs []*TypeDef `json:"typedefs"`
-}
-*/

@@ -5,6 +5,14 @@ package main
 // and put it into something like https://mholt.github.io/json-to-go/, deduping
 // and cleaning up the structs manually.
 
+// Param represents individual entry in a request's Params field, or in an event
+// or request's Returns field.
+type Param struct {
+	Description string `json:"description"`
+	Name        string `json:"name"`
+	Type        string `json:"type"`
+}
+
 // Event represents the specification of an event. Its fields are also common
 // for a Request, and embedded in that definition.
 type Event struct {
@@ -48,11 +56,7 @@ type Event struct {
 	Return interface{} `json:"return"`
 
 	// Returns is a representation of the fields in the JSON response.
-	Returns []struct {
-		Description string `json:"description"`
-		Name        string `json:"name"`
-		Type        string `json:"type"`
-	} `json:"returns"`
+	Returns []*Param `json:"returns"`
 
 	// The following are kinda unnecessary fields, but keep them here
 	// because I already did the work
@@ -95,11 +99,7 @@ type Request struct {
 	Param interface{} `json:"param,omitempty"`
 
 	// Params is a representation of the fields in the JSON request.
-	Params []struct {
-		Description string `json:"description"`
-		Name        string `json:"name"`
-		Type        string `json:"type"`
-	} `json:"params,omitempty"`
+	Params []*Param `json:"params"`
 
 	// Deprecated is deprecation text for the request. If it's present, we
 	// know the request is deprecated. We'd have to parse the string to find

@@ -99,7 +99,11 @@ func main() {
 			for _, k := range []string{"Params", "Response"} {
 				v := params[k]
 				structName := request.Name + k
-				comment := fmt.Sprintf("%[1]s contains the request body for the [%[2]s](https://github.com/Palakis/obs-websocket/blob/%[3]s/docs/generated/protocol.md#%[2]s) request.", structName, request.Name, version)
+				comment := fmt.Sprintf(
+					"%[1]s represents the %[2]s body for the %[3]q request.\n\n"+
+						"Generated from https://github.com/Palakis/obs-websocket/blob/%[4]s/docs/generated/protocol.md#%[3]s.",
+					structName, strings.ToLower(k), request.Name, version,
+				)
 				structDef, err := parseParamsAsStruct(structName, v)
 				if err != nil {
 					panic(fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, category))

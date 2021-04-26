@@ -19,9 +19,17 @@ type GetSceneItemPropertiesParams struct {
 	SceneName string `json:"scene-name"`
 }
 
+// GetRequestType returns the RequestType of GetSceneItemPropertiesParams
 func (o *GetSceneItemPropertiesParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetSceneItemPropertiesParams
+func (o *GetSceneItemPropertiesParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetSceneItemPropertiesParams
 func (o *GetSceneItemPropertiesParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -91,14 +99,31 @@ type GetSceneItemPropertiesResponse struct {
 	Visible bool `json:"visible"`
 }
 
+// GetMessageID returns the MessageID of GetSceneItemPropertiesResponse
 func (o *GetSceneItemPropertiesResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetSceneItemPropertiesResponse
 func (o *GetSceneItemPropertiesResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetSceneItemPropertiesResponse
 func (o *GetSceneItemPropertiesResponse) GetError() string {
 	return o.Error
+}
+
+// GetSceneItemProperties sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) GetSceneItemProperties(
+	params *GetSceneItemPropertiesParams,
+) (*GetSceneItemPropertiesResponse, error) {
+	params.RequestType = "GetSceneItemProperties"
+	data := &GetSceneItemPropertiesResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -169,9 +194,17 @@ type SetSceneItemPropertiesParams struct {
 	Visible bool `json:"visible"`
 }
 
+// GetRequestType returns the RequestType of SetSceneItemPropertiesParams
 func (o *SetSceneItemPropertiesParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetSceneItemPropertiesParams
+func (o *SetSceneItemPropertiesParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetSceneItemPropertiesParams
 func (o *SetSceneItemPropertiesParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -185,14 +218,31 @@ type SetSceneItemPropertiesResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetSceneItemPropertiesResponse
 func (o *SetSceneItemPropertiesResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetSceneItemPropertiesResponse
 func (o *SetSceneItemPropertiesResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetSceneItemPropertiesResponse
 func (o *SetSceneItemPropertiesResponse) GetError() string {
 	return o.Error
+}
+
+// SetSceneItemProperties sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetSceneItemProperties(
+	params *SetSceneItemPropertiesParams,
+) (*SetSceneItemPropertiesResponse, error) {
+	params.RequestType = "SetSceneItemProperties"
+	data := &SetSceneItemPropertiesResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -210,9 +260,17 @@ type ResetSceneItemParams struct {
 	SceneName string `json:"scene-name"`
 }
 
+// GetRequestType returns the RequestType of ResetSceneItemParams
 func (o *ResetSceneItemParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of ResetSceneItemParams
+func (o *ResetSceneItemParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on ResetSceneItemParams
 func (o *ResetSceneItemParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -226,14 +284,29 @@ type ResetSceneItemResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of ResetSceneItemResponse
 func (o *ResetSceneItemResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of ResetSceneItemResponse
 func (o *ResetSceneItemResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of ResetSceneItemResponse
 func (o *ResetSceneItemResponse) GetError() string {
 	return o.Error
+}
+
+// ResetSceneItem sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) ResetSceneItem(params *ResetSceneItemParams) (*ResetSceneItemResponse, error) {
+	params.RequestType = "ResetSceneItem"
+	data := &ResetSceneItemResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -256,9 +329,17 @@ type DeleteSceneItemParams struct {
 	Scene string `json:"scene"`
 }
 
+// GetRequestType returns the RequestType of DeleteSceneItemParams
 func (o *DeleteSceneItemParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of DeleteSceneItemParams
+func (o *DeleteSceneItemParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on DeleteSceneItemParams
 func (o *DeleteSceneItemParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -272,14 +353,29 @@ type DeleteSceneItemResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of DeleteSceneItemResponse
 func (o *DeleteSceneItemResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of DeleteSceneItemResponse
 func (o *DeleteSceneItemResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of DeleteSceneItemResponse
 func (o *DeleteSceneItemResponse) GetError() string {
 	return o.Error
+}
+
+// DeleteSceneItem sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) DeleteSceneItem(params *DeleteSceneItemParams) (*DeleteSceneItemResponse, error) {
+	params.RequestType = "DeleteSceneItem"
+	data := &DeleteSceneItemResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -305,9 +401,17 @@ type DuplicateSceneItemParams struct {
 	ToScene string `json:"toScene"`
 }
 
+// GetRequestType returns the RequestType of DuplicateSceneItemParams
 func (o *DuplicateSceneItemParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of DuplicateSceneItemParams
+func (o *DuplicateSceneItemParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on DuplicateSceneItemParams
 func (o *DuplicateSceneItemParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -332,12 +436,29 @@ type DuplicateSceneItemResponse struct {
 	Scene string `json:"scene"`
 }
 
+// GetMessageID returns the MessageID of DuplicateSceneItemResponse
 func (o *DuplicateSceneItemResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of DuplicateSceneItemResponse
 func (o *DuplicateSceneItemResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of DuplicateSceneItemResponse
 func (o *DuplicateSceneItemResponse) GetError() string {
 	return o.Error
+}
+
+// DuplicateSceneItem sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) DuplicateSceneItem(
+	params *DuplicateSceneItemParams,
+) (*DuplicateSceneItemResponse, error) {
+	params.RequestType = "DuplicateSceneItem"
+	data := &DuplicateSceneItemResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }

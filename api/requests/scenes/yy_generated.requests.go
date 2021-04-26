@@ -16,9 +16,17 @@ type SetCurrentSceneParams struct {
 	SceneName string `json:"scene-name"`
 }
 
+// GetRequestType returns the RequestType of SetCurrentSceneParams
 func (o *SetCurrentSceneParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetCurrentSceneParams
+func (o *SetCurrentSceneParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetCurrentSceneParams
 func (o *SetCurrentSceneParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -32,14 +40,29 @@ type SetCurrentSceneResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetCurrentSceneResponse
 func (o *SetCurrentSceneResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetCurrentSceneResponse
 func (o *SetCurrentSceneResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetCurrentSceneResponse
 func (o *SetCurrentSceneResponse) GetError() string {
 	return o.Error
+}
+
+// SetCurrentScene sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetCurrentScene(params *SetCurrentSceneParams) (*SetCurrentSceneResponse, error) {
+	params.RequestType = "SetCurrentScene"
+	data := &SetCurrentSceneResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -51,9 +74,17 @@ type GetCurrentSceneParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of GetCurrentSceneParams
 func (o *GetCurrentSceneParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetCurrentSceneParams
+func (o *GetCurrentSceneParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetCurrentSceneParams
 func (o *GetCurrentSceneParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -73,14 +104,36 @@ type GetCurrentSceneResponse struct {
 	Sources []map[string]interface{} `json:"sources"`
 }
 
+// GetMessageID returns the MessageID of GetCurrentSceneResponse
 func (o *GetCurrentSceneResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetCurrentSceneResponse
 func (o *GetCurrentSceneResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetCurrentSceneResponse
 func (o *GetCurrentSceneResponse) GetError() string {
 	return o.Error
+}
+
+// GetCurrentScene sends the corresponding request to the connected OBS WebSockets server. Note the
+// variadic arguments as this request doesn't require any parameters.
+func (c *Client) GetCurrentScene(
+	paramss ...*GetCurrentSceneParams,
+) (*GetCurrentSceneResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetCurrentSceneParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "GetCurrentScene"
+	data := &GetCurrentSceneResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -92,9 +145,17 @@ type GetSceneListParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of GetSceneListParams
 func (o *GetSceneListParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetSceneListParams
+func (o *GetSceneListParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetSceneListParams
 func (o *GetSceneListParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -115,14 +176,34 @@ type GetSceneListResponse struct {
 	Scenes []map[string]interface{} `json:"scenes"`
 }
 
+// GetMessageID returns the MessageID of GetSceneListResponse
 func (o *GetSceneListResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetSceneListResponse
 func (o *GetSceneListResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetSceneListResponse
 func (o *GetSceneListResponse) GetError() string {
 	return o.Error
+}
+
+// GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the
+// variadic arguments as this request doesn't require any parameters.
+func (c *Client) GetSceneList(paramss ...*GetSceneListParams) (*GetSceneListResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetSceneListParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "GetSceneList"
+	data := &GetSceneListResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -146,9 +227,17 @@ type ReorderSceneItemsParams struct {
 	Scene string `json:"scene"`
 }
 
+// GetRequestType returns the RequestType of ReorderSceneItemsParams
 func (o *ReorderSceneItemsParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of ReorderSceneItemsParams
+func (o *ReorderSceneItemsParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on ReorderSceneItemsParams
 func (o *ReorderSceneItemsParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -162,12 +251,29 @@ type ReorderSceneItemsResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of ReorderSceneItemsResponse
 func (o *ReorderSceneItemsResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of ReorderSceneItemsResponse
 func (o *ReorderSceneItemsResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of ReorderSceneItemsResponse
 func (o *ReorderSceneItemsResponse) GetError() string {
 	return o.Error
+}
+
+// ReorderSceneItems sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) ReorderSceneItems(
+	params *ReorderSceneItemsParams,
+) (*ReorderSceneItemsResponse, error) {
+	params.RequestType = "ReorderSceneItems"
+	data := &ReorderSceneItemsResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }

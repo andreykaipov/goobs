@@ -13,9 +13,17 @@ type GetSourcesListParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of GetSourcesListParams
 func (o *GetSourcesListParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetSourcesListParams
+func (o *GetSourcesListParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetSourcesListParams
 func (o *GetSourcesListParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -41,14 +49,34 @@ type GetSourcesListResponse struct {
 	} `json:"sources"`
 }
 
+// GetMessageID returns the MessageID of GetSourcesListResponse
 func (o *GetSourcesListResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetSourcesListResponse
 func (o *GetSourcesListResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetSourcesListResponse
 func (o *GetSourcesListResponse) GetError() string {
 	return o.Error
+}
+
+// GetSourcesList sends the corresponding request to the connected OBS WebSockets server. Note the
+// variadic arguments as this request doesn't require any parameters.
+func (c *Client) GetSourcesList(paramss ...*GetSourcesListParams) (*GetSourcesListResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetSourcesListParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "GetSourcesList"
+	data := &GetSourcesListResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -60,9 +88,17 @@ type GetSourcesTypesListParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of GetSourcesTypesListParams
 func (o *GetSourcesTypesListParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetSourcesTypesListParams
+func (o *GetSourcesTypesListParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetSourcesTypesListParams
 func (o *GetSourcesTypesListParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -114,14 +150,36 @@ type GetSourcesTypesListResponse struct {
 	} `json:"ids"`
 }
 
+// GetMessageID returns the MessageID of GetSourcesTypesListResponse
 func (o *GetSourcesTypesListResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetSourcesTypesListResponse
 func (o *GetSourcesTypesListResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetSourcesTypesListResponse
 func (o *GetSourcesTypesListResponse) GetError() string {
 	return o.Error
+}
+
+// GetSourcesTypesList sends the corresponding request to the connected OBS WebSockets server. Note
+// the variadic arguments as this request doesn't require any parameters.
+func (c *Client) GetSourcesTypesList(
+	paramss ...*GetSourcesTypesListParams,
+) (*GetSourcesTypesListResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetSourcesTypesListParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "GetSourcesTypesList"
+	data := &GetSourcesTypesListResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -136,9 +194,17 @@ type GetVolumeParams struct {
 	Source string `json:"source"`
 }
 
+// GetRequestType returns the RequestType of GetVolumeParams
 func (o *GetVolumeParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetVolumeParams
+func (o *GetVolumeParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetVolumeParams
 func (o *GetVolumeParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -161,14 +227,29 @@ type GetVolumeResponse struct {
 	Volume float64 `json:"volume"`
 }
 
+// GetMessageID returns the MessageID of GetVolumeResponse
 func (o *GetVolumeResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetVolumeResponse
 func (o *GetVolumeResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetVolumeResponse
 func (o *GetVolumeResponse) GetError() string {
 	return o.Error
+}
+
+// GetVolume sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) GetVolume(params *GetVolumeParams) (*GetVolumeResponse, error) {
+	params.RequestType = "GetVolume"
+	data := &GetVolumeResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -186,9 +267,17 @@ type SetVolumeParams struct {
 	Volume float64 `json:"volume"`
 }
 
+// GetRequestType returns the RequestType of SetVolumeParams
 func (o *SetVolumeParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetVolumeParams
+func (o *SetVolumeParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetVolumeParams
 func (o *SetVolumeParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -202,14 +291,29 @@ type SetVolumeResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetVolumeResponse
 func (o *SetVolumeResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetVolumeResponse
 func (o *SetVolumeResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetVolumeResponse
 func (o *SetVolumeResponse) GetError() string {
 	return o.Error
+}
+
+// SetVolume sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetVolume(params *SetVolumeParams) (*SetVolumeResponse, error) {
+	params.RequestType = "SetVolume"
+	data := &SetVolumeResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -224,9 +328,17 @@ type GetMuteParams struct {
 	Source string `json:"source"`
 }
 
+// GetRequestType returns the RequestType of GetMuteParams
 func (o *GetMuteParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetMuteParams
+func (o *GetMuteParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetMuteParams
 func (o *GetMuteParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -246,14 +358,29 @@ type GetMuteResponse struct {
 	Name string `json:"name"`
 }
 
+// GetMessageID returns the MessageID of GetMuteResponse
 func (o *GetMuteResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetMuteResponse
 func (o *GetMuteResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetMuteResponse
 func (o *GetMuteResponse) GetError() string {
 	return o.Error
+}
+
+// GetMute sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) GetMute(params *GetMuteParams) (*GetMuteResponse, error) {
+	params.RequestType = "GetMute"
+	data := &GetMuteResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -271,9 +398,17 @@ type SetMuteParams struct {
 	Source string `json:"source"`
 }
 
+// GetRequestType returns the RequestType of SetMuteParams
 func (o *SetMuteParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetMuteParams
+func (o *SetMuteParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetMuteParams
 func (o *SetMuteParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -287,14 +422,29 @@ type SetMuteResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetMuteResponse
 func (o *SetMuteResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetMuteResponse
 func (o *SetMuteResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetMuteResponse
 func (o *SetMuteResponse) GetError() string {
 	return o.Error
+}
+
+// SetMute sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetMute(params *SetMuteParams) (*SetMuteResponse, error) {
+	params.RequestType = "SetMute"
+	data := &SetMuteResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -309,9 +459,17 @@ type ToggleMuteParams struct {
 	Source string `json:"source"`
 }
 
+// GetRequestType returns the RequestType of ToggleMuteParams
 func (o *ToggleMuteParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of ToggleMuteParams
+func (o *ToggleMuteParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on ToggleMuteParams
 func (o *ToggleMuteParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -325,14 +483,29 @@ type ToggleMuteResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of ToggleMuteResponse
 func (o *ToggleMuteResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of ToggleMuteResponse
 func (o *ToggleMuteResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of ToggleMuteResponse
 func (o *ToggleMuteResponse) GetError() string {
 	return o.Error
+}
+
+// ToggleMute sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) ToggleMute(params *ToggleMuteParams) (*ToggleMuteResponse, error) {
+	params.RequestType = "ToggleMute"
+	data := &ToggleMuteResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -350,9 +523,17 @@ type SetSyncOffsetParams struct {
 	Source string `json:"source"`
 }
 
+// GetRequestType returns the RequestType of SetSyncOffsetParams
 func (o *SetSyncOffsetParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetSyncOffsetParams
+func (o *SetSyncOffsetParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetSyncOffsetParams
 func (o *SetSyncOffsetParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -366,14 +547,29 @@ type SetSyncOffsetResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetSyncOffsetResponse
 func (o *SetSyncOffsetResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetSyncOffsetResponse
 func (o *SetSyncOffsetResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetSyncOffsetResponse
 func (o *SetSyncOffsetResponse) GetError() string {
 	return o.Error
+}
+
+// SetSyncOffset sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetSyncOffset(params *SetSyncOffsetParams) (*SetSyncOffsetResponse, error) {
+	params.RequestType = "SetSyncOffset"
+	data := &SetSyncOffsetResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -388,9 +584,17 @@ type GetSyncOffsetParams struct {
 	Source string `json:"source"`
 }
 
+// GetRequestType returns the RequestType of GetSyncOffsetParams
 func (o *GetSyncOffsetParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetSyncOffsetParams
+func (o *GetSyncOffsetParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetSyncOffsetParams
 func (o *GetSyncOffsetParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -410,14 +614,29 @@ type GetSyncOffsetResponse struct {
 	Offset int `json:"offset"`
 }
 
+// GetMessageID returns the MessageID of GetSyncOffsetResponse
 func (o *GetSyncOffsetResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetSyncOffsetResponse
 func (o *GetSyncOffsetResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetSyncOffsetResponse
 func (o *GetSyncOffsetResponse) GetError() string {
 	return o.Error
+}
+
+// GetSyncOffset sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) GetSyncOffset(params *GetSyncOffsetParams) (*GetSyncOffsetResponse, error) {
+	params.RequestType = "GetSyncOffset"
+	data := &GetSyncOffsetResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -436,9 +655,17 @@ type GetSourceSettingsParams struct {
 	SourceType string `json:"sourceType"`
 }
 
+// GetRequestType returns the RequestType of GetSourceSettingsParams
 func (o *GetSourceSettingsParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetSourceSettingsParams
+func (o *GetSourceSettingsParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetSourceSettingsParams
 func (o *GetSourceSettingsParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -461,14 +688,31 @@ type GetSourceSettingsResponse struct {
 	SourceType string `json:"sourceType"`
 }
 
+// GetMessageID returns the MessageID of GetSourceSettingsResponse
 func (o *GetSourceSettingsResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetSourceSettingsResponse
 func (o *GetSourceSettingsResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetSourceSettingsResponse
 func (o *GetSourceSettingsResponse) GetError() string {
 	return o.Error
+}
+
+// GetSourceSettings sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) GetSourceSettings(
+	params *GetSourceSettingsParams,
+) (*GetSourceSettingsResponse, error) {
+	params.RequestType = "GetSourceSettings"
+	data := &GetSourceSettingsResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -490,9 +734,17 @@ type SetSourceSettingsParams struct {
 	SourceType string `json:"sourceType"`
 }
 
+// GetRequestType returns the RequestType of SetSourceSettingsParams
 func (o *SetSourceSettingsParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetSourceSettingsParams
+func (o *SetSourceSettingsParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetSourceSettingsParams
 func (o *SetSourceSettingsParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -515,14 +767,31 @@ type SetSourceSettingsResponse struct {
 	SourceType string `json:"sourceType"`
 }
 
+// GetMessageID returns the MessageID of SetSourceSettingsResponse
 func (o *SetSourceSettingsResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetSourceSettingsResponse
 func (o *SetSourceSettingsResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetSourceSettingsResponse
 func (o *SetSourceSettingsResponse) GetError() string {
 	return o.Error
+}
+
+// SetSourceSettings sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetSourceSettings(
+	params *SetSourceSettingsParams,
+) (*SetSourceSettingsResponse, error) {
+	params.RequestType = "SetSourceSettings"
+	data := &SetSourceSettingsResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -537,9 +806,17 @@ type GetTextGDIPlusPropertiesParams struct {
 	Source string `json:"source"`
 }
 
+// GetRequestType returns the RequestType of GetTextGDIPlusPropertiesParams
 func (o *GetTextGDIPlusPropertiesParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetTextGDIPlusPropertiesParams
+func (o *GetTextGDIPlusPropertiesParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetTextGDIPlusPropertiesParams
 func (o *GetTextGDIPlusPropertiesParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -636,14 +913,31 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Vertical bool `json:"vertical"`
 }
 
+// GetMessageID returns the MessageID of GetTextGDIPlusPropertiesResponse
 func (o *GetTextGDIPlusPropertiesResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetTextGDIPlusPropertiesResponse
 func (o *GetTextGDIPlusPropertiesResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetTextGDIPlusPropertiesResponse
 func (o *GetTextGDIPlusPropertiesResponse) GetError() string {
 	return o.Error
+}
+
+// GetTextGDIPlusProperties sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) GetTextGDIPlusProperties(
+	params *GetTextGDIPlusPropertiesParams,
+) (*GetTextGDIPlusPropertiesResponse, error) {
+	params.RequestType = "GetTextGDIPlusProperties"
+	data := &GetTextGDIPlusPropertiesResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -741,9 +1035,17 @@ type SetTextGDIPlusPropertiesParams struct {
 	Vertical bool `json:"vertical"`
 }
 
+// GetRequestType returns the RequestType of SetTextGDIPlusPropertiesParams
 func (o *SetTextGDIPlusPropertiesParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetTextGDIPlusPropertiesParams
+func (o *SetTextGDIPlusPropertiesParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetTextGDIPlusPropertiesParams
 func (o *SetTextGDIPlusPropertiesParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -757,14 +1059,31 @@ type SetTextGDIPlusPropertiesResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetTextGDIPlusPropertiesResponse
 func (o *SetTextGDIPlusPropertiesResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetTextGDIPlusPropertiesResponse
 func (o *SetTextGDIPlusPropertiesResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetTextGDIPlusPropertiesResponse
 func (o *SetTextGDIPlusPropertiesResponse) GetError() string {
 	return o.Error
+}
+
+// SetTextGDIPlusProperties sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetTextGDIPlusProperties(
+	params *SetTextGDIPlusPropertiesParams,
+) (*SetTextGDIPlusPropertiesResponse, error) {
+	params.RequestType = "SetTextGDIPlusProperties"
+	data := &SetTextGDIPlusPropertiesResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -779,9 +1098,17 @@ type GetTextFreetype2PropertiesParams struct {
 	Source string `json:"source"`
 }
 
+// GetRequestType returns the RequestType of GetTextFreetype2PropertiesParams
 func (o *GetTextFreetype2PropertiesParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetTextFreetype2PropertiesParams
+func (o *GetTextFreetype2PropertiesParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetTextFreetype2PropertiesParams
 func (o *GetTextFreetype2PropertiesParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -842,14 +1169,32 @@ type GetTextFreetype2PropertiesResponse struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
+// GetMessageID returns the MessageID of GetTextFreetype2PropertiesResponse
 func (o *GetTextFreetype2PropertiesResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetTextFreetype2PropertiesResponse
 func (o *GetTextFreetype2PropertiesResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetTextFreetype2PropertiesResponse
 func (o *GetTextFreetype2PropertiesResponse) GetError() string {
 	return o.Error
+}
+
+// GetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets
+// server.
+func (c *Client) GetTextFreetype2Properties(
+	params *GetTextFreetype2PropertiesParams,
+) (*GetTextFreetype2PropertiesResponse, error) {
+	params.RequestType = "GetTextFreetype2Properties"
+	data := &GetTextFreetype2PropertiesResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -908,9 +1253,17 @@ type SetTextFreetype2PropertiesParams struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
+// GetRequestType returns the RequestType of SetTextFreetype2PropertiesParams
 func (o *SetTextFreetype2PropertiesParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetTextFreetype2PropertiesParams
+func (o *SetTextFreetype2PropertiesParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetTextFreetype2PropertiesParams
 func (o *SetTextFreetype2PropertiesParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -924,14 +1277,32 @@ type SetTextFreetype2PropertiesResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetTextFreetype2PropertiesResponse
 func (o *SetTextFreetype2PropertiesResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetTextFreetype2PropertiesResponse
 func (o *SetTextFreetype2PropertiesResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetTextFreetype2PropertiesResponse
 func (o *SetTextFreetype2PropertiesResponse) GetError() string {
 	return o.Error
+}
+
+// SetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets
+// server.
+func (c *Client) SetTextFreetype2Properties(
+	params *SetTextFreetype2PropertiesParams,
+) (*SetTextFreetype2PropertiesResponse, error) {
+	params.RequestType = "SetTextFreetype2Properties"
+	data := &SetTextFreetype2PropertiesResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -946,9 +1317,17 @@ type GetBrowserSourcePropertiesParams struct {
 	Source string `json:"source"`
 }
 
+// GetRequestType returns the RequestType of GetBrowserSourcePropertiesParams
 func (o *GetBrowserSourcePropertiesParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetBrowserSourcePropertiesParams
+func (o *GetBrowserSourcePropertiesParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetBrowserSourcePropertiesParams
 func (o *GetBrowserSourcePropertiesParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -989,14 +1368,32 @@ type GetBrowserSourcePropertiesResponse struct {
 	Width int `json:"width"`
 }
 
+// GetMessageID returns the MessageID of GetBrowserSourcePropertiesResponse
 func (o *GetBrowserSourcePropertiesResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetBrowserSourcePropertiesResponse
 func (o *GetBrowserSourcePropertiesResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetBrowserSourcePropertiesResponse
 func (o *GetBrowserSourcePropertiesResponse) GetError() string {
 	return o.Error
+}
+
+// GetBrowserSourceProperties sends the corresponding request to the connected OBS WebSockets
+// server.
+func (c *Client) GetBrowserSourceProperties(
+	params *GetBrowserSourcePropertiesParams,
+) (*GetBrowserSourcePropertiesResponse, error) {
+	params.RequestType = "GetBrowserSourceProperties"
+	data := &GetBrowserSourcePropertiesResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -1038,9 +1435,17 @@ type SetBrowserSourcePropertiesParams struct {
 	Width int `json:"width"`
 }
 
+// GetRequestType returns the RequestType of SetBrowserSourcePropertiesParams
 func (o *SetBrowserSourcePropertiesParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetBrowserSourcePropertiesParams
+func (o *SetBrowserSourcePropertiesParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetBrowserSourcePropertiesParams
 func (o *SetBrowserSourcePropertiesParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -1054,14 +1459,32 @@ type SetBrowserSourcePropertiesResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetBrowserSourcePropertiesResponse
 func (o *SetBrowserSourcePropertiesResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetBrowserSourcePropertiesResponse
 func (o *SetBrowserSourcePropertiesResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetBrowserSourcePropertiesResponse
 func (o *SetBrowserSourcePropertiesResponse) GetError() string {
 	return o.Error
+}
+
+// SetBrowserSourceProperties sends the corresponding request to the connected OBS WebSockets
+// server.
+func (c *Client) SetBrowserSourceProperties(
+	params *SetBrowserSourcePropertiesParams,
+) (*SetBrowserSourcePropertiesResponse, error) {
+	params.RequestType = "SetBrowserSourceProperties"
+	data := &SetBrowserSourcePropertiesResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -1073,9 +1496,17 @@ type GetSpecialSourcesParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of GetSpecialSourcesParams
 func (o *GetSpecialSourcesParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetSpecialSourcesParams
+func (o *GetSpecialSourcesParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetSpecialSourcesParams
 func (o *GetSpecialSourcesParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -1104,14 +1535,36 @@ type GetSpecialSourcesResponse struct {
 	Mic3 string `json:"mic-3"`
 }
 
+// GetMessageID returns the MessageID of GetSpecialSourcesResponse
 func (o *GetSpecialSourcesResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetSpecialSourcesResponse
 func (o *GetSpecialSourcesResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetSpecialSourcesResponse
 func (o *GetSpecialSourcesResponse) GetError() string {
 	return o.Error
+}
+
+// GetSpecialSources sends the corresponding request to the connected OBS WebSockets server. Note
+// the variadic arguments as this request doesn't require any parameters.
+func (c *Client) GetSpecialSources(
+	paramss ...*GetSpecialSourcesParams,
+) (*GetSpecialSourcesResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetSpecialSourcesParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "GetSpecialSources"
+	data := &GetSpecialSourcesResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -1126,9 +1579,17 @@ type GetSourceFiltersParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+// GetRequestType returns the RequestType of GetSourceFiltersParams
 func (o *GetSourceFiltersParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetSourceFiltersParams
+func (o *GetSourceFiltersParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetSourceFiltersParams
 func (o *GetSourceFiltersParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -1153,14 +1614,31 @@ type GetSourceFiltersResponse struct {
 	} `json:"filters"`
 }
 
+// GetMessageID returns the MessageID of GetSourceFiltersResponse
 func (o *GetSourceFiltersResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetSourceFiltersResponse
 func (o *GetSourceFiltersResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetSourceFiltersResponse
 func (o *GetSourceFiltersResponse) GetError() string {
 	return o.Error
+}
+
+// GetSourceFilters sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) GetSourceFilters(
+	params *GetSourceFiltersParams,
+) (*GetSourceFiltersResponse, error) {
+	params.RequestType = "GetSourceFilters"
+	data := &GetSourceFiltersResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -1184,9 +1662,17 @@ type AddFilterToSourceParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+// GetRequestType returns the RequestType of AddFilterToSourceParams
 func (o *AddFilterToSourceParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of AddFilterToSourceParams
+func (o *AddFilterToSourceParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on AddFilterToSourceParams
 func (o *AddFilterToSourceParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -1200,14 +1686,31 @@ type AddFilterToSourceResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of AddFilterToSourceResponse
 func (o *AddFilterToSourceResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of AddFilterToSourceResponse
 func (o *AddFilterToSourceResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of AddFilterToSourceResponse
 func (o *AddFilterToSourceResponse) GetError() string {
 	return o.Error
+}
+
+// AddFilterToSource sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) AddFilterToSource(
+	params *AddFilterToSourceParams,
+) (*AddFilterToSourceResponse, error) {
+	params.RequestType = "AddFilterToSource"
+	data := &AddFilterToSourceResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -1225,9 +1728,17 @@ type RemoveFilterFromSourceParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+// GetRequestType returns the RequestType of RemoveFilterFromSourceParams
 func (o *RemoveFilterFromSourceParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of RemoveFilterFromSourceParams
+func (o *RemoveFilterFromSourceParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on RemoveFilterFromSourceParams
 func (o *RemoveFilterFromSourceParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -1241,14 +1752,31 @@ type RemoveFilterFromSourceResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of RemoveFilterFromSourceResponse
 func (o *RemoveFilterFromSourceResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of RemoveFilterFromSourceResponse
 func (o *RemoveFilterFromSourceResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of RemoveFilterFromSourceResponse
 func (o *RemoveFilterFromSourceResponse) GetError() string {
 	return o.Error
+}
+
+// RemoveFilterFromSource sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) RemoveFilterFromSource(
+	params *RemoveFilterFromSourceParams,
+) (*RemoveFilterFromSourceResponse, error) {
+	params.RequestType = "RemoveFilterFromSource"
+	data := &RemoveFilterFromSourceResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -1269,9 +1797,17 @@ type ReorderSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+// GetRequestType returns the RequestType of ReorderSourceFilterParams
 func (o *ReorderSourceFilterParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of ReorderSourceFilterParams
+func (o *ReorderSourceFilterParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on ReorderSourceFilterParams
 func (o *ReorderSourceFilterParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -1285,14 +1821,31 @@ type ReorderSourceFilterResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of ReorderSourceFilterResponse
 func (o *ReorderSourceFilterResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of ReorderSourceFilterResponse
 func (o *ReorderSourceFilterResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of ReorderSourceFilterResponse
 func (o *ReorderSourceFilterResponse) GetError() string {
 	return o.Error
+}
+
+// ReorderSourceFilter sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) ReorderSourceFilter(
+	params *ReorderSourceFilterParams,
+) (*ReorderSourceFilterResponse, error) {
+	params.RequestType = "ReorderSourceFilter"
+	data := &ReorderSourceFilterResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -1314,9 +1867,17 @@ type MoveSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+// GetRequestType returns the RequestType of MoveSourceFilterParams
 func (o *MoveSourceFilterParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of MoveSourceFilterParams
+func (o *MoveSourceFilterParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on MoveSourceFilterParams
 func (o *MoveSourceFilterParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -1330,14 +1891,31 @@ type MoveSourceFilterResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of MoveSourceFilterResponse
 func (o *MoveSourceFilterResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of MoveSourceFilterResponse
 func (o *MoveSourceFilterResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of MoveSourceFilterResponse
 func (o *MoveSourceFilterResponse) GetError() string {
 	return o.Error
+}
+
+// MoveSourceFilter sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) MoveSourceFilter(
+	params *MoveSourceFilterParams,
+) (*MoveSourceFilterResponse, error) {
+	params.RequestType = "MoveSourceFilter"
+	data := &MoveSourceFilterResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -1358,9 +1936,17 @@ type SetSourceFilterSettingsParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+// GetRequestType returns the RequestType of SetSourceFilterSettingsParams
 func (o *SetSourceFilterSettingsParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetSourceFilterSettingsParams
+func (o *SetSourceFilterSettingsParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetSourceFilterSettingsParams
 func (o *SetSourceFilterSettingsParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -1374,12 +1960,29 @@ type SetSourceFilterSettingsResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetSourceFilterSettingsResponse
 func (o *SetSourceFilterSettingsResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetSourceFilterSettingsResponse
 func (o *SetSourceFilterSettingsResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetSourceFilterSettingsResponse
 func (o *SetSourceFilterSettingsResponse) GetError() string {
 	return o.Error
+}
+
+// SetSourceFilterSettings sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetSourceFilterSettings(
+	params *SetSourceFilterSettingsParams,
+) (*SetSourceFilterSettingsResponse, error) {
+	params.RequestType = "SetSourceFilterSettings"
+	data := &SetSourceFilterSettingsResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }

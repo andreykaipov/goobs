@@ -13,9 +13,17 @@ type GetStudioModeStatusParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of GetStudioModeStatusParams
 func (o *GetStudioModeStatusParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetStudioModeStatusParams
+func (o *GetStudioModeStatusParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetStudioModeStatusParams
 func (o *GetStudioModeStatusParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -32,14 +40,36 @@ type GetStudioModeStatusResponse struct {
 	StudioMode bool `json:"studio-mode"`
 }
 
+// GetMessageID returns the MessageID of GetStudioModeStatusResponse
 func (o *GetStudioModeStatusResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetStudioModeStatusResponse
 func (o *GetStudioModeStatusResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetStudioModeStatusResponse
 func (o *GetStudioModeStatusResponse) GetError() string {
 	return o.Error
+}
+
+// GetStudioModeStatus sends the corresponding request to the connected OBS WebSockets server. Note
+// the variadic arguments as this request doesn't require any parameters.
+func (c *Client) GetStudioModeStatus(
+	paramss ...*GetStudioModeStatusParams,
+) (*GetStudioModeStatusResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetStudioModeStatusParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "GetStudioModeStatus"
+	data := &GetStudioModeStatusResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -51,9 +81,17 @@ type GetPreviewSceneParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of GetPreviewSceneParams
 func (o *GetPreviewSceneParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of GetPreviewSceneParams
+func (o *GetPreviewSceneParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on GetPreviewSceneParams
 func (o *GetPreviewSceneParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -72,14 +110,36 @@ type GetPreviewSceneResponse struct {
 	Sources []map[string]interface{} `json:"sources"`
 }
 
+// GetMessageID returns the MessageID of GetPreviewSceneResponse
 func (o *GetPreviewSceneResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of GetPreviewSceneResponse
 func (o *GetPreviewSceneResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of GetPreviewSceneResponse
 func (o *GetPreviewSceneResponse) GetError() string {
 	return o.Error
+}
+
+// GetPreviewScene sends the corresponding request to the connected OBS WebSockets server. Note the
+// variadic arguments as this request doesn't require any parameters.
+func (c *Client) GetPreviewScene(
+	paramss ...*GetPreviewSceneParams,
+) (*GetPreviewSceneResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetPreviewSceneParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "GetPreviewScene"
+	data := &GetPreviewSceneResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -94,9 +154,17 @@ type SetPreviewSceneParams struct {
 	SceneName string `json:"scene-name"`
 }
 
+// GetRequestType returns the RequestType of SetPreviewSceneParams
 func (o *SetPreviewSceneParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of SetPreviewSceneParams
+func (o *SetPreviewSceneParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on SetPreviewSceneParams
 func (o *SetPreviewSceneParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -110,14 +178,29 @@ type SetPreviewSceneResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of SetPreviewSceneResponse
 func (o *SetPreviewSceneResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of SetPreviewSceneResponse
 func (o *SetPreviewSceneResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of SetPreviewSceneResponse
 func (o *SetPreviewSceneResponse) GetError() string {
 	return o.Error
+}
+
+// SetPreviewScene sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetPreviewScene(params *SetPreviewSceneParams) (*SetPreviewSceneResponse, error) {
+	params.RequestType = "SetPreviewScene"
+	data := &SetPreviewSceneResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -137,9 +220,17 @@ type TransitionToProgramParams struct {
 	} `json:"with-transition"`
 }
 
+// GetRequestType returns the RequestType of TransitionToProgramParams
 func (o *TransitionToProgramParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of TransitionToProgramParams
+func (o *TransitionToProgramParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on TransitionToProgramParams
 func (o *TransitionToProgramParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -153,14 +244,31 @@ type TransitionToProgramResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of TransitionToProgramResponse
 func (o *TransitionToProgramResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of TransitionToProgramResponse
 func (o *TransitionToProgramResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of TransitionToProgramResponse
 func (o *TransitionToProgramResponse) GetError() string {
 	return o.Error
+}
+
+// TransitionToProgram sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) TransitionToProgram(
+	params *TransitionToProgramParams,
+) (*TransitionToProgramResponse, error) {
+	params.RequestType = "TransitionToProgram"
+	data := &TransitionToProgramResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -172,9 +280,17 @@ type EnableStudioModeParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of EnableStudioModeParams
 func (o *EnableStudioModeParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of EnableStudioModeParams
+func (o *EnableStudioModeParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on EnableStudioModeParams
 func (o *EnableStudioModeParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -188,14 +304,36 @@ type EnableStudioModeResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of EnableStudioModeResponse
 func (o *EnableStudioModeResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of EnableStudioModeResponse
 func (o *EnableStudioModeResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of EnableStudioModeResponse
 func (o *EnableStudioModeResponse) GetError() string {
 	return o.Error
+}
+
+// EnableStudioMode sends the corresponding request to the connected OBS WebSockets server. Note the
+// variadic arguments as this request doesn't require any parameters.
+func (c *Client) EnableStudioMode(
+	paramss ...*EnableStudioModeParams,
+) (*EnableStudioModeResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*EnableStudioModeParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "EnableStudioMode"
+	data := &EnableStudioModeResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -207,9 +345,17 @@ type DisableStudioModeParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of DisableStudioModeParams
 func (o *DisableStudioModeParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of DisableStudioModeParams
+func (o *DisableStudioModeParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on DisableStudioModeParams
 func (o *DisableStudioModeParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -223,14 +369,36 @@ type DisableStudioModeResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of DisableStudioModeResponse
 func (o *DisableStudioModeResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of DisableStudioModeResponse
 func (o *DisableStudioModeResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of DisableStudioModeResponse
 func (o *DisableStudioModeResponse) GetError() string {
 	return o.Error
+}
+
+// DisableStudioMode sends the corresponding request to the connected OBS WebSockets server. Note
+// the variadic arguments as this request doesn't require any parameters.
+func (c *Client) DisableStudioMode(
+	paramss ...*DisableStudioModeParams,
+) (*DisableStudioModeResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*DisableStudioModeParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "DisableStudioMode"
+	data := &DisableStudioModeResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }
 
 /*
@@ -242,9 +410,17 @@ type ToggleStudioModeParams struct {
 	requests.Params
 }
 
+// GetRequestType returns the RequestType of ToggleStudioModeParams
 func (o *ToggleStudioModeParams) GetRequestType() string {
 	return o.RequestType
 }
+
+// GetMessageID returns the MessageID of ToggleStudioModeParams
+func (o *ToggleStudioModeParams) GetMessageID() string {
+	return o.MessageID
+}
+
+// SetMessageID sets the MessageID on ToggleStudioModeParams
 func (o *ToggleStudioModeParams) SetMessageID(x string) {
 	o.MessageID = x
 }
@@ -258,12 +434,34 @@ type ToggleStudioModeResponse struct {
 	requests.Response
 }
 
+// GetMessageID returns the MessageID of ToggleStudioModeResponse
 func (o *ToggleStudioModeResponse) GetMessageID() string {
 	return o.MessageID
 }
+
+// GetStatus returns the Status of ToggleStudioModeResponse
 func (o *ToggleStudioModeResponse) GetStatus() string {
 	return o.Status
 }
+
+// GetError returns the Error of ToggleStudioModeResponse
 func (o *ToggleStudioModeResponse) GetError() string {
 	return o.Error
+}
+
+// ToggleStudioMode sends the corresponding request to the connected OBS WebSockets server. Note the
+// variadic arguments as this request doesn't require any parameters.
+func (c *Client) ToggleStudioMode(
+	paramss ...*ToggleStudioModeParams,
+) (*ToggleStudioModeResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*ToggleStudioModeParams{{}}
+	}
+	params := paramss[0]
+	params.RequestType = "ToggleStudioMode"
+	data := &ToggleStudioModeResponse{}
+	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+		return nil, err
+	}
+	return data, nil
 }

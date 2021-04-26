@@ -13,8 +13,8 @@ import (
 type Client struct {
 	Host string
 	Port int
-	Subclients
 
+	subclients
 	conn *websocket.Conn
 }
 

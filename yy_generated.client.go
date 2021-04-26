@@ -16,7 +16,7 @@ import (
 	transitions "github.com/andreykaipov/goobs/api/transitions"
 )
 
-type Subclients struct {
+type subclients struct {
 	General          *general.Client
 	Profiles         *profiles.Client
 	Recording        *recording.Client

@@ -25,9 +25,3 @@ func WithPort(x int) Option {
 		o.Port = x
 	}
 }
-
-func WithSubclients(x Subclients) Option {
-	return func(o *Client) {
-		o.Subclients = x
-	}
-}

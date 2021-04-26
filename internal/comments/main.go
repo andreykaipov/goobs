@@ -120,7 +120,7 @@ func main() {
 	// Write utils for the top-level client
 	f := NewFile("goobs")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
-	f.Add(Type().Id("Subclients").Struct(topClientFields...))
+	f.Add(Type().Id("subclients").Struct(topClientFields...))
 	f.Add(Func().Id("setClients").Params(Id("c").Op("*").Id("Client")).Block(topClientSetters...))
 
 	if err := f.Save(fmt.Sprintf("%s/yy_generated.client.go", root)); err != nil {

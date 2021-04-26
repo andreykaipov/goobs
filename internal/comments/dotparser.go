@@ -17,12 +17,12 @@ func parseJenKeysAsMap(lines map[string]jen.Code) (map[string]interface{}, error
 	for _, line := range sortedKeys(lines) {
 		typ3 := lines[line]
 
-		parts := strings.Split(line, ".")
+		// prepend $. so the following loop always runs even for parts
+		// with no dots, and replace [] as .* for legacy interpretations
+		// of slices
+		line = "$." + strings.ReplaceAll(line, "[]", ".*")
 
-		if len(parts) == 1 {
-			fmt.Fprintf(os.Stderr, "! Key %q has no parts. Skipping...\n", line)
-			continue
-		}
+		parts := strings.Split(line, ".")
 
 		var m map[string]interface{}
 		var ok bool
@@ -57,7 +57,7 @@ func parseJenKeysAsMap(lines map[string]jen.Code) (map[string]interface{}, error
 	}
 
 	final := map[string]interface{}{}
-	for k, v := range mapReferences {
+	for k, v := range mapReferences["$"] {
 		if !strings.Contains(k, ".") {
 			final[k] = v
 		}
@@ -78,7 +78,7 @@ func parseJenKeysAsStruct(name string, lines map[string]jen.Code) (*jen.Statemen
 	f = func(data interface{}, g *jen.Group, parent string) {
 		switch t := data.(type) {
 		case map[string]interface{}:
-			// if there's an *, we should redo the recursion with a slice
+			// if there's an *, redo the recursion with a slice
 			for _, k := range sortedKeys(t) {
 				v := t[k]
 				if k == "*" {

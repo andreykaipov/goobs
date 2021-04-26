@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_parseKeysAsJenStruct_basic(t *testing.T) {
+func Test_parseKeysAsJenStruct_basic_1(t *testing.T) {
 	statement, err := parseJenKeysAsStruct("StartStreamingRequest", map[string]jen.Code{
 		"Stream":                   jen.Map(jen.String()).Interface(),
 		"Stream.Type":              jen.Int(),
@@ -37,6 +37,54 @@ func Test_parseKeysAsJenStruct_basic(t *testing.T) {
 			Username string
 		}
 		Type int
+	}
+}`
+
+	assert.NoError(t, err)
+	assert.Equal(t, expected, actual)
+}
+
+func Test_parseKeysAsJenStruct_basic_2(t *testing.T) {
+	statement, err := parseJenKeysAsStruct("IDK", map[string]jen.Code{
+		"A.B": jen.String(),
+		"C.D": jen.String(),
+	})
+
+	buf := new(bytes.Buffer)
+	statement.Render(buf)
+	actual := buf.String()
+	// fmt.Println(actual)
+
+	expected := `type IDK struct {
+	A struct {
+		B string
+	}
+	C struct {
+		D string
+	}
+}`
+
+	assert.NoError(t, err)
+	assert.Equal(t, expected, actual)
+}
+
+func Test_parseKeysAsJenStruct_basic_3(t *testing.T) {
+	statement, err := parseJenKeysAsStruct("Ugh", map[string]jen.Code{
+		"a":   jen.String(),
+		"b":   jen.String(),
+		"c.d": jen.Int(),
+	})
+
+	buf := new(bytes.Buffer)
+	statement.Render(buf)
+	actual := buf.String()
+	// fmt.Println(actual)
+
+	expected := `type Ugh struct {
+	a string
+	b string
+	c struct {
+		d int
 	}
 }`
 

@@ -1,24 +1,40 @@
+# github.com/alecthomas/units v0.0.0-20210208195552-ff826a37aa15
+## explicit
 # github.com/andreykaipov/funcopgen v0.4.0
 ## explicit
 github.com/andreykaipov/funcopgen
 # github.com/dave/jennifer v1.4.1
 ## explicit
 github.com/dave/jennifer/jen
-# github.com/davecgh/go-spew v1.1.0
+# github.com/davecgh/go-spew v1.1.1
 github.com/davecgh/go-spew/spew
 # github.com/fatih/structtag v1.2.0
 github.com/fatih/structtag
+# github.com/konsorten/go-windows-terminal-sequences v1.0.3
+## explicit
+# github.com/mattn/go-colorable v0.1.8
+## explicit
+# github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d
+## explicit
 # github.com/pmezard/go-difflib v1.0.0
 github.com/pmezard/go-difflib/difflib
+# github.com/segmentio/golines v0.4.0
+## explicit
+# github.com/sirupsen/logrus v1.8.1
+## explicit
 # github.com/stretchr/testify v1.7.0
 ## explicit
 github.com/stretchr/testify/assert
+# golang.org/x/crypto v0.0.0-20210421170649-83a5a9bb288b
+## explicit
 # golang.org/x/mod v0.4.2
 ## explicit
 golang.org/x/mod/semver
 # golang.org/x/sys v0.0.0-20210423185535-09eb48e85fd7
 ## explicit
 golang.org/x/sys/execabs
+# golang.org/x/term v0.0.0-20210422114643-f5beecf764ed
+## explicit
 # golang.org/x/text v0.3.6
 ## explicit
 golang.org/x/text/transform

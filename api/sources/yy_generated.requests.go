@@ -2,12 +2,23 @@
 
 package sources
 
+import api "github.com/andreykaipov/goobs/api"
+
 /*
 GetSourcesListParams represents the params body for the "GetSourcesList" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesList.
 */
-type GetSourcesListParams struct{}
+type GetSourcesListParams struct {
+	api.Params
+}
+
+func (o *GetSourcesListParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetSourcesListParams) SetMessageID(x string) {
+	o.MessageID = x
+}
 
 /*
 GetSourcesListResponse represents the response body for the "GetSourcesList" request.
@@ -15,6 +26,8 @@ GetSourcesListResponse represents the response body for the "GetSourcesList" req
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesList.
 */
 type GetSourcesListResponse struct {
+	api.Response
+
 	Sources []struct {
 		// Unique source name
 		Name string `json:"name"`
@@ -28,12 +41,31 @@ type GetSourcesListResponse struct {
 	} `json:"sources"`
 }
 
+func (o *GetSourcesListResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetSourcesListResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetSourcesListResponse) GetError() string {
+	return o.Error
+}
+
 /*
 GetSourcesTypesListParams represents the params body for the "GetSourcesTypesList" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesTypesList.
 */
-type GetSourcesTypesListParams struct{}
+type GetSourcesTypesListParams struct {
+	api.Params
+}
+
+func (o *GetSourcesTypesListParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetSourcesTypesListParams) SetMessageID(x string) {
+	o.MessageID = x
+}
 
 /*
 GetSourcesTypesListResponse represents the response body for the "GetSourcesTypesList" request.
@@ -41,6 +73,8 @@ GetSourcesTypesListResponse represents the response body for the "GetSourcesType
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesTypesList.
 */
 type GetSourcesTypesListResponse struct {
+	api.Response
+
 	Ids []struct {
 		Caps struct {
 			// True if interaction with this sources of this type is possible
@@ -80,14 +114,33 @@ type GetSourcesTypesListResponse struct {
 	} `json:"ids"`
 }
 
+func (o *GetSourcesTypesListResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetSourcesTypesListResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetSourcesTypesListResponse) GetError() string {
+	return o.Error
+}
+
 /*
 GetVolumeParams represents the params body for the "GetVolume" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVolume.
 */
 type GetVolumeParams struct {
+	api.Params
+
 	// Source name.
 	Source string `json:"source"`
+}
+
+func (o *GetVolumeParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetVolumeParams) SetMessageID(x string) {
+	o.MessageID = x
 }
 
 /*
@@ -96,6 +149,8 @@ GetVolumeResponse represents the response body for the "GetVolume" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVolume.
 */
 type GetVolumeResponse struct {
+	api.Response
+
 	// Indicates whether the source is muted.
 	Muted bool `json:"muted"`
 
@@ -106,12 +161,24 @@ type GetVolumeResponse struct {
 	Volume float64 `json:"volume"`
 }
 
+func (o *GetVolumeResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetVolumeResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetVolumeResponse) GetError() string {
+	return o.Error
+}
+
 /*
 SetVolumeParams represents the params body for the "SetVolume" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetVolume.
 */
 type SetVolumeParams struct {
+	api.Params
+
 	// Source name.
 	Source string `json:"source"`
 
@@ -119,12 +186,31 @@ type SetVolumeParams struct {
 	Volume float64 `json:"volume"`
 }
 
+func (o *SetVolumeParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SetVolumeParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 SetVolumeResponse represents the response body for the "SetVolume" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetVolume.
 */
-type SetVolumeResponse struct{}
+type SetVolumeResponse struct {
+	api.Response
+}
+
+func (o *SetVolumeResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SetVolumeResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SetVolumeResponse) GetError() string {
+	return o.Error
+}
 
 /*
 GetMuteParams represents the params body for the "GetMute" request.
@@ -132,8 +218,17 @@ GetMuteParams represents the params body for the "GetMute" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetMute.
 */
 type GetMuteParams struct {
+	api.Params
+
 	// Source name.
 	Source string `json:"source"`
+}
+
+func (o *GetMuteParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetMuteParams) SetMessageID(x string) {
+	o.MessageID = x
 }
 
 /*
@@ -142,11 +237,23 @@ GetMuteResponse represents the response body for the "GetMute" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetMute.
 */
 type GetMuteResponse struct {
+	api.Response
+
 	// Mute status of the source.
 	Muted bool `json:"muted"`
 
 	// Source name.
 	Name string `json:"name"`
+}
+
+func (o *GetMuteResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetMuteResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetMuteResponse) GetError() string {
+	return o.Error
 }
 
 /*
@@ -155,6 +262,8 @@ SetMuteParams represents the params body for the "SetMute" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetMute.
 */
 type SetMuteParams struct {
+	api.Params
+
 	// Desired mute status.
 	Mute bool `json:"mute"`
 
@@ -162,12 +271,31 @@ type SetMuteParams struct {
 	Source string `json:"source"`
 }
 
+func (o *SetMuteParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SetMuteParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 SetMuteResponse represents the response body for the "SetMute" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetMute.
 */
-type SetMuteResponse struct{}
+type SetMuteResponse struct {
+	api.Response
+}
+
+func (o *SetMuteResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SetMuteResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SetMuteResponse) GetError() string {
+	return o.Error
+}
 
 /*
 ToggleMuteParams represents the params body for the "ToggleMute" request.
@@ -175,8 +303,17 @@ ToggleMuteParams represents the params body for the "ToggleMute" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleMute.
 */
 type ToggleMuteParams struct {
+	api.Params
+
 	// Source name.
 	Source string `json:"source"`
+}
+
+func (o *ToggleMuteParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *ToggleMuteParams) SetMessageID(x string) {
+	o.MessageID = x
 }
 
 /*
@@ -184,7 +321,19 @@ ToggleMuteResponse represents the response body for the "ToggleMute" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleMute.
 */
-type ToggleMuteResponse struct{}
+type ToggleMuteResponse struct {
+	api.Response
+}
+
+func (o *ToggleMuteResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *ToggleMuteResponse) GetStatus() string {
+	return o.Status
+}
+func (o *ToggleMuteResponse) GetError() string {
+	return o.Error
+}
 
 /*
 SetSyncOffsetParams represents the params body for the "SetSyncOffset" request.
@@ -192,6 +341,8 @@ SetSyncOffsetParams represents the params body for the "SetSyncOffset" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSyncOffset.
 */
 type SetSyncOffsetParams struct {
+	api.Params
+
 	// The desired audio sync offset (in nanoseconds).
 	Offset int `json:"offset"`
 
@@ -199,12 +350,31 @@ type SetSyncOffsetParams struct {
 	Source string `json:"source"`
 }
 
+func (o *SetSyncOffsetParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SetSyncOffsetParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 SetSyncOffsetResponse represents the response body for the "SetSyncOffset" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSyncOffset.
 */
-type SetSyncOffsetResponse struct{}
+type SetSyncOffsetResponse struct {
+	api.Response
+}
+
+func (o *SetSyncOffsetResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SetSyncOffsetResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SetSyncOffsetResponse) GetError() string {
+	return o.Error
+}
 
 /*
 GetSyncOffsetParams represents the params body for the "GetSyncOffset" request.
@@ -212,8 +382,17 @@ GetSyncOffsetParams represents the params body for the "GetSyncOffset" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSyncOffset.
 */
 type GetSyncOffsetParams struct {
+	api.Params
+
 	// Source name.
 	Source string `json:"source"`
+}
+
+func (o *GetSyncOffsetParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetSyncOffsetParams) SetMessageID(x string) {
+	o.MessageID = x
 }
 
 /*
@@ -222,11 +401,23 @@ GetSyncOffsetResponse represents the response body for the "GetSyncOffset" reque
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSyncOffset.
 */
 type GetSyncOffsetResponse struct {
+	api.Response
+
 	// Source name.
 	Name string `json:"name"`
 
 	// The audio sync offset (in nanoseconds).
 	Offset int `json:"offset"`
+}
+
+func (o *GetSyncOffsetResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetSyncOffsetResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetSyncOffsetResponse) GetError() string {
+	return o.Error
 }
 
 /*
@@ -235,6 +426,8 @@ GetSourceSettingsParams represents the params body for the "GetSourceSettings" r
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceSettings.
 */
 type GetSourceSettingsParams struct {
+	api.Params
+
 	// Source name.
 	SourceName string `json:"sourceName"`
 
@@ -243,12 +436,21 @@ type GetSourceSettingsParams struct {
 	SourceType string `json:"sourceType"`
 }
 
+func (o *GetSourceSettingsParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetSourceSettingsParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 GetSourceSettingsResponse represents the response body for the "GetSourceSettings" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceSettings.
 */
 type GetSourceSettingsResponse struct {
+	api.Response
+
 	// Source name
 	SourceName string `json:"sourceName"`
 
@@ -259,12 +461,24 @@ type GetSourceSettingsResponse struct {
 	SourceType string `json:"sourceType"`
 }
 
+func (o *GetSourceSettingsResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetSourceSettingsResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetSourceSettingsResponse) GetError() string {
+	return o.Error
+}
+
 /*
 SetSourceSettingsParams represents the params body for the "SetSourceSettings" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceSettings.
 */
 type SetSourceSettingsParams struct {
+	api.Params
+
 	// Source name.
 	SourceName string `json:"sourceName"`
 
@@ -276,12 +490,21 @@ type SetSourceSettingsParams struct {
 	SourceType string `json:"sourceType"`
 }
 
+func (o *SetSourceSettingsParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SetSourceSettingsParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 SetSourceSettingsResponse represents the response body for the "SetSourceSettings" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceSettings.
 */
 type SetSourceSettingsResponse struct {
+	api.Response
+
 	// Source name
 	SourceName string `json:"sourceName"`
 
@@ -292,14 +515,33 @@ type SetSourceSettingsResponse struct {
 	SourceType string `json:"sourceType"`
 }
 
+func (o *SetSourceSettingsResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SetSourceSettingsResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SetSourceSettingsResponse) GetError() string {
+	return o.Error
+}
+
 /*
 GetTextGDIPlusPropertiesParams represents the params body for the "GetTextGDIPlusProperties" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
 */
 type GetTextGDIPlusPropertiesParams struct {
+	api.Params
+
 	// Source name.
 	Source string `json:"source"`
+}
+
+func (o *GetTextGDIPlusPropertiesParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetTextGDIPlusPropertiesParams) SetMessageID(x string) {
+	o.MessageID = x
 }
 
 /*
@@ -308,6 +550,8 @@ GetTextGDIPlusPropertiesResponse represents the response body for the "GetTextGD
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
 */
 type GetTextGDIPlusPropertiesResponse struct {
+	api.Response
+
 	// Text Alignment ("left", "center", "right").
 	Align string `json:"align"`
 
@@ -392,12 +636,24 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Vertical bool `json:"vertical"`
 }
 
+func (o *GetTextGDIPlusPropertiesResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetTextGDIPlusPropertiesResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetTextGDIPlusPropertiesResponse) GetError() string {
+	return o.Error
+}
+
 /*
 SetTextGDIPlusPropertiesParams represents the params body for the "SetTextGDIPlusProperties" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
 */
 type SetTextGDIPlusPropertiesParams struct {
+	api.Params
+
 	// Text Alignment ("left", "center", "right").
 	Align string `json:"align"`
 
@@ -485,12 +741,31 @@ type SetTextGDIPlusPropertiesParams struct {
 	Vertical bool `json:"vertical"`
 }
 
+func (o *SetTextGDIPlusPropertiesParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SetTextGDIPlusPropertiesParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 SetTextGDIPlusPropertiesResponse represents the response body for the "SetTextGDIPlusProperties" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
 */
-type SetTextGDIPlusPropertiesResponse struct{}
+type SetTextGDIPlusPropertiesResponse struct {
+	api.Response
+}
+
+func (o *SetTextGDIPlusPropertiesResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SetTextGDIPlusPropertiesResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SetTextGDIPlusPropertiesResponse) GetError() string {
+	return o.Error
+}
 
 /*
 GetTextFreetype2PropertiesParams represents the params body for the "GetTextFreetype2Properties" request.
@@ -498,8 +773,17 @@ GetTextFreetype2PropertiesParams represents the params body for the "GetTextFree
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties.
 */
 type GetTextFreetype2PropertiesParams struct {
+	api.Params
+
 	// Source name.
 	Source string `json:"source"`
+}
+
+func (o *GetTextFreetype2PropertiesParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetTextFreetype2PropertiesParams) SetMessageID(x string) {
+	o.MessageID = x
 }
 
 /*
@@ -508,6 +792,8 @@ GetTextFreetype2PropertiesResponse represents the response body for the "GetText
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties.
 */
 type GetTextFreetype2PropertiesResponse struct {
+	api.Response
+
 	// Gradient top color.
 	Color1 int `json:"color1"`
 
@@ -556,12 +842,24 @@ type GetTextFreetype2PropertiesResponse struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
+func (o *GetTextFreetype2PropertiesResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetTextFreetype2PropertiesResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetTextFreetype2PropertiesResponse) GetError() string {
+	return o.Error
+}
+
 /*
 SetTextFreetype2PropertiesParams represents the params body for the "SetTextFreetype2Properties" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextFreetype2Properties.
 */
 type SetTextFreetype2PropertiesParams struct {
+	api.Params
+
 	// Gradient top color.
 	Color1 int `json:"color1"`
 
@@ -610,12 +908,31 @@ type SetTextFreetype2PropertiesParams struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
+func (o *SetTextFreetype2PropertiesParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SetTextFreetype2PropertiesParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 SetTextFreetype2PropertiesResponse represents the response body for the "SetTextFreetype2Properties" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextFreetype2Properties.
 */
-type SetTextFreetype2PropertiesResponse struct{}
+type SetTextFreetype2PropertiesResponse struct {
+	api.Response
+}
+
+func (o *SetTextFreetype2PropertiesResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SetTextFreetype2PropertiesResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SetTextFreetype2PropertiesResponse) GetError() string {
+	return o.Error
+}
 
 /*
 GetBrowserSourcePropertiesParams represents the params body for the "GetBrowserSourceProperties" request.
@@ -623,8 +940,17 @@ GetBrowserSourcePropertiesParams represents the params body for the "GetBrowserS
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties.
 */
 type GetBrowserSourcePropertiesParams struct {
+	api.Params
+
 	// Source name.
 	Source string `json:"source"`
+}
+
+func (o *GetBrowserSourcePropertiesParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetBrowserSourcePropertiesParams) SetMessageID(x string) {
+	o.MessageID = x
 }
 
 /*
@@ -633,6 +959,8 @@ GetBrowserSourcePropertiesResponse represents the response body for the "GetBrow
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties.
 */
 type GetBrowserSourcePropertiesResponse struct {
+	api.Response
+
 	// CSS to inject.
 	Css string `json:"css"`
 
@@ -661,12 +989,24 @@ type GetBrowserSourcePropertiesResponse struct {
 	Width int `json:"width"`
 }
 
+func (o *GetBrowserSourcePropertiesResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetBrowserSourcePropertiesResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetBrowserSourcePropertiesResponse) GetError() string {
+	return o.Error
+}
+
 /*
 SetBrowserSourcePropertiesParams represents the params body for the "SetBrowserSourceProperties" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetBrowserSourceProperties.
 */
 type SetBrowserSourcePropertiesParams struct {
+	api.Params
+
 	// CSS to inject.
 	Css string `json:"css"`
 
@@ -698,19 +1038,47 @@ type SetBrowserSourcePropertiesParams struct {
 	Width int `json:"width"`
 }
 
+func (o *SetBrowserSourcePropertiesParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SetBrowserSourcePropertiesParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 SetBrowserSourcePropertiesResponse represents the response body for the "SetBrowserSourceProperties" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetBrowserSourceProperties.
 */
-type SetBrowserSourcePropertiesResponse struct{}
+type SetBrowserSourcePropertiesResponse struct {
+	api.Response
+}
+
+func (o *SetBrowserSourcePropertiesResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SetBrowserSourcePropertiesResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SetBrowserSourcePropertiesResponse) GetError() string {
+	return o.Error
+}
 
 /*
 GetSpecialSourcesParams represents the params body for the "GetSpecialSources" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSpecialSources.
 */
-type GetSpecialSourcesParams struct{}
+type GetSpecialSourcesParams struct {
+	api.Params
+}
+
+func (o *GetSpecialSourcesParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetSpecialSourcesParams) SetMessageID(x string) {
+	o.MessageID = x
+}
 
 /*
 GetSpecialSourcesResponse represents the response body for the "GetSpecialSources" request.
@@ -718,6 +1086,8 @@ GetSpecialSourcesResponse represents the response body for the "GetSpecialSource
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSpecialSources.
 */
 type GetSpecialSourcesResponse struct {
+	api.Response
+
 	// Name of the first Desktop Audio capture source.
 	Desktop1 string `json:"desktop-1"`
 
@@ -734,14 +1104,33 @@ type GetSpecialSourcesResponse struct {
 	Mic3 string `json:"mic-3"`
 }
 
+func (o *GetSpecialSourcesResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetSpecialSourcesResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetSpecialSourcesResponse) GetError() string {
+	return o.Error
+}
+
 /*
 GetSourceFiltersParams represents the params body for the "GetSourceFilters" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceFilters.
 */
 type GetSourceFiltersParams struct {
+	api.Params
+
 	// Source name
 	SourceName string `json:"sourceName"`
+}
+
+func (o *GetSourceFiltersParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetSourceFiltersParams) SetMessageID(x string) {
+	o.MessageID = x
 }
 
 /*
@@ -750,6 +1139,8 @@ GetSourceFiltersResponse represents the response body for the "GetSourceFilters"
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceFilters.
 */
 type GetSourceFiltersResponse struct {
+	api.Response
+
 	Filters []struct {
 		// Filter name
 		Name string `json:"name"`
@@ -762,12 +1153,24 @@ type GetSourceFiltersResponse struct {
 	} `json:"filters"`
 }
 
+func (o *GetSourceFiltersResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetSourceFiltersResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetSourceFiltersResponse) GetError() string {
+	return o.Error
+}
+
 /*
 AddFilterToSourceParams represents the params body for the "AddFilterToSource" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#AddFilterToSource.
 */
 type AddFilterToSourceParams struct {
+	api.Params
+
 	// Name of the new filter
 	FilterName string `json:"filterName"`
 
@@ -781,12 +1184,31 @@ type AddFilterToSourceParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+func (o *AddFilterToSourceParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *AddFilterToSourceParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 AddFilterToSourceResponse represents the response body for the "AddFilterToSource" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#AddFilterToSource.
 */
-type AddFilterToSourceResponse struct{}
+type AddFilterToSourceResponse struct {
+	api.Response
+}
+
+func (o *AddFilterToSourceResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *AddFilterToSourceResponse) GetStatus() string {
+	return o.Status
+}
+func (o *AddFilterToSourceResponse) GetError() string {
+	return o.Error
+}
 
 /*
 RemoveFilterFromSourceParams represents the params body for the "RemoveFilterFromSource" request.
@@ -794,6 +1216,8 @@ RemoveFilterFromSourceParams represents the params body for the "RemoveFilterFro
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource.
 */
 type RemoveFilterFromSourceParams struct {
+	api.Params
+
 	// Name of the filter to remove
 	FilterName string `json:"filterName"`
 
@@ -801,12 +1225,31 @@ type RemoveFilterFromSourceParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+func (o *RemoveFilterFromSourceParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *RemoveFilterFromSourceParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 RemoveFilterFromSourceResponse represents the response body for the "RemoveFilterFromSource" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource.
 */
-type RemoveFilterFromSourceResponse struct{}
+type RemoveFilterFromSourceResponse struct {
+	api.Response
+}
+
+func (o *RemoveFilterFromSourceResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *RemoveFilterFromSourceResponse) GetStatus() string {
+	return o.Status
+}
+func (o *RemoveFilterFromSourceResponse) GetError() string {
+	return o.Error
+}
 
 /*
 ReorderSourceFilterParams represents the params body for the "ReorderSourceFilter" request.
@@ -814,6 +1257,8 @@ ReorderSourceFilterParams represents the params body for the "ReorderSourceFilte
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSourceFilter.
 */
 type ReorderSourceFilterParams struct {
+	api.Params
+
 	// Name of the filter to reorder
 	FilterName string `json:"filterName"`
 
@@ -824,12 +1269,31 @@ type ReorderSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+func (o *ReorderSourceFilterParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *ReorderSourceFilterParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 ReorderSourceFilterResponse represents the response body for the "ReorderSourceFilter" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSourceFilter.
 */
-type ReorderSourceFilterResponse struct{}
+type ReorderSourceFilterResponse struct {
+	api.Response
+}
+
+func (o *ReorderSourceFilterResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *ReorderSourceFilterResponse) GetStatus() string {
+	return o.Status
+}
+func (o *ReorderSourceFilterResponse) GetError() string {
+	return o.Error
+}
 
 /*
 MoveSourceFilterParams represents the params body for the "MoveSourceFilter" request.
@@ -837,6 +1301,8 @@ MoveSourceFilterParams represents the params body for the "MoveSourceFilter" req
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter.
 */
 type MoveSourceFilterParams struct {
+	api.Params
+
 	// Name of the filter to reorder
 	FilterName string `json:"filterName"`
 
@@ -848,12 +1314,31 @@ type MoveSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+func (o *MoveSourceFilterParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *MoveSourceFilterParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 MoveSourceFilterResponse represents the response body for the "MoveSourceFilter" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter.
 */
-type MoveSourceFilterResponse struct{}
+type MoveSourceFilterResponse struct {
+	api.Response
+}
+
+func (o *MoveSourceFilterResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *MoveSourceFilterResponse) GetStatus() string {
+	return o.Status
+}
+func (o *MoveSourceFilterResponse) GetError() string {
+	return o.Error
+}
 
 /*
 SetSourceFilterSettingsParams represents the params body for the "SetSourceFilterSettings" request.
@@ -861,6 +1346,8 @@ SetSourceFilterSettingsParams represents the params body for the "SetSourceFilte
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceFilterSettings.
 */
 type SetSourceFilterSettingsParams struct {
+	api.Params
+
 	// Name of the filter to reconfigure
 	FilterName string `json:"filterName"`
 
@@ -871,9 +1358,28 @@ type SetSourceFilterSettingsParams struct {
 	SourceName string `json:"sourceName"`
 }
 
+func (o *SetSourceFilterSettingsParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SetSourceFilterSettingsParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 SetSourceFilterSettingsResponse represents the response body for the "SetSourceFilterSettings" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceFilterSettings.
 */
-type SetSourceFilterSettingsResponse struct{}
+type SetSourceFilterSettingsResponse struct {
+	api.Response
+}
+
+func (o *SetSourceFilterSettingsResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SetSourceFilterSettingsResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SetSourceFilterSettingsResponse) GetError() string {
+	return o.Error
+}

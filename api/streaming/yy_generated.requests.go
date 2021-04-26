@@ -2,12 +2,23 @@
 
 package streaming
 
+import api "github.com/andreykaipov/goobs/api"
+
 /*
 GetStreamingStatusParams represents the params body for the "GetStreamingStatus" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamingStatus.
 */
-type GetStreamingStatusParams struct{}
+type GetStreamingStatusParams struct {
+	api.Params
+}
+
+func (o *GetStreamingStatusParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetStreamingStatusParams) SetMessageID(x string) {
+	o.MessageID = x
+}
 
 /*
 GetStreamingStatusResponse represents the response body for the "GetStreamingStatus" request.
@@ -15,6 +26,8 @@ GetStreamingStatusResponse represents the response body for the "GetStreamingSta
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamingStatus.
 */
 type GetStreamingStatusResponse struct {
+	api.Response
+
 	// Always false. Retrocompatibility with OBSRemote.
 	PreviewOnly bool `json:"preview-only"`
 
@@ -31,19 +44,50 @@ type GetStreamingStatusResponse struct {
 	Streaming bool `json:"streaming"`
 }
 
+func (o *GetStreamingStatusResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetStreamingStatusResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetStreamingStatusResponse) GetError() string {
+	return o.Error
+}
+
 /*
 StartStopStreamingParams represents the params body for the "StartStopStreaming" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopStreaming.
 */
-type StartStopStreamingParams struct{}
+type StartStopStreamingParams struct {
+	api.Params
+}
+
+func (o *StartStopStreamingParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *StartStopStreamingParams) SetMessageID(x string) {
+	o.MessageID = x
+}
 
 /*
 StartStopStreamingResponse represents the response body for the "StartStopStreaming" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopStreaming.
 */
-type StartStopStreamingResponse struct{}
+type StartStopStreamingResponse struct {
+	api.Response
+}
+
+func (o *StartStopStreamingResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *StartStopStreamingResponse) GetStatus() string {
+	return o.Status
+}
+func (o *StartStopStreamingResponse) GetError() string {
+	return o.Error
+}
 
 /*
 StartStreamingParams represents the params body for the "StartStreaming" request.
@@ -51,6 +95,8 @@ StartStreamingParams represents the params body for the "StartStreaming" request
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStreaming.
 */
 type StartStreamingParams struct {
+	api.Params
+
 	Stream struct {
 		// Adds the given object parameters as encoded query string parameters to the 'key' of the
 		// RTMP stream. Used to pass data to the RTMP service about the streaming. May be any
@@ -85,26 +131,66 @@ type StartStreamingParams struct {
 	} `json:"stream"`
 }
 
+func (o *StartStreamingParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *StartStreamingParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 StartStreamingResponse represents the response body for the "StartStreaming" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStreaming.
 */
-type StartStreamingResponse struct{}
+type StartStreamingResponse struct {
+	api.Response
+}
+
+func (o *StartStreamingResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *StartStreamingResponse) GetStatus() string {
+	return o.Status
+}
+func (o *StartStreamingResponse) GetError() string {
+	return o.Error
+}
 
 /*
 StopStreamingParams represents the params body for the "StopStreaming" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopStreaming.
 */
-type StopStreamingParams struct{}
+type StopStreamingParams struct {
+	api.Params
+}
+
+func (o *StopStreamingParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *StopStreamingParams) SetMessageID(x string) {
+	o.MessageID = x
+}
 
 /*
 StopStreamingResponse represents the response body for the "StopStreaming" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopStreaming.
 */
-type StopStreamingResponse struct{}
+type StopStreamingResponse struct {
+	api.Response
+}
+
+func (o *StopStreamingResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *StopStreamingResponse) GetStatus() string {
+	return o.Status
+}
+func (o *StopStreamingResponse) GetError() string {
+	return o.Error
+}
 
 /*
 SetStreamSettingsParams represents the params body for the "SetStreamSettings" request.
@@ -112,6 +198,8 @@ SetStreamSettingsParams represents the params body for the "SetStreamSettings" r
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetStreamSettings.
 */
 type SetStreamSettingsParams struct {
+	api.Params
+
 	// Persist the settings to disk.
 	Save bool `json:"save"`
 
@@ -136,19 +224,47 @@ type SetStreamSettingsParams struct {
 	Type string `json:"type"`
 }
 
+func (o *SetStreamSettingsParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SetStreamSettingsParams) SetMessageID(x string) {
+	o.MessageID = x
+}
+
 /*
 SetStreamSettingsResponse represents the response body for the "SetStreamSettings" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetStreamSettings.
 */
-type SetStreamSettingsResponse struct{}
+type SetStreamSettingsResponse struct {
+	api.Response
+}
+
+func (o *SetStreamSettingsResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SetStreamSettingsResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SetStreamSettingsResponse) GetError() string {
+	return o.Error
+}
 
 /*
 GetStreamSettingsParams represents the params body for the "GetStreamSettings" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamSettings.
 */
-type GetStreamSettingsParams struct{}
+type GetStreamSettingsParams struct {
+	api.Params
+}
+
+func (o *GetStreamSettingsParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *GetStreamSettingsParams) SetMessageID(x string) {
+	o.MessageID = x
+}
 
 /*
 GetStreamSettingsResponse represents the response body for the "GetStreamSettings" request.
@@ -156,6 +272,8 @@ GetStreamSettingsResponse represents the response body for the "GetStreamSetting
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamSettings.
 */
 type GetStreamSettingsResponse struct {
+	api.Response
+
 	Settings struct {
 		// The publish key of the stream.
 		Key string `json:"key"`
@@ -179,16 +297,47 @@ type GetStreamSettingsResponse struct {
 	Type string `json:"type"`
 }
 
+func (o *GetStreamSettingsResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *GetStreamSettingsResponse) GetStatus() string {
+	return o.Status
+}
+func (o *GetStreamSettingsResponse) GetError() string {
+	return o.Error
+}
+
 /*
 SaveStreamSettingsParams represents the params body for the "SaveStreamSettings" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveStreamSettings.
 */
-type SaveStreamSettingsParams struct{}
+type SaveStreamSettingsParams struct {
+	api.Params
+}
+
+func (o *SaveStreamSettingsParams) GetRequestType() string {
+	return o.RequestType
+}
+func (o *SaveStreamSettingsParams) SetMessageID(x string) {
+	o.MessageID = x
+}
 
 /*
 SaveStreamSettingsResponse represents the response body for the "SaveStreamSettings" request.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveStreamSettings.
 */
-type SaveStreamSettingsResponse struct{}
+type SaveStreamSettingsResponse struct {
+	api.Response
+}
+
+func (o *SaveStreamSettingsResponse) GetMessageID() string {
+	return o.MessageID
+}
+func (o *SaveStreamSettingsResponse) GetStatus() string {
+	return o.Status
+}
+func (o *SaveStreamSettingsResponse) GetError() string {
+	return o.Error
+}

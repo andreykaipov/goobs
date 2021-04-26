@@ -8,7 +8,7 @@ type GetSourcesListResponse struct {
 		Name   string `json:"name"`
 		Type   string `json:"type"`
 		TypeId string `json:"typeId"`
-	}
+	} `json:"sources"`
 }
 type GetSourcesTypesListParams struct{}
 type GetSourcesTypesListResponse struct {
@@ -21,12 +21,12 @@ type GetSourcesTypesListResponse struct {
 			HasVideo         bool `json:"hasVideo"`
 			IsAsync          bool `json:"isAsync"`
 			IsComposite      bool `json:"isComposite"`
-		}
+		} `json:"caps"`
 		DefaultSettings map[string]interface{} `json:"defaultSettings"`
 		DisplayName     string                 `json:"displayName"`
 		Type            string                 `json:"type"`
 		TypeId          string                 `json:"typeId"`
-	}
+	} `json:"ids"`
 }
 type GetVolumeParams struct {
 	Source string `json:"source"`
@@ -107,7 +107,7 @@ type GetTextGDIPlusPropertiesResponse struct {
 		Flags int    `json:"flags"`
 		Size  int    `json:"size"`
 		Style string `json:"style"`
-	}
+	} `json:"font"`
 	Gradient        bool    `json:"gradient"`
 	GradientColor   int     `json:"gradient_color"`
 	GradientDir     float64 `json:"gradient_dir"`
@@ -138,7 +138,7 @@ type SetTextGDIPlusPropertiesParams struct {
 		Flags int    `json:"flags"`
 		Size  int    `json:"size"`
 		Style string `json:"style"`
-	}
+	} `json:"font"`
 	Gradient        bool    `json:"gradient"`
 	GradientColor   int     `json:"gradient_color"`
 	GradientDir     float64 `json:"gradient_dir"`
@@ -168,7 +168,7 @@ type GetTextFreetype2PropertiesResponse struct {
 		Flags int    `json:"flags"`
 		Size  int    `json:"size"`
 		Style string `json:"style"`
-	}
+	} `json:"font"`
 	FromFile bool   `json:"from_file"`
 	LogMode  bool   `json:"log_mode"`
 	Outline  bool   `json:"outline"`
@@ -187,7 +187,7 @@ type SetTextFreetype2PropertiesParams struct {
 		Flags int    `json:"flags"`
 		Size  int    `json:"size"`
 		Style string `json:"style"`
-	}
+	} `json:"font"`
 	FromFile bool   `json:"from_file"`
 	LogMode  bool   `json:"log_mode"`
 	Outline  bool   `json:"outline"`
@@ -240,7 +240,7 @@ type GetSourceFiltersResponse struct {
 		Name     string                 `json:"name"`
 		Settings map[string]interface{} `json:"settings"`
 		Type     string                 `json:"type"`
-	}
+	} `json:"filters"`
 }
 type AddFilterToSourceParams struct {
 	FilterName     string                 `json:"filterName"`

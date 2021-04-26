@@ -19,7 +19,7 @@ type TransitionToProgramParams struct {
 	WithTransition struct {
 		Duration int    `json:"duration"`
 		Name     string `json:"name"`
-	}
+	} `json:"with-transition"`
 }
 type TransitionToProgramResponse struct{}
 type EnableStudioModeParams struct{}

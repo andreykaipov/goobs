@@ -21,9 +21,9 @@ type StartStreamingParams struct {
 			Server   string `json:"server"`
 			UseAuth  bool   `json:"use-auth"`
 			Username string `json:"username"`
-		}
+		} `json:"settings"`
 		Type string `json:"type"`
-	}
+	} `json:"stream"`
 }
 type StartStreamingResponse struct{}
 type StopStreamingParams struct{}
@@ -36,7 +36,7 @@ type SetStreamSettingsParams struct {
 		Server   string `json:"server"`
 		UseAuth  bool   `json:"use-auth"`
 		Username string `json:"username"`
-	}
+	} `json:"settings"`
 	Type string `json:"type"`
 }
 type SetStreamSettingsResponse struct{}
@@ -48,7 +48,7 @@ type GetStreamSettingsResponse struct {
 		Server   string `json:"server"`
 		UseAuth  bool   `json:"use-auth"`
 		Username string `json:"username"`
-	}
+	} `json:"settings"`
 	Type string `json:"type"`
 }
 type SaveStreamSettingsParams struct{}

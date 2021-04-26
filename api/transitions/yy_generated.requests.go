@@ -7,7 +7,7 @@ type GetTransitionListResponse struct {
 	CurrentTransition string `json:"current-transition"`
 	Transitions       []struct {
 		Name string `json:"name"`
-	}
+	} `json:"transitions"`
 }
 type GetCurrentTransitionParams struct{}
 type GetCurrentTransitionResponse struct {

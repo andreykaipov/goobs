@@ -10,28 +10,25 @@ import (
 )
 
 type keyInfo struct {
-	Type    jen.Code
-	Comment string
+	Type      jen.Code
+	Comment   string
+	NoJSONTag bool
+	Embedded  bool
 }
 
-func parseJenKeysAsMap(lines map[string]jen.Code, comments ...map[string]string) (map[string]interface{}, error) {
+func parseJenKeysAsMap(lines map[string]keyInfo) (map[string]interface{}, error) {
 	// e.g. keeps a reference from a.b to the corresponding struct
 	mapReferences := map[string]map[string]interface{}{}
 
 	for _, line := range sortedKeys(lines) {
-		comment := ""
-		if len(comments) == 1 {
-			comment = comments[0][line]
-		}
-
-		typ3 := lines[line]
+		typ3 := lines[line].Type
 
 		// prepend $. so the following loop always runs even for parts
 		// with no dots, and replace [] as .* for legacy interpretations
 		// of slices
-		line = "$." + strings.ReplaceAll(line, "[]", ".*")
+		lineMod := "$." + strings.ReplaceAll(line, "[]", ".*")
 
-		parts := strings.Split(line, ".")
+		parts := strings.Split(lineMod, ".")
 
 		var m map[string]interface{}
 		var ok bool
@@ -62,10 +59,7 @@ func parseJenKeysAsMap(lines map[string]jen.Code, comments ...map[string]string)
 			return nil, fmt.Errorf("2: wanted to terminate '%s' at '%#v', but it was already parsed as '%#T'", line, typ3, val)
 		}
 
-		m[lastPart] = keyInfo{
-			Type:    typ3,
-			Comment: comment,
-		}
+		m[lastPart] = lines[line]
 	}
 
 	final := map[string]interface{}{}
@@ -78,8 +72,8 @@ func parseJenKeysAsMap(lines map[string]jen.Code, comments ...map[string]string)
 	return final, nil
 }
 
-func parseJenKeysAsStruct(name string, lines map[string]jen.Code, comments ...map[string]string) (*jen.Statement, error) {
-	m, err := parseJenKeysAsMap(lines, comments...)
+func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement, error) {
+	m, err := parseJenKeysAsMap(lines)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +113,18 @@ func parseJenKeysAsStruct(name string, lines map[string]jen.Code, comments ...ma
 			if t.Comment != "" {
 				g.Comment(t.Comment)
 			}
-			g.Add(jen.Id(pascal(parent)).Add(t.Type).Do(addTag(parent)))
+			g.Do(func(s *jen.Statement) {
+				if t.Embedded {
+					t.NoJSONTag = true
+				} else {
+					s.Id(pascal(parent))
+				}
+				s.Add(t.Type)
+				if t.NoJSONTag {
+					return
+				}
+				s.Do(addTag(parent))
+			})
 		default:
 			panic("unhandled case idk")
 		}
@@ -144,12 +149,14 @@ func sortedKeys(m interface{}) []string {
 			sorted[i] = k
 			i++
 		}
-	case map[string]jen.Code:
+	case map[string]keyInfo:
 		sorted = make([]string, len(t))
 		for k := range t {
 			sorted[i] = k
 			i++
 		}
+	default:
+		panic("unhandled slice for sortedKeys")
 	}
 
 	sort.Strings(sorted)

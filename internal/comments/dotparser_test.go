@@ -30,82 +30,109 @@ func assertJenStruct(t *testing.T, s *jen.Statement, err error) {
 }
 
 func Test_parseKeysAsJenStruct_basic_1(t *testing.T) {
-	statement, err := parseJenKeysAsStruct("StartStreamingRequest", map[string]jen.Code{
-		"stream":                   jen.Map(jen.String()).Interface(),
-		"stream.type":              jen.Int(),
-		"stream.metadata":          jen.Map(jen.String()).Interface(),
-		"stream.settings":          jen.Map(jen.String()).Interface(),
-		"stream.settings.server":   jen.String(),
-		"stream.settings.key":      jen.String(),
-		"stream.settings.use-auth": jen.Bool(),
-		"stream.settings.username": jen.String(),
-		"stream.settings.password": jen.String(),
+	statement, err := parseJenKeysAsStruct("StartStreamingRequest", map[string]keyInfo{
+		"stream":                   keyInfo{Type: jen.Map(jen.String()).Interface()},
+		"stream.type":              keyInfo{Type: jen.Int()},
+		"stream.metadata":          keyInfo{Type: jen.Map(jen.String()).Interface()},
+		"stream.settings":          keyInfo{Type: jen.Map(jen.String()).Interface()},
+		"stream.settings.server":   keyInfo{Type: jen.String()},
+		"stream.settings.key":      keyInfo{Type: jen.String()},
+		"stream.settings.use-auth": keyInfo{Type: jen.Bool()},
+		"stream.settings.username": keyInfo{Type: jen.String()},
+		"stream.settings.password": keyInfo{Type: jen.String()},
 	})
 
 	assertJenStruct(t, statement, err)
 }
 
 func Test_parseKeysAsJenStruct_basic_2(t *testing.T) {
-	statement, err := parseJenKeysAsStruct("IDK", map[string]jen.Code{
-		"A.B": jen.String(),
-		"C.D": jen.String(),
+	statement, err := parseJenKeysAsStruct("IDK", map[string]keyInfo{
+		"A.B": keyInfo{Type: jen.String()},
+		"C.D": keyInfo{Type: jen.String()},
 	})
 
 	assertJenStruct(t, statement, err)
 }
 
 func Test_parseKeysAsJenStruct_basic_3(t *testing.T) {
-	statement, err := parseJenKeysAsStruct("Ugh", map[string]jen.Code{
-		"a":   jen.String(),
-		"b":   jen.String(),
-		"c.d": jen.Int(),
-	}, map[string]string{
-		"a":   "hello",
-		"b":   "hi",
-		"c.d": "bye",
+	statement, err := parseJenKeysAsStruct("Ugh", map[string]keyInfo{
+		"a": keyInfo{
+			Type:    jen.String(),
+			Comment: "hello",
+		},
+		"b": keyInfo{
+			Type:    jen.String(),
+			Comment: "hi",
+		},
+		"c.d": keyInfo{
+			Type:    jen.Int(),
+			Comment: "bye",
+		},
 	})
 
 	assertJenStruct(t, statement, err)
 }
 
 func Test_parseKeysAsJenStruct_slices(t *testing.T) {
-	statement, err := parseJenKeysAsStruct("GetSourcesListRequest", map[string]jen.Code{
-		"Sources":          jen.Index().Map(jen.String()).Interface(),
-		"Sources.*.Name":   jen.String(),
-		"Sources.*.TypeId": jen.String(),
-		"Sources.*.Type":   jen.String(),
+	statement, err := parseJenKeysAsStruct("GetSourcesListRequest", map[string]keyInfo{
+		"Sources":          keyInfo{Type: jen.Index().Map(jen.String()).Interface()},
+		"Sources.*.Name":   keyInfo{Type: jen.String()},
+		"Sources.*.TypeId": keyInfo{Type: jen.String()},
+		"Sources.*.Type":   keyInfo{Type: jen.String()},
 	})
 
 	assertJenStruct(t, statement, err)
 }
 
 func Test_parseKeysAsJenStruct_slices_nested(t *testing.T) {
-	statement, err := parseJenKeysAsStruct("GetSourcesTypesListResponse", map[string]jen.Code{
-		"Ids":                         jen.Index().Map(jen.String()).Interface(),
-		"Ids.*.TypeId":                jen.String(),
-		"Ids.*.DisplayName":           jen.String(),
-		"Ids.*.Type":                  jen.String(),
-		"Ids.*.DefaultSettings":       jen.Map(jen.String()).Interface(),
-		"Ids.*.Caps":                  jen.Map(jen.String()).Interface(),
-		"Ids.*.Caps.IsAsync":          jen.Bool(),
-		"Ids.*.Caps.HasVideo":         jen.Bool(),
-		"Ids.*.Caps.HasAudio":         jen.Bool(),
-		"Ids.*.Caps.CanInteract":      jen.Bool(),
-		"Ids.*.Caps.IsComposite":      jen.Bool(),
-		"Ids.*.Caps.DoNotDuplicate":   jen.Bool(),
-		"Ids.*.Caps.DoNotSelfMonitor": jen.Bool(),
-		"Ids.*.Caps.Extra.*.Wow":      jen.Bool(),
-		"Ids.*.Caps.Extra.*.Poopy":    jen.Bool(),
+	statement, err := parseJenKeysAsStruct("GetSourcesTypesListResponse", map[string]keyInfo{
+		"Ids":                         keyInfo{Type: jen.Index().Map(jen.String()).Interface()},
+		"Ids.*.TypeId":                keyInfo{Type: jen.String()},
+		"Ids.*.DisplayName":           keyInfo{Type: jen.String()},
+		"Ids.*.Type":                  keyInfo{Type: jen.String()},
+		"Ids.*.DefaultSettings":       keyInfo{Type: jen.Map(jen.String()).Interface()},
+		"Ids.*.Caps":                  keyInfo{Type: jen.Map(jen.String()).Interface()},
+		"Ids.*.Caps.IsAsync":          keyInfo{Type: jen.Bool()},
+		"Ids.*.Caps.HasVideo":         keyInfo{Type: jen.Bool()},
+		"Ids.*.Caps.HasAudio":         keyInfo{Type: jen.Bool()},
+		"Ids.*.Caps.CanInteract":      keyInfo{Type: jen.Bool()},
+		"Ids.*.Caps.IsComposite":      keyInfo{Type: jen.Bool()},
+		"Ids.*.Caps.DoNotDuplicate":   keyInfo{Type: jen.Bool()},
+		"Ids.*.Caps.DoNotSelfMonitor": keyInfo{Type: jen.Bool()},
+		"Ids.*.Caps.Extra.*.Wow":      keyInfo{Type: jen.Bool()},
+		"Ids.*.Caps.Extra.*.Poopy":    keyInfo{Type: jen.Bool()},
 	})
 
 	assertJenStruct(t, statement, err)
 }
 
 func Test_parseKeysAsJenStruct_slices_legacy(t *testing.T) {
-	statement, err := parseJenKeysAsStruct("ReorderSceneItemsRequest_Legacy", map[string]jen.Code{
-		"Items":        jen.Index().Map(jen.String()).Interface(),
-		"Items[].Id":   jen.Int(),
-		"Items[].Name": jen.String(),
+	statement, err := parseJenKeysAsStruct("ReorderSceneItemsRequest_Legacy", map[string]keyInfo{
+		"Items":        keyInfo{Type: jen.Index().Map(jen.String()).Interface()},
+		"Items[].Id":   keyInfo{Type: jen.Int()},
+		"Items[].Name": keyInfo{Type: jen.String()},
+	})
+
+	assertJenStruct(t, statement, err)
+}
+
+func Test_parseKeysAsJenStruct_interfaces_1(t *testing.T) {
+	statement, err := parseJenKeysAsStruct("Interfaces1", map[string]keyInfo{
+		"a.my_interface": keyInfo{
+			Type:      jen.Id("Interface"),
+			NoJSONTag: true,
+		},
+	})
+
+	assertJenStruct(t, statement, err)
+}
+
+func Test_parseKeysAsJenStruct_embedded_1(t *testing.T) {
+	statement, err := parseJenKeysAsStruct("Embedded1", map[string]keyInfo{
+		"a.b": keyInfo{
+			Type:     jen.Id("EmbeddedDummy"),
+			Embedded: true,
+		},
 	})
 
 	assertJenStruct(t, statement, err)

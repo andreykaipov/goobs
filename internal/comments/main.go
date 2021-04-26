@@ -91,10 +91,13 @@ func main() {
 				continue
 			}
 
-			for k, v := range map[string][]*Param{
+			// predictable for loop
+			params := map[string][]*Param{
 				"Params":   request.Params,
 				"Response": request.Returns,
-			} {
+			}
+			for _, k := range []string{"Params", "Response"} {
+				v := params[k]
 				structName := request.Name + k
 				comment := fmt.Sprintf("%[1]s contains the request body for the [%[2]s](https://github.com/Palakis/obs-websocket/blob/%[3]s/docs/generated/protocol.md#%[2]s) request.", structName, request.Name, version)
 				structDef, err := parseParamsAsStruct(structName, v)

@@ -91,27 +91,15 @@ func main() {
 				continue
 			}
 
-			// predictable for loop
-			params := map[string][]*Param{
-				"Params":   request.Params,
-				"Response": request.Returns,
+			s, err := generateRequest(request)
+			if err != nil {
+				panic(err)
 			}
-			for _, k := range []string{"Params", "Response"} {
-				v := params[k]
-				structName := request.Name + k
-				comment := fmt.Sprintf(
-					"%[1]s represents the %[2]s body for the %[3]q request.\n\n"+
-						"Generated from https://github.com/Palakis/obs-websocket/blob/%[4]s/docs/generated/protocol.md#%[3]s.",
-					structName, strings.ToLower(k), request.Name, version,
-				)
-				structDef, err := parseParamsAsStruct(structName, v)
-				if err != nil {
-					panic(fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, category))
-				}
-				requests.Comment(comment)
-				requests.Add(structDef)
-			}
+
+			requests.Add(s)
 		}
+
+		// Write the requests file for the category
 		if err := requests.Save(fmt.Sprintf("%s/yy_generated.requests.go", dir)); err != nil {
 			panic(err)
 		}
@@ -128,16 +116,71 @@ func main() {
 	}
 }
 
+func generateGetter(strukt, name string) *Statement {
+	name = strings.Title(name)
+
+	return Func().Params(Id("o").Op("*").Id(strukt)).Id("Get" + name).Params().String().Block(
+		Return(Id("o").Dot(name)),
+	).Line()
+}
+
+func generateSetter(strukt, name string) *Statement {
+	name = strings.Title(name)
+
+	return Func().Params(Id("o").Op("*").Id(strukt)).Id("Set" + name).Params(Id("x").String()).Block(
+		Id("o").Dot(name).Op("=").Id("x"),
+	).Line()
+}
+
+func generateRequest(request *Request) (s *Statement, err error) {
+	var structName string
+	s = Line()
+	note := fmt.Sprintf("Generated from https://github.com/Palakis/obs-websocket/blob/%s/docs/generated/protocol.md#%s.", version, request.Name)
+
+	// Params
+	structName = request.Name + "Params"
+	s.Comment(fmt.Sprintf("%1s represents the params body for the %q request.\n\n%s", structName, request.Name, note)).Line()
+	request.Params = append(request.Params, &Param{Name: "Params", Type: "~params~"}) // internal type
+	if err = genStructFromParams(s, structName, request.Params); err != nil {
+		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, request.Category)
+	}
+
+	// satisfy the paramsBehavior interface
+	s.Add(
+		generateGetter(structName, "RequestType"),
+		generateSetter(structName, "MessageID"),
+	)
+
+	// Returns
+	structName = request.Name + "Response"
+	s.Comment(fmt.Sprintf("%1s represents the response body for the %q request.\n\n%s", structName, request.Name, note)).Line()
+	request.Returns = append(request.Returns, &Param{Name: "Response", Type: "~params~"}) // internal type
+	if err = genStructFromParams(s, structName, request.Returns); err != nil {
+		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, request.Category)
+	}
+
+	// satisfy the responseBehavior interface
+	s.Add(
+		generateGetter(structName, "MessageID"),
+		generateGetter(structName, "Status"),
+		generateGetter(structName, "Error"),
+	)
+
+	return s, nil
+}
+
 // parses "Params" or "Requests" fields from requests or event
-func parseParamsAsStruct(name string, params []*Param) (*Statement, error) {
-	keysToJenType := map[string]Code{}
-	keysToComments := map[string]string{}
+func genStructFromParams(s *Statement, name string, params []*Param) error {
+	keysInfo := map[string]keyInfo{}
 
 	for _, field := range params {
 		fieldName, err := sanitizeText(field.Name)
 		if err != nil {
-			return nil, fmt.Errorf("Failed sanitizing field %#v", field)
+			return fmt.Errorf("Failed sanitizing field %#v", field)
 		}
+
+		noJSONTag := false
+		embedded := false
 
 		var fieldType *Statement
 		switch strings.Trim(strings.ReplaceAll(field.Type, "(optional)", ""), " ") {
@@ -169,20 +212,34 @@ func parseParamsAsStruct(name string, params []*Param) (*Statement, error) {
 			fieldType = Index().Map(String()).Interface()
 		case "Scene|Array":
 			fieldType = Index().Map(String()).Interface()
+		case "~params~":
+			fieldType = Qual("github.com/andreykaipov/goobs/api", field.Name)
+			embedded = true
 		default:
 			panic(fmt.Errorf("%s is a weird type", field.Name))
 		}
 
-		keysToJenType[fieldName] = fieldType
-		keysToComments[fieldName] = field.Description
+		// TODO remove in 4.9.0
+		if strings.Contains(fieldName, "position") {
+			fieldType = Float64()
+		}
+
+		keysInfo[fieldName] = keyInfo{
+			Type:      fieldType,
+			Comment:   field.Description,
+			NoJSONTag: noJSONTag,
+			Embedded:  embedded,
+		}
 	}
 
-	statement, err := parseJenKeysAsStruct(name, keysToJenType, keysToComments)
+	statement, err := parseJenKeysAsStruct(name, keysInfo)
 	if err != nil {
-		return nil, fmt.Errorf("Failed parsing dotted key: %s", err)
+		return fmt.Errorf("Failed parsing dotted key: %s", err)
 	}
 
-	return statement, nil
+	s.Add(statement)
+
+	return nil
 }
 
 func sanitizeText(text string) (string, error) {

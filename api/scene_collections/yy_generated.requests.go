@@ -15,6 +15,11 @@ type SetCurrentSceneCollectionParams struct {
 // request.
 type SetCurrentSceneCollectionResponse struct{}
 
+// GetCurrentSceneCollectionParams contains the request body for the
+// [GetCurrentSceneCollection](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentSceneCollection)
+// request.
+type GetCurrentSceneCollectionParams struct{}
+
 // GetCurrentSceneCollectionResponse contains the request body for the
 // [GetCurrentSceneCollection](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentSceneCollection)
 // request.
@@ -22,11 +27,6 @@ type GetCurrentSceneCollectionResponse struct {
 	// Name of the currently active scene collection.
 	ScName string `json:"sc-name"`
 }
-
-// GetCurrentSceneCollectionParams contains the request body for the
-// [GetCurrentSceneCollection](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentSceneCollection)
-// request.
-type GetCurrentSceneCollectionParams struct{}
 
 // ListSceneCollectionsParams contains the request body for the
 // [ListSceneCollections](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListSceneCollections)

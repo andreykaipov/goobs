@@ -25,7 +25,8 @@ type GetPreviewSceneParams struct{}
 // request.
 type GetPreviewSceneResponse struct {
 	// The name of the active preview scene.
-	Name    string                   `json:"name"`
+	Name string `json:"name"`
+
 	Sources []map[string]interface{} `json:"sources"`
 }
 
@@ -49,6 +50,7 @@ type TransitionToProgramParams struct {
 	WithTransition struct {
 		// Transition duration (in milliseconds).
 		Duration int `json:"duration"`
+
 		// Name of the transition.
 		Name string `json:"name"`
 	} `json:"with-transition"`

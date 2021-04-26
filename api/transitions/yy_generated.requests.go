@@ -13,7 +13,8 @@ type GetTransitionListParams struct{}
 type GetTransitionListResponse struct {
 	// Name of the currently active transition.
 	CurrentTransition string `json:"current-transition"`
-	Transitions       []struct {
+
+	Transitions []struct {
 		// Name of the transition.
 		Name string `json:"name"`
 	} `json:"transitions"`
@@ -30,6 +31,7 @@ type GetCurrentTransitionParams struct{}
 type GetCurrentTransitionResponse struct {
 	// Transition duration (in milliseconds) if supported by the transition.
 	Duration int `json:"duration"`
+
 	// Name of the selected transition.
 	Name string `json:"name"`
 }
@@ -60,6 +62,11 @@ type SetTransitionDurationParams struct {
 // request.
 type SetTransitionDurationResponse struct{}
 
+// GetTransitionDurationParams contains the request body for the
+// [GetTransitionDuration](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTransitionDuration)
+// request.
+type GetTransitionDurationParams struct{}
+
 // GetTransitionDurationResponse contains the request body for the
 // [GetTransitionDuration](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTransitionDuration)
 // request.
@@ -67,8 +74,3 @@ type GetTransitionDurationResponse struct {
 	// Duration of the current transition (in milliseconds).
 	TransitionDuration int `json:"transition-duration"`
 }
-
-// GetTransitionDurationParams contains the request body for the
-// [GetTransitionDuration](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTransitionDuration)
-// request.
-type GetTransitionDurationParams struct{}

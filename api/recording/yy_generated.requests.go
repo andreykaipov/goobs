@@ -45,6 +45,11 @@ type SetRecordingFolderParams struct {
 // request.
 type SetRecordingFolderResponse struct{}
 
+// GetRecordingFolderParams contains the request body for the
+// [GetRecordingFolder](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetRecordingFolder)
+// request.
+type GetRecordingFolderParams struct{}
+
 // GetRecordingFolderResponse contains the request body for the
 // [GetRecordingFolder](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetRecordingFolder)
 // request.
@@ -52,8 +57,3 @@ type GetRecordingFolderResponse struct {
 	// Path of the recording folder.
 	RecFolder string `json:"rec-folder"`
 }
-
-// GetRecordingFolderParams contains the request body for the
-// [GetRecordingFolder](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetRecordingFolder)
-// request.
-type GetRecordingFolderParams struct{}

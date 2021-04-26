@@ -15,6 +15,11 @@ type SetCurrentProfileParams struct {
 // request.
 type SetCurrentProfileResponse struct{}
 
+// GetCurrentProfileParams contains the request body for the
+// [GetCurrentProfile](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentProfile)
+// request.
+type GetCurrentProfileParams struct{}
+
 // GetCurrentProfileResponse contains the request body for the
 // [GetCurrentProfile](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentProfile)
 // request.
@@ -22,11 +27,6 @@ type GetCurrentProfileResponse struct {
 	// Name of the currently active profile.
 	ProfileName string `json:"profile-name"`
 }
-
-// GetCurrentProfileParams contains the request body for the
-// [GetCurrentProfile](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentProfile)
-// request.
-type GetCurrentProfileParams struct{}
 
 // ListProfilesParams contains the request body for the
 // [ListProfiles](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListProfiles)

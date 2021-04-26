@@ -32,12 +32,12 @@ type StopReplayBufferParams struct{}
 // request.
 type StopReplayBufferResponse struct{}
 
-// SaveReplayBufferResponse contains the request body for the
-// [SaveReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveReplayBuffer)
-// request.
-type SaveReplayBufferResponse struct{}
-
 // SaveReplayBufferParams contains the request body for the
 // [SaveReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveReplayBuffer)
 // request.
 type SaveReplayBufferParams struct{}
+
+// SaveReplayBufferResponse contains the request body for the
+// [SaveReplayBuffer](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveReplayBuffer)
+// request.
+type SaveReplayBufferResponse struct{}

@@ -13,20 +13,10 @@ type paramsBehavior interface {
 	SetMessageID(string)
 }
 
+// Params represents common parameters for any request.
 type Params struct {
-	paramsBehavior
 	RequestType string `json:"request-type"`
 	MessageID   string `json:"message-id"`
-}
-
-func (o *Params) GetRequestType() string {
-	return o.RequestType
-}
-func (o *Params) GetMessageID() string {
-	return o.MessageID
-}
-func (o *Params) SetMessageID(x string) {
-	o.MessageID = x
 }
 
 type responseBehavior interface {
@@ -35,23 +25,15 @@ type responseBehavior interface {
 	GetError() string
 }
 
+// Response represents common fields on any returned response.
 type Response struct {
-	responseBehavior
 	MessageID string `json:"message-id"`
 	Status    string `json:"status"`
 	Error     string `json:"error"`
 }
 
-func (o *Response) GetMessageID() string {
-	return o.MessageID
-}
-func (o *Response) GetStatus() string {
-	return o.Status
-}
-func (o *Response) GetError() string {
-	return o.Error
-}
-
+// WriteMessage abstracts the logic every subclient uses to send a request and
+// receive the corresponding response.
 func WriteMessage(conn *websocket.Conn, params paramsBehavior, response responseBehavior) error {
 	if params.GetMessageID() == "" {
 		id, err := uuid.NewV4()

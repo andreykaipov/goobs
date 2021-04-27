@@ -89,8 +89,6 @@ func main() {
 		}
 
 		// Generate the requests for the category
-		requests := NewFile(categoryClaustrophic)
-		requests.HeaderComment("This file has been automatically generated. Don't edit it.")
 		for _, request := range data.Requests[category] {
 			fmt.Printf("---- %s ----\n", request.Name)
 
@@ -104,12 +102,13 @@ func main() {
 				panic(err)
 			}
 
-			requests.Add(s)
-		}
-
-		// Write the requests file for the category
-		if err := requests.Save(fmt.Sprintf("%s/yy_generated.requests.go", dir)); err != nil {
-			panic(err)
+			fr := NewFile(categoryClaustrophic)
+			fr.HeaderComment("This file has been automatically generated. Don't edit it.")
+			fr.Add(s)
+			fName := strings.ToLower(request.Name)
+			if err := fr.Save(fmt.Sprintf("%s/xx_generated.%s.go", dir, fName)); err != nil {
+				panic(err)
+			}
 		}
 	}
 

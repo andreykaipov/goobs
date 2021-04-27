@@ -62,14 +62,22 @@ func main() {
 		// For the top-level client
 		qualifier := "github.com/andreykaipov/goobs/api/requests/" + categorySnake
 		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
-		topClientSetters = append(topClientSetters, Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(Qual(qualifier, "WithConn").Call(Id("c.conn"))))
+		topClientSetters = append(
+			topClientSetters, Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(
+				Qual(qualifier, "WithConn").Call(Id("c.conn")),
+			),
+		)
 
 		// Generate the category-level client
 		client := NewFile(categoryClaustrophic)
 		client.HeaderComment("This file has been automatically generated. Don't edit it.")
 		client.HeaderComment("//go:generate ../../../internal/bin/funcopgen -type Client -prefix With -factory -unexported") // lmao
 		client.Commentf("Client represents a client for '%s' requests", category)
-		client.Add(Type().Id("Client").Struct(Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn")))
+		client.Add(
+			Type().Id("Client").Struct(
+				Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn"),
+			),
+		)
 
 		// Write the category-level client
 		dir := fmt.Sprintf("%s/api/requests/%s", root, categorySnake)
@@ -182,7 +190,9 @@ func generateRequest(request *Request) (s *Statement, err error) {
 		Id("params").Dot("RequestType").Op("=").Lit(request.Name),
 		Id("data").Op(":=").Op("&").Id(request.Name+"Response").Values(),
 		If(
-			Id("err").Op(":=").Qual("github.com/andreykaipov/goobs/api/requests", "WriteMessage").Call(Id("c.conn"), Id("params"), Id("data")),
+			Id("err").Op(":=").Qual("github.com/andreykaipov/goobs/api/requests", "WriteMessage").Call(
+				Id("c.conn"), Id("params"), Id("data"),
+			),
 			Id("err").Op("!=").Nil(),
 		).Block(
 			Return().List(Nil(), Id("err")),

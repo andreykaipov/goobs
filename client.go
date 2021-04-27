@@ -14,8 +14,8 @@ type Client struct {
 	Host string
 	Port int
 
-	subclients
 	conn *websocket.Conn
+	subclients
 }
 
 func (c *Client) Connect() (*Client, error) {

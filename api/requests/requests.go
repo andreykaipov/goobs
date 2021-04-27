@@ -1,7 +1,6 @@
 package requests
 
 import (
-	"encoding/json"
 	"fmt"
 
 	"github.com/gorilla/websocket"
@@ -63,18 +62,28 @@ func WriteMessage(conn *websocket.Conn, params paramsBehavior, response response
 		params.SetMessageID(id.String())
 	}
 
-	requestBytes, err := json.Marshal(params)
-	if err != nil {
+	if err := conn.WriteJSON(params); err != nil {
 		return err
 	}
 
-	if err := conn.WriteMessage(websocket.TextMessage, requestBytes); err != nil {
-		return err
-	}
+	// Some requests respond with some empty response, so keep reading until
+	// our message IDs match. Clearly, this isn't safe against concurrency,
+	// but gorilla/websocket doesn't handle concurrency either, so this is
+	// good enough.
+	//
+	// TODO: Interestingly, it does seem thread-safe if I use a different
+	// connection, so message IDs must be unique per client, in that
+	// connection A won't get a response from OBS for a request from
+	// connection B. Typing that out, it seems pretty apparent, but I'd like
+	// to do some more testing.
+	for {
+		if err := conn.ReadJSON(response); err != nil {
+			return err
+		}
 
-	_, responseBytes, err := conn.ReadMessage()
-	if err := json.Unmarshal(responseBytes, response); err != nil {
-		return err
+		if response.GetMessageID() == params.GetMessageID() {
+			break
+		}
 	}
 
 	if response.GetStatus() == "error" {

@@ -18,6 +18,8 @@ import (
 )
 
 var (
+	goobs = "github.com/andreykaipov/goobs"
+
 	version  = "4.5.0"
 	comments = fmt.Sprintf("https://raw.githubusercontent.com/Palakis/obs-websocket/%s/docs/generated/comments.json", version)
 )
@@ -44,8 +46,9 @@ func main() {
 	topClientFields := []Code{}
 	topClientSetters := []Code{}
 
-	// Request
+	/**********************/
 	fmt.Println("Requests")
+
 	for _, category := range sortedKeys(data.Requests) {
 		fmt.Printf("- %s \n", category)
 
@@ -54,7 +57,7 @@ func main() {
 		categoryClaustrophic := strings.ReplaceAll(category, " ", "")
 
 		// For the top-level client
-		qualifier := "github.com/andreykaipov/goobs/api/requests/" + categorySnake
+		qualifier := goobs + "/api/requests/" + categorySnake
 		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
 		topClientSetters = append(
 			topClientSetters, Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(
@@ -106,7 +109,20 @@ func main() {
 		}
 	}
 
+	// Write utils for the top-level client
+	f := NewFile("goobs")
+	f.HeaderComment("This file has been automatically generated. Don't edit it.")
+	f.Add(Type().Id("subclients").Struct(topClientFields...))
+	f.Add(Func().Id("setClients").Params(Id("c").Op("*").Id("Client")).Block(topClientSetters...))
+
+	if err := f.Save(fmt.Sprintf("%s/yy_generated.client.go", root)); err != nil {
+		panic(err)
+	}
+
+	/**********************/
 	fmt.Println("Events")
+	events := []*Event{}
+
 	for _, category := range sortedKeys(data.Events) {
 		fmt.Printf("- %s\n", category)
 
@@ -118,8 +134,6 @@ func main() {
 		if err := os.MkdirAll(dir, 0777); err != nil {
 			panic(err)
 		}
-
-		events := []*Event{}
 
 		// Generate the events for the category
 		for _, event := range data.Events[category] {
@@ -142,13 +156,26 @@ func main() {
 		}
 	}
 
-	// Write utils for the top-level client
-	f := NewFile("goobs")
+	f = NewFile("eventsutil")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
-	f.Add(Type().Id("subclients").Struct(topClientFields...))
-	f.Add(Func().Id("setClients").Params(Id("c").Op("*").Id("Client")).Block(topClientSetters...))
+	f.Add(
+		Func().Id("GetEventForType").Params(Id("name").String()).Qual(goobs+"/api/events", "Event").Block(
+			Switch(Id("name")).BlockFunc(func(g *Group) {
+				for _, e := range events {
+					categorySnake := strings.ReplaceAll(e.Category, " ", "_")
 
-	if err := f.Save(fmt.Sprintf("%s/yy_generated.client.go", root)); err != nil {
+					g.Case(Lit(e.Name))
+					g.Return(Op("&").Qual(goobs+"/api/events/"+categorySnake, e.Name).Values())
+				}
+				g.Default().Return(Nil()) //Op("&").Qual(goobs+"/api/events", "EventCommon").Values())
+			}),
+		),
+	)
+	dir := fmt.Sprintf("%s/api/events/zz_util", root)
+	if err := os.MkdirAll(dir, 0777); err != nil {
+		panic(err)
+	}
+	if err := f.Save(fmt.Sprintf("%s/zz_generated.events.go", dir)); err != nil {
 		panic(err)
 	}
 }
@@ -219,7 +246,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 		Id("params").Dot("RequestType").Op("=").Lit(request.Name),
 		Id("data").Op(":=").Op("&").Id(request.Name+"Response").Values(),
 		If(
-			Id("err").Op(":=").Qual("github.com/andreykaipov/goobs/api/requests", "WriteMessage").Call(
+			Id("err").Op(":=").Qual(goobs+"/api/requests", "WriteMessage").Call(
 				Id("c.conn"), Id("params"), Id("data"),
 			),
 			Id("err").Op("!=").Nil(),
@@ -290,10 +317,10 @@ func generateStructFromParams(s *Statement, name string, params []*Param) error 
 		case "Scene|Array":
 			fieldType = Index().Map(String()).Interface()
 		case "~requests~":
-			fieldType = Qual("github.com/andreykaipov/goobs/api/requests", field.Name)
+			fieldType = Qual(goobs+"/api/requests", field.Name)
 			embedded = true
 		case "~events~":
-			fieldType = Qual("github.com/andreykaipov/goobs/api/events", field.Name)
+			fieldType = Qual(goobs+"/api/events", field.Name)
 			embedded = true
 		default:
 			panic(fmt.Errorf("%s is a weird type", field.Name))

@@ -127,10 +127,8 @@ func main() {
 		fmt.Printf("- %s\n", category)
 
 		categorySnake := strings.ReplaceAll(category, " ", "_")
-		categoryClaustrophic := strings.ReplaceAll(category, " ", "")
 
-		// Write the category-level client
-		dir := fmt.Sprintf("%s/api/events/%s", root, categorySnake)
+		dir := fmt.Sprintf("%s/api/events", root)
 		if err := os.MkdirAll(dir, 0777); err != nil {
 			panic(err)
 		}
@@ -144,11 +142,11 @@ func main() {
 				panic(err)
 			}
 
-			f := NewFile(categoryClaustrophic)
+			f := NewFile("events")
 			f.HeaderComment("This file has been automatically generated. Don't edit it.")
 			f.Add(s)
 			fName := strings.ToLower(event.Name)
-			if err := f.Save(fmt.Sprintf("%s/xx_generated.%s.go", dir, fName)); err != nil {
+			if err := f.Save(fmt.Sprintf("%s/yy_generated.%s.%s.go", dir, categorySnake, fName)); err != nil {
 				panic(err)
 			}
 
@@ -156,26 +154,24 @@ func main() {
 		}
 	}
 
-	f = NewFile("eventsutil")
+	f = NewFile("events")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 	f.Add(
-		Func().Id("GetEventForType").Params(Id("name").String()).Qual(goobs+"/api/events", "Event").Block(
+		Func().Id("GetEventForType").Params(Id("name").String()).Id("Event").Block(
 			Switch(Id("name")).BlockFunc(func(g *Group) {
 				for _, e := range events {
-					categorySnake := strings.ReplaceAll(e.Category, " ", "_")
-
 					g.Case(Lit(e.Name))
-					g.Return(Op("&").Qual(goobs+"/api/events/"+categorySnake, e.Name).Values())
+					g.Return(Op("&").Id(e.Name).Values())
 				}
 				g.Default().Return(Nil()) //Op("&").Qual(goobs+"/api/events", "EventCommon").Values())
 			}),
 		),
 	)
-	dir := fmt.Sprintf("%s/api/events/zz_util", root)
+	dir := fmt.Sprintf("%s/api/events", root)
 	if err := os.MkdirAll(dir, 0777); err != nil {
 		panic(err)
 	}
-	if err := f.Save(fmt.Sprintf("%s/zz_generated.events.go", dir)); err != nil {
+	if err := f.Save(fmt.Sprintf("%s/xx_generated.events.go", dir)); err != nil {
 		panic(err)
 	}
 }
@@ -264,7 +260,7 @@ func generateEvent(event *Event) (s *Statement, err error) {
 	note := fmt.Sprintf("Generated from https://github.com/Palakis/obs-websocket/blob/%s/docs/generated/protocol.md#%s.", version, event.Name)
 
 	s.Commentf("%s represents the event body for the %q event.\n\n%s", event.Name, event.Name, note).Line()
-	event.Returns = append(event.Returns, &Param{Name: "Event", Type: "~events~"}) // internal type
+	event.Returns = append(event.Returns, &Param{Name: "EventCommon", Type: "~events~"}) // internal type
 	if err = generateStructFromParams(s, event.Name, event.Returns); err != nil {
 		return nil, fmt.Errorf("Failed generating event %q in category %q", event.Name, event.Category)
 	}
@@ -320,7 +316,7 @@ func generateStructFromParams(s *Statement, name string, params []*Param) error 
 			fieldType = Qual(goobs+"/api/requests", field.Name)
 			embedded = true
 		case "~events~":
-			fieldType = Qual(goobs+"/api/events", field.Name)
+			fieldType = Id(field.Name)
 			embedded = true
 		default:
 			panic(fmt.Errorf("%s is a weird type", field.Name))

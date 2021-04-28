@@ -7,7 +7,6 @@ import (
 	"net/url"
 
 	"github.com/andreykaipov/goobs/api/events"
-	eventsutil "github.com/andreykaipov/goobs/api/events/zz_util"
 	"github.com/gorilla/websocket"
 )
 
@@ -19,8 +18,22 @@ type Client struct {
 
 	IncomingEvents chan events.Event
 
-	conn *websocket.Conn
+	eventsConn *websocket.Conn // we use a different connection for listening to events
+	conn       *websocket.Conn
 	subclients
+}
+
+func (c *Client) Init() error {
+	c.IncomingEvents = make(chan events.Event)
+
+	conn, err := c.connect()
+	if err != nil {
+		return err
+	}
+
+	c.conn = conn
+	setClients(c)
+	return nil
 }
 
 func (c *Client) connect() (*websocket.Conn, error) {
@@ -32,37 +45,39 @@ func (c *Client) connect() (*websocket.Conn, error) {
 	log.Printf("connecting to %s", u.String())
 
 	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-
-	return conn, err
-}
-
-func (c *Client) Connect() (*Client, error) {
-	conn, err := c.connect()
 	if err != nil {
 		return nil, err
 	}
 
-	c.conn = conn
-	setClients(c)
-
-	return c, nil
+	return conn, nil
 }
 
 func (c *Client) Listen() {
-	c.IncomingEvents = make(chan events.Event)
+	var err error
 
-	// Use a separate connection for listening
-	conn, err := c.connect()
+	c.eventsConn, err = c.connect()
 	if err != nil {
-		panic("Couldn't listen, bud")
+		panic(err)
 	}
 
+	ch := make(chan json.RawMessage)
+	go c.handleRawEvents(ch)
+	c.handleUnknownEvents(ch)
+}
+
+func (c *Client) handleRawEvents(ch chan json.RawMessage) {
 	for {
 		raw := json.RawMessage{}
-		if err := conn.ReadJSON(&raw); err != nil {
+		if err := c.eventsConn.ReadJSON(&raw); err != nil {
 			log.Fatal(err)
 		}
 
+		ch <- raw
+	}
+}
+
+func (c *Client) handleUnknownEvents(ch chan json.RawMessage) {
+	for raw := range ch {
 		unknownEvent := &events.EventCommon{}
 		if err := json.Unmarshal(raw, unknownEvent); err != nil {
 			log.Fatal(err)

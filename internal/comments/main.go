@@ -61,7 +61,7 @@ func main() {
 		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
 		topClientSetters = append(
 			topClientSetters, Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(
-				Qual(qualifier, "WithConn").Call(Id("c.conn")),
+				Qual(qualifier, "WithConn").Call(Id("c.requestsConn")),
 			),
 		)
 

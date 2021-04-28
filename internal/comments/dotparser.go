@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"os"
-	"sort"
 	"strings"
 
 	"github.com/dave/jennifer/jen"
@@ -135,32 +134,6 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 	return jen.Type().CustomFunc(jen.Options{}, func(g *jen.Group) {
 		f(m, g, name)
 	}), nil
-}
-
-func sortedKeys(m interface{}) []string {
-	var sorted []string
-	i := 0
-
-	switch t := m.(type) {
-	case map[string]interface{}:
-		sorted = make([]string, len(t))
-		i := 0
-		for k := range t {
-			sorted[i] = k
-			i++
-		}
-	case map[string]keyInfo:
-		sorted = make([]string, len(t))
-		for k := range t {
-			sorted[i] = k
-			i++
-		}
-	default:
-		panic("unhandled slice for sortedKeys")
-	}
-
-	sort.Strings(sorted)
-	return sorted
 }
 
 func pascal(text string) string {

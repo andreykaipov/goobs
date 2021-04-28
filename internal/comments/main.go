@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"reflect"
 	"sort"
 	"strings"
 	"unicode"
@@ -43,17 +44,10 @@ func main() {
 	topClientFields := []Code{}
 	topClientSetters := []Code{}
 
-	// Sort the fields so we can traverse the map in a deterministic
-	// order as we want the generated code to be the same between
-	// subsequent runs.
-	categories := make([]string, 0, len(data.Requests))
-	for c := range data.Requests {
-		categories = append(categories, c)
-	}
-	sort.Strings(categories)
-
-	for _, category := range categories {
-		fmt.Printf("-- %s --\n", category)
+	// Request
+	fmt.Println("Requests")
+	for _, category := range sortedKeys(data.Requests) {
+		fmt.Printf("- %s \n", category)
 
 		categorySnake := strings.ReplaceAll(category, " ", "_")
 		categoryPascal := strings.ReplaceAll(strings.Title(category), " ", "")
@@ -90,10 +84,10 @@ func main() {
 
 		// Generate the requests for the category
 		for _, request := range data.Requests[category] {
-			fmt.Printf("---- %s ----\n", request.Name)
+			// fmt.Printf("  - %s\n", request.Name)
 
 			if request.Deprecated != "" {
-				fmt.Fprintf(os.Stderr, "Request %q is deprecated\n", request.Name)
+				// fmt.Fprintf(os.Stderr, "Request %q is deprecated\n", request.Name)
 				continue
 			}
 
@@ -102,13 +96,49 @@ func main() {
 				panic(err)
 			}
 
-			fr := NewFile(categoryClaustrophic)
-			fr.HeaderComment("This file has been automatically generated. Don't edit it.")
-			fr.Add(s)
+			f := NewFile(categoryClaustrophic)
+			f.HeaderComment("This file has been automatically generated. Don't edit it.")
+			f.Add(s)
 			fName := strings.ToLower(request.Name)
-			if err := fr.Save(fmt.Sprintf("%s/xx_generated.%s.go", dir, fName)); err != nil {
+			if err := f.Save(fmt.Sprintf("%s/xx_generated.%s.go", dir, fName)); err != nil {
 				panic(err)
 			}
+		}
+	}
+
+	fmt.Println("Events")
+	for _, category := range sortedKeys(data.Events) {
+		fmt.Printf("- %s\n", category)
+
+		categorySnake := strings.ReplaceAll(category, " ", "_")
+		categoryClaustrophic := strings.ReplaceAll(category, " ", "")
+
+		// Write the category-level client
+		dir := fmt.Sprintf("%s/api/events/%s", root, categorySnake)
+		if err := os.MkdirAll(dir, 0777); err != nil {
+			panic(err)
+		}
+
+		events := []*Event{}
+
+		// Generate the events for the category
+		for _, event := range data.Events[category] {
+			// fmt.Printf("  - %s\n", event.Name)
+
+			s, err := generateEvent(event)
+			if err != nil {
+				panic(err)
+			}
+
+			f := NewFile(categoryClaustrophic)
+			f.HeaderComment("This file has been automatically generated. Don't edit it.")
+			f.Add(s)
+			fName := strings.ToLower(event.Name)
+			if err := f.Save(fmt.Sprintf("%s/xx_generated.%s.go", dir, fName)); err != nil {
+				panic(err)
+			}
+
+			events = append(events, event)
 		}
 	}
 
@@ -130,9 +160,9 @@ func generateRequest(request *Request) (s *Statement, err error) {
 
 	// Params
 	structName = request.Name + "Params"
-	s.Commentf("%1s represents the params body for the %q request.\n\n%s", structName, request.Name, note).Line()
-	request.Params = append(request.Params, &Param{Name: "Params", Type: "~params~"}) // internal type
-	if err = genStructFromParams(s, structName, request.Params); err != nil {
+	s.Commentf("%s represents the params body for the %q request.\n\n%s", structName, request.Name, note).Line()
+	request.Params = append(request.Params, &Param{Name: "Params", Type: "~requests~"}) // internal type
+	if err = generateStructFromParams(s, structName, request.Params); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, request.Category)
 	}
 
@@ -145,9 +175,9 @@ func generateRequest(request *Request) (s *Statement, err error) {
 
 	// Returns
 	structName = request.Name + "Response"
-	s.Commentf("%1s represents the response body for the %q request.\n\n%s", structName, request.Name, note).Line()
-	request.Returns = append(request.Returns, &Param{Name: "Response", Type: "~params~"}) // internal type
-	if err = genStructFromParams(s, structName, request.Returns); err != nil {
+	s.Commentf("%s represents the response body for the %q request.\n\n%s", structName, request.Name, note).Line()
+	request.Returns = append(request.Returns, &Param{Name: "Response", Type: "~requests~"}) // internal type
+	if err = generateStructFromParams(s, structName, request.Returns); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, request.Category)
 	}
 
@@ -202,8 +232,20 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	return s, nil
 }
 
-// parses "Params" or "Requests" fields from requests or event
-func genStructFromParams(s *Statement, name string, params []*Param) error {
+func generateEvent(event *Event) (s *Statement, err error) {
+	s = Line()
+	note := fmt.Sprintf("Generated from https://github.com/Palakis/obs-websocket/blob/%s/docs/generated/protocol.md#%s.", version, event.Name)
+
+	s.Commentf("%s represents the event body for the %q event.\n\n%s", event.Name, event.Name, note).Line()
+	event.Returns = append(event.Returns, &Param{Name: "Event", Type: "~events~"}) // internal type
+	if err = generateStructFromParams(s, event.Name, event.Returns); err != nil {
+		return nil, fmt.Errorf("Failed generating event %q in category %q", event.Name, event.Category)
+	}
+
+	return s, nil
+}
+
+func generateStructFromParams(s *Statement, name string, params []*Param) error {
 	keysInfo := map[string]keyInfo{}
 
 	for _, field := range params {
@@ -217,6 +259,8 @@ func genStructFromParams(s *Statement, name string, params []*Param) error {
 
 		var fieldType *Statement
 		switch strings.Trim(strings.ReplaceAll(field.Type, "(optional)", ""), " ") {
+		case "string":
+			fieldType = String()
 		case "String":
 			fieldType = String()
 		case "int":
@@ -245,8 +289,11 @@ func genStructFromParams(s *Statement, name string, params []*Param) error {
 			fieldType = Index().Map(String()).Interface()
 		case "Scene|Array":
 			fieldType = Index().Map(String()).Interface()
-		case "~params~":
+		case "~requests~":
 			fieldType = Qual("github.com/andreykaipov/goobs/api/requests", field.Name)
+			embedded = true
+		case "~events~":
+			fieldType = Qual("github.com/andreykaipov/goobs/api/events", field.Name)
 			embedded = true
 		default:
 			panic(fmt.Errorf("%s is a weird type", field.Name))
@@ -317,4 +364,18 @@ func run(cmd string) (string, error) {
 	}
 
 	return strings.TrimSuffix(string(output), "\n"), nil
+}
+
+func sortedKeys(m interface{}) []string {
+	keys := reflect.ValueOf(m).MapKeys()
+
+	sorted := make([]string, len(keys))
+	i := 0
+	for _, key := range keys {
+		sorted[i] = key.Interface().(string)
+		i++
+	}
+	sort.Strings(sorted)
+
+	return sorted
 }

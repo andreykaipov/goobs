@@ -60,19 +60,18 @@ func main() {
 		qualifier := goobs + "/api/requests/" + categorySnake
 		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
 		topClientSetters = append(
-			topClientSetters, Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(
-				Qual(qualifier, "WithConn").Call(Id("c.requestsConn")),
+			topClientSetters, Id("c").Dot(categoryPascal).Op("=").Op("&").Qual(qualifier, "Client").Values(
+				Id("Conn").Op(":").Id("c").Dot("requestsConn"),
 			),
 		)
 
 		// Generate the category-level client
 		client := NewFile(categoryClaustrophic)
 		client.HeaderComment("This file has been automatically generated. Don't edit it.")
-		client.HeaderComment("//go:generate ../../../internal/bin/funcopgen -type Client -prefix With -factory -unexported") // lmao
 		client.Commentf("Client represents a client for '%s' requests", category)
 		client.Add(
 			Type().Id("Client").Struct(
-				Id("conn").Op("*").Qual("github.com/gorilla/websocket", "Conn"),
+				Id("Conn").Op("*").Qual("github.com/gorilla/websocket", "Conn"),
 			),
 		)
 
@@ -81,7 +80,7 @@ func main() {
 		if err := os.MkdirAll(dir, 0777); err != nil {
 			panic(err)
 		}
-		if err := client.Save(fmt.Sprintf("%s/yy_generated.client.go", dir)); err != nil {
+		if err := client.Save(fmt.Sprintf("%s/zz_generated.client.go", dir)); err != nil {
 			panic(err)
 		}
 
@@ -115,7 +114,7 @@ func main() {
 	f.Add(Type().Id("subclients").Struct(topClientFields...))
 	f.Add(Func().Id("setClients").Params(Id("c").Op("*").Id("Client")).Block(topClientSetters...))
 
-	if err := f.Save(fmt.Sprintf("%s/yy_generated.client.go", root)); err != nil {
+	if err := f.Save(fmt.Sprintf("%s/zz_generated.client.go", root)); err != nil {
 		panic(err)
 	}
 
@@ -146,7 +145,7 @@ func main() {
 			f.HeaderComment("This file has been automatically generated. Don't edit it.")
 			f.Add(s)
 			fName := strings.ToLower(event.Name)
-			if err := f.Save(fmt.Sprintf("%s/yy_generated.%s.%s.go", dir, categorySnake, fName)); err != nil {
+			if err := f.Save(fmt.Sprintf("%s/zz_generated.%s.%s.go", dir, categorySnake, fName)); err != nil {
 				panic(err)
 			}
 
@@ -243,7 +242,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 		Id("data").Op(":=").Op("&").Id(request.Name+"Response").Values(),
 		If(
 			Id("err").Op(":=").Qual(goobs+"/api/requests", "WriteMessage").Call(
-				Id("c.conn"), Id("params"), Id("data"),
+				Id("c").Dot("Conn"), Id("params"), Id("data"),
 			),
 			Id("err").Op("!=").Nil(),
 		).Block(

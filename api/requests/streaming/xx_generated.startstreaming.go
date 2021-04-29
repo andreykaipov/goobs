@@ -89,7 +89,7 @@ func (o *StartStreamingResponse) GetError() string {
 func (c *Client) StartStreaming(params *StartStreamingParams) (*StartStreamingResponse, error) {
 	params.RequestType = "StartStreaming"
 	data := &StartStreamingResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

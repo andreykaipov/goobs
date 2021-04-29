@@ -65,7 +65,7 @@ func (o *GetSyncOffsetResponse) GetError() string {
 func (c *Client) GetSyncOffset(params *GetSyncOffsetParams) (*GetSyncOffsetResponse, error) {
 	params.RequestType = "GetSyncOffset"
 	data := &GetSyncOffsetResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

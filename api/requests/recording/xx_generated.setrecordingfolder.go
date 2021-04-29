@@ -61,7 +61,7 @@ func (c *Client) SetRecordingFolder(
 ) (*SetRecordingFolderResponse, error) {
 	params.RequestType = "SetRecordingFolder"
 	data := &SetRecordingFolderResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

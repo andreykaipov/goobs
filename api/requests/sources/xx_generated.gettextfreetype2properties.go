@@ -109,7 +109,7 @@ func (c *Client) GetTextFreetype2Properties(
 ) (*GetTextFreetype2PropertiesResponse, error) {
 	params.RequestType = "GetTextFreetype2Properties"
 	data := &GetTextFreetype2PropertiesResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

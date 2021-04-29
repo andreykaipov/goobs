@@ -69,7 +69,7 @@ func (c *Client) GetCurrentScene(
 	params := paramss[0]
 	params.RequestType = "GetCurrentScene"
 	data := &GetCurrentSceneResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

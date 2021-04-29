@@ -59,7 +59,7 @@ func (o *SetHeartbeatResponse) GetError() string {
 func (c *Client) SetHeartbeat(params *SetHeartbeatParams) (*SetHeartbeatResponse, error) {
 	params.RequestType = "SetHeartbeat"
 	data := &SetHeartbeatResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

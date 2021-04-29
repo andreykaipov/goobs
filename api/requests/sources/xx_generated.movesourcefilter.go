@@ -68,7 +68,7 @@ func (c *Client) MoveSourceFilter(
 ) (*MoveSourceFilterResponse, error) {
 	params.RequestType = "MoveSourceFilter"
 	data := &MoveSourceFilterResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

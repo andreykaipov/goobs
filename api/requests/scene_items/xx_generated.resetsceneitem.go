@@ -62,7 +62,7 @@ func (o *ResetSceneItemResponse) GetError() string {
 func (c *Client) ResetSceneItem(params *ResetSceneItemParams) (*ResetSceneItemResponse, error) {
 	params.RequestType = "ResetSceneItem"
 	data := &ResetSceneItemResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

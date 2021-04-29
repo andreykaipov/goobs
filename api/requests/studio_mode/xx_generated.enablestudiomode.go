@@ -63,7 +63,7 @@ func (c *Client) EnableStudioMode(
 	params := paramss[0]
 	params.RequestType = "EnableStudioMode"
 	data := &EnableStudioModeResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

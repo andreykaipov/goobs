@@ -61,7 +61,7 @@ func (c *Client) SetCurrentProfile(
 ) (*SetCurrentProfileResponse, error) {
 	params.RequestType = "SetCurrentProfile"
 	data := &SetCurrentProfileResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

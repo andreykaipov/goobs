@@ -59,7 +59,7 @@ func (o *SetPreviewSceneResponse) GetError() string {
 func (c *Client) SetPreviewScene(params *SetPreviewSceneParams) (*SetPreviewSceneResponse, error) {
 	params.RequestType = "SetPreviewScene"
 	data := &SetPreviewSceneResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

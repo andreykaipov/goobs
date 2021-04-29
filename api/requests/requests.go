@@ -48,16 +48,21 @@ func WriteMessage(conn *websocket.Conn, params paramsBehavior, response response
 		return err
 	}
 
-	// Some requests respond with some empty response, so keep reading until
-	// our message IDs match. Clearly, this isn't safe against concurrency,
-	// but gorilla/websocket doesn't handle concurrency either, so this is
-	// good enough.
+	// Some requests trigger an event, which we don't really care about, so
+	// keep reading until we get a message with a matching message ID as
+	// that'd be our response. Clearly, this isn't safe against concurrency,
+	// since one goroutine might accidentally read a response belonging to
+	// a request from some other goroutine, which would cause that goroutine
+	// to never receive a response. However, gorilla/websocket doesn't
+	// handle concurrency either, so who cares?
 	//
-	// TODO: Interestingly, it does seem thread-safe if I use a different
-	// connection, so message IDs must be unique per client, in that
-	// connection A won't get a response from OBS for a request from
-	// connection B. Typing that out, it seems pretty apparent, but I'd like
-	// to do some more testing.
+	// Interestingly, it does seem thread-safe if I use a totally different
+	// connection, in that connection A won't get a response from OBS for
+	// a request from connection B. So, message IDs must be unique per
+	// client? Events also appear to be broadcast to every client as they
+	// have no associated message ID. Typing that out, it seems pretty
+	// apparent, and likely the nature of WebSockets, and not just specific
+	// to OBS. Who knows?
 	for {
 		if err := conn.ReadJSON(response); err != nil {
 			return err

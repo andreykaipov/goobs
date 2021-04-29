@@ -73,7 +73,7 @@ func (c *Client) GetSourcesList(paramss ...*GetSourcesListParams) (*GetSourcesLi
 	params := paramss[0]
 	params.RequestType = "GetSourcesList"
 	data := &GetSourcesListResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

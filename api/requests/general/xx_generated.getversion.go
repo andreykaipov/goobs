@@ -74,7 +74,7 @@ func (c *Client) GetVersion(paramss ...*GetVersionParams) (*GetVersionResponse, 
 	params := paramss[0]
 	params.RequestType = "GetVersion"
 	data := &GetVersionResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

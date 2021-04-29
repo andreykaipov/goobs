@@ -61,7 +61,7 @@ func (c *Client) SetCurrentTransition(
 ) (*SetCurrentTransitionResponse, error) {
 	params.RequestType = "SetCurrentTransition"
 	data := &SetCurrentTransitionResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

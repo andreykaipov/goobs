@@ -59,7 +59,7 @@ func (o *ToggleMuteResponse) GetError() string {
 func (c *Client) ToggleMute(params *ToggleMuteParams) (*ToggleMuteResponse, error) {
 	params.RequestType = "ToggleMute"
 	data := &ToggleMuteResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

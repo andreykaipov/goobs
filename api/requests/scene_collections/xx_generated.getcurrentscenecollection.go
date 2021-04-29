@@ -66,7 +66,7 @@ func (c *Client) GetCurrentSceneCollection(
 	params := paramss[0]
 	params.RequestType = "GetCurrentSceneCollection"
 	data := &GetCurrentSceneCollectionResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

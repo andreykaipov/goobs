@@ -62,7 +62,7 @@ func (o *SetVolumeResponse) GetError() string {
 func (c *Client) SetVolume(params *SetVolumeParams) (*SetVolumeResponse, error) {
 	params.RequestType = "SetVolume"
 	data := &SetVolumeResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

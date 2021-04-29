@@ -66,7 +66,7 @@ func (c *Client) TransitionToProgram(
 ) (*TransitionToProgramResponse, error) {
 	params.RequestType = "TransitionToProgram"
 	data := &TransitionToProgramResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

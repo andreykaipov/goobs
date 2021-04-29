@@ -67,7 +67,7 @@ func (o *DeleteSceneItemResponse) GetError() string {
 func (c *Client) DeleteSceneItem(params *DeleteSceneItemParams) (*DeleteSceneItemResponse, error) {
 	params.RequestType = "DeleteSceneItem"
 	data := &DeleteSceneItemResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

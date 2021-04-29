@@ -59,7 +59,7 @@ func (o *SetCurrentSceneResponse) GetError() string {
 func (c *Client) SetCurrentScene(params *SetCurrentSceneParams) (*SetCurrentSceneResponse, error) {
 	params.RequestType = "SetCurrentScene"
 	data := &SetCurrentSceneResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

@@ -59,7 +59,7 @@ func (o *AuthenticateResponse) GetError() string {
 func (c *Client) Authenticate(params *AuthenticateParams) (*AuthenticateResponse, error) {
 	params.RequestType = "Authenticate"
 	data := &AuthenticateResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

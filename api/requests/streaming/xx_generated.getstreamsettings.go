@@ -85,7 +85,7 @@ func (c *Client) GetStreamSettings(
 	params := paramss[0]
 	params.RequestType = "GetStreamSettings"
 	data := &GetStreamSettingsResponse{}
-	if err := requests.WriteMessage(c.conn, params, data); err != nil {
+	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

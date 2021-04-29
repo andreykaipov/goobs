@@ -17,9 +17,9 @@ type Client struct {
 	host string
 	subclients
 
-	// we use two different connections for events and requests to avoid
+	// We use two different connections for events and requests to avoid
 	// race conditions when reading events and request responses
-	eventsConn   *websocket.Conn
+	eventingConn *websocket.Conn
 	requestsConn *websocket.Conn
 }
 
@@ -32,8 +32,8 @@ It also opens up a connection, so be sure to check the error.
 */
 func New(host string, opts ...Option) (c *Client, err error) {
 	c = &Client{
+		IncomingEvents: make(chan events.Event, 100),
 		host:           host,
-		IncomingEvents: make(chan events.Event),
 	}
 
 	for _, opt := range opts {
@@ -48,18 +48,6 @@ func New(host string, opts ...Option) (c *Client, err error) {
 	setClients(c)
 
 	return c, nil
-}
-
-func (c *Client) connect() (*websocket.Conn, error) {
-	u := url.URL{Scheme: "ws", Host: c.host}
-	log.Printf("connecting to %s", u.String())
-
-	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return conn, nil
 }
 
 /*
@@ -83,32 +71,45 @@ func (c *Client) Listen() {
 	var err error
 
 	// separate connection
-	c.eventsConn, err = c.connect()
+	c.eventingConn, err = c.connect()
 	if err != nil {
-		panic(err)
+		panic(fmt.Errorf("Failed establishing an eventing connection: %s", err))
 	}
 
-	ch := make(chan json.RawMessage)
-	go c.handleRawEvents(ch)
-	c.handleUnknownEvents(ch)
+	// The eventing loop involves a few Go routines. We use this channel to
+	// keep track of any errors so the client can find out about them, if it
+	// wants to.
+	messages := make(chan json.RawMessage)
+	errors := make(chan error)
+	go c.handleErrors(errors)
+	go c.handleRawEvents(messages, errors)
+	c.handleEvents(messages, errors)
 }
 
-func (c *Client) handleRawEvents(ch chan json.RawMessage) {
+func (c *Client) handleErrors(errors chan error) {
+	for err := range errors {
+		c.IncomingEvents <- events.WrapError(err)
+	}
+}
+
+func (c *Client) handleRawEvents(messages chan json.RawMessage, errors chan error) {
 	for {
 		raw := json.RawMessage{}
-		if err := c.eventsConn.ReadJSON(&raw); err != nil {
-			log.Fatal(err)
+		if err := c.eventingConn.ReadJSON(&raw); err != nil {
+			errors <- fmt.Errorf("Couldn't read JSON from websocket connection: %s", err)
+			continue
 		}
 
-		ch <- raw
+		messages <- raw
 	}
 }
 
-func (c *Client) handleUnknownEvents(ch chan json.RawMessage) {
-	for raw := range ch {
-		unknownEvent := &events.EventCommon{}
+func (c *Client) handleEvents(messages chan json.RawMessage, errors chan error) {
+	for raw := range messages {
+		unknownEvent := &events.EventBasic{}
 		if err := json.Unmarshal(raw, unknownEvent); err != nil {
-			log.Fatal(err)
+			errors <- fmt.Errorf("Couldn't unmarshal message into an unknown event: %s", err)
+			continue
 		}
 
 		eventType := unknownEvent.UpdateType
@@ -118,11 +119,25 @@ func (c *Client) handleUnknownEvents(ch chan json.RawMessage) {
 			c.IncomingEvents <- unknownEvent
 		default:
 			if err := json.Unmarshal(raw, knownEvent); err != nil {
-				log.Fatal(err)
+				errors <- fmt.Errorf("Couldn't unmarshal message into an event type of %q: %s", eventType, err)
+				continue
 			}
+
 			c.IncomingEvents <- knownEvent
 		}
 	}
+}
+
+func (c *Client) connect() (*websocket.Conn, error) {
+	u := url.URL{Scheme: "ws", Host: c.host}
+	log.Printf("connecting to %s", u.String())
+
+	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return conn, nil
 }
 
 /*
@@ -131,7 +146,7 @@ we might have open. You don't really have to do this as any connections should
 close when your program terminates or interrupts. But here's a function anyways.
 */
 func (c *Client) Disconnect() error {
-	f := func(conn *websocket.Conn) error {
+	disconnect := func(conn *websocket.Conn) error {
 		if conn != nil {
 			return conn.WriteMessage(
 				websocket.CloseMessage,
@@ -142,8 +157,8 @@ func (c *Client) Disconnect() error {
 	}
 
 	errors := []error{}
-	for _, conn := range []*websocket.Conn{c.requestsConn, c.eventsConn} {
-		if err := f(conn); err != nil {
+	for _, conn := range []*websocket.Conn{c.requestsConn, c.eventingConn} {
+		if err := disconnect(conn); err != nil {
 			errors = append(errors, err)
 		}
 	}

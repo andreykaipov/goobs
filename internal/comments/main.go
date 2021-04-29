@@ -260,7 +260,7 @@ func generateEvent(event *Event) (s *Statement, err error) {
 	note := fmt.Sprintf("Generated from https://github.com/Palakis/obs-websocket/blob/%s/docs/generated/protocol.md#%s.", version, event.Name)
 
 	s.Commentf("%s represents the event body for the %q event.\n\n%s", event.Name, event.Name, note).Line()
-	event.Returns = append(event.Returns, &Param{Name: "EventCommon", Type: "~events~"}) // internal type
+	event.Returns = append(event.Returns, &Param{Name: "EventBasic", Type: "~events~"}) // internal type
 	if err = generateStructFromParams(s, event.Name, event.Returns); err != nil {
 		return nil, fmt.Errorf("Failed generating event %q in category %q", event.Name, event.Category)
 	}

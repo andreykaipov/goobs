@@ -1,12 +1,15 @@
 package goobs
 
 import (
+	"crypto/sha256"
+	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"log"
 	"net/url"
 
 	"github.com/andreykaipov/goobs/api/events"
+	general "github.com/andreykaipov/goobs/api/requests/general"
 	"github.com/gorilla/websocket"
 )
 
@@ -14,17 +17,26 @@ import (
 type Client struct {
 	IncomingEvents chan events.Event
 
-	host string
-	subclients
-
 	// We use two different connections for events and requests to avoid
 	// race conditions when reading events and request responses
 	eventingConn *websocket.Conn
 	requestsConn *websocket.Conn
+
+	host     string
+	password string
+
+	subclients
 }
 
 // Option represents a functional option of a Client.
 type Option func(*Client)
+
+// WithPassword sets the password of a client.
+func WithPassword(x string) Option {
+	return func(o *Client) {
+		o.password = x
+	}
+}
 
 /*
 New creates and configures a client to interact with the OBS websockets server.
@@ -47,7 +59,38 @@ func New(host string, opts ...Option) (c *Client, err error) {
 
 	setClients(c)
 
+	if err := c.authenticate(); err != nil {
+		return nil, fmt.Errorf("Failing authenticating: %s", err)
+	}
+
 	return c, nil
+}
+
+// Pretty much the pseudo-code from
+// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#authentication
+func (c *Client) authenticate() error {
+	authReqResp, err := c.General.GetAuthRequired()
+	if err != nil {
+		return err
+	}
+
+	if !authReqResp.AuthRequired {
+		return nil
+	}
+
+	hash := sha256.Sum256([]byte(c.password + authReqResp.Salt))
+	secret := base64.StdEncoding.EncodeToString(hash[:])
+
+	authHash := sha256.Sum256([]byte(secret + authReqResp.Challenge))
+	authSecret := base64.StdEncoding.EncodeToString(authHash[:])
+
+	if _, err := c.General.Authenticate(&general.AuthenticateParams{
+		Auth: authSecret,
+	}); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 /*

@@ -10,25 +10,15 @@ AuthenticateParams represents the params body for the "Authenticate" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#Authenticate.
 */
 type AuthenticateParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Response to the auth challenge (see "Authentication" for more information).
 	Auth string `json:"auth"`
 }
 
-// GetRequestType returns the RequestType of AuthenticateParams
-func (o *AuthenticateParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of AuthenticateParams
-func (o *AuthenticateParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on AuthenticateParams
-func (o *AuthenticateParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "Authenticate".
+func (o *AuthenticateParams) Name() string {
+	return "Authenticate"
 }
 
 /*

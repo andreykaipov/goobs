@@ -183,32 +183,25 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	// Params
 	structName = request.Name + "Params"
 	s.Commentf("%s represents the params body for the %q request.\n\n%s", structName, request.Name, note).Line()
-	request.Params = append(request.Params, &Param{Name: "Params", Type: "~requests~"}) // internal type
+	request.Params = append(request.Params, &Param{Name: "ParamsBasic", Type: "~requests~"}) // internal type
 	if err = generateStructFromParams(s, structName, request.Params); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, request.Category)
 	}
 
-	// satisfy the paramsBehavior interface
 	s.Add(
-		generateGetter(structName, "RequestType"),
-		generateGetter(structName, "MessageID"),
-		generateSetter(structName, "MessageID"),
+		Commentf("Name just returns %q.", request.Name).Line(),
+		Func().Params(Id("o").Op("*").Id(structName)).Id("Name").Params().String().Block(
+			Return(Lit(request.Name)),
+		).Line(),
 	)
 
 	// Returns
 	structName = request.Name + "Response"
 	s.Commentf("%s represents the response body for the %q request.\n\n%s", structName, request.Name, note).Line()
-	request.Returns = append(request.Returns, &Param{Name: "Response", Type: "~requests~"}) // internal type
+	request.Returns = append(request.Returns, &Param{Name: "ResponseBasic", Type: "~requests~"}) // internal type
 	if err = generateStructFromParams(s, structName, request.Returns); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, request.Category)
 	}
-
-	// satisfy the responseBehavior interface
-	s.Add(
-		generateGetter(structName, "MessageID"),
-		generateGetter(structName, "Status"),
-		generateGetter(structName, "Error"),
-	)
 
 	// generate the request function
 
@@ -238,7 +231,6 @@ func generateRequest(request *Request) (s *Statement, err error) {
 			z.Line()
 			z.Id("params").Op(":=").Id("paramss").Index(Lit(0))
 		}),
-		Id("params").Dot("RequestType").Op("=").Lit(request.Name),
 		Id("data").Op(":=").Op("&").Id(request.Name+"Response").Values(),
 		If(
 			Id("err").Op(":=").Qual(goobs+"/api/requests", "WriteMessage").Call(

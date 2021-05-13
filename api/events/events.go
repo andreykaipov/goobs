@@ -1,5 +1,13 @@
 package events
 
+// Event describes the behavior of any event. Used to abstract the functionality
+// of any event that embeds EventBasic within their fields.
+type Event interface {
+	GetUpdateType() string
+	GetStreamTimecode() string
+	GetRecordingTimecode() string
+}
+
 // EventBasic represents the common fields of any event.
 type EventBasic struct {
 	// The name of the event.
@@ -12,14 +20,6 @@ type EventBasic struct {
 	// Time elapsed between now and recording start (only present if OBS
 	// Studio is recording). Timecodes in format `HH:MM:SS.mmm`.
 	RecordingTimecode string `json:"rec-timecode,omitempty"`
-}
-
-// Event describes the behavior of any event. Used to abstract the functionality
-// of any event that embeds EventBasic within their fields.
-type Event interface {
-	GetUpdateType() string
-	GetStreamTimecode() string
-	GetRecordingTimecode() string
 }
 
 // GetUpdateType does what it says.

@@ -71,7 +71,7 @@ func New(host string, opts ...Option) (c *Client, err error) {
 func (c *Client) authenticate() error {
 	authReqResp, err := c.General.GetAuthRequired()
 	if err != nil {
-		return err
+		return fmt.Errorf("Failed getting auth: %s", err)
 	}
 
 	if !authReqResp.AuthRequired {
@@ -87,7 +87,7 @@ func (c *Client) authenticate() error {
 	if _, err := c.General.Authenticate(&general.AuthenticateParams{
 		Auth: authSecret,
 	}); err != nil {
-		return err
+		return fmt.Errorf("Failed authenticating: %s", err)
 	}
 
 	return nil
@@ -113,15 +113,11 @@ for event := range client.IncomingEvents {
 func (c *Client) Listen() {
 	var err error
 
-	// separate connection
-	c.eventingConn, err = c.connect()
+	c.eventingConn, err = c.connect() // separate connection
 	if err != nil {
 		panic(fmt.Errorf("Failed establishing an eventing connection: %s", err))
 	}
 
-	// The eventing loop involves a few Go routines. We use this channel to
-	// keep track of any errors so the client can find out about them, if it
-	// wants to.
 	messages := make(chan json.RawMessage)
 	errors := make(chan error)
 	go c.handleErrors(errors)
@@ -207,7 +203,7 @@ func (c *Client) Disconnect() error {
 	}
 
 	if len(errors) > 0 {
-		return fmt.Errorf("Got the following errors disconnecting: %s", errors)
+		return fmt.Errorf("Got the following errors while disconnecting: %s", errors)
 	}
 
 	return nil

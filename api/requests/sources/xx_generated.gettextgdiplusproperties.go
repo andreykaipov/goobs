@@ -10,25 +10,15 @@ GetTextGDIPlusPropertiesParams represents the params body for the "GetTextGDIPlu
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
 */
 type GetTextGDIPlusPropertiesParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Source name.
 	Source string `json:"source"`
 }
 
-// GetRequestType returns the RequestType of GetTextGDIPlusPropertiesParams
-func (o *GetTextGDIPlusPropertiesParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of GetTextGDIPlusPropertiesParams
-func (o *GetTextGDIPlusPropertiesParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on GetTextGDIPlusPropertiesParams
-func (o *GetTextGDIPlusPropertiesParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "GetTextGDIPlusProperties".
+func (o *GetTextGDIPlusPropertiesParams) Name() string {
+	return "GetTextGDIPlusProperties"
 }
 
 /*
@@ -37,7 +27,7 @@ GetTextGDIPlusPropertiesResponse represents the response body for the "GetTextGD
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
 */
 type GetTextGDIPlusPropertiesResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	// Text Alignment ("left", "center", "right").
 	Align string `json:"align"`
@@ -123,26 +113,10 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Vertical bool `json:"vertical"`
 }
 
-// GetMessageID returns the MessageID of GetTextGDIPlusPropertiesResponse
-func (o *GetTextGDIPlusPropertiesResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of GetTextGDIPlusPropertiesResponse
-func (o *GetTextGDIPlusPropertiesResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of GetTextGDIPlusPropertiesResponse
-func (o *GetTextGDIPlusPropertiesResponse) GetError() string {
-	return o.Error
-}
-
 // GetTextGDIPlusProperties sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetTextGDIPlusProperties(
 	params *GetTextGDIPlusPropertiesParams,
 ) (*GetTextGDIPlusPropertiesResponse, error) {
-	params.RequestType = "GetTextGDIPlusProperties"
 	data := &GetTextGDIPlusPropertiesResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

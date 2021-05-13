@@ -10,22 +10,12 @@ GetFilenameFormattingParams represents the params body for the "GetFilenameForma
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetFilenameFormatting.
 */
 type GetFilenameFormattingParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of GetFilenameFormattingParams
-func (o *GetFilenameFormattingParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of GetFilenameFormattingParams
-func (o *GetFilenameFormattingParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on GetFilenameFormattingParams
-func (o *GetFilenameFormattingParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "GetFilenameFormatting".
+func (o *GetFilenameFormattingParams) Name() string {
+	return "GetFilenameFormatting"
 }
 
 /*
@@ -34,25 +24,10 @@ GetFilenameFormattingResponse represents the response body for the "GetFilenameF
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetFilenameFormatting.
 */
 type GetFilenameFormattingResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	// Current filename formatting string.
 	FilenameFormatting string `json:"filename-formatting"`
-}
-
-// GetMessageID returns the MessageID of GetFilenameFormattingResponse
-func (o *GetFilenameFormattingResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of GetFilenameFormattingResponse
-func (o *GetFilenameFormattingResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of GetFilenameFormattingResponse
-func (o *GetFilenameFormattingResponse) GetError() string {
-	return o.Error
 }
 
 // GetFilenameFormatting sends the corresponding request to the connected OBS WebSockets server.
@@ -64,7 +39,6 @@ func (c *Client) GetFilenameFormatting(
 		paramss = []*GetFilenameFormattingParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "GetFilenameFormatting"
 	data := &GetFilenameFormattingResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

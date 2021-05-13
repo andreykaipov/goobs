@@ -10,25 +10,15 @@ SetCurrentSceneParams represents the params body for the "SetCurrentScene" reque
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentScene.
 */
 type SetCurrentSceneParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Name of the scene to switch to.
 	SceneName string `json:"scene-name"`
 }
 
-// GetRequestType returns the RequestType of SetCurrentSceneParams
-func (o *SetCurrentSceneParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of SetCurrentSceneParams
-func (o *SetCurrentSceneParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on SetCurrentSceneParams
-func (o *SetCurrentSceneParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "SetCurrentScene".
+func (o *SetCurrentSceneParams) Name() string {
+	return "SetCurrentScene"
 }
 
 /*
@@ -37,27 +27,11 @@ SetCurrentSceneResponse represents the response body for the "SetCurrentScene" r
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentScene.
 */
 type SetCurrentSceneResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of SetCurrentSceneResponse
-func (o *SetCurrentSceneResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of SetCurrentSceneResponse
-func (o *SetCurrentSceneResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of SetCurrentSceneResponse
-func (o *SetCurrentSceneResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // SetCurrentScene sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetCurrentScene(params *SetCurrentSceneParams) (*SetCurrentSceneResponse, error) {
-	params.RequestType = "SetCurrentScene"
 	data := &SetCurrentSceneResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

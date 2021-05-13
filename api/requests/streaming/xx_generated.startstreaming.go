@@ -10,7 +10,7 @@ StartStreamingParams represents the params body for the "StartStreaming" request
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStreaming.
 */
 type StartStreamingParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	Stream struct {
 		// Adds the given object parameters as encoded query string parameters to the 'key' of the
@@ -46,19 +46,9 @@ type StartStreamingParams struct {
 	} `json:"stream"`
 }
 
-// GetRequestType returns the RequestType of StartStreamingParams
-func (o *StartStreamingParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of StartStreamingParams
-func (o *StartStreamingParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on StartStreamingParams
-func (o *StartStreamingParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "StartStreaming".
+func (o *StartStreamingParams) Name() string {
+	return "StartStreaming"
 }
 
 /*
@@ -67,27 +57,11 @@ StartStreamingResponse represents the response body for the "StartStreaming" req
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStreaming.
 */
 type StartStreamingResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of StartStreamingResponse
-func (o *StartStreamingResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of StartStreamingResponse
-func (o *StartStreamingResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of StartStreamingResponse
-func (o *StartStreamingResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // StartStreaming sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) StartStreaming(params *StartStreamingParams) (*StartStreamingResponse, error) {
-	params.RequestType = "StartStreaming"
 	data := &StartStreamingResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

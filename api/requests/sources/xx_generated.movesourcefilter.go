@@ -10,7 +10,7 @@ MoveSourceFilterParams represents the params body for the "MoveSourceFilter" req
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter.
 */
 type MoveSourceFilterParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Name of the filter to reorder
 	FilterName string `json:"filterName"`
@@ -23,19 +23,9 @@ type MoveSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// GetRequestType returns the RequestType of MoveSourceFilterParams
-func (o *MoveSourceFilterParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of MoveSourceFilterParams
-func (o *MoveSourceFilterParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on MoveSourceFilterParams
-func (o *MoveSourceFilterParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "MoveSourceFilter".
+func (o *MoveSourceFilterParams) Name() string {
+	return "MoveSourceFilter"
 }
 
 /*
@@ -44,29 +34,13 @@ MoveSourceFilterResponse represents the response body for the "MoveSourceFilter"
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter.
 */
 type MoveSourceFilterResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of MoveSourceFilterResponse
-func (o *MoveSourceFilterResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of MoveSourceFilterResponse
-func (o *MoveSourceFilterResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of MoveSourceFilterResponse
-func (o *MoveSourceFilterResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // MoveSourceFilter sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) MoveSourceFilter(
 	params *MoveSourceFilterParams,
 ) (*MoveSourceFilterResponse, error) {
-	params.RequestType = "MoveSourceFilter"
 	data := &MoveSourceFilterResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

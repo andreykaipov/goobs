@@ -10,7 +10,7 @@ SetSourceSettingsParams represents the params body for the "SetSourceSettings" r
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceSettings.
 */
 type SetSourceSettingsParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Source name.
 	SourceName string `json:"sourceName"`
@@ -23,19 +23,9 @@ type SetSourceSettingsParams struct {
 	SourceType string `json:"sourceType"`
 }
 
-// GetRequestType returns the RequestType of SetSourceSettingsParams
-func (o *SetSourceSettingsParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of SetSourceSettingsParams
-func (o *SetSourceSettingsParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on SetSourceSettingsParams
-func (o *SetSourceSettingsParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "SetSourceSettings".
+func (o *SetSourceSettingsParams) Name() string {
+	return "SetSourceSettings"
 }
 
 /*
@@ -44,7 +34,7 @@ SetSourceSettingsResponse represents the response body for the "SetSourceSetting
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceSettings.
 */
 type SetSourceSettingsResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	// Source name
 	SourceName string `json:"sourceName"`
@@ -56,26 +46,10 @@ type SetSourceSettingsResponse struct {
 	SourceType string `json:"sourceType"`
 }
 
-// GetMessageID returns the MessageID of SetSourceSettingsResponse
-func (o *SetSourceSettingsResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of SetSourceSettingsResponse
-func (o *SetSourceSettingsResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of SetSourceSettingsResponse
-func (o *SetSourceSettingsResponse) GetError() string {
-	return o.Error
-}
-
 // SetSourceSettings sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetSourceSettings(
 	params *SetSourceSettingsParams,
 ) (*SetSourceSettingsResponse, error) {
-	params.RequestType = "SetSourceSettings"
 	data := &SetSourceSettingsResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

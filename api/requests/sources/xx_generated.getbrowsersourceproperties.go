@@ -10,25 +10,15 @@ GetBrowserSourcePropertiesParams represents the params body for the "GetBrowserS
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties.
 */
 type GetBrowserSourcePropertiesParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Source name.
 	Source string `json:"source"`
 }
 
-// GetRequestType returns the RequestType of GetBrowserSourcePropertiesParams
-func (o *GetBrowserSourcePropertiesParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of GetBrowserSourcePropertiesParams
-func (o *GetBrowserSourcePropertiesParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on GetBrowserSourcePropertiesParams
-func (o *GetBrowserSourcePropertiesParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "GetBrowserSourceProperties".
+func (o *GetBrowserSourcePropertiesParams) Name() string {
+	return "GetBrowserSourceProperties"
 }
 
 /*
@@ -37,7 +27,7 @@ GetBrowserSourcePropertiesResponse represents the response body for the "GetBrow
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties.
 */
 type GetBrowserSourcePropertiesResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	// CSS to inject.
 	Css string `json:"css"`
@@ -67,27 +57,11 @@ type GetBrowserSourcePropertiesResponse struct {
 	Width int `json:"width"`
 }
 
-// GetMessageID returns the MessageID of GetBrowserSourcePropertiesResponse
-func (o *GetBrowserSourcePropertiesResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of GetBrowserSourcePropertiesResponse
-func (o *GetBrowserSourcePropertiesResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of GetBrowserSourcePropertiesResponse
-func (o *GetBrowserSourcePropertiesResponse) GetError() string {
-	return o.Error
-}
-
 // GetBrowserSourceProperties sends the corresponding request to the connected OBS WebSockets
 // server.
 func (c *Client) GetBrowserSourceProperties(
 	params *GetBrowserSourcePropertiesParams,
 ) (*GetBrowserSourcePropertiesResponse, error) {
-	params.RequestType = "GetBrowserSourceProperties"
 	data := &GetBrowserSourcePropertiesResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

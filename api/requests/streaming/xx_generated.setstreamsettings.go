@@ -10,7 +10,7 @@ SetStreamSettingsParams represents the params body for the "SetStreamSettings" r
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetStreamSettings.
 */
 type SetStreamSettingsParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Persist the settings to disk.
 	Save bool `json:"save"`
@@ -36,19 +36,9 @@ type SetStreamSettingsParams struct {
 	Type string `json:"type"`
 }
 
-// GetRequestType returns the RequestType of SetStreamSettingsParams
-func (o *SetStreamSettingsParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of SetStreamSettingsParams
-func (o *SetStreamSettingsParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on SetStreamSettingsParams
-func (o *SetStreamSettingsParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "SetStreamSettings".
+func (o *SetStreamSettingsParams) Name() string {
+	return "SetStreamSettings"
 }
 
 /*
@@ -57,29 +47,13 @@ SetStreamSettingsResponse represents the response body for the "SetStreamSetting
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetStreamSettings.
 */
 type SetStreamSettingsResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of SetStreamSettingsResponse
-func (o *SetStreamSettingsResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of SetStreamSettingsResponse
-func (o *SetStreamSettingsResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of SetStreamSettingsResponse
-func (o *SetStreamSettingsResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // SetStreamSettings sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetStreamSettings(
 	params *SetStreamSettingsParams,
 ) (*SetStreamSettingsResponse, error) {
-	params.RequestType = "SetStreamSettings"
 	data := &SetStreamSettingsResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

@@ -10,22 +10,12 @@ ToggleStudioModeParams represents the params body for the "ToggleStudioMode" req
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleStudioMode.
 */
 type ToggleStudioModeParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of ToggleStudioModeParams
-func (o *ToggleStudioModeParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of ToggleStudioModeParams
-func (o *ToggleStudioModeParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on ToggleStudioModeParams
-func (o *ToggleStudioModeParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "ToggleStudioMode".
+func (o *ToggleStudioModeParams) Name() string {
+	return "ToggleStudioMode"
 }
 
 /*
@@ -34,22 +24,7 @@ ToggleStudioModeResponse represents the response body for the "ToggleStudioMode"
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleStudioMode.
 */
 type ToggleStudioModeResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of ToggleStudioModeResponse
-func (o *ToggleStudioModeResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of ToggleStudioModeResponse
-func (o *ToggleStudioModeResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of ToggleStudioModeResponse
-func (o *ToggleStudioModeResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // ToggleStudioMode sends the corresponding request to the connected OBS WebSockets server. Note the
@@ -61,7 +36,6 @@ func (c *Client) ToggleStudioMode(
 		paramss = []*ToggleStudioModeParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "ToggleStudioMode"
 	data := &ToggleStudioModeResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

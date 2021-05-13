@@ -10,22 +10,12 @@ ListProfilesParams represents the params body for the "ListProfiles" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListProfiles.
 */
 type ListProfilesParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of ListProfilesParams
-func (o *ListProfilesParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of ListProfilesParams
-func (o *ListProfilesParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on ListProfilesParams
-func (o *ListProfilesParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "ListProfiles".
+func (o *ListProfilesParams) Name() string {
+	return "ListProfiles"
 }
 
 /*
@@ -34,25 +24,10 @@ ListProfilesResponse represents the response body for the "ListProfiles" request
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListProfiles.
 */
 type ListProfilesResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	// List of available profiles.
 	Profiles []map[string]interface{} `json:"profiles"`
-}
-
-// GetMessageID returns the MessageID of ListProfilesResponse
-func (o *ListProfilesResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of ListProfilesResponse
-func (o *ListProfilesResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of ListProfilesResponse
-func (o *ListProfilesResponse) GetError() string {
-	return o.Error
 }
 
 // ListProfiles sends the corresponding request to the connected OBS WebSockets server. Note the
@@ -62,7 +37,6 @@ func (c *Client) ListProfiles(paramss ...*ListProfilesParams) (*ListProfilesResp
 		paramss = []*ListProfilesParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "ListProfiles"
 	data := &ListProfilesResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

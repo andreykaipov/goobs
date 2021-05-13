@@ -10,22 +10,12 @@ ListSceneCollectionsParams represents the params body for the "ListSceneCollecti
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListSceneCollections.
 */
 type ListSceneCollectionsParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of ListSceneCollectionsParams
-func (o *ListSceneCollectionsParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of ListSceneCollectionsParams
-func (o *ListSceneCollectionsParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on ListSceneCollectionsParams
-func (o *ListSceneCollectionsParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "ListSceneCollections".
+func (o *ListSceneCollectionsParams) Name() string {
+	return "ListSceneCollections"
 }
 
 /*
@@ -34,25 +24,10 @@ ListSceneCollectionsResponse represents the response body for the "ListSceneColl
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListSceneCollections.
 */
 type ListSceneCollectionsResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	// Scene collections list
 	SceneCollections []string `json:"scene-collections"`
-}
-
-// GetMessageID returns the MessageID of ListSceneCollectionsResponse
-func (o *ListSceneCollectionsResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of ListSceneCollectionsResponse
-func (o *ListSceneCollectionsResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of ListSceneCollectionsResponse
-func (o *ListSceneCollectionsResponse) GetError() string {
-	return o.Error
 }
 
 // ListSceneCollections sends the corresponding request to the connected OBS WebSockets server. Note
@@ -64,7 +39,6 @@ func (c *Client) ListSceneCollections(
 		paramss = []*ListSceneCollectionsParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "ListSceneCollections"
 	data := &ListSceneCollectionsResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

@@ -10,7 +10,7 @@ GetSceneItemPropertiesParams represents the params body for the "GetSceneItemPro
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneItemProperties.
 */
 type GetSceneItemPropertiesParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// The name of the source.
 	Item string `json:"item"`
@@ -19,19 +19,9 @@ type GetSceneItemPropertiesParams struct {
 	SceneName string `json:"scene-name"`
 }
 
-// GetRequestType returns the RequestType of GetSceneItemPropertiesParams
-func (o *GetSceneItemPropertiesParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of GetSceneItemPropertiesParams
-func (o *GetSceneItemPropertiesParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on GetSceneItemPropertiesParams
-func (o *GetSceneItemPropertiesParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "GetSceneItemProperties".
+func (o *GetSceneItemPropertiesParams) Name() string {
+	return "GetSceneItemProperties"
 }
 
 /*
@@ -40,7 +30,7 @@ GetSceneItemPropertiesResponse represents the response body for the "GetSceneIte
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneItemProperties.
 */
 type GetSceneItemPropertiesResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	Bounds struct {
 		// Alignment of the bounding box.
@@ -99,26 +89,10 @@ type GetSceneItemPropertiesResponse struct {
 	Visible bool `json:"visible"`
 }
 
-// GetMessageID returns the MessageID of GetSceneItemPropertiesResponse
-func (o *GetSceneItemPropertiesResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of GetSceneItemPropertiesResponse
-func (o *GetSceneItemPropertiesResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of GetSceneItemPropertiesResponse
-func (o *GetSceneItemPropertiesResponse) GetError() string {
-	return o.Error
-}
-
 // GetSceneItemProperties sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetSceneItemProperties(
 	params *GetSceneItemPropertiesParams,
 ) (*GetSceneItemPropertiesResponse, error) {
-	params.RequestType = "GetSceneItemProperties"
 	data := &GetSceneItemPropertiesResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

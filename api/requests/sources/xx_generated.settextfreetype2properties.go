@@ -10,7 +10,7 @@ SetTextFreetype2PropertiesParams represents the params body for the "SetTextFree
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextFreetype2Properties.
 */
 type SetTextFreetype2PropertiesParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Gradient top color.
 	Color1 int `json:"color1"`
@@ -60,19 +60,9 @@ type SetTextFreetype2PropertiesParams struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
-// GetRequestType returns the RequestType of SetTextFreetype2PropertiesParams
-func (o *SetTextFreetype2PropertiesParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of SetTextFreetype2PropertiesParams
-func (o *SetTextFreetype2PropertiesParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on SetTextFreetype2PropertiesParams
-func (o *SetTextFreetype2PropertiesParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "SetTextFreetype2Properties".
+func (o *SetTextFreetype2PropertiesParams) Name() string {
+	return "SetTextFreetype2Properties"
 }
 
 /*
@@ -81,22 +71,7 @@ SetTextFreetype2PropertiesResponse represents the response body for the "SetText
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextFreetype2Properties.
 */
 type SetTextFreetype2PropertiesResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of SetTextFreetype2PropertiesResponse
-func (o *SetTextFreetype2PropertiesResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of SetTextFreetype2PropertiesResponse
-func (o *SetTextFreetype2PropertiesResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of SetTextFreetype2PropertiesResponse
-func (o *SetTextFreetype2PropertiesResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // SetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets
@@ -104,7 +79,6 @@ func (o *SetTextFreetype2PropertiesResponse) GetError() string {
 func (c *Client) SetTextFreetype2Properties(
 	params *SetTextFreetype2PropertiesParams,
 ) (*SetTextFreetype2PropertiesResponse, error) {
-	params.RequestType = "SetTextFreetype2Properties"
 	data := &SetTextFreetype2PropertiesResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

@@ -10,22 +10,12 @@ GetStreamSettingsParams represents the params body for the "GetStreamSettings" r
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamSettings.
 */
 type GetStreamSettingsParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of GetStreamSettingsParams
-func (o *GetStreamSettingsParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of GetStreamSettingsParams
-func (o *GetStreamSettingsParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on GetStreamSettingsParams
-func (o *GetStreamSettingsParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "GetStreamSettings".
+func (o *GetStreamSettingsParams) Name() string {
+	return "GetStreamSettings"
 }
 
 /*
@@ -34,7 +24,7 @@ GetStreamSettingsResponse represents the response body for the "GetStreamSetting
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamSettings.
 */
 type GetStreamSettingsResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	Settings struct {
 		// The publish key of the stream.
@@ -59,21 +49,6 @@ type GetStreamSettingsResponse struct {
 	Type string `json:"type"`
 }
 
-// GetMessageID returns the MessageID of GetStreamSettingsResponse
-func (o *GetStreamSettingsResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of GetStreamSettingsResponse
-func (o *GetStreamSettingsResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of GetStreamSettingsResponse
-func (o *GetStreamSettingsResponse) GetError() string {
-	return o.Error
-}
-
 // GetStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note
 // the variadic arguments as this request doesn't require any parameters.
 func (c *Client) GetStreamSettings(
@@ -83,7 +58,6 @@ func (c *Client) GetStreamSettings(
 		paramss = []*GetStreamSettingsParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "GetStreamSettings"
 	data := &GetStreamSettingsResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

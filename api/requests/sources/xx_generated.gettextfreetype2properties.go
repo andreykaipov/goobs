@@ -10,25 +10,15 @@ GetTextFreetype2PropertiesParams represents the params body for the "GetTextFree
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties.
 */
 type GetTextFreetype2PropertiesParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Source name.
 	Source string `json:"source"`
 }
 
-// GetRequestType returns the RequestType of GetTextFreetype2PropertiesParams
-func (o *GetTextFreetype2PropertiesParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of GetTextFreetype2PropertiesParams
-func (o *GetTextFreetype2PropertiesParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on GetTextFreetype2PropertiesParams
-func (o *GetTextFreetype2PropertiesParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "GetTextFreetype2Properties".
+func (o *GetTextFreetype2PropertiesParams) Name() string {
+	return "GetTextFreetype2Properties"
 }
 
 /*
@@ -37,7 +27,7 @@ GetTextFreetype2PropertiesResponse represents the response body for the "GetText
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties.
 */
 type GetTextFreetype2PropertiesResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	// Gradient top color.
 	Color1 int `json:"color1"`
@@ -87,27 +77,11 @@ type GetTextFreetype2PropertiesResponse struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
-// GetMessageID returns the MessageID of GetTextFreetype2PropertiesResponse
-func (o *GetTextFreetype2PropertiesResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of GetTextFreetype2PropertiesResponse
-func (o *GetTextFreetype2PropertiesResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of GetTextFreetype2PropertiesResponse
-func (o *GetTextFreetype2PropertiesResponse) GetError() string {
-	return o.Error
-}
-
 // GetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets
 // server.
 func (c *Client) GetTextFreetype2Properties(
 	params *GetTextFreetype2PropertiesParams,
 ) (*GetTextFreetype2PropertiesResponse, error) {
-	params.RequestType = "GetTextFreetype2Properties"
 	data := &GetTextFreetype2PropertiesResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

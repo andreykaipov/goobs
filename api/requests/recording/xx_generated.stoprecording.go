@@ -10,22 +10,12 @@ StopRecordingParams represents the params body for the "StopRecording" request.
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopRecording.
 */
 type StopRecordingParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of StopRecordingParams
-func (o *StopRecordingParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of StopRecordingParams
-func (o *StopRecordingParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on StopRecordingParams
-func (o *StopRecordingParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "StopRecording".
+func (o *StopRecordingParams) Name() string {
+	return "StopRecording"
 }
 
 /*
@@ -34,22 +24,7 @@ StopRecordingResponse represents the response body for the "StopRecording" reque
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopRecording.
 */
 type StopRecordingResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of StopRecordingResponse
-func (o *StopRecordingResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of StopRecordingResponse
-func (o *StopRecordingResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of StopRecordingResponse
-func (o *StopRecordingResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // StopRecording sends the corresponding request to the connected OBS WebSockets server. Note the
@@ -59,7 +34,6 @@ func (c *Client) StopRecording(paramss ...*StopRecordingParams) (*StopRecordingR
 		paramss = []*StopRecordingParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "StopRecording"
 	data := &StopRecordingResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

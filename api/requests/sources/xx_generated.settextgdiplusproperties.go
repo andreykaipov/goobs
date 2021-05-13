@@ -10,7 +10,7 @@ SetTextGDIPlusPropertiesParams represents the params body for the "SetTextGDIPlu
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
 */
 type SetTextGDIPlusPropertiesParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Text Alignment ("left", "center", "right").
 	Align string `json:"align"`
@@ -99,19 +99,9 @@ type SetTextGDIPlusPropertiesParams struct {
 	Vertical bool `json:"vertical"`
 }
 
-// GetRequestType returns the RequestType of SetTextGDIPlusPropertiesParams
-func (o *SetTextGDIPlusPropertiesParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of SetTextGDIPlusPropertiesParams
-func (o *SetTextGDIPlusPropertiesParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on SetTextGDIPlusPropertiesParams
-func (o *SetTextGDIPlusPropertiesParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "SetTextGDIPlusProperties".
+func (o *SetTextGDIPlusPropertiesParams) Name() string {
+	return "SetTextGDIPlusProperties"
 }
 
 /*
@@ -120,29 +110,13 @@ SetTextGDIPlusPropertiesResponse represents the response body for the "SetTextGD
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
 */
 type SetTextGDIPlusPropertiesResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of SetTextGDIPlusPropertiesResponse
-func (o *SetTextGDIPlusPropertiesResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of SetTextGDIPlusPropertiesResponse
-func (o *SetTextGDIPlusPropertiesResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of SetTextGDIPlusPropertiesResponse
-func (o *SetTextGDIPlusPropertiesResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // SetTextGDIPlusProperties sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetTextGDIPlusProperties(
 	params *SetTextGDIPlusPropertiesParams,
 ) (*SetTextGDIPlusPropertiesResponse, error) {
-	params.RequestType = "SetTextGDIPlusProperties"
 	data := &SetTextGDIPlusPropertiesResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

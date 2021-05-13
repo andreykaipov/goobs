@@ -10,22 +10,12 @@ StartRecordingParams represents the params body for the "StartRecording" request
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartRecording.
 */
 type StartRecordingParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of StartRecordingParams
-func (o *StartRecordingParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of StartRecordingParams
-func (o *StartRecordingParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on StartRecordingParams
-func (o *StartRecordingParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "StartRecording".
+func (o *StartRecordingParams) Name() string {
+	return "StartRecording"
 }
 
 /*
@@ -34,22 +24,7 @@ StartRecordingResponse represents the response body for the "StartRecording" req
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartRecording.
 */
 type StartRecordingResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of StartRecordingResponse
-func (o *StartRecordingResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of StartRecordingResponse
-func (o *StartRecordingResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of StartRecordingResponse
-func (o *StartRecordingResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // StartRecording sends the corresponding request to the connected OBS WebSockets server. Note the
@@ -59,7 +34,6 @@ func (c *Client) StartRecording(paramss ...*StartRecordingParams) (*StartRecordi
 		paramss = []*StartRecordingParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "StartRecording"
 	data := &StartRecordingResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

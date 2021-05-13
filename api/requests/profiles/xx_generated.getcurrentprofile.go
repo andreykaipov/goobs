@@ -10,22 +10,12 @@ GetCurrentProfileParams represents the params body for the "GetCurrentProfile" r
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentProfile.
 */
 type GetCurrentProfileParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of GetCurrentProfileParams
-func (o *GetCurrentProfileParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of GetCurrentProfileParams
-func (o *GetCurrentProfileParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on GetCurrentProfileParams
-func (o *GetCurrentProfileParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "GetCurrentProfile".
+func (o *GetCurrentProfileParams) Name() string {
+	return "GetCurrentProfile"
 }
 
 /*
@@ -34,25 +24,10 @@ GetCurrentProfileResponse represents the response body for the "GetCurrentProfil
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentProfile.
 */
 type GetCurrentProfileResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	// Name of the currently active profile.
 	ProfileName string `json:"profile-name"`
-}
-
-// GetMessageID returns the MessageID of GetCurrentProfileResponse
-func (o *GetCurrentProfileResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of GetCurrentProfileResponse
-func (o *GetCurrentProfileResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of GetCurrentProfileResponse
-func (o *GetCurrentProfileResponse) GetError() string {
-	return o.Error
 }
 
 // GetCurrentProfile sends the corresponding request to the connected OBS WebSockets server. Note
@@ -64,7 +39,6 @@ func (c *Client) GetCurrentProfile(
 		paramss = []*GetCurrentProfileParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "GetCurrentProfile"
 	data := &GetCurrentProfileResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

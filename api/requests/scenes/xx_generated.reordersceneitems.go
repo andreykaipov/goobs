@@ -10,7 +10,7 @@ ReorderSceneItemsParams represents the params body for the "ReorderSceneItems" r
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSceneItems.
 */
 type ReorderSceneItemsParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	Items []struct {
 		// Id of a specific scene item. Unique on a scene by scene basis.
@@ -25,19 +25,9 @@ type ReorderSceneItemsParams struct {
 	Scene string `json:"scene"`
 }
 
-// GetRequestType returns the RequestType of ReorderSceneItemsParams
-func (o *ReorderSceneItemsParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of ReorderSceneItemsParams
-func (o *ReorderSceneItemsParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on ReorderSceneItemsParams
-func (o *ReorderSceneItemsParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "ReorderSceneItems".
+func (o *ReorderSceneItemsParams) Name() string {
+	return "ReorderSceneItems"
 }
 
 /*
@@ -46,29 +36,13 @@ ReorderSceneItemsResponse represents the response body for the "ReorderSceneItem
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSceneItems.
 */
 type ReorderSceneItemsResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of ReorderSceneItemsResponse
-func (o *ReorderSceneItemsResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of ReorderSceneItemsResponse
-func (o *ReorderSceneItemsResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of ReorderSceneItemsResponse
-func (o *ReorderSceneItemsResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // ReorderSceneItems sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) ReorderSceneItems(
 	params *ReorderSceneItemsParams,
 ) (*ReorderSceneItemsResponse, error) {
-	params.RequestType = "ReorderSceneItems"
 	data := &ReorderSceneItemsResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

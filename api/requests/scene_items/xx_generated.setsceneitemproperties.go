@@ -10,7 +10,7 @@ SetSceneItemPropertiesParams represents the params body for the "SetSceneItemPro
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSceneItemProperties.
 */
 type SetSceneItemPropertiesParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	Bounds struct {
 		// The new alignment of the bounding box. (0-2, 4-6, 8-10)
@@ -72,19 +72,9 @@ type SetSceneItemPropertiesParams struct {
 	Visible bool `json:"visible"`
 }
 
-// GetRequestType returns the RequestType of SetSceneItemPropertiesParams
-func (o *SetSceneItemPropertiesParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of SetSceneItemPropertiesParams
-func (o *SetSceneItemPropertiesParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on SetSceneItemPropertiesParams
-func (o *SetSceneItemPropertiesParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "SetSceneItemProperties".
+func (o *SetSceneItemPropertiesParams) Name() string {
+	return "SetSceneItemProperties"
 }
 
 /*
@@ -93,29 +83,13 @@ SetSceneItemPropertiesResponse represents the response body for the "SetSceneIte
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSceneItemProperties.
 */
 type SetSceneItemPropertiesResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of SetSceneItemPropertiesResponse
-func (o *SetSceneItemPropertiesResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of SetSceneItemPropertiesResponse
-func (o *SetSceneItemPropertiesResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of SetSceneItemPropertiesResponse
-func (o *SetSceneItemPropertiesResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // SetSceneItemProperties sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetSceneItemProperties(
 	params *SetSceneItemPropertiesParams,
 ) (*SetSceneItemPropertiesResponse, error) {
-	params.RequestType = "SetSceneItemProperties"
 	data := &SetSceneItemPropertiesResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

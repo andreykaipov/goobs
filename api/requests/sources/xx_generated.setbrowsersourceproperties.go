@@ -10,7 +10,7 @@ SetBrowserSourcePropertiesParams represents the params body for the "SetBrowserS
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetBrowserSourceProperties.
 */
 type SetBrowserSourcePropertiesParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// CSS to inject.
 	Css string `json:"css"`
@@ -43,19 +43,9 @@ type SetBrowserSourcePropertiesParams struct {
 	Width int `json:"width"`
 }
 
-// GetRequestType returns the RequestType of SetBrowserSourcePropertiesParams
-func (o *SetBrowserSourcePropertiesParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of SetBrowserSourcePropertiesParams
-func (o *SetBrowserSourcePropertiesParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on SetBrowserSourcePropertiesParams
-func (o *SetBrowserSourcePropertiesParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "SetBrowserSourceProperties".
+func (o *SetBrowserSourcePropertiesParams) Name() string {
+	return "SetBrowserSourceProperties"
 }
 
 /*
@@ -64,22 +54,7 @@ SetBrowserSourcePropertiesResponse represents the response body for the "SetBrow
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetBrowserSourceProperties.
 */
 type SetBrowserSourcePropertiesResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of SetBrowserSourcePropertiesResponse
-func (o *SetBrowserSourcePropertiesResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of SetBrowserSourcePropertiesResponse
-func (o *SetBrowserSourcePropertiesResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of SetBrowserSourcePropertiesResponse
-func (o *SetBrowserSourcePropertiesResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // SetBrowserSourceProperties sends the corresponding request to the connected OBS WebSockets
@@ -87,7 +62,6 @@ func (o *SetBrowserSourcePropertiesResponse) GetError() string {
 func (c *Client) SetBrowserSourceProperties(
 	params *SetBrowserSourcePropertiesParams,
 ) (*SetBrowserSourcePropertiesResponse, error) {
-	params.RequestType = "SetBrowserSourceProperties"
 	data := &SetBrowserSourcePropertiesResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

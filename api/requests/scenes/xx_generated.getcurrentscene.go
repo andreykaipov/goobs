@@ -10,22 +10,12 @@ GetCurrentSceneParams represents the params body for the "GetCurrentScene" reque
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentScene.
 */
 type GetCurrentSceneParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of GetCurrentSceneParams
-func (o *GetCurrentSceneParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of GetCurrentSceneParams
-func (o *GetCurrentSceneParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on GetCurrentSceneParams
-func (o *GetCurrentSceneParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "GetCurrentScene".
+func (o *GetCurrentSceneParams) Name() string {
+	return "GetCurrentScene"
 }
 
 /*
@@ -34,28 +24,13 @@ GetCurrentSceneResponse represents the response body for the "GetCurrentScene" r
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentScene.
 */
 type GetCurrentSceneResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	// Name of the currently active scene.
 	Name string `json:"name"`
 
 	// Ordered list of the current scene's source items.
 	Sources []map[string]interface{} `json:"sources"`
-}
-
-// GetMessageID returns the MessageID of GetCurrentSceneResponse
-func (o *GetCurrentSceneResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of GetCurrentSceneResponse
-func (o *GetCurrentSceneResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of GetCurrentSceneResponse
-func (o *GetCurrentSceneResponse) GetError() string {
-	return o.Error
 }
 
 // GetCurrentScene sends the corresponding request to the connected OBS WebSockets server. Note the
@@ -67,7 +42,6 @@ func (c *Client) GetCurrentScene(
 		paramss = []*GetCurrentSceneParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "GetCurrentScene"
 	data := &GetCurrentSceneResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

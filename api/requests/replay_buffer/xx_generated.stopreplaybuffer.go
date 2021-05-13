@@ -10,22 +10,12 @@ StopReplayBufferParams represents the params body for the "StopReplayBuffer" req
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer.
 */
 type StopReplayBufferParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of StopReplayBufferParams
-func (o *StopReplayBufferParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of StopReplayBufferParams
-func (o *StopReplayBufferParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on StopReplayBufferParams
-func (o *StopReplayBufferParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "StopReplayBuffer".
+func (o *StopReplayBufferParams) Name() string {
+	return "StopReplayBuffer"
 }
 
 /*
@@ -34,22 +24,7 @@ StopReplayBufferResponse represents the response body for the "StopReplayBuffer"
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer.
 */
 type StopReplayBufferResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of StopReplayBufferResponse
-func (o *StopReplayBufferResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of StopReplayBufferResponse
-func (o *StopReplayBufferResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of StopReplayBufferResponse
-func (o *StopReplayBufferResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // StopReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the
@@ -61,7 +36,6 @@ func (c *Client) StopReplayBuffer(
 		paramss = []*StopReplayBufferParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "StopReplayBuffer"
 	data := &StopReplayBufferResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

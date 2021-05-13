@@ -10,22 +10,12 @@ SaveStreamSettingsParams represents the params body for the "SaveStreamSettings"
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveStreamSettings.
 */
 type SaveStreamSettingsParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of SaveStreamSettingsParams
-func (o *SaveStreamSettingsParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of SaveStreamSettingsParams
-func (o *SaveStreamSettingsParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on SaveStreamSettingsParams
-func (o *SaveStreamSettingsParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "SaveStreamSettings".
+func (o *SaveStreamSettingsParams) Name() string {
+	return "SaveStreamSettings"
 }
 
 /*
@@ -34,22 +24,7 @@ SaveStreamSettingsResponse represents the response body for the "SaveStreamSetti
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveStreamSettings.
 */
 type SaveStreamSettingsResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of SaveStreamSettingsResponse
-func (o *SaveStreamSettingsResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of SaveStreamSettingsResponse
-func (o *SaveStreamSettingsResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of SaveStreamSettingsResponse
-func (o *SaveStreamSettingsResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // SaveStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note
@@ -61,7 +36,6 @@ func (c *Client) SaveStreamSettings(
 		paramss = []*SaveStreamSettingsParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "SaveStreamSettings"
 	data := &SaveStreamSettingsResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

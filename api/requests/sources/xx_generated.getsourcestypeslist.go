@@ -10,22 +10,12 @@ GetSourcesTypesListParams represents the params body for the "GetSourcesTypesLis
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesTypesList.
 */
 type GetSourcesTypesListParams struct {
-	requests.Params
+	requests.ParamsBasic
 }
 
-// GetRequestType returns the RequestType of GetSourcesTypesListParams
-func (o *GetSourcesTypesListParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of GetSourcesTypesListParams
-func (o *GetSourcesTypesListParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on GetSourcesTypesListParams
-func (o *GetSourcesTypesListParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "GetSourcesTypesList".
+func (o *GetSourcesTypesListParams) Name() string {
+	return "GetSourcesTypesList"
 }
 
 /*
@@ -34,7 +24,7 @@ GetSourcesTypesListResponse represents the response body for the "GetSourcesType
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesTypesList.
 */
 type GetSourcesTypesListResponse struct {
-	requests.Response
+	requests.ResponseBasic
 
 	Ids []struct {
 		Caps struct {
@@ -75,21 +65,6 @@ type GetSourcesTypesListResponse struct {
 	} `json:"ids"`
 }
 
-// GetMessageID returns the MessageID of GetSourcesTypesListResponse
-func (o *GetSourcesTypesListResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of GetSourcesTypesListResponse
-func (o *GetSourcesTypesListResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of GetSourcesTypesListResponse
-func (o *GetSourcesTypesListResponse) GetError() string {
-	return o.Error
-}
-
 // GetSourcesTypesList sends the corresponding request to the connected OBS WebSockets server. Note
 // the variadic arguments as this request doesn't require any parameters.
 func (c *Client) GetSourcesTypesList(
@@ -99,7 +74,6 @@ func (c *Client) GetSourcesTypesList(
 		paramss = []*GetSourcesTypesListParams{{}}
 	}
 	params := paramss[0]
-	params.RequestType = "GetSourcesTypesList"
 	data := &GetSourcesTypesListResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

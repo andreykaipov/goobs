@@ -10,7 +10,7 @@ RemoveFilterFromSourceParams represents the params body for the "RemoveFilterFro
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource.
 */
 type RemoveFilterFromSourceParams struct {
-	requests.Params
+	requests.ParamsBasic
 
 	// Name of the filter to remove
 	FilterName string `json:"filterName"`
@@ -19,19 +19,9 @@ type RemoveFilterFromSourceParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// GetRequestType returns the RequestType of RemoveFilterFromSourceParams
-func (o *RemoveFilterFromSourceParams) GetRequestType() string {
-	return o.RequestType
-}
-
-// GetMessageID returns the MessageID of RemoveFilterFromSourceParams
-func (o *RemoveFilterFromSourceParams) GetMessageID() string {
-	return o.MessageID
-}
-
-// SetMessageID sets the MessageID on RemoveFilterFromSourceParams
-func (o *RemoveFilterFromSourceParams) SetMessageID(x string) {
-	o.MessageID = x
+// Name just returns "RemoveFilterFromSource".
+func (o *RemoveFilterFromSourceParams) Name() string {
+	return "RemoveFilterFromSource"
 }
 
 /*
@@ -40,29 +30,13 @@ RemoveFilterFromSourceResponse represents the response body for the "RemoveFilte
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource.
 */
 type RemoveFilterFromSourceResponse struct {
-	requests.Response
-}
-
-// GetMessageID returns the MessageID of RemoveFilterFromSourceResponse
-func (o *RemoveFilterFromSourceResponse) GetMessageID() string {
-	return o.MessageID
-}
-
-// GetStatus returns the Status of RemoveFilterFromSourceResponse
-func (o *RemoveFilterFromSourceResponse) GetStatus() string {
-	return o.Status
-}
-
-// GetError returns the Error of RemoveFilterFromSourceResponse
-func (o *RemoveFilterFromSourceResponse) GetError() string {
-	return o.Error
+	requests.ResponseBasic
 }
 
 // RemoveFilterFromSource sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) RemoveFilterFromSource(
 	params *RemoveFilterFromSourceParams,
 ) (*RemoveFilterFromSourceResponse, error) {
-	params.RequestType = "RemoveFilterFromSource"
 	data := &RemoveFilterFromSourceResponse{}
 	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
 		return nil, err

@@ -32,6 +32,21 @@ func (c *Client) Disconnect() error {
 
 // SendRequest abstracts the logic every subclient uses to send a request and
 // receive the corresponding response.
+//
+// To get the response for a sent request, we can just read the next response
+// from our channel. This works fine in a single-threaded context, and the
+// message IDs of both the sent request and response should match.
+//
+// In a concurrent context, this isn't necessarily true, but since
+// gorilla/websocket doesn't handle concurrency anyways, who cares? We could
+// technically add a mutex in between sending our request and reading from the
+// channel, but ehh...
+//
+// Interestingly, it does seem thread-safe if I use a totally different
+// connection, in that connection A won't get a response from OBS for a request
+// from connection B. So, message IDs must be unique per client? More
+// interestingly, events appear to be broadcast to every client, maybe because
+// they have no associated message ID?
 func (c *Client) SendRequest(params Params, response Response) error {
 	params.SetRequestType(params.Name())
 
@@ -52,41 +67,19 @@ func (c *Client) SendRequest(params Params, response Response) error {
 		return err
 	}
 
-	// Some requests trigger an event, which we don't really care about, so
-	// keep reading until we get a message with a matching message ID as
-	// that'd be our response. Clearly, this isn't safe against concurrency,
-	// since one goroutine might accidentally read a response belonging to
-	// a request from some other goroutine, which would cause that goroutine
-	// to never receive a response. However, gorilla/websocket doesn't
-	// handle concurrency either, so who cares?
-	//
-
-	// Read the next response from our incoming responses. In
-	// a single-threaded context, the message IDs of both the sent request
-	// and the response should always match.
-	//
-	// In a concurrent context, this isn't necessarily true, but since
-	// gorilla/websocket doesn't handle concurrency anyways, who cares?
-	// We could technically add a mutex in between sending our request and
-	// reading from this channel, but ehh...
-	//
-	// Interestingly, it does seem thread-safe if I use a totally different
-	// connection, in that connection A won't get a response from OBS for
-	// a request from connection B. So, message IDs must be unique per
-	// client? However, events appear to be broadcast to every client as
-	// they have no associated message ID. Typing that out, it seems pretty
-	// apparent, and likely the nature of WebSockets, and not just specific
-	// to OBS. Who knows?
-
 	msg := <-c.IncomingResponses
 	if err := json.Unmarshal(msg, response); err != nil {
 		return fmt.Errorf("Couldn't unmarshal message into an unknown event: %s", err)
 	}
 
+	// gorilla/websocket would panic before this could happen in
+	// a concurrent context, and idk how this could ever happen otherwise
 	if response.GetMessageID() != params.GetMessageID() {
 		return fmt.Errorf(
 			"Sent request %s, with message ID %s, but next response in channel has message ID %s",
-			params.Name(), params.GetMessageID(), response.GetMessageID(),
+			params.Name(),
+			params.GetMessageID(),
+			response.GetMessageID(),
 		)
 	}
 

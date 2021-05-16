@@ -122,15 +122,19 @@ func main() {
 	fmt.Println("Events")
 	events := []*Event{}
 
+	// I don't want to write each event into a package representing the
+	// category, since I want the syntax to read like
+	// `*events.TransitionBegin` instead of `*transitions.TransitionBegin`,
+	// when reading from the eventing loop.
+	dir := fmt.Sprintf("%s/api/events", root)
+	if err := os.MkdirAll(dir, 0777); err != nil {
+		panic(err)
+	}
+
 	for _, category := range sortedKeys(data.Events) {
 		fmt.Printf("- %s\n", category)
 
 		categorySnake := strings.ReplaceAll(category, " ", "_")
-
-		dir := fmt.Sprintf("%s/api/events", root)
-		if err := os.MkdirAll(dir, 0777); err != nil {
-			panic(err)
-		}
 
 		// Generate the events for the category
 		for _, event := range data.Events[category] {
@@ -166,10 +170,6 @@ func main() {
 			}),
 		),
 	)
-	dir := fmt.Sprintf("%s/api/events", root)
-	if err := os.MkdirAll(dir, 0777); err != nil {
-		panic(err)
-	}
 	if err := f.Save(fmt.Sprintf("%s/xx_generated.events.go", dir)); err != nil {
 		panic(err)
 	}

@@ -9,6 +9,7 @@ import (
 	"net/url"
 
 	"github.com/andreykaipov/goobs/api"
+	"github.com/andreykaipov/goobs/api/events"
 	general "github.com/andreykaipov/goobs/api/requests/general"
 	"github.com/gorilla/websocket"
 )
@@ -36,31 +37,41 @@ func WithPassword(x string) Option {
 New creates and configures a client to interact with the OBS websockets server.
 It also opens up a connection, so be sure to check the error.
 */
-func New(host string, opts ...Option) (c *Client, err error) {
-	c = &Client{
-		host: host,
+func New(host string, opts ...Option) (*Client, error) {
+	c := &Client{
+		Client: api.New(),
+		host:   host,
 	}
-	c.IncomingResponses = make(chan json.RawMessage, 100) //make(chan events.Event, 100),
-	c.IncomingEvents = make(chan json.RawMessage, 100)    //make(chan events.Event, 100),
 
 	for _, opt := range opts {
 		opt(c)
 	}
 
-	c.Conn, err = c.connect()
-	if err != nil {
+	if err := c.connect(); err != nil {
 		return nil, err
 	}
 
 	setClients(c)
 
-	go c.Listen()
+	go c.handleMessages()
 
 	if err := c.authenticate(); err != nil {
 		return nil, err
 	}
 
 	return c, nil
+}
+
+func (c *Client) connect() (err error) {
+	u := url.URL{Scheme: "ws", Host: c.host}
+
+	log.Printf("connecting to %s", u.String())
+
+	if c.Conn, _, err = websocket.DefaultDialer.Dial(u.String(), nil); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // Pretty much the pseudo-code from
@@ -90,21 +101,22 @@ func (c *Client) authenticate() error {
 	return nil
 }
 
-func (c *Client) Listen() {
+func (c *Client) handleMessages() {
 	messages := make(chan json.RawMessage)
 	errors := make(chan error)
-	//go c.handleErrors(errors)
-	go c.handleRawMessages(messages, errors)
-	c.handleMessages(messages, errors)
+	go c.handleErrors(errors)
+	go c.handleConnection(messages, errors)
+	c.handleRawMessages(messages, errors)
 }
 
-// func (c *Client) handleErrors(errors chan error) {
-// 	for err := range errors {
-// 		c.IncomingEvents <- events.WrapError(err)
-// 	}
-// }
+// Expose eventing errors as... more events
+func (c *Client) handleErrors(errors chan error) {
+	for err := range errors {
+		c.IncomingEvents <- events.WrapError(err)
+	}
+}
 
-func (c *Client) handleRawMessages(messages chan json.RawMessage, errors chan error) {
+func (c *Client) handleConnection(messages chan json.RawMessage, errors chan error) {
 	for {
 		msg := json.RawMessage{}
 		if err := c.Conn.ReadJSON(&msg); err != nil {
@@ -116,149 +128,40 @@ func (c *Client) handleRawMessages(messages chan json.RawMessage, errors chan er
 	}
 }
 
-func (c *Client) handleMessages(messages chan json.RawMessage, errors chan error) {
+func (c *Client) handleRawMessages(messages chan json.RawMessage, errors chan error) {
 	for raw := range messages {
+		// Parse into a generic map to figure out if it's an event or
+		// a response to a request first. Then act accordingly.
 		checked := map[string]interface{}{}
 		if err := json.Unmarshal(raw, &checked); err != nil {
 			errors <- fmt.Errorf("Couldn't unmarshal message: %s", err)
 			continue
 		}
 
+		// Responses are parsed when the request is sent
+		if _, ok := checked["message-id"]; ok {
+			c.IncomingResponses <- raw
+			continue
+		}
+
+		// Events are parsed immediately. Kinda wasteful to do since
+		// they might not ever be read, but it's not the end of the
+		// world. Could always add an explicit option to enable events!
 		if _, ok := checked["update-type"]; ok {
-			// Non-blocking write in case our events channel is
-			// full, since user may not ever use it
+			event, err := events.Parse(raw)
+			if err != nil {
+				errors <- fmt.Errorf("Couldn't parse raw event: %s", err)
+				continue
+			}
+
 			select {
-			case c.IncomingEvents <- raw:
+			case c.IncomingEvents <- event:
 			default:
 			}
 
 			continue
 		}
 
-		if _, ok := checked["message-id"]; ok {
-			c.IncomingResponses <- raw
-			continue
-		}
-
 		panic("idk what kinda message this is lol")
-		//		unknownEvent := &events.EventBasic{}
-		//		if err := json.Unmarshal(raw, unknownEvent); err != nil {
-		//			errors <- fmt.Errorf("Couldn't unmarshal message into an unknown event: %s", err)
-		//			continue
-		//		}
-		//
-		//		eventType := unknownEvent.UpdateType
-		//
-		//		switch knownEvent := events.GetEventForType(eventType); knownEvent {
-		//		case nil:
-		//			c.IncomingEvents <- unknownEvent
-		//		default:
-		//			if err := json.Unmarshal(raw, knownEvent); err != nil {
-		//				errors <- fmt.Errorf("Couldn't unmarshal message into an event type of %q: %s", eventType, err)
-		//				continue
-		//			}
-		//
-		//			c.IncomingEvents <- knownEvent
-		//		}
 	}
-}
-
-/*
-Listen starts listening for events from the OBS websockets server.
-
-Once the client is initialized, usage is as follows:
-```
-go client.Listen()
-for event := range client.IncomingEvents {
-	switch e := event.(type) {
-	case *events.SomeEventA:
-		...
-	case *events.SomeEventB:
-		...
-	default:
-	}
-}
-```
-*/
-/*
-func (c *Client) Listen() {
-	var err error
-
-	c.eventingConn, err = c.connect() // separate connection
-	if err != nil {
-		panic(fmt.Errorf("Failed establishing an eventing connection: %s", err))
-	}
-
-	messages := make(chan json.RawMessage)
-	errors := make(chan error)
-	go c.handleErrors(errors)
-	go c.handleRawEvents(messages, errors)
-	c.handleEvents(messages, errors)
-}
-
-func (c *Client) handleErrors(errors chan error) {
-	for err := range errors {
-		c.IncomingEvents <- events.WrapError(err)
-	}
-}
-
-func (c *Client) handleRawEvents(messages chan json.RawMessage, errors chan error) {
-	for {
-		raw := json.RawMessage{}
-		if err := c.eventingConn.ReadJSON(&raw); err != nil {
-			errors <- fmt.Errorf("Couldn't read JSON from websocket connection: %s", err)
-			continue
-		}
-
-		messages <- raw
-	}
-}
-
-func (c *Client) handleEvents(messages chan json.RawMessage, errors chan error) {
-	for raw := range messages {
-		unknownEvent := &events.EventBasic{}
-		if err := json.Unmarshal(raw, unknownEvent); err != nil {
-			errors <- fmt.Errorf("Couldn't unmarshal message into an unknown event: %s", err)
-			continue
-		}
-
-		eventType := unknownEvent.UpdateType
-
-		switch knownEvent := events.GetEventForType(eventType); knownEvent {
-		case nil:
-			c.IncomingEvents <- unknownEvent
-		default:
-			if err := json.Unmarshal(raw, knownEvent); err != nil {
-				errors <- fmt.Errorf("Couldn't unmarshal message into an event type of %q: %s", eventType, err)
-				continue
-			}
-
-			c.IncomingEvents <- knownEvent
-		}
-	}
-}
-*/
-
-func (c *Client) connect() (*websocket.Conn, error) {
-	u := url.URL{Scheme: "ws", Host: c.host}
-	log.Printf("connecting to %s", u.String())
-
-	conn, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
-	if err != nil {
-		return nil, err
-	}
-
-	return conn, nil
-}
-
-/*
-Disconnect sends a message to the OBS websockets server to close the client's
-open connection. You don't really have to do this as any connections should
-close when your program terminates or interrupts. But here's a function anyways.
-*/
-func (c *Client) Disconnect() error {
-	return c.Conn.WriteMessage(
-		websocket.CloseMessage,
-		websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""),
-	)
 }

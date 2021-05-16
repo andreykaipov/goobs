@@ -4,22 +4,55 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/andreykaipov/goobs/api/events"
 	"github.com/andreykaipov/goobs/api/requests"
 	"github.com/gorilla/websocket"
 	uuid "github.com/nu7hatch/gouuid"
 )
 
+// Client represents a client to an OBS websockets server.
 type Client struct {
+	// Conn is the backing websocket connection to the OBS websockets
+	// server. It's exported to pass the underlying connection to each
+	// category subclient. You shouldn't worry about this.
 	Conn *websocket.Conn
-	//	IncomingEvents    chan events.Event
-	//	IncomingResponses chan requests.Response
-	IncomingEvents    chan json.RawMessage
+
+	// IncomingEvents is used to read events from OBS. For example,
+	//
+	// ```go
+	// for event := range client.IncomingEvents {
+	// 	switch e := event.(type) {
+	// 	case *events.SomeEventA:
+	// 		...
+	// 	case *events.SomeEventB:
+	// 		...
+	// 	default:
+	// 	}
+	// }
+	// ```
+	IncomingEvents    chan events.Event
 	IncomingResponses chan json.RawMessage
 }
 
-// Conn is the backing websocket connection to the OBS websockets
-// server. It's an exported field just for consistency with the Request
-// subclients as they also have an exported `Conn` member.
+func New() Client {
+	return Client{
+		Conn:              nil,
+		IncomingEvents:    make(chan events.Event),
+		IncomingResponses: make(chan json.RawMessage),
+	}
+}
+
+/*
+Disconnect sends a message to the OBS websockets server to close the client's
+open connection. You don't really have to do this as any connections should
+close when your program terminates or interrupts. But here's a function anyways.
+*/
+func (c *Client) Disconnect() error {
+	return c.Conn.WriteMessage(
+		websocket.CloseMessage,
+		websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""),
+	)
+}
 
 // WriteMessage abstracts the logic every subclient uses to send a request and
 // receive the corresponding response.
@@ -51,31 +84,34 @@ func (c *Client) WriteMessage(params requests.Params, response requests.Response
 	// to never receive a response. However, gorilla/websocket doesn't
 	// handle concurrency either, so who cares?
 	//
+
+	// Read the next response from our incoming responses. In
+	// a single-threaded context, the message IDs of both the sent request
+	// and the response should always match.
+	//
+	// In a concurrent context, this isn't necessarily true, but since
+	// gorilla/websocket doesn't handle concurrency anyways, who cares?
+	// We could technically add a mutex in between sending our request and
+	// reading from this channel, but ehh...
+	//
 	// Interestingly, it does seem thread-safe if I use a totally different
 	// connection, in that connection A won't get a response from OBS for
 	// a request from connection B. So, message IDs must be unique per
-	// client? Events also appear to be broadcast to every client as they
-	// have no associated message ID. Typing that out, it seems pretty
+	// client? However, events appear to be broadcast to every client as
+	// they have no associated message ID. Typing that out, it seems pretty
 	// apparent, and likely the nature of WebSockets, and not just specific
 	// to OBS. Who knows?
-	//	for {
-	//		if err := c.Conn.ReadJSON(response); err != nil {
-	//			return err
-	//		}
-	//
-	//		if response.GetMessageID() == params.GetMessageID() {
-	//			break
-	//		}
-	//	}
-	for msg := range c.IncomingResponses {
-		if err := json.Unmarshal(msg, response); err != nil {
-			return fmt.Errorf("Couldn't unmarshal message into an unknown event: %s", err)
-		}
-		//fmt.Printf("%#v\n", response)
 
-		if response.GetMessageID() == params.GetMessageID() {
-			break
-		}
+	msg := <-c.IncomingResponses
+	if err := json.Unmarshal(msg, response); err != nil {
+		return fmt.Errorf("Couldn't unmarshal message into an unknown event: %s", err)
+	}
+
+	if response.GetMessageID() != params.GetMessageID() {
+		return fmt.Errorf(
+			"Sent request %s, with message ID %s, but next response in channel has message ID %s",
+			params.Name(), params.GetMessageID(), response.GetMessageID(),
+		)
 	}
 
 	if response.GetStatus() == "error" {

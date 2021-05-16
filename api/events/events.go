@@ -1,5 +1,10 @@
 package events
 
+import (
+	"encoding/json"
+	"fmt"
+)
+
 // Event describes the behavior of any event. Used to abstract the functionality
 // of any event that embeds EventBasic within their fields.
 type Event interface {
@@ -48,5 +53,26 @@ func WrapError(err error) *Error {
 	return &Error{
 		EventBasic{UpdateType: "Error"},
 		err,
+	}
+}
+
+// Parse takes a raw JSON message, figures out its type, and returns an event.
+func Parse(raw json.RawMessage) (Event, error) {
+	unknownEvent := &EventBasic{}
+	if err := json.Unmarshal(raw, unknownEvent); err != nil {
+		return nil, fmt.Errorf("Couldn't unmarshal %s into an unknown event: %s", raw, err)
+	}
+
+	eventType := unknownEvent.UpdateType
+
+	switch knownEvent := GetEventForType(eventType); knownEvent {
+	case nil:
+		return unknownEvent, nil
+	default:
+		if err := json.Unmarshal(raw, knownEvent); err != nil {
+			return nil, fmt.Errorf("Couldn't unmarshal %s into an event type of %q: %s", raw, eventType, err)
+		}
+
+		return knownEvent, nil
 	}
 }

@@ -70,7 +70,10 @@ func Parse(raw json.RawMessage) (Event, error) {
 		return unknownEvent, nil
 	default:
 		if err := json.Unmarshal(raw, knownEvent); err != nil {
-			return nil, fmt.Errorf("Couldn't unmarshal %s into an event type of %q: %s", raw, eventType, err)
+			return nil, fmt.Errorf(
+				"Couldn't unmarshal %s into an event type of %q: %s",
+				raw, eventType, err,
+			)
 		}
 
 		return knownEvent, nil

@@ -35,7 +35,7 @@ func (c *Client) StartRecording(paramss ...*StartRecordingParams) (*StartRecordi
 	}
 	params := paramss[0]
 	data := &StartRecordingResponse{}
-	if err := c.WriteMessage(params, data); err != nil {
+	if err := c.SendRequest(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

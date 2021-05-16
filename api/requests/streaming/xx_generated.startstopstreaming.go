@@ -37,7 +37,7 @@ func (c *Client) StartStopStreaming(
 	}
 	params := paramss[0]
 	data := &StartStopStreamingResponse{}
-	if err := c.WriteMessage(params, data); err != nil {
+	if err := c.SendRequest(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

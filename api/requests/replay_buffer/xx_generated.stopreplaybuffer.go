@@ -37,7 +37,7 @@ func (c *Client) StopReplayBuffer(
 	}
 	params := paramss[0]
 	data := &StopReplayBufferResponse{}
-	if err := c.WriteMessage(params, data); err != nil {
+	if err := c.SendRequest(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

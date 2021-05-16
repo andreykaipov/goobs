@@ -233,7 +233,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 		}),
 		Id("data").Op(":=").Op("&").Id(request.Name+"Response").Values(),
 		If(
-			Id("err").Op(":=").Id("c").Dot("WriteMessage").Call(
+			Id("err").Op(":=").Id("c").Dot("SendRequest").Call(
 				Id("params"), Id("data"),
 			),
 			Id("err").Op("!=").Nil(),

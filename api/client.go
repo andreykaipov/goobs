@@ -54,9 +54,9 @@ func (c *Client) Disconnect() error {
 	)
 }
 
-// WriteMessage abstracts the logic every subclient uses to send a request and
+// SendRequest abstracts the logic every subclient uses to send a request and
 // receive the corresponding response.
-func (c *Client) WriteMessage(params requests.Params, response requests.Response) error {
+func (c *Client) SendRequest(params requests.Params, response requests.Response) error {
 	params.SetRequestType(params.Name())
 
 	if params.GetRequestType() == "" {

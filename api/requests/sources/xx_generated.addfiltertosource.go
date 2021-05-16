@@ -44,7 +44,7 @@ func (c *Client) AddFilterToSource(
 	params *AddFilterToSourceParams,
 ) (*AddFilterToSourceResponse, error) {
 	data := &AddFilterToSourceResponse{}
-	if err := c.WriteMessage(params, data); err != nil {
+	if err := c.SendRequest(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

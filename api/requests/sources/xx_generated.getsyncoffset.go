@@ -39,7 +39,7 @@ type GetSyncOffsetResponse struct {
 // GetSyncOffset sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetSyncOffset(params *GetSyncOffsetParams) (*GetSyncOffsetResponse, error) {
 	data := &GetSyncOffsetResponse{}
-	if err := c.WriteMessage(params, data); err != nil {
+	if err := c.SendRequest(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

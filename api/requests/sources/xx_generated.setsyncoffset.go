@@ -36,7 +36,7 @@ type SetSyncOffsetResponse struct {
 // SetSyncOffset sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetSyncOffset(params *SetSyncOffsetParams) (*SetSyncOffsetResponse, error) {
 	data := &SetSyncOffsetResponse{}
-	if err := c.WriteMessage(params, data); err != nil {
+	if err := c.SendRequest(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

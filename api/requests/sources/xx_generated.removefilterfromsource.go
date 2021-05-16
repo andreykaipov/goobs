@@ -38,7 +38,7 @@ func (c *Client) RemoveFilterFromSource(
 	params *RemoveFilterFromSourceParams,
 ) (*RemoveFilterFromSourceResponse, error) {
 	data := &RemoveFilterFromSourceResponse{}
-	if err := c.WriteMessage(params, data); err != nil {
+	if err := c.SendRequest(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

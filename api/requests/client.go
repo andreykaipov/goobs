@@ -1,45 +1,21 @@
-package api
+package requests
 
 import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/andreykaipov/goobs/api/events"
-	"github.com/andreykaipov/goobs/api/requests"
 	"github.com/gorilla/websocket"
 	uuid "github.com/nu7hatch/gouuid"
 )
 
-// Client represents a client to an OBS websockets server.
+// Client represents a client to an OBS websockets server, used for requests.
 type Client struct {
 	// Conn is the backing websocket connection to the OBS websockets
 	// server. It's exported to pass the underlying connection to each
 	// category subclient. You shouldn't worry about this.
 	Conn *websocket.Conn
 
-	// IncomingEvents is used to read events from OBS. For example,
-	//
-	// ```go
-	// for event := range client.IncomingEvents {
-	// 	switch e := event.(type) {
-	// 	case *events.SomeEventA:
-	// 		...
-	// 	case *events.SomeEventB:
-	// 		...
-	// 	default:
-	// 	}
-	// }
-	// ```
-	IncomingEvents    chan events.Event
 	IncomingResponses chan json.RawMessage
-}
-
-func New() Client {
-	return Client{
-		Conn:              nil,
-		IncomingEvents:    make(chan events.Event),
-		IncomingResponses: make(chan json.RawMessage),
-	}
 }
 
 /*
@@ -56,7 +32,7 @@ func (c *Client) Disconnect() error {
 
 // SendRequest abstracts the logic every subclient uses to send a request and
 // receive the corresponding response.
-func (c *Client) SendRequest(params requests.Params, response requests.Response) error {
+func (c *Client) SendRequest(params Params, response Response) error {
 	params.SetRequestType(params.Name())
 
 	if params.GetRequestType() == "" {

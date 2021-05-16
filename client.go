@@ -8,19 +8,34 @@ import (
 	"log"
 	"net/url"
 
-	"github.com/andreykaipov/goobs/api"
 	"github.com/andreykaipov/goobs/api/events"
+	"github.com/andreykaipov/goobs/api/requests"
 	general "github.com/andreykaipov/goobs/api/requests/general"
 	"github.com/gorilla/websocket"
 )
 
 // Client represents a client to an OBS websockets server.
 type Client struct {
-	api.Client
+	// IncomingEvents is used to read events from OBS. For example,
+	//
+	// ```go
+	// for event := range client.IncomingEvents {
+	// 	switch e := event.(type) {
+	// 	case *events.SomeEventA:
+	// 		...
+	// 	case *events.SomeEventB:
+	// 		...
+	// 	default:
+	// 	}
+	// }
+	// ```
+	IncomingEvents chan events.Event
+
+	*requests.Client
+	subclients
 
 	host     string
 	password string
-	subclients
 }
 
 // Option represents a functional option of a Client.
@@ -39,7 +54,7 @@ It also opens up a connection, so be sure to check the error.
 */
 func New(host string, opts ...Option) (*Client, error) {
 	c := &Client{
-		Client: api.New(),
+		Client: &requests.Client{},
 		host:   host,
 	}
 
@@ -53,6 +68,8 @@ func New(host string, opts ...Option) (*Client, error) {
 
 	setClients(c)
 
+	c.IncomingEvents = make(chan events.Event, 100)
+	c.IncomingResponses = make(chan json.RawMessage, 100)
 	go c.handleMessages()
 
 	if err := c.authenticate(); err != nil {

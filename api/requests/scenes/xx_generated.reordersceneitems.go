@@ -44,7 +44,7 @@ func (c *Client) ReorderSceneItems(
 	params *ReorderSceneItemsParams,
 ) (*ReorderSceneItemsResponse, error) {
 	data := &ReorderSceneItemsResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

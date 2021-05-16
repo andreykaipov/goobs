@@ -2,9 +2,9 @@
 
 package streaming
 
-import websocket "github.com/gorilla/websocket"
+import api "github.com/andreykaipov/goobs/api"
 
 // Client represents a client for 'streaming' requests
 type Client struct {
-	Conn *websocket.Conn
+	api.Client
 }

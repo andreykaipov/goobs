@@ -41,7 +41,7 @@ type DeleteSceneItemResponse struct {
 // DeleteSceneItem sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) DeleteSceneItem(params *DeleteSceneItemParams) (*DeleteSceneItemResponse, error) {
 	data := &DeleteSceneItemResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

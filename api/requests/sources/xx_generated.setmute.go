@@ -36,7 +36,7 @@ type SetMuteResponse struct {
 // SetMute sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetMute(params *SetMuteParams) (*SetMuteResponse, error) {
 	data := &SetMuteResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

@@ -42,7 +42,7 @@ func (c *Client) GetSceneList(paramss ...*GetSceneListParams) (*GetSceneListResp
 	}
 	params := paramss[0]
 	data := &GetSceneListResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

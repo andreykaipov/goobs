@@ -33,7 +33,7 @@ type SetHeartbeatResponse struct {
 // SetHeartbeat sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetHeartbeat(params *SetHeartbeatParams) (*SetHeartbeatResponse, error) {
 	data := &SetHeartbeatResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

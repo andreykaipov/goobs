@@ -33,7 +33,7 @@ type AuthenticateResponse struct {
 // Authenticate sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) Authenticate(params *AuthenticateParams) (*AuthenticateResponse, error) {
 	data := &AuthenticateResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

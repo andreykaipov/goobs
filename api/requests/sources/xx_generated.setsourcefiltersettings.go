@@ -41,7 +41,7 @@ func (c *Client) SetSourceFilterSettings(
 	params *SetSourceFilterSettingsParams,
 ) (*SetSourceFilterSettingsResponse, error) {
 	data := &SetSourceFilterSettingsResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

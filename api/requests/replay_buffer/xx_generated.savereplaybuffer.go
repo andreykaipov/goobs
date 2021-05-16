@@ -37,7 +37,7 @@ func (c *Client) SaveReplayBuffer(
 	}
 	params := paramss[0]
 	data := &SaveReplayBufferResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

@@ -118,7 +118,7 @@ func (c *Client) GetTextGDIPlusProperties(
 	params *GetTextGDIPlusPropertiesParams,
 ) (*GetTextGDIPlusPropertiesResponse, error) {
 	data := &GetTextGDIPlusPropertiesResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

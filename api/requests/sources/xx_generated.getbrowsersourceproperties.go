@@ -63,7 +63,7 @@ func (c *Client) GetBrowserSourceProperties(
 	params *GetBrowserSourcePropertiesParams,
 ) (*GetBrowserSourcePropertiesResponse, error) {
 	data := &GetBrowserSourcePropertiesResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

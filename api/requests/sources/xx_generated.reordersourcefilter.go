@@ -41,7 +41,7 @@ func (c *Client) ReorderSourceFilter(
 	params *ReorderSourceFilterParams,
 ) (*ReorderSourceFilterResponse, error) {
 	data := &ReorderSourceFilterResponse{}
-	if err := requests.WriteMessage(c.Conn, params, data); err != nil {
+	if err := c.WriteMessage(params, data); err != nil {
 		return nil, err
 	}
 	return data, nil

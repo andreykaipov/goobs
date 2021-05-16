@@ -71,7 +71,7 @@ func main() {
 		client.Commentf("Client represents a client for '%s' requests", category)
 		client.Add(
 			Type().Id("Client").Struct(
-				Qual(goobs+"/api", "Client"),
+				Op("*").Qual(goobs+"/api/requests", "Client"),
 			),
 		)
 

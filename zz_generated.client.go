@@ -31,15 +31,15 @@ type subclients struct {
 }
 
 func setClients(c *Client) {
-	c.General = &general.Client{Conn: c.requestsConn}
-	c.Profiles = &profiles.Client{Conn: c.requestsConn}
-	c.Recording = &recording.Client{Conn: c.requestsConn}
-	c.ReplayBuffer = &replaybuffer.Client{Conn: c.requestsConn}
-	c.SceneCollections = &scenecollections.Client{Conn: c.requestsConn}
-	c.SceneItems = &sceneitems.Client{Conn: c.requestsConn}
-	c.Scenes = &scenes.Client{Conn: c.requestsConn}
-	c.Sources = &sources.Client{Conn: c.requestsConn}
-	c.Streaming = &streaming.Client{Conn: c.requestsConn}
-	c.StudioMode = &studiomode.Client{Conn: c.requestsConn}
-	c.Transitions = &transitions.Client{Conn: c.requestsConn}
+	c.General = &general.Client{Client: c.Client}
+	c.Profiles = &profiles.Client{Client: c.Client}
+	c.Recording = &recording.Client{Client: c.Client}
+	c.ReplayBuffer = &replaybuffer.Client{Client: c.Client}
+	c.SceneCollections = &scenecollections.Client{Client: c.Client}
+	c.SceneItems = &sceneitems.Client{Client: c.Client}
+	c.Scenes = &scenes.Client{Client: c.Client}
+	c.Sources = &sources.Client{Client: c.Client}
+	c.Streaming = &streaming.Client{Client: c.Client}
+	c.StudioMode = &studiomode.Client{Client: c.Client}
+	c.Transitions = &transitions.Client{Client: c.Client}
 }

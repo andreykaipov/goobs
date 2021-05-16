@@ -8,23 +8,17 @@ import (
 	"log"
 	"net/url"
 
-	"github.com/andreykaipov/goobs/api/events"
+	"github.com/andreykaipov/goobs/api"
 	general "github.com/andreykaipov/goobs/api/requests/general"
 	"github.com/gorilla/websocket"
 )
 
 // Client represents a client to an OBS websockets server.
 type Client struct {
-	IncomingEvents chan events.Event
-
-	// We use two different connections for events and requests to avoid
-	// race conditions when reading events and request responses
-	eventingConn *websocket.Conn
-	requestsConn *websocket.Conn
+	api.Client
 
 	host     string
 	password string
-
 	subclients
 }
 
@@ -44,23 +38,26 @@ It also opens up a connection, so be sure to check the error.
 */
 func New(host string, opts ...Option) (c *Client, err error) {
 	c = &Client{
-		IncomingEvents: make(chan events.Event, 100),
-		host:           host,
+		host: host,
 	}
+	c.IncomingResponses = make(chan json.RawMessage, 100) //make(chan events.Event, 100),
+	c.IncomingEvents = make(chan json.RawMessage, 100)    //make(chan events.Event, 100),
 
 	for _, opt := range opts {
 		opt(c)
 	}
 
-	c.requestsConn, err = c.connect()
+	c.Conn, err = c.connect()
 	if err != nil {
 		return nil, err
 	}
 
 	setClients(c)
 
+	go c.Listen()
+
 	if err := c.authenticate(); err != nil {
-		return nil, fmt.Errorf("Failing authenticating: %s", err)
+		return nil, err
 	}
 
 	return c, nil
@@ -93,6 +90,79 @@ func (c *Client) authenticate() error {
 	return nil
 }
 
+func (c *Client) Listen() {
+	messages := make(chan json.RawMessage)
+	errors := make(chan error)
+	//go c.handleErrors(errors)
+	go c.handleRawMessages(messages, errors)
+	c.handleMessages(messages, errors)
+}
+
+// func (c *Client) handleErrors(errors chan error) {
+// 	for err := range errors {
+// 		c.IncomingEvents <- events.WrapError(err)
+// 	}
+// }
+
+func (c *Client) handleRawMessages(messages chan json.RawMessage, errors chan error) {
+	for {
+		msg := json.RawMessage{}
+		if err := c.Conn.ReadJSON(&msg); err != nil {
+			errors <- fmt.Errorf("Couldn't read JSON from websocket connection: %s", err)
+			continue
+		}
+
+		messages <- msg
+	}
+}
+
+func (c *Client) handleMessages(messages chan json.RawMessage, errors chan error) {
+	for raw := range messages {
+		checked := map[string]interface{}{}
+		if err := json.Unmarshal(raw, &checked); err != nil {
+			errors <- fmt.Errorf("Couldn't unmarshal message: %s", err)
+			continue
+		}
+
+		if _, ok := checked["update-type"]; ok {
+			// Non-blocking write in case our events channel is
+			// full, since user may not ever use it
+			select {
+			case c.IncomingEvents <- raw:
+			default:
+			}
+
+			continue
+		}
+
+		if _, ok := checked["message-id"]; ok {
+			c.IncomingResponses <- raw
+			continue
+		}
+
+		panic("idk what kinda message this is lol")
+		//		unknownEvent := &events.EventBasic{}
+		//		if err := json.Unmarshal(raw, unknownEvent); err != nil {
+		//			errors <- fmt.Errorf("Couldn't unmarshal message into an unknown event: %s", err)
+		//			continue
+		//		}
+		//
+		//		eventType := unknownEvent.UpdateType
+		//
+		//		switch knownEvent := events.GetEventForType(eventType); knownEvent {
+		//		case nil:
+		//			c.IncomingEvents <- unknownEvent
+		//		default:
+		//			if err := json.Unmarshal(raw, knownEvent); err != nil {
+		//				errors <- fmt.Errorf("Couldn't unmarshal message into an event type of %q: %s", eventType, err)
+		//				continue
+		//			}
+		//
+		//			c.IncomingEvents <- knownEvent
+		//		}
+	}
+}
+
 /*
 Listen starts listening for events from the OBS websockets server.
 
@@ -110,6 +180,7 @@ for event := range client.IncomingEvents {
 }
 ```
 */
+/*
 func (c *Client) Listen() {
 	var err error
 
@@ -166,6 +237,7 @@ func (c *Client) handleEvents(messages chan json.RawMessage, errors chan error) 
 		}
 	}
 }
+*/
 
 func (c *Client) connect() (*websocket.Conn, error) {
 	u := url.URL{Scheme: "ws", Host: c.host}
@@ -180,31 +252,13 @@ func (c *Client) connect() (*websocket.Conn, error) {
 }
 
 /*
-Disconnect sends a message to the OBS websockets server to close any connections
-we might have open. You don't really have to do this as any connections should
+Disconnect sends a message to the OBS websockets server to close the client's
+open connection. You don't really have to do this as any connections should
 close when your program terminates or interrupts. But here's a function anyways.
 */
 func (c *Client) Disconnect() error {
-	disconnect := func(conn *websocket.Conn) error {
-		if conn != nil {
-			return conn.WriteMessage(
-				websocket.CloseMessage,
-				websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""),
-			)
-		}
-		return nil
-	}
-
-	errors := []error{}
-	for _, conn := range []*websocket.Conn{c.requestsConn, c.eventingConn} {
-		if err := disconnect(conn); err != nil {
-			errors = append(errors, err)
-		}
-	}
-
-	if len(errors) > 0 {
-		return fmt.Errorf("Got the following errors while disconnecting: %s", errors)
-	}
-
-	return nil
+	return c.Conn.WriteMessage(
+		websocket.CloseMessage,
+		websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""),
+	)
 }

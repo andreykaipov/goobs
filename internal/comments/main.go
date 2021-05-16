@@ -61,7 +61,7 @@ func main() {
 		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
 		topClientSetters = append(
 			topClientSetters, Id("c").Dot(categoryPascal).Op("=").Op("&").Qual(qualifier, "Client").Values(
-				Id("Conn").Op(":").Id("c").Dot("requestsConn"),
+				Id("Client").Op(":").Id("c").Dot("Client"),
 			),
 		)
 
@@ -71,7 +71,7 @@ func main() {
 		client.Commentf("Client represents a client for '%s' requests", category)
 		client.Add(
 			Type().Id("Client").Struct(
-				Id("Conn").Op("*").Qual("github.com/gorilla/websocket", "Conn"),
+				Qual(goobs+"/api", "Client"),
 			),
 		)
 
@@ -233,8 +233,8 @@ func generateRequest(request *Request) (s *Statement, err error) {
 		}),
 		Id("data").Op(":=").Op("&").Id(request.Name+"Response").Values(),
 		If(
-			Id("err").Op(":=").Qual(goobs+"/api/requests", "WriteMessage").Call(
-				Id("c").Dot("Conn"), Id("params"), Id("data"),
+			Id("err").Op(":=").Id("c").Dot("WriteMessage").Call(
+				Id("params"), Id("data"),
 			),
 			Id("err").Op("!=").Nil(),
 		).Block(

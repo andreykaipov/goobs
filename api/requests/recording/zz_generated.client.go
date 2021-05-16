@@ -2,9 +2,9 @@
 
 package recording
 
-import api "github.com/andreykaipov/goobs/api"
+import requests "github.com/andreykaipov/goobs/api/requests"
 
 // Client represents a client for 'recording' requests
 type Client struct {
-	api.Client
+	*requests.Client
 }

@@ -2,9 +2,9 @@
 
 package replaybuffer
 
-import api "github.com/andreykaipov/goobs/api"
+import requests "github.com/andreykaipov/goobs/api/requests"
 
 // Client represents a client for 'replay buffer' requests
 type Client struct {
-	api.Client
+	*requests.Client
 }

@@ -2,9 +2,9 @@
 
 package scenecollections
 
-import api "github.com/andreykaipov/goobs/api"
+import requests "github.com/andreykaipov/goobs/api/requests"
 
 // Client represents a client for 'scene collections' requests
 type Client struct {
-	api.Client
+	*requests.Client
 }

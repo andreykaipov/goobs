@@ -166,7 +166,7 @@ func main() {
 					g.Case(Lit(e.Name))
 					g.Return(Op("&").Id(e.Name).Values())
 				}
-				g.Default().Return(Nil()) //Op("&").Qual(goobs+"/api/events", "EventCommon").Values())
+				g.Default().Return(Nil())
 			}),
 		),
 	)

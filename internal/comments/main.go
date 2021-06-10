@@ -182,7 +182,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 
 	// Params
 	structName = request.Name + "Params"
-	s.Commentf("%s represents the params body for the %q request.\n\n%s", structName, request.Name, note).Line()
+	s.Commentf("%s represents the params body for the %q request.\n%s%s\n\n%s", structName, request.Name, request.Lead, request.Description, note).Line()
 	request.Params = append(request.Params, &Param{Name: "ParamsBasic", Type: "~requests~"}) // internal type
 	if err = generateStructFromParams(s, structName, request.Params); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, request.Category)
@@ -197,7 +197,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 
 	// Returns
 	structName = request.Name + "Response"
-	s.Commentf("%s represents the response body for the %q request.\n\n%s", structName, request.Name, note).Line()
+	s.Commentf("%s represents the response body for the %q request.\n%s%s\n\n%s", structName, request.Name, request.Lead, request.Description, note).Line()
 	request.Returns = append(request.Returns, &Param{Name: "ResponseBasic", Type: "~requests~"}) // internal type
 	if err = generateStructFromParams(s, structName, request.Returns); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, request.Category)

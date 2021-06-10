@@ -5,8 +5,8 @@ package main
 // and put it into something like https://mholt.github.io/json-to-go/, deduping
 // and cleaning up the structs manually.
 
-// Param represents individual entry in a request's Params field, or in an event
-// or request's Returns field.
+// Param represents an individual entry in a request's Params field, or in an
+// event or request's Returns field.
 type Param struct {
 	Description string `json:"description"`
 	Name        string `json:"name"`

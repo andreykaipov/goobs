@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetSyncOffsetParams represents the params body for the "GetSyncOffset" request.
+Get the audio sync offset of a specified source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSyncOffset.
 */
@@ -23,6 +24,7 @@ func (o *GetSyncOffsetParams) Name() string {
 
 /*
 GetSyncOffsetResponse represents the response body for the "GetSyncOffset" request.
+Get the audio sync offset of a specified source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSyncOffset.
 */

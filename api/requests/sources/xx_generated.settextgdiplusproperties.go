@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SetTextGDIPlusPropertiesParams represents the params body for the "SetTextGDIPlusProperties" request.
+Set the current properties of a Text GDI Plus source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
 */
@@ -106,6 +107,7 @@ func (o *SetTextGDIPlusPropertiesParams) Name() string {
 
 /*
 SetTextGDIPlusPropertiesResponse represents the response body for the "SetTextGDIPlusProperties" request.
+Set the current properties of a Text GDI Plus source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
 */

@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetSpecialSourcesParams represents the params body for the "GetSpecialSources" request.
+Get configured special sources like Desktop Audio and Mic/Aux sources.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSpecialSources.
 */
@@ -20,6 +21,7 @@ func (o *GetSpecialSourcesParams) Name() string {
 
 /*
 GetSpecialSourcesResponse represents the response body for the "GetSpecialSources" request.
+Get configured special sources like Desktop Audio and Mic/Aux sources.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSpecialSources.
 */

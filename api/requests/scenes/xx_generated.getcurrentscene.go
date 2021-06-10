@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetCurrentSceneParams represents the params body for the "GetCurrentScene" request.
+Get the current scene's name and source items.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentScene.
 */
@@ -20,6 +21,7 @@ func (o *GetCurrentSceneParams) Name() string {
 
 /*
 GetCurrentSceneResponse represents the response body for the "GetCurrentScene" request.
+Get the current scene's name and source items.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentScene.
 */

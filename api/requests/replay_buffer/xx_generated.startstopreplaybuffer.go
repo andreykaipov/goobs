@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StartStopReplayBufferParams represents the params body for the "StartStopReplayBuffer" request.
+Toggle the Replay Buffer on/off.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopReplayBuffer.
 */
@@ -20,6 +21,7 @@ func (o *StartStopReplayBufferParams) Name() string {
 
 /*
 StartStopReplayBufferResponse represents the response body for the "StartStopReplayBuffer" request.
+Toggle the Replay Buffer on/off.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopReplayBuffer.
 */

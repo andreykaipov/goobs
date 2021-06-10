@@ -6,6 +6,8 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StartRecordingParams represents the params body for the "StartRecording" request.
+Start recording.
+Will return an `error` if recording is already active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartRecording.
 */
@@ -20,6 +22,8 @@ func (o *StartRecordingParams) Name() string {
 
 /*
 StartRecordingResponse represents the response body for the "StartRecording" request.
+Start recording.
+Will return an `error` if recording is already active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartRecording.
 */

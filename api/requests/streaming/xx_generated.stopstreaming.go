@@ -6,6 +6,8 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StopStreamingParams represents the params body for the "StopStreaming" request.
+Stop streaming.
+Will return an `error` if streaming is not active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopStreaming.
 */
@@ -20,6 +22,8 @@ func (o *StopStreamingParams) Name() string {
 
 /*
 StopStreamingResponse represents the response body for the "StopStreaming" request.
+Stop streaming.
+Will return an `error` if streaming is not active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopStreaming.
 */

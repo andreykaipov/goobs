@@ -6,6 +6,8 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetPreviewSceneParams represents the params body for the "GetPreviewScene" request.
+Get the name of the currently previewed scene and its list of sources.
+Will return an `error` if Studio Mode is not enabled.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetPreviewScene.
 */
@@ -20,6 +22,8 @@ func (o *GetPreviewSceneParams) Name() string {
 
 /*
 GetPreviewSceneResponse represents the response body for the "GetPreviewScene" request.
+Get the name of the currently previewed scene and its list of sources.
+Will return an `error` if Studio Mode is not enabled.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetPreviewScene.
 */

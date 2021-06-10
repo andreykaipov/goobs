@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 ReorderSourceFilterParams represents the params body for the "ReorderSourceFilter" request.
+Move a filter in the chain (absolute index positioning)
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSourceFilter.
 */
@@ -29,6 +30,7 @@ func (o *ReorderSourceFilterParams) Name() string {
 
 /*
 ReorderSourceFilterResponse represents the response body for the "ReorderSourceFilter" request.
+Move a filter in the chain (absolute index positioning)
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ReorderSourceFilter.
 */

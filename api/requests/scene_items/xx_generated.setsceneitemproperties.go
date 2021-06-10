@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SetSceneItemPropertiesParams represents the params body for the "SetSceneItemProperties" request.
+Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSceneItemProperties.
 */
@@ -79,6 +80,7 @@ func (o *SetSceneItemPropertiesParams) Name() string {
 
 /*
 SetSceneItemPropertiesResponse represents the response body for the "SetSceneItemProperties" request.
+Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSceneItemProperties.
 */

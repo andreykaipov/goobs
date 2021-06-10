@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SetSourceFilterSettingsParams represents the params body for the "SetSourceFilterSettings" request.
+Update settings of a filter
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceFilterSettings.
 */
@@ -29,6 +30,7 @@ func (o *SetSourceFilterSettingsParams) Name() string {
 
 /*
 SetSourceFilterSettingsResponse represents the response body for the "SetSourceFilterSettings" request.
+Update settings of a filter
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetSourceFilterSettings.
 */

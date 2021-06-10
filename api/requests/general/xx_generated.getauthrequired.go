@@ -6,6 +6,8 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetAuthRequiredParams represents the params body for the "GetAuthRequired" request.
+Tells the client if authentication is required. If so, returns authentication parameters `challenge`
+and `salt` (see "Authentication" for more information).
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetAuthRequired.
 */
@@ -20,6 +22,8 @@ func (o *GetAuthRequiredParams) Name() string {
 
 /*
 GetAuthRequiredResponse represents the response body for the "GetAuthRequired" request.
+Tells the client if authentication is required. If so, returns authentication parameters `challenge`
+and `salt` (see "Authentication" for more information).
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetAuthRequired.
 */

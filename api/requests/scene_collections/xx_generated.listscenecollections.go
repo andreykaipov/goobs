@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 ListSceneCollectionsParams represents the params body for the "ListSceneCollections" request.
+List available scene collections
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListSceneCollections.
 */
@@ -20,6 +21,7 @@ func (o *ListSceneCollectionsParams) Name() string {
 
 /*
 ListSceneCollectionsResponse represents the response body for the "ListSceneCollections" request.
+List available scene collections
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ListSceneCollections.
 */

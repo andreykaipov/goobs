@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetRecordingFolderParams represents the params body for the "GetRecordingFolder" request.
+Get the path of  the current recording folder.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetRecordingFolder.
 */
@@ -20,6 +21,7 @@ func (o *GetRecordingFolderParams) Name() string {
 
 /*
 GetRecordingFolderResponse represents the response body for the "GetRecordingFolder" request.
+Get the path of  the current recording folder.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetRecordingFolder.
 */

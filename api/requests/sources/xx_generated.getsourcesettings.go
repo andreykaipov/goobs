@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetSourceSettingsParams represents the params body for the "GetSourceSettings" request.
+Get settings of the specified source
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceSettings.
 */
@@ -27,6 +28,7 @@ func (o *GetSourceSettingsParams) Name() string {
 
 /*
 GetSourceSettingsResponse represents the response body for the "GetSourceSettings" request.
+Get settings of the specified source
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourceSettings.
 */

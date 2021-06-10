@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetTransitionDurationParams represents the params body for the "GetTransitionDuration" request.
+Get the duration of the currently selected transition if supported.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTransitionDuration.
 */
@@ -20,6 +21,7 @@ func (o *GetTransitionDurationParams) Name() string {
 
 /*
 GetTransitionDurationResponse represents the response body for the "GetTransitionDuration" request.
+Get the duration of the currently selected transition if supported.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTransitionDuration.
 */

@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetVolumeParams represents the params body for the "GetVolume" request.
+Get the volume of the specified source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVolume.
 */
@@ -23,6 +24,7 @@ func (o *GetVolumeParams) Name() string {
 
 /*
 GetVolumeResponse represents the response body for the "GetVolume" request.
+Get the volume of the specified source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVolume.
 */

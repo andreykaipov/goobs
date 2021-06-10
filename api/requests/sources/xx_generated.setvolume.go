@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SetVolumeParams represents the params body for the "SetVolume" request.
+Set the volume of the specified source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetVolume.
 */
@@ -26,6 +27,7 @@ func (o *SetVolumeParams) Name() string {
 
 /*
 SetVolumeResponse represents the response body for the "SetVolume" request.
+Set the volume of the specified source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetVolume.
 */

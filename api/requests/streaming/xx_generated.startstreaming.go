@@ -6,6 +6,8 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StartStreamingParams represents the params body for the "StartStreaming" request.
+Start streaming.
+Will return an `error` if streaming is already active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStreaming.
 */
@@ -53,6 +55,8 @@ func (o *StartStreamingParams) Name() string {
 
 /*
 StartStreamingResponse represents the response body for the "StartStreaming" request.
+Start streaming.
+Will return an `error` if streaming is already active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStreaming.
 */

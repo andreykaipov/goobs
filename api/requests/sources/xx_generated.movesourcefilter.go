@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 MoveSourceFilterParams represents the params body for the "MoveSourceFilter" request.
+Move a filter in the chain (relative positioning)
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter.
 */
@@ -30,6 +31,7 @@ func (o *MoveSourceFilterParams) Name() string {
 
 /*
 MoveSourceFilterResponse represents the response body for the "MoveSourceFilter" request.
+Move a filter in the chain (relative positioning)
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#MoveSourceFilter.
 */

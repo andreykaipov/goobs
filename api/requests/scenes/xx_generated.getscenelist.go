@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetSceneListParams represents the params body for the "GetSceneList" request.
+Get a list of scenes in the currently active profile.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneList.
 */
@@ -20,6 +21,7 @@ func (o *GetSceneListParams) Name() string {
 
 /*
 GetSceneListResponse represents the response body for the "GetSceneList" request.
+Get a list of scenes in the currently active profile.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneList.
 */

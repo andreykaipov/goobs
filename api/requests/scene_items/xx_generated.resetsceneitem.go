@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 ResetSceneItemParams represents the params body for the "ResetSceneItem" request.
+Reset a scene item.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ResetSceneItem.
 */
@@ -26,6 +27,7 @@ func (o *ResetSceneItemParams) Name() string {
 
 /*
 ResetSceneItemResponse represents the response body for the "ResetSceneItem" request.
+Reset a scene item.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ResetSceneItem.
 */

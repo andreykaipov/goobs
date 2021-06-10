@@ -6,6 +6,9 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SaveReplayBufferParams represents the params body for the "SaveReplayBuffer" request.
+Flush and save the contents of the Replay Buffer to disk. This is
+basically the same as triggering the "Save Replay Buffer" hotkey.
+Will return an `error` if the Replay Buffer is not active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveReplayBuffer.
 */
@@ -20,6 +23,9 @@ func (o *SaveReplayBufferParams) Name() string {
 
 /*
 SaveReplayBufferResponse represents the response body for the "SaveReplayBuffer" request.
+Flush and save the contents of the Replay Buffer to disk. This is
+basically the same as triggering the "Save Replay Buffer" hotkey.
+Will return an `error` if the Replay Buffer is not active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SaveReplayBuffer.
 */

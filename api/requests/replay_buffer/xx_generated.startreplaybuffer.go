@@ -6,6 +6,11 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StartReplayBufferParams represents the params body for the "StartReplayBuffer" request.
+Start recording into the Replay Buffer.
+Will return an `error` if the Replay Buffer is already active or if the
+"Save Replay Buffer" hotkey is not set in OBS' settings.
+Setting this hotkey is mandatory, even when triggering saves only
+through obs-websocket.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartReplayBuffer.
 */
@@ -20,6 +25,11 @@ func (o *StartReplayBufferParams) Name() string {
 
 /*
 StartReplayBufferResponse represents the response body for the "StartReplayBuffer" request.
+Start recording into the Replay Buffer.
+Will return an `error` if the Replay Buffer is already active or if the
+"Save Replay Buffer" hotkey is not set in OBS' settings.
+Setting this hotkey is mandatory, even when triggering saves only
+through obs-websocket.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartReplayBuffer.
 */

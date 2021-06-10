@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 RemoveFilterFromSourceParams represents the params body for the "RemoveFilterFromSource" request.
+Remove a filter from a source
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource.
 */
@@ -26,6 +27,7 @@ func (o *RemoveFilterFromSourceParams) Name() string {
 
 /*
 RemoveFilterFromSourceResponse represents the response body for the "RemoveFilterFromSource" request.
+Remove a filter from a source
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RemoveFilterFromSource.
 */

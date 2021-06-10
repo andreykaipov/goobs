@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetTextFreetype2PropertiesParams represents the params body for the "GetTextFreetype2Properties" request.
+Get the current properties of a Text Freetype 2 source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties.
 */
@@ -23,6 +24,7 @@ func (o *GetTextFreetype2PropertiesParams) Name() string {
 
 /*
 GetTextFreetype2PropertiesResponse represents the response body for the "GetTextFreetype2Properties" request.
+Get the current properties of a Text Freetype 2 source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetTextFreetype2Properties.
 */

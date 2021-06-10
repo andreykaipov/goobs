@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SetCurrentTransitionParams represents the params body for the "SetCurrentTransition" request.
+Set the active transition.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentTransition.
 */
@@ -23,6 +24,7 @@ func (o *SetCurrentTransitionParams) Name() string {
 
 /*
 SetCurrentTransitionResponse represents the response body for the "SetCurrentTransition" request.
+Set the active transition.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentTransition.
 */

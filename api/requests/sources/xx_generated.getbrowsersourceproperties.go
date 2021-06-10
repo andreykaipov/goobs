@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetBrowserSourcePropertiesParams represents the params body for the "GetBrowserSourceProperties" request.
+Get current properties for a Browser Source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties.
 */
@@ -23,6 +24,7 @@ func (o *GetBrowserSourcePropertiesParams) Name() string {
 
 /*
 GetBrowserSourcePropertiesResponse represents the response body for the "GetBrowserSourceProperties" request.
+Get current properties for a Browser Source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetBrowserSourceProperties.
 */

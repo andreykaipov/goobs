@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SetCurrentSceneParams represents the params body for the "SetCurrentScene" request.
+Switch to the specified scene.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentScene.
 */
@@ -23,6 +24,7 @@ func (o *SetCurrentSceneParams) Name() string {
 
 /*
 SetCurrentSceneResponse represents the response body for the "SetCurrentScene" request.
+Switch to the specified scene.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetCurrentScene.
 */

@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetCurrentTransitionParams represents the params body for the "GetCurrentTransition" request.
+Get the name of the currently selected transition in the frontend's dropdown menu.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentTransition.
 */
@@ -20,6 +21,7 @@ func (o *GetCurrentTransitionParams) Name() string {
 
 /*
 GetCurrentTransitionResponse represents the response body for the "GetCurrentTransition" request.
+Get the name of the currently selected transition in the frontend's dropdown menu.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetCurrentTransition.
 */

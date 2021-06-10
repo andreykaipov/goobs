@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetStreamSettingsParams represents the params body for the "GetStreamSettings" request.
+Get the current streaming server settings.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamSettings.
 */
@@ -20,6 +21,7 @@ func (o *GetStreamSettingsParams) Name() string {
 
 /*
 GetStreamSettingsResponse represents the response body for the "GetStreamSettings" request.
+Get the current streaming server settings.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetStreamSettings.
 */

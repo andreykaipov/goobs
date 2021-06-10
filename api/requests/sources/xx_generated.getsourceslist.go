@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetSourcesListParams represents the params body for the "GetSourcesList" request.
+List all sources available in the running OBS instance
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesList.
 */
@@ -20,6 +21,7 @@ func (o *GetSourcesListParams) Name() string {
 
 /*
 GetSourcesListResponse represents the response body for the "GetSourcesList" request.
+List all sources available in the running OBS instance
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSourcesList.
 */

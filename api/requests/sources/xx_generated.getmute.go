@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetMuteParams represents the params body for the "GetMute" request.
+Get the mute status of a specified source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetMute.
 */
@@ -23,6 +24,7 @@ func (o *GetMuteParams) Name() string {
 
 /*
 GetMuteResponse represents the response body for the "GetMute" request.
+Get the mute status of a specified source.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetMute.
 */

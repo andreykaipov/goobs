@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetSceneItemPropertiesParams represents the params body for the "GetSceneItemProperties" request.
+Gets the scene specific properties of the specified source item.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneItemProperties.
 */
@@ -26,6 +27,7 @@ func (o *GetSceneItemPropertiesParams) Name() string {
 
 /*
 GetSceneItemPropertiesResponse represents the response body for the "GetSceneItemProperties" request.
+Gets the scene specific properties of the specified source item.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetSceneItemProperties.
 */

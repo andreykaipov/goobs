@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetVersionParams represents the params body for the "GetVersion" request.
+Returns the latest version of the plugin and the API.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVersion.
 */
@@ -20,6 +21,7 @@ func (o *GetVersionParams) Name() string {
 
 /*
 GetVersionResponse represents the response body for the "GetVersion" request.
+Returns the latest version of the plugin and the API.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#GetVersion.
 */

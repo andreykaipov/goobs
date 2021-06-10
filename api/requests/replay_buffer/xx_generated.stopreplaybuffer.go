@@ -6,6 +6,8 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StopReplayBufferParams represents the params body for the "StopReplayBuffer" request.
+Stop recording into the Replay Buffer.
+Will return an `error` if the Replay Buffer is not active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer.
 */
@@ -20,6 +22,8 @@ func (o *StopReplayBufferParams) Name() string {
 
 /*
 StopReplayBufferResponse represents the response body for the "StopReplayBuffer" request.
+Stop recording into the Replay Buffer.
+Will return an `error` if the Replay Buffer is not active.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer.
 */

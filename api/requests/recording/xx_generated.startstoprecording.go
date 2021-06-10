@@ -6,6 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StartStopRecordingParams represents the params body for the "StartStopRecording" request.
+Toggle recording on or off.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopRecording.
 */
@@ -20,6 +21,7 @@ func (o *StartStopRecordingParams) Name() string {
 
 /*
 StartStopRecordingResponse represents the response body for the "StartStopRecording" request.
+Toggle recording on or off.
 
 Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StartStopRecording.
 */

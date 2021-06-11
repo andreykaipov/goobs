@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetRecordingFolderParams represents the params body for the "SetRecordingFolder" request.
 Change the current recording folder.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetRecordingFolder.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetRecordingFolder.
 */
 type SetRecordingFolderParams struct {
 	requests.ParamsBasic
@@ -26,7 +26,7 @@ func (o *SetRecordingFolderParams) Name() string {
 SetRecordingFolderResponse represents the response body for the "SetRecordingFolder" request.
 Change the current recording folder.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetRecordingFolder.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetRecordingFolder.
 */
 type SetRecordingFolderResponse struct {
 	requests.ResponseBasic

@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 ToggleMuteParams represents the params body for the "ToggleMute" request.
 Inverts the mute status of a specified source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleMute.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#ToggleMute.
 */
 type ToggleMuteParams struct {
 	requests.ParamsBasic
@@ -26,7 +26,7 @@ func (o *ToggleMuteParams) Name() string {
 ToggleMuteResponse represents the response body for the "ToggleMute" request.
 Inverts the mute status of a specified source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#ToggleMute.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#ToggleMute.
 */
 type ToggleMuteResponse struct {
 	requests.ResponseBasic

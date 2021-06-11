@@ -5,7 +5,7 @@ package events
 /*
 SceneItemRemoved represents the event body for the "SceneItemRemoved" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SceneItemRemoved.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SceneItemRemoved.
 */
 type SceneItemRemoved struct {
 	EventBasic

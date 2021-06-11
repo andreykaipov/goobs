@@ -9,7 +9,7 @@ StopReplayBufferParams represents the params body for the "StopReplayBuffer" req
 Stop recording into the Replay Buffer.
 Will return an `error` if the Replay Buffer is not active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#StopReplayBuffer.
 */
 type StopReplayBufferParams struct {
 	requests.ParamsBasic
@@ -25,7 +25,7 @@ StopReplayBufferResponse represents the response body for the "StopReplayBuffer"
 Stop recording into the Replay Buffer.
 Will return an `error` if the Replay Buffer is not active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StopReplayBuffer.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#StopReplayBuffer.
 */
 type StopReplayBufferResponse struct {
 	requests.ResponseBasic

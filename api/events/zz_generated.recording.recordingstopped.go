@@ -5,7 +5,7 @@ package events
 /*
 RecordingStopped represents the event body for the "RecordingStopped" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#RecordingStopped.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#RecordingStopped.
 */
 type RecordingStopped struct {
 	EventBasic

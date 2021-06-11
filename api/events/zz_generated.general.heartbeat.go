@@ -5,7 +5,7 @@ package events
 /*
 Heartbeat represents the event body for the "Heartbeat" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#Heartbeat.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#Heartbeat.
 */
 type Heartbeat struct {
 	EventBasic

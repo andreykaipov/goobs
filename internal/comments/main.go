@@ -20,7 +20,7 @@ import (
 var (
 	goobs = "github.com/andreykaipov/goobs"
 
-	version  = "4.5.0"
+	version  = "4.5.1"
 	comments = fmt.Sprintf("https://raw.githubusercontent.com/Palakis/obs-websocket/%s/docs/generated/comments.json", version)
 )
 

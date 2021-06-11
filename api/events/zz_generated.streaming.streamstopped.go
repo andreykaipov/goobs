@@ -5,7 +5,7 @@ package events
 /*
 StreamStopped represents the event body for the "StreamStopped" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#StreamStopped.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#StreamStopped.
 */
 type StreamStopped struct {
 	EventBasic

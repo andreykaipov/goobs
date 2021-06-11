@@ -9,7 +9,7 @@ SetPreviewSceneParams represents the params body for the "SetPreviewScene" reque
 Set the active preview scene.
 Will return an `error` if Studio Mode is not enabled.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetPreviewScene.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetPreviewScene.
 */
 type SetPreviewSceneParams struct {
 	requests.ParamsBasic
@@ -28,7 +28,7 @@ SetPreviewSceneResponse represents the response body for the "SetPreviewScene" r
 Set the active preview scene.
 Will return an `error` if Studio Mode is not enabled.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SetPreviewScene.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetPreviewScene.
 */
 type SetPreviewSceneResponse struct {
 	requests.ResponseBasic

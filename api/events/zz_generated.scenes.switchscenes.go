@@ -5,7 +5,7 @@ package events
 /*
 SwitchScenes represents the event body for the "SwitchScenes" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SwitchScenes.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SwitchScenes.
 */
 type SwitchScenes struct {
 	EventBasic

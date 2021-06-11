@@ -5,7 +5,7 @@ package events
 /*
 SceneCollectionChanged represents the event body for the "SceneCollectionChanged" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md#SceneCollectionChanged.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SceneCollectionChanged.
 */
 type SceneCollectionChanged struct {
 	EventBasic

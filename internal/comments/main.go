@@ -303,11 +303,7 @@ func generateStructFromParams(s *Statement, name string, params []*Param) error 
 			fieldType = Index().Map(String()).Interface()
 		case "Array<SceneItem>":
 			fieldType = Index().Map(String()).Interface()
-		case "Array<Source>":
-			fieldType = Index().Map(String()).Interface()
 		case "Array<Scene>":
-			fieldType = Index().Map(String()).Interface()
-		case "Scene|Array":
 			fieldType = Index().Map(String()).Interface()
 		case "~requests~":
 			fieldType = Qual(goobs+"/api/requests", field.Name)

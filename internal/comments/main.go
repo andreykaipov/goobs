@@ -20,7 +20,7 @@ import (
 var (
 	goobs = "github.com/andreykaipov/goobs"
 
-	version  = "4.5.1"
+	version  = "4.6.1"
 	comments = fmt.Sprintf("https://raw.githubusercontent.com/Palakis/obs-websocket/%s/docs/generated/comments.json", version)
 )
 
@@ -293,9 +293,15 @@ func generateStructFromParams(s *Statement, name string, params []*Param) error 
 			fieldType = Bool()
 		case "Object":
 			fieldType = Map(String()).Interface()
+		case "OBSStats":
+			fieldType = Map(String()).Interface()
+		case "SceneItemTransform":
+			fieldType = Map(String()).Interface()
 		case "Array<String>":
 			fieldType = Index().String()
 		case "Array<Object>":
+			fieldType = Index().Map(String()).Interface()
+		case "Array<SceneItem>":
 			fieldType = Index().Map(String()).Interface()
 		case "Array<Source>":
 			fieldType = Index().Map(String()).Interface()
@@ -310,7 +316,7 @@ func generateStructFromParams(s *Statement, name string, params []*Param) error 
 			fieldType = Id(field.Name)
 			embedded = true
 		default:
-			panic(fmt.Errorf("%s is a weird type", field.Name))
+			panic(fmt.Errorf("%q is of weird type %q", field.Name, field.Type))
 		}
 
 		// TODO remove in 4.9.0

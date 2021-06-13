@@ -130,8 +130,8 @@ type TypeDef struct {
 	} `json:"properties"`
 	Property interface{}   `json:"property"` // could be []string or just string; not so important since Properties has all the info we'd need
 	Subheads []interface{} `json:"subheads"`
-	Typedef  string        `json:"typedef"`
-	Typedefs []struct {
+	TypeDef  string        `json:"typedef"`
+	TypeDefs []struct {
 		Description string `json:"description"`
 		Name        string `json:"name"`
 		Type        string `json:"type"`
@@ -142,5 +142,5 @@ type TypeDef struct {
 type Comments struct {
 	Events   map[string][]*Event   `json:"events"`
 	Requests map[string][]*Request `json:"requests"`
-	Typedefs []*TypeDef            `json:"typedefs"`
+	TypeDefs []*TypeDef            `json:"typedefs"`
 }

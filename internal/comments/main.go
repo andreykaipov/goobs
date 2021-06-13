@@ -122,8 +122,8 @@ func main() {
 	fmt.Println("Events")
 	events := []*Event{}
 
-	// I don't want to write each event into a package representing the
-	// category, since I want the syntax to read like
+	// Unlike requests, I don't want to write each event into a package
+	// representing the category, since I want the syntax to read like
 	// `*events.TransitionBegin` instead of `*transitions.TransitionBegin`,
 	// when reading from the eventing loop.
 	dir := fmt.Sprintf("%s/api/events", root)
@@ -312,7 +312,7 @@ func generateStructFromParams(s *Statement, name string, params []*Param) error 
 			fieldType = Id(field.Name)
 			embedded = true
 		default:
-			panic(fmt.Errorf("%q is of weird type %q", field.Name, field.Type))
+			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, field.Name, field.Type))
 		}
 
 		// TODO remove in 4.9.0

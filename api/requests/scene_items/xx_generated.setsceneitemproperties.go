@@ -7,8 +7,9 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetSceneItemPropertiesParams represents the params body for the "SetSceneItemProperties" request.
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
+Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetSceneItemProperties.
 */
 type SetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
@@ -17,7 +18,9 @@ type SetSceneItemPropertiesParams struct {
 		// The new alignment of the bounding box. (0-2, 4-6, 8-10)
 		Alignment int `json:"alignment"`
 
-		// The new bounds type of the source.
+		// The new bounds type of the source. Can be "OBS_BOUNDS_STRETCH", "OBS_BOUNDS_SCALE_INNER",
+		// "OBS_BOUNDS_SCALE_OUTER", "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT",
+		// "OBS_BOUNDS_MAX_ONLY" or "OBS_BOUNDS_NONE".
 		Type string `json:"type"`
 
 		// The new width of the bounding box.
@@ -43,6 +46,10 @@ type SetSceneItemPropertiesParams struct {
 
 	// The name of the source.
 	Item string `json:"item"`
+
+	// The new locked status of the source. 'true' keeps it in its current position, 'false' allows
+	// movement.
+	Locked bool `json:"locked"`
 
 	Position struct {
 		// The new alignment of the source.
@@ -81,8 +88,9 @@ func (o *SetSceneItemPropertiesParams) Name() string {
 /*
 SetSceneItemPropertiesResponse represents the response body for the "SetSceneItemProperties" request.
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
+Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetSceneItemProperties.
 */
 type SetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic

@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetMuteParams represents the params body for the "GetMute" request.
 Get the mute status of a specified source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetMute.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetMute.
 */
 type GetMuteParams struct {
 	requests.ParamsBasic
@@ -26,7 +26,7 @@ func (o *GetMuteParams) Name() string {
 GetMuteResponse represents the response body for the "GetMute" request.
 Get the mute status of a specified source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetMute.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetMute.
 */
 type GetMuteResponse struct {
 	requests.ResponseBasic

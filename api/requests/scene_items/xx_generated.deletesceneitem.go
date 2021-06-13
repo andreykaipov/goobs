@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 DeleteSceneItemParams represents the params body for the "DeleteSceneItem" request.
 Deletes a scene item.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#DeleteSceneItem.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#DeleteSceneItem.
 */
 type DeleteSceneItemParams struct {
 	requests.ParamsBasic
@@ -34,7 +34,7 @@ func (o *DeleteSceneItemParams) Name() string {
 DeleteSceneItemResponse represents the response body for the "DeleteSceneItem" request.
 Deletes a scene item.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#DeleteSceneItem.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#DeleteSceneItem.
 */
 type DeleteSceneItemResponse struct {
 	requests.ResponseBasic

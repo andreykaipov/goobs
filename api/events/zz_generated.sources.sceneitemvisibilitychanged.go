@@ -5,10 +5,13 @@ package events
 /*
 SceneItemVisibilityChanged represents the event body for the "SceneItemVisibilityChanged" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SceneItemVisibilityChanged.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SceneItemVisibilityChanged.
 */
 type SceneItemVisibilityChanged struct {
 	EventBasic
+
+	// Scene item ID
+	ItemId int `json:"item-id"`
 
 	// Name of the item in the scene.
 	ItemName string `json:"item-name"`

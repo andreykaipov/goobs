@@ -6,9 +6,13 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SetRecordingFolderParams represents the params body for the "SetRecordingFolder" request.
-Change the current recording folder.
+In the current profile, sets the recording folder of the Simple and Advanced output modes to the specified value.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetRecordingFolder.
+Please note: if `SetRecordingFolder` is called while a recording is
+in progress, the change won't be applied immediately and will be
+effective on the next recording.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetRecordingFolder.
 */
 type SetRecordingFolderParams struct {
 	requests.ParamsBasic
@@ -24,9 +28,13 @@ func (o *SetRecordingFolderParams) Name() string {
 
 /*
 SetRecordingFolderResponse represents the response body for the "SetRecordingFolder" request.
-Change the current recording folder.
+In the current profile, sets the recording folder of the Simple and Advanced output modes to the specified value.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetRecordingFolder.
+Please note: if `SetRecordingFolder` is called while a recording is
+in progress, the change won't be applied immediately and will be
+effective on the next recording.
+
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetRecordingFolder.
 */
 type SetRecordingFolderResponse struct {
 	requests.ResponseBasic

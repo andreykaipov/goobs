@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetBrowserSourcePropertiesParams represents the params body for the "SetBrowserSourceProperties" request.
 Set current properties for a Browser Source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetBrowserSourceProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetBrowserSourceProperties.
 */
 type SetBrowserSourcePropertiesParams struct {
 	requests.ParamsBasic
@@ -53,7 +53,7 @@ func (o *SetBrowserSourcePropertiesParams) Name() string {
 SetBrowserSourcePropertiesResponse represents the response body for the "SetBrowserSourceProperties" request.
 Set current properties for a Browser Source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetBrowserSourceProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetBrowserSourceProperties.
 */
 type SetBrowserSourcePropertiesResponse struct {
 	requests.ResponseBasic

@@ -2,10 +2,12 @@
 
 package events
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 Heartbeat represents the event body for the "Heartbeat" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#Heartbeat.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#Heartbeat.
 */
 type Heartbeat struct {
 	EventBasic
@@ -21,6 +23,9 @@ type Heartbeat struct {
 
 	// Current recording state.
 	Recording bool `json:"recording"`
+
+	// OBS Stats
+	Stats []typedefs.OBSStats `json:"stats"`
 
 	// Current streaming state.
 	Streaming bool `json:"streaming"`

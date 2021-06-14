@@ -10,90 +10,96 @@ to interact with OBS Studio via Go.
 
 This project is still a work-in-progress.
 
-It's currently using [v4.5.0 of the
-protocol](https://github.com/Palakis/obs-websocket/blob/4.5.0/docs/generated/protocol.md).
+It's currently using [v4.9.1 of the
+protocol](https://github.com/Palakis/obs-websocket/blob/4.9.1/docs/generated/protocol.md).
 
 ## usage
 
-Here's the contents of [examples/sources.go](examples/sources.go). For brevity,
-we skip error checking:
+Usage is best demonstrated via an example. Here's
+[examples/sources/main.go](examples/sources/main.go), showing off both events
+and requests:
 
 ```go
 package main
 
-import (
-	"fmt"
-	"log"
-
-	"github.com/andreykaipov/goobs"
-	"github.com/andreykaipov/goobs/api/events"
-	"github.com/andreykaipov/goobs/api/requests/sources"
-)
-
-var localhost = "172.24.80.1" // you'll likely have to change this :)
+import ...
 
 func main() {
-	client, err := goobs.New(localhost+":4444", goobs.WithPassword("hello"))
+	client, err := goobs.New(os.Getenv("WSL_HOST")+":4444", goobs.WithPassword("hello"))
 	if err != nil {
 		panic(err)
 	}
-	defer client.Disconnect()
-
-	version, _ := client.General.GetVersion()
-	fmt.Printf("Websocket server version: %s\n", version.ObsWebsocketVersion)
-	fmt.Printf("OBS Studio version: %s\n", version.ObsStudioVersion)
 
 	go func() {
 		for event := range client.IncomingEvents {
 			switch e := event.(type) {
-			case *events.TransitionBegin:
-				log.Printf("Transition the scene: %#v", e)
-			case *events.Error:
-				log.Printf("Got an error: %s", e.Err)
+			case *events.SourceVolumeChanged:
+				fmt.Printf("Volume changed for %-25q: %f\n", e.SourceName, e.Volume)
 			default:
 				log.Printf("Unhandled event: %#v", e.GetUpdateType())
 			}
 		}
 	}()
 
+	fmt.Println("Setting random volumes for each source...")
+
+	rand.Seed(time.Now().UnixNano())
 	list, _ := client.Sources.GetSourcesList()
 
-	fmt.Println("Available sources:")
 	for _, v := range list.Sources {
-		fmt.Printf("- %-25s of type %s\n", v.Name, v.TypeId)
+		if _, err := client.Sources.SetVolume(&sources.SetVolumeParams{
+			Source: v.Name,
+			Volume: rand.Float64(),
+		}); err != nil {
+			panic(err)
+		}
 	}
 
-	update := func(volume float64) {
-		da := "Desktop Audio"
-		client.Sources.SetVolume(&sources.SetVolumeParams{
-			Source: da,
-			Volume: volume,
-		})
-		volumeResp, _ := client.Sources.GetVolume(&sources.GetVolumeParams{Source: da})
-		fmt.Printf("Now %q is at %.3f\n", da, volumeResp.Volume)
-	}
+	fmt.Println("Test toggling the mute status of the first source...")
 
-	update(0.3)
-	update(0.5)
+	name := list.Sources[0].Name
+	resp, _ := client.Sources.GetVolume(&sources.GetVolumeParams{Source: name})
+	fmt.Printf("%s is muted? %t\n", name, resp.Muted)
+
+	_, _ = client.Sources.ToggleMute(&sources.ToggleMuteParams{Source: name})
+	resp, _ = client.Sources.GetVolume(&sources.GetVolumeParams{Source: name})
+	fmt.Printf("%s is muted? %t\n", name, resp.Muted)
 }
 ```
 
 And the corresponding output:
 
 ```console
-❯ go run examples/sources.go
-2021/05/29 15:32:07 connecting to ws://172.24.80.1:4444
-Websocket server version: 4.9.0
-OBS Studio version: 26.1.1
-Available sources:
-- Video Capture Device      of type dshow_input
-- Audio Output Capture      of type wasapi_output_capture
-- Window Capture            of type window_capture
-- Chat                      of type browser_source
-- Mic/Aux                   of type wasapi_input_capture
-- Desktop Audio             of type wasapi_output_capture
-2021/05/29 15:32:07 Unhandled event: "SourceVolumeChanged"
-Now "Desktop Audio" is at 0.300
-2021/05/29 15:32:07 Unhandled event: "SourceVolumeChanged"
-Now "Desktop Audio" is at 0.500
+❯ go run examples/sources/main.go
+2021/06/14 02:22:18 connecting to ws://172.28.208.1:4444
+Setting random volumes for each source...
+Volume changed for "Chat"                   : 0.272767
+Volume changed for "Window Capture"         : 0.791386
+Volume changed for "Audio Output Capture"   : 0.777533
+Volume changed for "Video Capture Device"   : 0.084827
+Volume changed for "Mic/Aux"                : 0.104773
+Volume changed for "Desktop Audio"          : 0.997565
+Test toggling the mute status of the first source...
+Chat is muted? false
+2021/06/14 02:22:18 Unhandled event: "SourceMuteStateChanged"
+Chat is muted? true
 ```
+
+## development
+
+This client is generated from the mess inside `./internal/comments`, reading the
+[comments.json](https://github.com/Palakis/obs-websocket/blob/4.9.x/docs/generated/comments.json)
+file found in [Palakis/obs-websocket](https://github.com/Palakis/obs-websocket).
+
+Apart from `internal`, the only other hand-written code are the following files:
+
+```console
+❯ find *.go api/ -not -name '*_generated.*.go' -name '*.go'
+client.go
+api/requests/client.go
+api/requests/requests.go
+api/events/events.go
+```
+
+Iteration involves changing the generative code, running `make generate`, and
+making sure the examples still work.

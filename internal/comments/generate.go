@@ -348,6 +348,13 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			default:
 				fieldType = Index().Qual(goobs+"/api/typedefs", "Output")
 			}
+		case "Array<ScenesCollection>":
+			switch origin {
+			case "typedef":
+				fieldType = Index().Id("ScenesCollection")
+			default:
+				fieldType = Index().Qual(goobs+"/api/typedefs", "ScenesCollection")
+			}
 		// internal types that add embed a manually written struct
 		// within the generated struct
 		case "~requests~":

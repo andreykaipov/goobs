@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"reflect"
+	"regexp"
 	"sort"
 	"strings"
 	"unicode"
@@ -267,6 +268,7 @@ func generateTypeDef(typeDef *TypeDef) (s *Statement, err error) {
 
 func generateStructFromParams(origin string, s *Statement, name string, params []*Param) error {
 	keysInfo := map[string]keyInfo{}
+	noOptional := regexp.MustCompile(`(?i)[ ]+?\(optional\)([ ]+)?$`)
 
 	for _, field := range params {
 		fieldName, err := sanitizeText(field.Name)
@@ -278,7 +280,7 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 		embedded := false
 
 		var fieldType *Statement
-		switch strings.Trim(strings.ReplaceAll(field.Type, "(optional)", ""), " ") {
+		switch val := noOptional.ReplaceAllString(field.Type, ""); val {
 		case "string":
 			fieldType = String()
 		case "String":
@@ -304,11 +306,11 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 		case "Object":
 			fieldType = Map(String()).Interface()
 		case "OBSStats":
-			fieldType = Index().Qual(goobs+"/api/typedefs", "OBSStats")
+			fieldType = Index().Qual(goobs+"/api/typedefs", val)
 		case "SceneItemTransform":
-			fieldType = Index().Qual(goobs+"/api/typedefs", "SceneItemTransform")
+			fieldType = Index().Qual(goobs+"/api/typedefs", val)
 		case "Output":
-			fieldType = Index().Qual(goobs+"/api/typedefs", "Output")
+			fieldType = Index().Qual(goobs+"/api/typedefs", val)
 		case "Array<String>":
 			fieldType = Index().String()
 		case "Array<Object>":

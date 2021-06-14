@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetStreamSettingsParams represents the params body for the "SetStreamSettings" request.
 Sets one or more attributes of the current streaming server settings. Any options not passed will remain unchanged. Returns the updated settings in response. If 'type' is different than the current streaming service type, all settings are required. Returns the full settings of the stream (the same as GetStreamSettings).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetStreamSettings.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetStreamSettings.
 */
 type SetStreamSettingsParams struct {
 	requests.ParamsBasic
@@ -46,7 +46,7 @@ func (o *SetStreamSettingsParams) Name() string {
 SetStreamSettingsResponse represents the response body for the "SetStreamSettings" request.
 Sets one or more attributes of the current streaming server settings. Any options not passed will remain unchanged. Returns the updated settings in response. If 'type' is different than the current streaming service type, all settings are required. Returns the full settings of the stream (the same as GetStreamSettings).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetStreamSettings.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetStreamSettings.
 */
 type SetStreamSettingsResponse struct {
 	requests.ResponseBasic

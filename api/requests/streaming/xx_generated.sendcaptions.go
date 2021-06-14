@@ -9,7 +9,7 @@ SendCaptionsParams represents the params body for the "SendCaptions" request.
 Send the provided text as embedded CEA-608 caption data.
 As of OBS Studio 23.1, captions are not yet available on Linux.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SendCaptions.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SendCaptions.
 */
 type SendCaptionsParams struct {
 	requests.ParamsBasic
@@ -28,7 +28,7 @@ SendCaptionsResponse represents the response body for the "SendCaptions" request
 Send the provided text as embedded CEA-608 caption data.
 As of OBS Studio 23.1, captions are not yet available on Linux.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SendCaptions.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SendCaptions.
 */
 type SendCaptionsResponse struct {
 	requests.ResponseBasic

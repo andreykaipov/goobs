@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetCurrentProfileParams represents the params body for the "GetCurrentProfile" request.
 Get the name of the current profile.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetCurrentProfile.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetCurrentProfile.
 */
 type GetCurrentProfileParams struct {
 	requests.ParamsBasic
@@ -23,7 +23,7 @@ func (o *GetCurrentProfileParams) Name() string {
 GetCurrentProfileResponse represents the response body for the "GetCurrentProfile" request.
 Get the name of the current profile.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetCurrentProfile.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetCurrentProfile.
 */
 type GetCurrentProfileResponse struct {
 	requests.ResponseBasic

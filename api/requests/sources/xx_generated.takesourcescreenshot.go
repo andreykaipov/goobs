@@ -13,7 +13,7 @@ At least `embedPictureFormat` or `saveToFilePath` must be specified.
 Clients can specify `width` and `height` parameters to receive scaled pictures. Aspect ratio is
 preserved if only one of these two parameters is specified.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#TakeSourceScreenshot.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#TakeSourceScreenshot.
 */
 type TakeSourceScreenshotParams struct {
 	requests.ParamsBasic
@@ -29,7 +29,7 @@ type TakeSourceScreenshotParams struct {
 	// format different from `pictureFormat`. Can be a relative path.
 	SaveToFilePath string `json:"saveToFilePath"`
 
-	// Source name
+	// Source name. Note that, since scenes are also sources, you can also provide a scene name.
 	SourceName string `json:"sourceName"`
 
 	// Screenshot width. Defaults to the source's base width.
@@ -50,7 +50,7 @@ At least `embedPictureFormat` or `saveToFilePath` must be specified.
 Clients can specify `width` and `height` parameters to receive scaled pictures. Aspect ratio is
 preserved if only one of these two parameters is specified.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#TakeSourceScreenshot.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#TakeSourceScreenshot.
 */
 type TakeSourceScreenshotResponse struct {
 	requests.ResponseBasic

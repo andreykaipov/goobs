@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetSourceTypesListParams represents the params body for the "GetSourceTypesList" request.
 Get a list of all available sources types
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSourceTypesList.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetSourceTypesList.
 */
 type GetSourceTypesListParams struct {
 	requests.ParamsBasic
@@ -23,12 +23,12 @@ func (o *GetSourceTypesListParams) Name() string {
 GetSourceTypesListResponse represents the response body for the "GetSourceTypesList" request.
 Get a list of all available sources types
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSourceTypesList.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetSourceTypesList.
 */
 type GetSourceTypesListResponse struct {
 	requests.ResponseBasic
 
-	Ids []struct {
+	Types []struct {
 		Caps struct {
 			// True if interaction with this sources of this type is possible
 			CanInteract bool `json:"canInteract"`
@@ -64,7 +64,7 @@ type GetSourceTypesListResponse struct {
 
 		// Non-unique internal source type ID
 		TypeId string `json:"typeId"`
-	} `json:"ids"`
+	} `json:"types"`
 }
 
 // GetSourceTypesList sends the corresponding request to the connected OBS WebSockets server. Note

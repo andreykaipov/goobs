@@ -9,7 +9,7 @@ SetSceneItemPropertiesParams represents the params body for the "SetSceneItemPro
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetSceneItemProperties.
 */
 type SetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
@@ -90,7 +90,7 @@ SetSceneItemPropertiesResponse represents the response body for the "SetSceneIte
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetSceneItemProperties.
 */
 type SetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic

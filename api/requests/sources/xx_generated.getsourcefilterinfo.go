@@ -20,8 +20,8 @@ type GetSourceFilterInfoParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "GetSourceFilterInfo".
-func (o *GetSourceFilterInfoParams) Name() string {
+// GetSelfName just returns "GetSourceFilterInfo".
+func (o *GetSourceFilterInfoParams) GetSelfName() string {
 	return "GetSourceFilterInfo"
 }
 

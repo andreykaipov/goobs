@@ -20,8 +20,8 @@ type RemoveFilterFromSourceParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "RemoveFilterFromSource".
-func (o *RemoveFilterFromSourceParams) Name() string {
+// GetSelfName just returns "RemoveFilterFromSource".
+func (o *RemoveFilterFromSourceParams) GetSelfName() string {
 	return "RemoveFilterFromSource"
 }
 

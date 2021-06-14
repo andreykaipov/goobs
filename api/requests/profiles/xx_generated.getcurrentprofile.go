@@ -14,8 +14,8 @@ type GetCurrentProfileParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetCurrentProfile".
-func (o *GetCurrentProfileParams) Name() string {
+// GetSelfName just returns "GetCurrentProfile".
+func (o *GetCurrentProfileParams) GetSelfName() string {
 	return "GetCurrentProfile"
 }
 

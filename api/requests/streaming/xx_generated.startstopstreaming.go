@@ -14,8 +14,8 @@ type StartStopStreamingParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "StartStopStreaming".
-func (o *StartStopStreamingParams) Name() string {
+// GetSelfName just returns "StartStopStreaming".
+func (o *StartStopStreamingParams) GetSelfName() string {
 	return "StartStopStreaming"
 }
 

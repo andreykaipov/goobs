@@ -25,8 +25,8 @@ type DeleteSceneItemParams struct {
 	Scene string `json:"scene"`
 }
 
-// Name just returns "DeleteSceneItem".
-func (o *DeleteSceneItemParams) Name() string {
+// GetSelfName just returns "DeleteSceneItem".
+func (o *DeleteSceneItemParams) GetSelfName() string {
 	return "DeleteSceneItem"
 }
 

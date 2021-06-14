@@ -18,8 +18,8 @@ type GetPreviewSceneParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetPreviewScene".
-func (o *GetPreviewSceneParams) Name() string {
+// GetSelfName just returns "GetPreviewScene".
+func (o *GetPreviewSceneParams) GetSelfName() string {
 	return "GetPreviewScene"
 }
 

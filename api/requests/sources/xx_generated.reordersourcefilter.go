@@ -23,8 +23,8 @@ type ReorderSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "ReorderSourceFilter".
-func (o *ReorderSourceFilterParams) Name() string {
+// GetSelfName just returns "ReorderSourceFilter".
+func (o *ReorderSourceFilterParams) GetSelfName() string {
 	return "ReorderSourceFilter"
 }
 

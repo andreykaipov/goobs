@@ -100,8 +100,8 @@ type SetTextGDIPlusPropertiesParams struct {
 	Vertical bool `json:"vertical"`
 }
 
-// Name just returns "SetTextGDIPlusProperties".
-func (o *SetTextGDIPlusPropertiesParams) Name() string {
+// GetSelfName just returns "SetTextGDIPlusProperties".
+func (o *SetTextGDIPlusPropertiesParams) GetSelfName() string {
 	return "SetTextGDIPlusProperties"
 }
 

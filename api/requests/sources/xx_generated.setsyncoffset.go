@@ -20,8 +20,8 @@ type SetSyncOffsetParams struct {
 	Source string `json:"source"`
 }
 
-// Name just returns "SetSyncOffset".
-func (o *SetSyncOffsetParams) Name() string {
+// GetSelfName just returns "SetSyncOffset".
+func (o *SetSyncOffsetParams) GetSelfName() string {
 	return "SetSyncOffset"
 }
 

@@ -15,8 +15,8 @@ type StopReplayBufferParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "StopReplayBuffer".
-func (o *StopReplayBufferParams) Name() string {
+// GetSelfName just returns "StopReplayBuffer".
+func (o *StopReplayBufferParams) GetSelfName() string {
 	return "StopReplayBuffer"
 }
 

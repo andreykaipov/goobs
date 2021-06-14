@@ -14,8 +14,8 @@ type GetSourceTypesListParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetSourceTypesList".
-func (o *GetSourceTypesListParams) Name() string {
+// GetSelfName just returns "GetSourceTypesList".
+func (o *GetSourceTypesListParams) GetSelfName() string {
 	return "GetSourceTypesList"
 }
 

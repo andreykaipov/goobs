@@ -37,8 +37,8 @@ type SetStreamSettingsParams struct {
 	Type string `json:"type"`
 }
 
-// Name just returns "SetStreamSettings".
-func (o *SetStreamSettingsParams) Name() string {
+// GetSelfName just returns "SetStreamSettings".
+func (o *SetStreamSettingsParams) GetSelfName() string {
 	return "SetStreamSettings"
 }
 

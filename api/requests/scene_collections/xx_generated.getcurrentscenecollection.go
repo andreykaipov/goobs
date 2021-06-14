@@ -14,8 +14,8 @@ type GetCurrentSceneCollectionParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetCurrentSceneCollection".
-func (o *GetCurrentSceneCollectionParams) Name() string {
+// GetSelfName just returns "GetCurrentSceneCollection".
+func (o *GetCurrentSceneCollectionParams) GetSelfName() string {
 	return "GetCurrentSceneCollection"
 }
 

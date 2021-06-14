@@ -24,8 +24,8 @@ type MoveSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "MoveSourceFilter".
-func (o *MoveSourceFilterParams) Name() string {
+// GetSelfName just returns "MoveSourceFilter".
+func (o *MoveSourceFilterParams) GetSelfName() string {
 	return "MoveSourceFilter"
 }
 

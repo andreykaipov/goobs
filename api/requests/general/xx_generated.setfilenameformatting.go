@@ -17,8 +17,8 @@ type SetFilenameFormattingParams struct {
 	FilenameFormatting string `json:"filename-formatting"`
 }
 
-// Name just returns "SetFilenameFormatting".
-func (o *SetFilenameFormattingParams) Name() string {
+// GetSelfName just returns "SetFilenameFormatting".
+func (o *SetFilenameFormattingParams) GetSelfName() string {
 	return "SetFilenameFormatting"
 }
 

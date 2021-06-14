@@ -20,8 +20,8 @@ type GetOutputInfoParams struct {
 	OutputName string `json:"outputName"`
 }
 
-// Name just returns "GetOutputInfo".
-func (o *GetOutputInfoParams) Name() string {
+// GetSelfName just returns "GetOutputInfo".
+func (o *GetOutputInfoParams) GetSelfName() string {
 	return "GetOutputInfo"
 }
 

@@ -15,8 +15,8 @@ type GetAuthRequiredParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetAuthRequired".
-func (o *GetAuthRequiredParams) Name() string {
+// GetSelfName just returns "GetAuthRequired".
+func (o *GetAuthRequiredParams) GetSelfName() string {
 	return "GetAuthRequired"
 }
 

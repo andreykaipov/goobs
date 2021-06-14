@@ -26,8 +26,8 @@ type ReorderSceneItemsParams struct {
 	Scene string `json:"scene"`
 }
 
-// Name just returns "ReorderSceneItems".
-func (o *ReorderSceneItemsParams) Name() string {
+// GetSelfName just returns "ReorderSceneItems".
+func (o *ReorderSceneItemsParams) GetSelfName() string {
 	return "ReorderSceneItems"
 }
 

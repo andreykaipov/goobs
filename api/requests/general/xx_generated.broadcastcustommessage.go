@@ -20,8 +20,8 @@ type BroadcastCustomMessageParams struct {
 	Realm string `json:"realm"`
 }
 
-// Name just returns "BroadcastCustomMessage".
-func (o *BroadcastCustomMessageParams) Name() string {
+// GetSelfName just returns "BroadcastCustomMessage".
+func (o *BroadcastCustomMessageParams) GetSelfName() string {
 	return "BroadcastCustomMessage"
 }
 

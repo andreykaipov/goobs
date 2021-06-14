@@ -17,8 +17,8 @@ type AuthenticateParams struct {
 	Auth string `json:"auth"`
 }
 
-// Name just returns "Authenticate".
-func (o *AuthenticateParams) Name() string {
+// GetSelfName just returns "Authenticate".
+func (o *AuthenticateParams) GetSelfName() string {
 	return "Authenticate"
 }
 

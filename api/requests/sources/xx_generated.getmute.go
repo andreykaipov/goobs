@@ -17,8 +17,8 @@ type GetMuteParams struct {
 	Source string `json:"source"`
 }
 
-// Name just returns "GetMute".
-func (o *GetMuteParams) Name() string {
+// GetSelfName just returns "GetMute".
+func (o *GetMuteParams) GetSelfName() string {
 	return "GetMute"
 }
 

@@ -48,8 +48,8 @@ type StartStreamingParams struct {
 	} `json:"stream"`
 }
 
-// Name just returns "StartStreaming".
-func (o *StartStreamingParams) Name() string {
+// GetSelfName just returns "StartStreaming".
+func (o *StartStreamingParams) GetSelfName() string {
 	return "StartStreaming"
 }
 

@@ -25,8 +25,8 @@ type ResetSceneItemParams struct {
 	SceneName string `json:"scene-name"`
 }
 
-// Name just returns "ResetSceneItem".
-func (o *ResetSceneItemParams) Name() string {
+// GetSelfName just returns "ResetSceneItem".
+func (o *ResetSceneItemParams) GetSelfName() string {
 	return "ResetSceneItem"
 }
 

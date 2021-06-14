@@ -15,8 +15,8 @@ type StopRecordingParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "StopRecording".
-func (o *StopRecordingParams) Name() string {
+// GetSelfName just returns "StopRecording".
+func (o *StopRecordingParams) GetSelfName() string {
 	return "StopRecording"
 }
 

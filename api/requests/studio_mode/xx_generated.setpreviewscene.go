@@ -18,8 +18,8 @@ type SetPreviewSceneParams struct {
 	SceneName string `json:"scene-name"`
 }
 
-// Name just returns "SetPreviewScene".
-func (o *SetPreviewSceneParams) Name() string {
+// GetSelfName just returns "SetPreviewScene".
+func (o *SetPreviewSceneParams) GetSelfName() string {
 	return "SetPreviewScene"
 }
 

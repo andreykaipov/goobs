@@ -14,8 +14,8 @@ type GetVideoInfoParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetVideoInfo".
-func (o *GetVideoInfoParams) Name() string {
+// GetSelfName just returns "GetVideoInfo".
+func (o *GetVideoInfoParams) GetSelfName() string {
 	return "GetVideoInfo"
 }
 

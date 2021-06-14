@@ -17,8 +17,8 @@ type ToggleMuteParams struct {
 	Source string `json:"source"`
 }
 
-// Name just returns "ToggleMute".
-func (o *ToggleMuteParams) Name() string {
+// GetSelfName just returns "ToggleMute".
+func (o *ToggleMuteParams) GetSelfName() string {
 	return "ToggleMute"
 }
 

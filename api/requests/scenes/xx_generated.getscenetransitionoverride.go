@@ -17,8 +17,8 @@ type GetSceneTransitionOverrideParams struct {
 	SceneName string `json:"sceneName"`
 }
 
-// Name just returns "GetSceneTransitionOverride".
-func (o *GetSceneTransitionOverrideParams) Name() string {
+// GetSelfName just returns "GetSceneTransitionOverride".
+func (o *GetSceneTransitionOverrideParams) GetSelfName() string {
 	return "GetSceneTransitionOverride"
 }
 

@@ -17,8 +17,8 @@ type ListOutputsParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "ListOutputs".
-func (o *ListOutputsParams) Name() string {
+// GetSelfName just returns "ListOutputs".
+func (o *ListOutputsParams) GetSelfName() string {
 	return "ListOutputs"
 }
 

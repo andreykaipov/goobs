@@ -17,8 +17,8 @@ type GetCurrentSceneParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetCurrentScene".
-func (o *GetCurrentSceneParams) Name() string {
+// GetSelfName just returns "GetCurrentScene".
+func (o *GetCurrentSceneParams) GetSelfName() string {
 	return "GetCurrentScene"
 }
 

@@ -14,8 +14,8 @@ type DisableStudioModeParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "DisableStudioMode".
-func (o *DisableStudioModeParams) Name() string {
+// GetSelfName just returns "DisableStudioMode".
+func (o *DisableStudioModeParams) GetSelfName() string {
 	return "DisableStudioMode"
 }
 

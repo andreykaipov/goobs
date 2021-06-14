@@ -17,8 +17,8 @@ type GetStatsParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetStats".
-func (o *GetStatsParams) Name() string {
+// GetSelfName just returns "GetStats".
+func (o *GetStatsParams) GetSelfName() string {
 	return "GetStats"
 }
 

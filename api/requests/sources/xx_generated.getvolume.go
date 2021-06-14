@@ -20,8 +20,8 @@ type GetVolumeParams struct {
 	UseDecibel bool `json:"useDecibel"`
 }
 
-// Name just returns "GetVolume".
-func (o *GetVolumeParams) Name() string {
+// GetSelfName just returns "GetVolume".
+func (o *GetVolumeParams) GetSelfName() string {
 	return "GetVolume"
 }
 

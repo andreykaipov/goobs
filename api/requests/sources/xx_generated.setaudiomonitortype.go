@@ -20,8 +20,8 @@ type SetAudioMonitorTypeParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "SetAudioMonitorType".
-func (o *SetAudioMonitorTypeParams) Name() string {
+// GetSelfName just returns "SetAudioMonitorType".
+func (o *SetAudioMonitorTypeParams) GetSelfName() string {
 	return "SetAudioMonitorType"
 }
 

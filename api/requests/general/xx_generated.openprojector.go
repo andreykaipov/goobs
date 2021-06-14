@@ -29,8 +29,8 @@ type OpenProjectorParams struct {
 	Type string `json:"type"`
 }
 
-// Name just returns "OpenProjector".
-func (o *OpenProjectorParams) Name() string {
+// GetSelfName just returns "OpenProjector".
+func (o *OpenProjectorParams) GetSelfName() string {
 	return "OpenProjector"
 }
 

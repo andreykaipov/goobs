@@ -23,8 +23,8 @@ type SetSourceFilterVisibilityParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "SetSourceFilterVisibility".
-func (o *SetSourceFilterVisibilityParams) Name() string {
+// GetSelfName just returns "SetSourceFilterVisibility".
+func (o *SetSourceFilterVisibilityParams) GetSelfName() string {
 	return "SetSourceFilterVisibility"
 }
 

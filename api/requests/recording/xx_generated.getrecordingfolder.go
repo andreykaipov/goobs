@@ -14,8 +14,8 @@ type GetRecordingFolderParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetRecordingFolder".
-func (o *GetRecordingFolderParams) Name() string {
+// GetSelfName just returns "GetRecordingFolder".
+func (o *GetRecordingFolderParams) GetSelfName() string {
 	return "GetRecordingFolder"
 }
 

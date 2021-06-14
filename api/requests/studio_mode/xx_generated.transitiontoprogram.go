@@ -23,8 +23,8 @@ type TransitionToProgramParams struct {
 	} `json:"with-transition"`
 }
 
-// Name just returns "TransitionToProgram".
-func (o *TransitionToProgramParams) Name() string {
+// GetSelfName just returns "TransitionToProgram".
+func (o *TransitionToProgramParams) GetSelfName() string {
 	return "TransitionToProgram"
 }
 

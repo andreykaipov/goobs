@@ -14,8 +14,8 @@ type GetStreamSettingsParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetStreamSettings".
-func (o *GetStreamSettingsParams) Name() string {
+// GetSelfName just returns "GetStreamSettings".
+func (o *GetStreamSettingsParams) GetSelfName() string {
 	return "GetStreamSettings"
 }
 

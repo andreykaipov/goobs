@@ -61,8 +61,8 @@ type SetTextFreetype2PropertiesParams struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
-// Name just returns "SetTextFreetype2Properties".
-func (o *SetTextFreetype2PropertiesParams) Name() string {
+// GetSelfName just returns "SetTextFreetype2Properties".
+func (o *SetTextFreetype2PropertiesParams) GetSelfName() string {
 	return "SetTextFreetype2Properties"
 }
 

@@ -45,8 +45,8 @@ type TakeSourceScreenshotParams struct {
 	Width int `json:"width"`
 }
 
-// Name just returns "TakeSourceScreenshot".
-func (o *TakeSourceScreenshotParams) Name() string {
+// GetSelfName just returns "TakeSourceScreenshot".
+func (o *TakeSourceScreenshotParams) GetSelfName() string {
 	return "TakeSourceScreenshot"
 }
 

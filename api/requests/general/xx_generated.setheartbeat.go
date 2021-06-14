@@ -17,8 +17,8 @@ type SetHeartbeatParams struct {
 	Enable bool `json:"enable"`
 }
 
-// Name just returns "SetHeartbeat".
-func (o *SetHeartbeatParams) Name() string {
+// GetSelfName just returns "SetHeartbeat".
+func (o *SetHeartbeatParams) GetSelfName() string {
 	return "SetHeartbeat"
 }
 

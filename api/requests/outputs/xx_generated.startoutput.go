@@ -17,8 +17,8 @@ type StartOutputParams struct {
 	OutputName string `json:"outputName"`
 }
 
-// Name just returns "StartOutput".
-func (o *StartOutputParams) Name() string {
+// GetSelfName just returns "StartOutput".
+func (o *StartOutputParams) GetSelfName() string {
 	return "StartOutput"
 }
 

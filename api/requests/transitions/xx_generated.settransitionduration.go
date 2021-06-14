@@ -17,8 +17,8 @@ type SetTransitionDurationParams struct {
 	Duration int `json:"duration"`
 }
 
-// Name just returns "SetTransitionDuration".
-func (o *SetTransitionDurationParams) Name() string {
+// GetSelfName just returns "SetTransitionDuration".
+func (o *SetTransitionDurationParams) GetSelfName() string {
 	return "SetTransitionDuration"
 }
 

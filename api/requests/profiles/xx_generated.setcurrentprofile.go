@@ -17,8 +17,8 @@ type SetCurrentProfileParams struct {
 	ProfileName string `json:"profile-name"`
 }
 
-// Name just returns "SetCurrentProfile".
-func (o *SetCurrentProfileParams) Name() string {
+// GetSelfName just returns "SetCurrentProfile".
+func (o *SetCurrentProfileParams) GetSelfName() string {
 	return "SetCurrentProfile"
 }
 

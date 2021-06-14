@@ -17,8 +17,8 @@ type GetTextFreetype2PropertiesParams struct {
 	Source string `json:"source"`
 }
 
-// Name just returns "GetTextFreetype2Properties".
-func (o *GetTextFreetype2PropertiesParams) Name() string {
+// GetSelfName just returns "GetTextFreetype2Properties".
+func (o *GetTextFreetype2PropertiesParams) GetSelfName() string {
 	return "GetTextFreetype2Properties"
 }
 

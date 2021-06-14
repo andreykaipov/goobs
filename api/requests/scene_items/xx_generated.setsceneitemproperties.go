@@ -85,8 +85,8 @@ type SetSceneItemPropertiesParams struct {
 	Visible bool `json:"visible"`
 }
 
-// Name just returns "SetSceneItemProperties".
-func (o *SetSceneItemPropertiesParams) Name() string {
+// GetSelfName just returns "SetSceneItemProperties".
+func (o *SetSceneItemPropertiesParams) GetSelfName() string {
 	return "SetSceneItemProperties"
 }
 

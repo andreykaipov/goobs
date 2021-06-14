@@ -29,8 +29,8 @@ type GetSceneItemPropertiesParams struct {
 	SceneName string `json:"scene-name"`
 }
 
-// Name just returns "GetSceneItemProperties".
-func (o *GetSceneItemPropertiesParams) Name() string {
+// GetSelfName just returns "GetSceneItemProperties".
+func (o *GetSceneItemPropertiesParams) GetSelfName() string {
 	return "GetSceneItemProperties"
 }
 

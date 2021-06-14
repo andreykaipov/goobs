@@ -14,8 +14,8 @@ type GetFilenameFormattingParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetFilenameFormatting".
-func (o *GetFilenameFormattingParams) Name() string {
+// GetSelfName just returns "GetFilenameFormatting".
+func (o *GetFilenameFormattingParams) GetSelfName() string {
 	return "GetFilenameFormatting"
 }
 

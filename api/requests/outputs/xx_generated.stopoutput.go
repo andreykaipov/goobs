@@ -20,8 +20,8 @@ type StopOutputParams struct {
 	OutputName string `json:"outputName"`
 }
 
-// Name just returns "StopOutput".
-func (o *StopOutputParams) Name() string {
+// GetSelfName just returns "StopOutput".
+func (o *StopOutputParams) GetSelfName() string {
 	return "StopOutput"
 }
 

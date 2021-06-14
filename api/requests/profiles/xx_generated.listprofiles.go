@@ -14,8 +14,8 @@ type ListProfilesParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "ListProfiles".
-func (o *ListProfilesParams) Name() string {
+// GetSelfName just returns "ListProfiles".
+func (o *ListProfilesParams) GetSelfName() string {
 	return "ListProfiles"
 }
 

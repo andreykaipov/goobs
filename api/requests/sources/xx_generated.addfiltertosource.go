@@ -26,8 +26,8 @@ type AddFilterToSourceParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "AddFilterToSource".
-func (o *AddFilterToSourceParams) Name() string {
+// GetSelfName just returns "AddFilterToSource".
+func (o *AddFilterToSourceParams) GetSelfName() string {
 	return "AddFilterToSource"
 }
 

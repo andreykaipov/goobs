@@ -18,8 +18,8 @@ type SendCaptionsParams struct {
 	Text string `json:"text"`
 }
 
-// Name just returns "SendCaptions".
-func (o *SendCaptionsParams) Name() string {
+// GetSelfName just returns "SendCaptions".
+func (o *SendCaptionsParams) GetSelfName() string {
 	return "SendCaptions"
 }
 

@@ -28,8 +28,8 @@ type DuplicateSceneItemParams struct {
 	ToScene string `json:"toScene"`
 }
 
-// Name just returns "DuplicateSceneItem".
-func (o *DuplicateSceneItemParams) Name() string {
+// GetSelfName just returns "DuplicateSceneItem".
+func (o *DuplicateSceneItemParams) GetSelfName() string {
 	return "DuplicateSceneItem"
 }
 

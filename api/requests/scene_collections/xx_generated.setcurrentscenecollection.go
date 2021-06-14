@@ -17,8 +17,8 @@ type SetCurrentSceneCollectionParams struct {
 	ScName string `json:"sc-name"`
 }
 
-// Name just returns "SetCurrentSceneCollection".
-func (o *SetCurrentSceneCollectionParams) Name() string {
+// GetSelfName just returns "SetCurrentSceneCollection".
+func (o *SetCurrentSceneCollectionParams) GetSelfName() string {
 	return "SetCurrentSceneCollection"
 }
 

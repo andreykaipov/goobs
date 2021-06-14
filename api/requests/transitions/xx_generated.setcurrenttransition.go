@@ -17,8 +17,8 @@ type SetCurrentTransitionParams struct {
 	TransitionName string `json:"transition-name"`
 }
 
-// Name just returns "SetCurrentTransition".
-func (o *SetCurrentTransitionParams) Name() string {
+// GetSelfName just returns "SetCurrentTransition".
+func (o *SetCurrentTransitionParams) GetSelfName() string {
 	return "SetCurrentTransition"
 }
 

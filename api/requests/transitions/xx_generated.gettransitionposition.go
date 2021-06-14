@@ -14,8 +14,8 @@ type GetTransitionPositionParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetTransitionPosition".
-func (o *GetTransitionPositionParams) Name() string {
+// GetSelfName just returns "GetTransitionPosition".
+func (o *GetTransitionPositionParams) GetSelfName() string {
 	return "GetTransitionPosition"
 }
 

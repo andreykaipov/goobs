@@ -16,8 +16,8 @@ type SaveReplayBufferParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "SaveReplayBuffer".
-func (o *SaveReplayBufferParams) Name() string {
+// GetSelfName just returns "SaveReplayBuffer".
+func (o *SaveReplayBufferParams) GetSelfName() string {
 	return "SaveReplayBuffer"
 }
 

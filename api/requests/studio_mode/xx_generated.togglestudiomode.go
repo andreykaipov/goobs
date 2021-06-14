@@ -14,8 +14,8 @@ type ToggleStudioModeParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "ToggleStudioMode".
-func (o *ToggleStudioModeParams) Name() string {
+// GetSelfName just returns "ToggleStudioMode".
+func (o *ToggleStudioModeParams) GetSelfName() string {
 	return "ToggleStudioMode"
 }
 

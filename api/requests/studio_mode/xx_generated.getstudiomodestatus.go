@@ -14,8 +14,8 @@ type GetStudioModeStatusParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetStudioModeStatus".
-func (o *GetStudioModeStatusParams) Name() string {
+// GetSelfName just returns "GetStudioModeStatus".
+func (o *GetStudioModeStatusParams) GetSelfName() string {
 	return "GetStudioModeStatus"
 }
 

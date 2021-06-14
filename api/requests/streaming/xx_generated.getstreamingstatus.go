@@ -14,8 +14,8 @@ type GetStreamingStatusParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetStreamingStatus".
-func (o *GetStreamingStatusParams) Name() string {
+// GetSelfName just returns "GetStreamingStatus".
+func (o *GetStreamingStatusParams) GetSelfName() string {
 	return "GetStreamingStatus"
 }
 

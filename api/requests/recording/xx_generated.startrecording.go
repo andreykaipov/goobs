@@ -15,8 +15,8 @@ type StartRecordingParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "StartRecording".
-func (o *StartRecordingParams) Name() string {
+// GetSelfName just returns "StartRecording".
+func (o *StartRecordingParams) GetSelfName() string {
 	return "StartRecording"
 }
 

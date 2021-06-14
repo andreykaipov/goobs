@@ -17,8 +17,8 @@ type SetCurrentSceneParams struct {
 	SceneName string `json:"scene-name"`
 }
 
-// Name just returns "SetCurrentScene".
-func (o *SetCurrentSceneParams) Name() string {
+// GetSelfName just returns "SetCurrentScene".
+func (o *SetCurrentSceneParams) GetSelfName() string {
 	return "SetCurrentScene"
 }
 

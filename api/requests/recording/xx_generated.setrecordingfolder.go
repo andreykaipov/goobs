@@ -21,8 +21,8 @@ type SetRecordingFolderParams struct {
 	RecFolder string `json:"rec-folder"`
 }
 
-// Name just returns "SetRecordingFolder".
-func (o *SetRecordingFolderParams) Name() string {
+// GetSelfName just returns "SetRecordingFolder".
+func (o *SetRecordingFolderParams) GetSelfName() string {
 	return "SetRecordingFolder"
 }
 

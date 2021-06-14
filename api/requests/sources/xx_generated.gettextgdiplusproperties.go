@@ -17,8 +17,8 @@ type GetTextGDIPlusPropertiesParams struct {
 	Source string `json:"source"`
 }
 
-// Name just returns "GetTextGDIPlusProperties".
-func (o *GetTextGDIPlusPropertiesParams) Name() string {
+// GetSelfName just returns "GetTextGDIPlusProperties".
+func (o *GetTextGDIPlusPropertiesParams) GetSelfName() string {
 	return "GetTextGDIPlusProperties"
 }
 

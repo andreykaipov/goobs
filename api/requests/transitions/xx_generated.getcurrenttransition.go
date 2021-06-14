@@ -14,8 +14,8 @@ type GetCurrentTransitionParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetCurrentTransition".
-func (o *GetCurrentTransitionParams) Name() string {
+// GetSelfName just returns "GetCurrentTransition".
+func (o *GetCurrentTransitionParams) GetSelfName() string {
 	return "GetCurrentTransition"
 }
 

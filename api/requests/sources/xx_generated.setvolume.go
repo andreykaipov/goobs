@@ -24,8 +24,8 @@ type SetVolumeParams struct {
 	Volume float64 `json:"volume"`
 }
 
-// Name just returns "SetVolume".
-func (o *SetVolumeParams) Name() string {
+// GetSelfName just returns "SetVolume".
+func (o *SetVolumeParams) GetSelfName() string {
 	return "SetVolume"
 }
 

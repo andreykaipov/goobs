@@ -14,8 +14,8 @@ type GetVersionParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetVersion".
-func (o *GetVersionParams) Name() string {
+// GetSelfName just returns "GetVersion".
+func (o *GetVersionParams) GetSelfName() string {
 	return "GetVersion"
 }
 

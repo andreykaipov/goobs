@@ -22,8 +22,8 @@ type SetSourceNameParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "SetSourceName".
-func (o *SetSourceNameParams) Name() string {
+// GetSelfName just returns "SetSourceName".
+func (o *SetSourceNameParams) GetSelfName() string {
 	return "SetSourceName"
 }
 

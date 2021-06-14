@@ -6,31 +6,29 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StartStopReplayBufferParams represents the params body for the "StartStopReplayBuffer" request.
-Toggle the Replay Buffer on/off.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartStopReplayBuffer.
+Toggle the Replay Buffer on/off (depending on the current state of the replay buffer).
+Since 4.2.0.
 */
 type StartStopReplayBufferParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "StartStopReplayBuffer".
-func (o *StartStopReplayBufferParams) Name() string {
+// GetSelfName just returns "StartStopReplayBuffer".
+func (o *StartStopReplayBufferParams) GetSelfName() string {
 	return "StartStopReplayBuffer"
 }
 
 /*
 StartStopReplayBufferResponse represents the response body for the "StartStopReplayBuffer" request.
-Toggle the Replay Buffer on/off.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartStopReplayBuffer.
+Toggle the Replay Buffer on/off (depending on the current state of the replay buffer).
+Since v4.2.0.
 */
 type StartStopReplayBufferResponse struct {
 	requests.ResponseBasic
 }
 
-// StartStopReplayBuffer sends the corresponding request to the connected OBS WebSockets server.
-// Note the variadic arguments as this request doesn't require any parameters.
+// StartStopReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
 func (c *Client) StartStopReplayBuffer(
 	paramss ...*StartStopReplayBufferParams,
 ) (*StartStopReplayBufferResponse, error) {

@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetVolumeParams represents the params body for the "SetVolume" request.
 Set the volume of the specified source. Default request format uses mul, NOT SLIDER PERCENTAGE.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetVolume.
+Since 4.0.0.
 */
 type SetVolumeParams struct {
 	requests.ParamsBasic
@@ -19,21 +18,21 @@ type SetVolumeParams struct {
 	// Interperet `volume` data as decibels instead of amplitude/mul.
 	UseDecibel bool `json:"useDecibel"`
 
-	// Desired volume. Must be between `0.0` and `1.0` for mul, and under 0.0 for dB. Note: OBS will
-	// interpret dB values under -100.0 as Inf.
+	// Desired volume. Must be between `0.0` and `20.0` for mul, and under 26.0 for dB. OBS will interpret dB values
+	// under -100.0 as Inf. Note: The OBS volume sliders only reach a maximum of 1.0mul/0.0dB, however OBS actually
+	// supports larger values.
 	Volume float64 `json:"volume"`
 }
 
-// Name just returns "SetVolume".
-func (o *SetVolumeParams) Name() string {
+// GetSelfName just returns "SetVolume".
+func (o *SetVolumeParams) GetSelfName() string {
 	return "SetVolume"
 }
 
 /*
 SetVolumeResponse represents the response body for the "SetVolume" request.
 Set the volume of the specified source. Default request format uses mul, NOT SLIDER PERCENTAGE.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetVolume.
+Since v4.0.0.
 */
 type SetVolumeResponse struct {
 	requests.ResponseBasic

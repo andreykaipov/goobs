@@ -9,15 +9,14 @@ SaveReplayBufferParams represents the params body for the "SaveReplayBuffer" req
 Flush and save the contents of the Replay Buffer to disk. This is
 basically the same as triggering the "Save Replay Buffer" hotkey.
 Will return an `error` if the Replay Buffer is not active.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SaveReplayBuffer.
+Since 4.2.0.
 */
 type SaveReplayBufferParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "SaveReplayBuffer".
-func (o *SaveReplayBufferParams) Name() string {
+// GetSelfName just returns "SaveReplayBuffer".
+func (o *SaveReplayBufferParams) GetSelfName() string {
 	return "SaveReplayBuffer"
 }
 
@@ -26,18 +25,15 @@ SaveReplayBufferResponse represents the response body for the "SaveReplayBuffer"
 Flush and save the contents of the Replay Buffer to disk. This is
 basically the same as triggering the "Save Replay Buffer" hotkey.
 Will return an `error` if the Replay Buffer is not active.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SaveReplayBuffer.
+Since v4.2.0.
 */
 type SaveReplayBufferResponse struct {
 	requests.ResponseBasic
 }
 
-// SaveReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
-func (c *Client) SaveReplayBuffer(
-	paramss ...*SaveReplayBufferParams,
-) (*SaveReplayBufferResponse, error) {
+// SaveReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) SaveReplayBuffer(paramss ...*SaveReplayBufferParams) (*SaveReplayBufferResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*SaveReplayBufferParams{{}}
 	}

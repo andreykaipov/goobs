@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetRecordingFolderParams represents the params body for the "GetRecordingFolder" request.
 Get the path of  the current recording folder.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetRecordingFolder.
+Since 4.1.0.
 */
 type GetRecordingFolderParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetRecordingFolder".
-func (o *GetRecordingFolderParams) Name() string {
+// GetSelfName just returns "GetRecordingFolder".
+func (o *GetRecordingFolderParams) GetSelfName() string {
 	return "GetRecordingFolder"
 }
 
 /*
 GetRecordingFolderResponse represents the response body for the "GetRecordingFolder" request.
 Get the path of  the current recording folder.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetRecordingFolder.
+Since v4.1.0.
 */
 type GetRecordingFolderResponse struct {
 	requests.ResponseBasic
@@ -32,11 +30,9 @@ type GetRecordingFolderResponse struct {
 	RecFolder string `json:"rec-folder"`
 }
 
-// GetRecordingFolder sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetRecordingFolder(
-	paramss ...*GetRecordingFolderParams,
-) (*GetRecordingFolderResponse, error) {
+// GetRecordingFolder sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetRecordingFolder(paramss ...*GetRecordingFolderParams) (*GetRecordingFolderResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetRecordingFolderParams{{}}
 	}

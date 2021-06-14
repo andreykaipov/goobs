@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetStreamSettingsParams represents the params body for the "SetStreamSettings" request.
 Sets one or more attributes of the current streaming server settings. Any options not passed will remain unchanged. Returns the updated settings in response. If 'type' is different than the current streaming service type, all settings are required. Returns the full settings of the stream (the same as GetStreamSettings).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetStreamSettings.
+Since 4.1.0.
 */
 type SetStreamSettingsParams struct {
 	requests.ParamsBasic
@@ -37,25 +36,22 @@ type SetStreamSettingsParams struct {
 	Type string `json:"type"`
 }
 
-// Name just returns "SetStreamSettings".
-func (o *SetStreamSettingsParams) Name() string {
+// GetSelfName just returns "SetStreamSettings".
+func (o *SetStreamSettingsParams) GetSelfName() string {
 	return "SetStreamSettings"
 }
 
 /*
 SetStreamSettingsResponse represents the response body for the "SetStreamSettings" request.
 Sets one or more attributes of the current streaming server settings. Any options not passed will remain unchanged. Returns the updated settings in response. If 'type' is different than the current streaming service type, all settings are required. Returns the full settings of the stream (the same as GetStreamSettings).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetStreamSettings.
+Since v4.1.0.
 */
 type SetStreamSettingsResponse struct {
 	requests.ResponseBasic
 }
 
 // SetStreamSettings sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetStreamSettings(
-	params *SetStreamSettingsParams,
-) (*SetStreamSettingsResponse, error) {
+func (c *Client) SetStreamSettings(params *SetStreamSettingsParams) (*SetStreamSettingsResponse, error) {
 	data := &SetStreamSettingsResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

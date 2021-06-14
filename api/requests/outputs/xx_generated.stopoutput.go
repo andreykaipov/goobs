@@ -8,7 +8,8 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 StopOutputParams represents the params body for the "StopOutput" request.
 Stop an output
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StopOutput.
+Note: Controlling outputs is an experimental feature of obs-websocket. Some plugins which add outputs to OBS may not function properly when they are controlled in this way.
+Since 4.7.0.
 */
 type StopOutputParams struct {
 	requests.ParamsBasic
@@ -20,8 +21,8 @@ type StopOutputParams struct {
 	OutputName string `json:"outputName"`
 }
 
-// Name just returns "StopOutput".
-func (o *StopOutputParams) Name() string {
+// GetSelfName just returns "StopOutput".
+func (o *StopOutputParams) GetSelfName() string {
 	return "StopOutput"
 }
 
@@ -29,7 +30,8 @@ func (o *StopOutputParams) Name() string {
 StopOutputResponse represents the response body for the "StopOutput" request.
 Stop an output
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StopOutput.
+Note: Controlling outputs is an experimental feature of obs-websocket. Some plugins which add outputs to OBS may not function properly when they are controlled in this way.
+Since v4.7.0.
 */
 type StopOutputResponse struct {
 	requests.ResponseBasic

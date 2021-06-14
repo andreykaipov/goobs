@@ -8,9 +8,8 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetSourceNameParams represents the params body for the "SetSourceName" request.
 Sets (aka rename) the name of a source. Also works with scenes since scenes are technically sources in OBS.
 
-Note: If the new name already exists as a source, OBS will automatically modify the name to not interfere.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSourceName.
+Note: If the new name already exists as a source, obs-websocket will return an error.
+Since 4.8.0.
 */
 type SetSourceNameParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,8 @@ type SetSourceNameParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "SetSourceName".
-func (o *SetSourceNameParams) Name() string {
+// GetSelfName just returns "SetSourceName".
+func (o *SetSourceNameParams) GetSelfName() string {
 	return "SetSourceName"
 }
 
@@ -31,9 +30,8 @@ func (o *SetSourceNameParams) Name() string {
 SetSourceNameResponse represents the response body for the "SetSourceName" request.
 Sets (aka rename) the name of a source. Also works with scenes since scenes are technically sources in OBS.
 
-Note: If the new name already exists as a source, OBS will automatically modify the name to not interfere.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSourceName.
+Note: If the new name already exists as a source, obs-websocket will return an error.
+Since v4.8.0.
 */
 type SetSourceNameResponse struct {
 	requests.ResponseBasic

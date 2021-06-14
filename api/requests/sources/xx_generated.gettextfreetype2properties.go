@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetTextFreetype2PropertiesParams represents the params body for the "GetTextFreetype2Properties" request.
 Get the current properties of a Text Freetype 2 source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTextFreetype2Properties.
+Since 4.5.0.
 */
 type GetTextFreetype2PropertiesParams struct {
 	requests.ParamsBasic
@@ -17,16 +16,15 @@ type GetTextFreetype2PropertiesParams struct {
 	Source string `json:"source"`
 }
 
-// Name just returns "GetTextFreetype2Properties".
-func (o *GetTextFreetype2PropertiesParams) Name() string {
+// GetSelfName just returns "GetTextFreetype2Properties".
+func (o *GetTextFreetype2PropertiesParams) GetSelfName() string {
 	return "GetTextFreetype2Properties"
 }
 
 /*
 GetTextFreetype2PropertiesResponse represents the response body for the "GetTextFreetype2Properties" request.
 Get the current properties of a Text Freetype 2 source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTextFreetype2Properties.
+Since v4.5.0.
 */
 type GetTextFreetype2PropertiesResponse struct {
 	requests.ResponseBasic
@@ -79,8 +77,7 @@ type GetTextFreetype2PropertiesResponse struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
-// GetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets
-// server.
+// GetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetTextFreetype2Properties(
 	params *GetTextFreetype2PropertiesParams,
 ) (*GetTextFreetype2PropertiesResponse, error) {

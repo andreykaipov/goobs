@@ -7,29 +7,26 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetVersionParams represents the params body for the "GetVersion" request.
 Returns the latest version of the plugin and the API.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVersion.
+Since 0.3.
 */
 type GetVersionParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetVersion".
-func (o *GetVersionParams) Name() string {
+// GetSelfName just returns "GetVersion".
+func (o *GetVersionParams) GetSelfName() string {
 	return "GetVersion"
 }
 
 /*
 GetVersionResponse represents the response body for the "GetVersion" request.
 Returns the latest version of the plugin and the API.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVersion.
+Since v0.3.
 */
 type GetVersionResponse struct {
 	requests.ResponseBasic
 
-	// List of available request types, formatted as a comma-separated list string (e.g. :
-	// "Method1,Method2,Method3").
+	// List of available request types, formatted as a comma-separated list string (e.g. : "Method1,Method2,Method3").
 	AvailableRequests string `json:"available-requests"`
 
 	// OBS Studio program version.
@@ -38,16 +35,16 @@ type GetVersionResponse struct {
 	// obs-websocket plugin version.
 	ObsWebsocketVersion string `json:"obs-websocket-version"`
 
-	// List of supported formats for features that use image export (like the TakeSourceScreenshot
-	// request type) formatted as a comma-separated list string
+	// List of supported formats for features that use image export (like the TakeSourceScreenshot request type)
+	// formatted as a comma-separated list string
 	SupportedImageExportFormats string `json:"supported-image-export-formats"`
 
 	// OBSRemote compatible API version. Fixed to 1.1 for retrocompatibility.
 	Version float64 `json:"version"`
 }
 
-// GetVersion sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// GetVersion sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) GetVersion(paramss ...*GetVersionParams) (*GetVersionResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetVersionParams{{}}

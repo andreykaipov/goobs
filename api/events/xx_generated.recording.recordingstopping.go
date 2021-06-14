@@ -4,9 +4,11 @@ package events
 
 /*
 RecordingStopping represents the event body for the "RecordingStopping" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#RecordingStopping.
+Since v0.3.
 */
 type RecordingStopping struct {
 	EventBasic
+
+	// Absolute path to the file of the current recording.
+	RecordingFilename string `json:"recordingFilename"`
 }

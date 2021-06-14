@@ -6,8 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 /*
 SwitchScenes represents the event body for the "SwitchScenes" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SwitchScenes.
+Since v0.3.
 */
 type SwitchScenes struct {
 	EventBasic
@@ -15,7 +14,6 @@ type SwitchScenes struct {
 	// The new scene.
 	SceneName string `json:"scene-name"`
 
-	// List of scene items in the new scene. Same specification as
-	// [`GetCurrentScene`](#getcurrentscene).
+	// List of scene items in the new scene. Same specification as [`GetCurrentScene`](#getcurrentscene).
 	Sources []typedefs.SceneItem `json:"sources"`
 }

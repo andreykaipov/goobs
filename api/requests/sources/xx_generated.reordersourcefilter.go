@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 ReorderSourceFilterParams represents the params body for the "ReorderSourceFilter" request.
 Move a filter in the chain (absolute index positioning)
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ReorderSourceFilter.
+Since 4.5.0.
 */
 type ReorderSourceFilterParams struct {
 	requests.ParamsBasic
@@ -23,25 +22,22 @@ type ReorderSourceFilterParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "ReorderSourceFilter".
-func (o *ReorderSourceFilterParams) Name() string {
+// GetSelfName just returns "ReorderSourceFilter".
+func (o *ReorderSourceFilterParams) GetSelfName() string {
 	return "ReorderSourceFilter"
 }
 
 /*
 ReorderSourceFilterResponse represents the response body for the "ReorderSourceFilter" request.
 Move a filter in the chain (absolute index positioning)
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ReorderSourceFilter.
+Since v4.5.0.
 */
 type ReorderSourceFilterResponse struct {
 	requests.ResponseBasic
 }
 
 // ReorderSourceFilter sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) ReorderSourceFilter(
-	params *ReorderSourceFilterParams,
-) (*ReorderSourceFilterResponse, error) {
+func (c *Client) ReorderSourceFilter(params *ReorderSourceFilterParams) (*ReorderSourceFilterResponse, error) {
 	data := &ReorderSourceFilterResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

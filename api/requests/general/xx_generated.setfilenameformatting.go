@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetFilenameFormattingParams represents the params body for the "SetFilenameFormatting" request.
 Set the filename formatting string
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetFilenameFormatting.
+Since 4.3.0.
 */
 type SetFilenameFormattingParams struct {
 	requests.ParamsBasic
@@ -17,25 +16,22 @@ type SetFilenameFormattingParams struct {
 	FilenameFormatting string `json:"filename-formatting"`
 }
 
-// Name just returns "SetFilenameFormatting".
-func (o *SetFilenameFormattingParams) Name() string {
+// GetSelfName just returns "SetFilenameFormatting".
+func (o *SetFilenameFormattingParams) GetSelfName() string {
 	return "SetFilenameFormatting"
 }
 
 /*
 SetFilenameFormattingResponse represents the response body for the "SetFilenameFormatting" request.
 Set the filename formatting string
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetFilenameFormatting.
+Since v4.3.0.
 */
 type SetFilenameFormattingResponse struct {
 	requests.ResponseBasic
 }
 
 // SetFilenameFormatting sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetFilenameFormatting(
-	params *SetFilenameFormattingParams,
-) (*SetFilenameFormattingResponse, error) {
+func (c *Client) SetFilenameFormatting(params *SetFilenameFormattingParams) (*SetFilenameFormattingResponse, error) {
 	data := &SetFilenameFormattingResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

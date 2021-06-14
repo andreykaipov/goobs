@@ -13,7 +13,7 @@ var (
 	goobs = "github.com/andreykaipov/goobs"
 	root  = ""
 
-	version  = "4.8.0"
+	version  = "4.9.1"
 	comments = fmt.Sprintf("https://raw.githubusercontent.com/Palakis/obs-websocket/%s/docs/generated/comments.json", version)
 )
 

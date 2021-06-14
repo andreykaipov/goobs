@@ -4,9 +4,11 @@ package events
 
 /*
 RecordingStarted represents the event body for the "RecordingStarted" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#RecordingStarted.
+Since v0.3.
 */
 type RecordingStarted struct {
 	EventBasic
+
+	// Absolute path to the file of the current recording.
+	RecordingFilename string `json:"recordingFilename"`
 }

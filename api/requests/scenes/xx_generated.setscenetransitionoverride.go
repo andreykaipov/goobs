@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetSceneTransitionOverrideParams represents the params body for the "SetSceneTransitionOverride" request.
 Set a scene to use a specific transition override.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneTransitionOverride.
+Since 4.8.0.
 */
 type SetSceneTransitionOverrideParams struct {
 	requests.ParamsBasic
@@ -16,35 +15,30 @@ type SetSceneTransitionOverrideParams struct {
 	// Name of the scene to switch to.
 	SceneName string `json:"sceneName"`
 
-	// Duration in milliseconds of the transition if transition is not fixed. Defaults to the
-	// current duration specified in the UI if there is no current override and this value is not
-	// given.
+	// Duration in milliseconds of the transition if transition is not fixed. Defaults to the current duration specified
+	// in the UI if there is no current override and this value is not given.
 	TransitionDuration int `json:"transitionDuration"`
 
 	// Name of the transition to use.
 	TransitionName string `json:"transitionName"`
 }
 
-// Name just returns "SetSceneTransitionOverride".
-func (o *SetSceneTransitionOverrideParams) Name() string {
+// GetSelfName just returns "SetSceneTransitionOverride".
+func (o *SetSceneTransitionOverrideParams) GetSelfName() string {
 	return "SetSceneTransitionOverride"
 }
 
 /*
 SetSceneTransitionOverrideResponse represents the response body for the "SetSceneTransitionOverride" request.
 Set a scene to use a specific transition override.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneTransitionOverride.
+Since v4.8.0.
 */
 type SetSceneTransitionOverrideResponse struct {
 	requests.ResponseBasic
 }
 
-// SetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets
-// server.
-func (c *Client) SetSceneTransitionOverride(
-	params *SetSceneTransitionOverrideParams,
-) (*SetSceneTransitionOverrideResponse, error) {
+// SetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetSceneTransitionOverride(params *SetSceneTransitionOverrideParams) (*SetSceneTransitionOverrideResponse, error) {
 	data := &SetSceneTransitionOverrideResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

@@ -11,15 +11,14 @@ Will return an `error` if the Replay Buffer is already active or if the
 "Save Replay Buffer" hotkey is not set in OBS' settings.
 Setting this hotkey is mandatory, even when triggering saves only
 through obs-websocket.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartReplayBuffer.
+Since 4.2.0.
 */
 type StartReplayBufferParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "StartReplayBuffer".
-func (o *StartReplayBufferParams) Name() string {
+// GetSelfName just returns "StartReplayBuffer".
+func (o *StartReplayBufferParams) GetSelfName() string {
 	return "StartReplayBuffer"
 }
 
@@ -30,18 +29,15 @@ Will return an `error` if the Replay Buffer is already active or if the
 "Save Replay Buffer" hotkey is not set in OBS' settings.
 Setting this hotkey is mandatory, even when triggering saves only
 through obs-websocket.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartReplayBuffer.
+Since v4.2.0.
 */
 type StartReplayBufferResponse struct {
 	requests.ResponseBasic
 }
 
-// StartReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) StartReplayBuffer(
-	paramss ...*StartReplayBufferParams,
-) (*StartReplayBufferResponse, error) {
+// StartReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) StartReplayBuffer(paramss ...*StartReplayBufferParams) (*StartReplayBufferResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StartReplayBufferParams{{}}
 	}

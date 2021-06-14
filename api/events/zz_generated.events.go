@@ -8,6 +8,22 @@ func GetEventForType(name string) Event {
 		return &Heartbeat{}
 	case "BroadcastCustomMessage":
 		return &BroadcastCustomMessage{}
+	case "MediaPlaying":
+		return &MediaPlaying{}
+	case "MediaPaused":
+		return &MediaPaused{}
+	case "MediaRestarted":
+		return &MediaRestarted{}
+	case "MediaStopped":
+		return &MediaStopped{}
+	case "MediaNext":
+		return &MediaNext{}
+	case "MediaPrevious":
+		return &MediaPrevious{}
+	case "MediaStarted":
+		return &MediaStarted{}
+	case "MediaEnded":
+		return &MediaEnded{}
 	case "Exiting":
 		return &Exiting{}
 	case "ProfileChanged":
@@ -66,6 +82,10 @@ func GetEventForType(name string) Event {
 		return &SourceVolumeChanged{}
 	case "SourceMuteStateChanged":
 		return &SourceMuteStateChanged{}
+	case "SourceAudioDeactivated":
+		return &SourceAudioDeactivated{}
+	case "SourceAudioActivated":
+		return &SourceAudioActivated{}
 	case "SourceAudioSyncOffsetChanged":
 		return &SourceAudioSyncOffsetChanged{}
 	case "SourceAudioMixersChanged":
@@ -106,6 +126,10 @@ func GetEventForType(name string) Event {
 		return &TransitionEnd{}
 	case "TransitionVideoEnd":
 		return &TransitionVideoEnd{}
+	case "VirtualCamStarted":
+		return &VirtualCamStarted{}
+	case "VirtualCamStopped":
+		return &VirtualCamStopped{}
 	default:
 		return nil
 	}

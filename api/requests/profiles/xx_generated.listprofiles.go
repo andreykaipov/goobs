@@ -7,33 +7,33 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 ListProfilesParams represents the params body for the "ListProfiles" request.
 Get a list of available profiles.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ListProfiles.
+Since 4.0.0.
 */
 type ListProfilesParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "ListProfiles".
-func (o *ListProfilesParams) Name() string {
+// GetSelfName just returns "ListProfiles".
+func (o *ListProfilesParams) GetSelfName() string {
 	return "ListProfiles"
 }
 
 /*
 ListProfilesResponse represents the response body for the "ListProfiles" request.
 Get a list of available profiles.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ListProfiles.
+Since v4.0.0.
 */
 type ListProfilesResponse struct {
 	requests.ResponseBasic
 
-	// List of available profiles.
-	Profiles []map[string]interface{} `json:"profiles"`
+	Profiles []struct {
+		// Filter name
+		ProfileName string `json:"profile-name"`
+	} `json:"profiles"`
 }
 
-// ListProfiles sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// ListProfiles sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) ListProfiles(paramss ...*ListProfilesParams) (*ListProfilesResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*ListProfilesParams{{}}

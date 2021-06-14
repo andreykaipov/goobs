@@ -7,33 +7,29 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SaveStreamSettingsParams represents the params body for the "SaveStreamSettings" request.
 Save the current streaming server settings to disk.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SaveStreamSettings.
+Since 4.1.0.
 */
 type SaveStreamSettingsParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "SaveStreamSettings".
-func (o *SaveStreamSettingsParams) Name() string {
+// GetSelfName just returns "SaveStreamSettings".
+func (o *SaveStreamSettingsParams) GetSelfName() string {
 	return "SaveStreamSettings"
 }
 
 /*
 SaveStreamSettingsResponse represents the response body for the "SaveStreamSettings" request.
 Save the current streaming server settings to disk.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SaveStreamSettings.
+Since v4.1.0.
 */
 type SaveStreamSettingsResponse struct {
 	requests.ResponseBasic
 }
 
-// SaveStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) SaveStreamSettings(
-	paramss ...*SaveStreamSettingsParams,
-) (*SaveStreamSettingsResponse, error) {
+// SaveStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) SaveStreamSettings(paramss ...*SaveStreamSettingsParams) (*SaveStreamSettingsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*SaveStreamSettingsParams{{}}
 	}

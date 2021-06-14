@@ -48,7 +48,7 @@ func (c *Client) Disconnect() error {
 // interestingly, events appear to be broadcast to every client, maybe because
 // they have no associated message ID?
 func (c *Client) SendRequest(params Params, response Response) error {
-	params.SetRequestType(params.Name())
+	params.SetRequestType(params.GetSelfName())
 
 	if params.GetRequestType() == "" {
 		return fmt.Errorf("Params %T has an empty RequestType", params)
@@ -77,7 +77,7 @@ func (c *Client) SendRequest(params Params, response Response) error {
 	if response.GetMessageID() != params.GetMessageID() {
 		return fmt.Errorf(
 			"Sent request %s, with message ID %s, but next response in channel has message ID %s",
-			params.Name(),
+			params.GetSelfName(),
 			params.GetMessageID(),
 			response.GetMessageID(),
 		)

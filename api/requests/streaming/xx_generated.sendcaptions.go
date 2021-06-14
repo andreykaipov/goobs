@@ -7,9 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SendCaptionsParams represents the params body for the "SendCaptions" request.
 Send the provided text as embedded CEA-608 caption data.
-As of OBS Studio 23.1, captions are not yet available on Linux.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SendCaptions.
+Since 4.6.0.
 */
 type SendCaptionsParams struct {
 	requests.ParamsBasic
@@ -18,17 +16,15 @@ type SendCaptionsParams struct {
 	Text string `json:"text"`
 }
 
-// Name just returns "SendCaptions".
-func (o *SendCaptionsParams) Name() string {
+// GetSelfName just returns "SendCaptions".
+func (o *SendCaptionsParams) GetSelfName() string {
 	return "SendCaptions"
 }
 
 /*
 SendCaptionsResponse represents the response body for the "SendCaptions" request.
 Send the provided text as embedded CEA-608 caption data.
-As of OBS Studio 23.1, captions are not yet available on Linux.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SendCaptions.
+Since v4.6.0.
 */
 type SendCaptionsResponse struct {
 	requests.ResponseBasic

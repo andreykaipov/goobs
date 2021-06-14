@@ -7,15 +7,13 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 OpenProjectorParams represents the params body for the "OpenProjector" request.
 Open a projector window or create a projector on a monitor. Requires OBS v24.0.4 or newer.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#OpenProjector.
+Since 4.8.0.
 */
 type OpenProjectorParams struct {
 	requests.ParamsBasic
 
-	// Size and position of the projector window (only if monitor is -1). Encoded in Base64 using
-	// Qt's geometry encoding (https://doc.qt.io/qt-5/qwidget.html#saveGeometry). Corresponds to
-	// OBS's saved projectors.
+	// Size and position of the projector window (only if monitor is -1). Encoded in Base64 using [Qt's geometry
+	// encoding](https://doc.qt.io/qt-5/qwidget.html#saveGeometry). Corresponds to OBS's saved projectors.
 	Geometry string `json:"geometry"`
 
 	// Monitor to open the projector on. If -1 or omitted, opens a window.
@@ -24,21 +22,19 @@ type OpenProjectorParams struct {
 	// Name of the source or scene to be displayed (ignored for other projector types).
 	Name string `json:"name"`
 
-	// Type of projector: Preview (default), Source, Scene, StudioProgram, or Multiview (case
-	// insensitive).
+	// Type of projector: `Preview` (default), `Source`, `Scene`, `StudioProgram`, or `Multiview` (case insensitive).
 	Type string `json:"type"`
 }
 
-// Name just returns "OpenProjector".
-func (o *OpenProjectorParams) Name() string {
+// GetSelfName just returns "OpenProjector".
+func (o *OpenProjectorParams) GetSelfName() string {
 	return "OpenProjector"
 }
 
 /*
 OpenProjectorResponse represents the response body for the "OpenProjector" request.
 Open a projector window or create a projector on a monitor. Requires OBS v24.0.4 or newer.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#OpenProjector.
+Since v4.8.0.
 */
 type OpenProjectorResponse struct {
 	requests.ResponseBasic

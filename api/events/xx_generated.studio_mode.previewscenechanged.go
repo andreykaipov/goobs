@@ -6,8 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 /*
 PreviewSceneChanged represents the event body for the "PreviewSceneChanged" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#PreviewSceneChanged.
+Since v4.1.0.
 */
 type PreviewSceneChanged struct {
 	EventBasic
@@ -15,7 +14,6 @@ type PreviewSceneChanged struct {
 	// Name of the scene being previewed.
 	SceneName string `json:"scene-name"`
 
-	// List of sources composing the scene. Same specification as
-	// [`GetCurrentScene`](#getcurrentscene).
+	// List of sources composing the scene. Same specification as [`GetCurrentScene`](#getcurrentscene).
 	Sources []typedefs.SceneItem `json:"sources"`
 }

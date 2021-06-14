@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetFilenameFormattingParams represents the params body for the "GetFilenameFormatting" request.
 Get the filename formatting string
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetFilenameFormatting.
+Since 4.3.0.
 */
 type GetFilenameFormattingParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetFilenameFormatting".
-func (o *GetFilenameFormattingParams) Name() string {
+// GetSelfName just returns "GetFilenameFormatting".
+func (o *GetFilenameFormattingParams) GetSelfName() string {
 	return "GetFilenameFormatting"
 }
 
 /*
 GetFilenameFormattingResponse represents the response body for the "GetFilenameFormatting" request.
 Get the filename formatting string
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetFilenameFormatting.
+Since v4.3.0.
 */
 type GetFilenameFormattingResponse struct {
 	requests.ResponseBasic
@@ -32,8 +30,8 @@ type GetFilenameFormattingResponse struct {
 	FilenameFormatting string `json:"filename-formatting"`
 }
 
-// GetFilenameFormatting sends the corresponding request to the connected OBS WebSockets server.
-// Note the variadic arguments as this request doesn't require any parameters.
+// GetFilenameFormatting sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
 func (c *Client) GetFilenameFormatting(
 	paramss ...*GetFilenameFormattingParams,
 ) (*GetFilenameFormattingResponse, error) {

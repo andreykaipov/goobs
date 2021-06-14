@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetSourceFilterSettingsParams represents the params body for the "SetSourceFilterSettings" request.
 Update settings of a filter
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSourceFilterSettings.
+Since 4.5.0.
 */
 type SetSourceFilterSettingsParams struct {
 	requests.ParamsBasic
@@ -23,16 +22,15 @@ type SetSourceFilterSettingsParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "SetSourceFilterSettings".
-func (o *SetSourceFilterSettingsParams) Name() string {
+// GetSelfName just returns "SetSourceFilterSettings".
+func (o *SetSourceFilterSettingsParams) GetSelfName() string {
 	return "SetSourceFilterSettings"
 }
 
 /*
 SetSourceFilterSettingsResponse represents the response body for the "SetSourceFilterSettings" request.
 Update settings of a filter
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSourceFilterSettings.
+Since v4.5.0.
 */
 type SetSourceFilterSettingsResponse struct {
 	requests.ResponseBasic

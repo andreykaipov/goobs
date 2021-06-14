@@ -4,8 +4,7 @@ package events
 
 /*
 SceneItemLockChanged represents the event body for the "SceneItemLockChanged" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SceneItemLockChanged.
+Since v4.8.0.
 */
 type SceneItemLockChanged struct {
 	EventBasic

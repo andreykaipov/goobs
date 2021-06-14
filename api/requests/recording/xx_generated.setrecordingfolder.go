@@ -8,11 +8,10 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetRecordingFolderParams represents the params body for the "SetRecordingFolder" request.
 In the current profile, sets the recording folder of the Simple and Advanced output modes to the specified value.
 
-Please note: if `SetRecordingFolder` is called while a recording is
+Note: If `SetRecordingFolder` is called while a recording is
 in progress, the change won't be applied immediately and will be
 effective on the next recording.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetRecordingFolder.
+Since 4.1.0.
 */
 type SetRecordingFolderParams struct {
 	requests.ParamsBasic
@@ -21,8 +20,8 @@ type SetRecordingFolderParams struct {
 	RecFolder string `json:"rec-folder"`
 }
 
-// Name just returns "SetRecordingFolder".
-func (o *SetRecordingFolderParams) Name() string {
+// GetSelfName just returns "SetRecordingFolder".
+func (o *SetRecordingFolderParams) GetSelfName() string {
 	return "SetRecordingFolder"
 }
 
@@ -30,20 +29,17 @@ func (o *SetRecordingFolderParams) Name() string {
 SetRecordingFolderResponse represents the response body for the "SetRecordingFolder" request.
 In the current profile, sets the recording folder of the Simple and Advanced output modes to the specified value.
 
-Please note: if `SetRecordingFolder` is called while a recording is
+Note: If `SetRecordingFolder` is called while a recording is
 in progress, the change won't be applied immediately and will be
 effective on the next recording.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetRecordingFolder.
+Since v4.1.0.
 */
 type SetRecordingFolderResponse struct {
 	requests.ResponseBasic
 }
 
 // SetRecordingFolder sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetRecordingFolder(
-	params *SetRecordingFolderParams,
-) (*SetRecordingFolderResponse, error) {
+func (c *Client) SetRecordingFolder(params *SetRecordingFolderParams) (*SetRecordingFolderResponse, error) {
 	data := &SetRecordingFolderResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

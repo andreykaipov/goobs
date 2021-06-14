@@ -4,8 +4,7 @@ package events
 
 /*
 ReplayStarted represents the event body for the "ReplayStarted" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ReplayStarted.
+Since v4.2.0.
 */
 type ReplayStarted struct {
 	EventBasic

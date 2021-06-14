@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetTextGDIPlusPropertiesParams represents the params body for the "GetTextGDIPlusProperties" request.
 Get the current properties of a Text GDI Plus source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
+Since 4.1.0.
 */
 type GetTextGDIPlusPropertiesParams struct {
 	requests.ParamsBasic
@@ -17,16 +16,15 @@ type GetTextGDIPlusPropertiesParams struct {
 	Source string `json:"source"`
 }
 
-// Name just returns "GetTextGDIPlusProperties".
-func (o *GetTextGDIPlusPropertiesParams) Name() string {
+// GetSelfName just returns "GetTextGDIPlusProperties".
+func (o *GetTextGDIPlusPropertiesParams) GetSelfName() string {
 	return "GetTextGDIPlusProperties"
 }
 
 /*
 GetTextGDIPlusPropertiesResponse represents the response body for the "GetTextGDIPlusProperties" request.
 Get the current properties of a Text GDI Plus source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
+Since v4.1.0.
 */
 type GetTextGDIPlusPropertiesResponse struct {
 	requests.ResponseBasic
@@ -35,10 +33,10 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Align string `json:"align"`
 
 	// Background color.
-	BkColor int `json:"bk-color"`
+	BkColor int `json:"bk_color"`
 
 	// Background opacity (0-100).
-	BkOpacity int `json:"bk-opacity"`
+	BkOpacity int `json:"bk_opacity"`
 
 	// Chat log.
 	Chatlog bool `json:"chatlog"`

@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetCurrentProfileParams represents the params body for the "SetCurrentProfile" request.
 Set the currently active profile.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetCurrentProfile.
+Since 4.0.0.
 */
 type SetCurrentProfileParams struct {
 	requests.ParamsBasic
@@ -17,25 +16,22 @@ type SetCurrentProfileParams struct {
 	ProfileName string `json:"profile-name"`
 }
 
-// Name just returns "SetCurrentProfile".
-func (o *SetCurrentProfileParams) Name() string {
+// GetSelfName just returns "SetCurrentProfile".
+func (o *SetCurrentProfileParams) GetSelfName() string {
 	return "SetCurrentProfile"
 }
 
 /*
 SetCurrentProfileResponse represents the response body for the "SetCurrentProfile" request.
 Set the currently active profile.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetCurrentProfile.
+Since v4.0.0.
 */
 type SetCurrentProfileResponse struct {
 	requests.ResponseBasic
 }
 
 // SetCurrentProfile sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetCurrentProfile(
-	params *SetCurrentProfileParams,
-) (*SetCurrentProfileResponse, error) {
+func (c *Client) SetCurrentProfile(params *SetCurrentProfileParams) (*SetCurrentProfileResponse, error) {
 	data := &SetCurrentProfileResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

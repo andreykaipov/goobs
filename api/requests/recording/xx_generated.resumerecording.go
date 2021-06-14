@@ -8,15 +8,14 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 ResumeRecordingParams represents the params body for the "ResumeRecording" request.
 Resume/unpause the current recording (if paused).
 Returns an error if recording is not active or not paused.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ResumeRecording.
+Since 4.7.0.
 */
 type ResumeRecordingParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "ResumeRecording".
-func (o *ResumeRecordingParams) Name() string {
+// GetSelfName just returns "ResumeRecording".
+func (o *ResumeRecordingParams) GetSelfName() string {
 	return "ResumeRecording"
 }
 
@@ -24,18 +23,15 @@ func (o *ResumeRecordingParams) Name() string {
 ResumeRecordingResponse represents the response body for the "ResumeRecording" request.
 Resume/unpause the current recording (if paused).
 Returns an error if recording is not active or not paused.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ResumeRecording.
+Since v4.7.0.
 */
 type ResumeRecordingResponse struct {
 	requests.ResponseBasic
 }
 
-// ResumeRecording sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
-func (c *Client) ResumeRecording(
-	paramss ...*ResumeRecordingParams,
-) (*ResumeRecordingResponse, error) {
+// ResumeRecording sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) ResumeRecording(paramss ...*ResumeRecordingParams) (*ResumeRecordingResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*ResumeRecordingParams{{}}
 	}

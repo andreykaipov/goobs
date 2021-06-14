@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetAudioMonitorTypeParams represents the params body for the "SetAudioMonitorType" request.
 Set the audio monitoring type of the specified source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetAudioMonitorType.
+Since 4.8.0.
 */
 type SetAudioMonitorTypeParams struct {
 	requests.ParamsBasic
@@ -20,25 +19,22 @@ type SetAudioMonitorTypeParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "SetAudioMonitorType".
-func (o *SetAudioMonitorTypeParams) Name() string {
+// GetSelfName just returns "SetAudioMonitorType".
+func (o *SetAudioMonitorTypeParams) GetSelfName() string {
 	return "SetAudioMonitorType"
 }
 
 /*
 SetAudioMonitorTypeResponse represents the response body for the "SetAudioMonitorType" request.
 Set the audio monitoring type of the specified source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetAudioMonitorType.
+Since v4.8.0.
 */
 type SetAudioMonitorTypeResponse struct {
 	requests.ResponseBasic
 }
 
 // SetAudioMonitorType sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetAudioMonitorType(
-	params *SetAudioMonitorTypeParams,
-) (*SetAudioMonitorTypeResponse, error) {
+func (c *Client) SetAudioMonitorType(params *SetAudioMonitorTypeParams) (*SetAudioMonitorTypeResponse, error) {
 	data := &SetAudioMonitorTypeResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

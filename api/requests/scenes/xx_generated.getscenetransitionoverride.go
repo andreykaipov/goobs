@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetSceneTransitionOverrideParams represents the params body for the "GetSceneTransitionOverride" request.
 Get the current scene transition override.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneTransitionOverride.
+Since 4.8.0.
 */
 type GetSceneTransitionOverrideParams struct {
 	requests.ParamsBasic
@@ -17,16 +16,15 @@ type GetSceneTransitionOverrideParams struct {
 	SceneName string `json:"sceneName"`
 }
 
-// Name just returns "GetSceneTransitionOverride".
-func (o *GetSceneTransitionOverrideParams) Name() string {
+// GetSelfName just returns "GetSceneTransitionOverride".
+func (o *GetSceneTransitionOverrideParams) GetSelfName() string {
 	return "GetSceneTransitionOverride"
 }
 
 /*
 GetSceneTransitionOverrideResponse represents the response body for the "GetSceneTransitionOverride" request.
 Get the current scene transition override.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneTransitionOverride.
+Since v4.8.0.
 */
 type GetSceneTransitionOverrideResponse struct {
 	requests.ResponseBasic
@@ -38,8 +36,7 @@ type GetSceneTransitionOverrideResponse struct {
 	TransitionName string `json:"transitionName"`
 }
 
-// GetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets
-// server.
+// GetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetSceneTransitionOverride(
 	params *GetSceneTransitionOverrideParams,
 ) (*GetSceneTransitionOverrideResponse, error) {

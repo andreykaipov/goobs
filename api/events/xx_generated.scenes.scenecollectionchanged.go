@@ -4,9 +4,11 @@ package events
 
 /*
 SceneCollectionChanged represents the event body for the "SceneCollectionChanged" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SceneCollectionChanged.
+Since v4.0.0.
 */
 type SceneCollectionChanged struct {
 	EventBasic
+
+	// Name of the new current scene collection.
+	SceneCollection string `json:"sceneCollection"`
 }

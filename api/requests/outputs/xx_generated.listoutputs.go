@@ -10,23 +10,21 @@ import (
 /*
 ListOutputsParams represents the params body for the "ListOutputs" request.
 List existing outputs
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ListOutputs.
+Since 4.7.0.
 */
 type ListOutputsParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "ListOutputs".
-func (o *ListOutputsParams) Name() string {
+// GetSelfName just returns "ListOutputs".
+func (o *ListOutputsParams) GetSelfName() string {
 	return "ListOutputs"
 }
 
 /*
 ListOutputsResponse represents the response body for the "ListOutputs" request.
 List existing outputs
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ListOutputs.
+Since v4.7.0.
 */
 type ListOutputsResponse struct {
 	requests.ResponseBasic
@@ -35,8 +33,8 @@ type ListOutputsResponse struct {
 	Outputs []typedefs.Output `json:"outputs"`
 }
 
-// ListOutputs sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// ListOutputs sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) ListOutputs(paramss ...*ListOutputsParams) (*ListOutputsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*ListOutputsParams{{}}

@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetSyncOffsetParams represents the params body for the "SetSyncOffset" request.
 Set the audio sync offset of a specified source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSyncOffset.
+Since 4.2.0.
 */
 type SetSyncOffsetParams struct {
 	requests.ParamsBasic
@@ -20,16 +19,15 @@ type SetSyncOffsetParams struct {
 	Source string `json:"source"`
 }
 
-// Name just returns "SetSyncOffset".
-func (o *SetSyncOffsetParams) Name() string {
+// GetSelfName just returns "SetSyncOffset".
+func (o *SetSyncOffsetParams) GetSelfName() string {
 	return "SetSyncOffset"
 }
 
 /*
 SetSyncOffsetResponse represents the response body for the "SetSyncOffset" request.
 Set the audio sync offset of a specified source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSyncOffset.
+Since v4.2.0.
 */
 type SetSyncOffsetResponse struct {
 	requests.ResponseBasic

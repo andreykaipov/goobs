@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetSourceFiltersParams represents the params body for the "GetSourceFilters" request.
 List filters applied to a source
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSourceFilters.
+Since 4.5.0.
 */
 type GetSourceFiltersParams struct {
 	requests.ParamsBasic
@@ -17,16 +16,15 @@ type GetSourceFiltersParams struct {
 	SourceName string `json:"sourceName"`
 }
 
-// Name just returns "GetSourceFilters".
-func (o *GetSourceFiltersParams) Name() string {
+// GetSelfName just returns "GetSourceFilters".
+func (o *GetSourceFiltersParams) GetSelfName() string {
 	return "GetSourceFilters"
 }
 
 /*
 GetSourceFiltersResponse represents the response body for the "GetSourceFilters" request.
 List filters applied to a source
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSourceFilters.
+Since v4.5.0.
 */
 type GetSourceFiltersResponse struct {
 	requests.ResponseBasic
@@ -47,9 +45,7 @@ type GetSourceFiltersResponse struct {
 }
 
 // GetSourceFilters sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) GetSourceFilters(
-	params *GetSourceFiltersParams,
-) (*GetSourceFiltersResponse, error) {
+func (c *Client) GetSourceFilters(params *GetSourceFiltersParams) (*GetSourceFiltersResponse, error) {
 	data := &GetSourceFiltersResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

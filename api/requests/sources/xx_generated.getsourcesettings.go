@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetSourceSettingsParams represents the params body for the "GetSourceSettings" request.
 Get settings of the specified source
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSourceSettings.
+Since 4.3.0.
 */
 type GetSourceSettingsParams struct {
 	requests.ParamsBasic
@@ -16,21 +15,19 @@ type GetSourceSettingsParams struct {
 	// Source name.
 	SourceName string `json:"sourceName"`
 
-	// Type of the specified source. Useful for type-checking if you expect a specific settings
-	// schema.
+	// Type of the specified source. Useful for type-checking if you expect a specific settings schema.
 	SourceType string `json:"sourceType"`
 }
 
-// Name just returns "GetSourceSettings".
-func (o *GetSourceSettingsParams) Name() string {
+// GetSelfName just returns "GetSourceSettings".
+func (o *GetSourceSettingsParams) GetSelfName() string {
 	return "GetSourceSettings"
 }
 
 /*
 GetSourceSettingsResponse represents the response body for the "GetSourceSettings" request.
 Get settings of the specified source
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSourceSettings.
+Since v4.3.0.
 */
 type GetSourceSettingsResponse struct {
 	requests.ResponseBasic
@@ -46,9 +43,7 @@ type GetSourceSettingsResponse struct {
 }
 
 // GetSourceSettings sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) GetSourceSettings(
-	params *GetSourceSettingsParams,
-) (*GetSourceSettingsResponse, error) {
+func (c *Client) GetSourceSettings(params *GetSourceSettingsParams) (*GetSourceSettingsResponse, error) {
 	data := &GetSourceSettingsResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

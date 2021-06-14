@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetCurrentTransitionParams represents the params body for the "GetCurrentTransition" request.
 Get the name of the currently selected transition in the frontend's dropdown menu.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetCurrentTransition.
+Since 0.3.
 */
 type GetCurrentTransitionParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetCurrentTransition".
-func (o *GetCurrentTransitionParams) Name() string {
+// GetSelfName just returns "GetCurrentTransition".
+func (o *GetCurrentTransitionParams) GetSelfName() string {
 	return "GetCurrentTransition"
 }
 
 /*
 GetCurrentTransitionResponse represents the response body for the "GetCurrentTransition" request.
 Get the name of the currently selected transition in the frontend's dropdown menu.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetCurrentTransition.
+Since v0.3.
 */
 type GetCurrentTransitionResponse struct {
 	requests.ResponseBasic
@@ -35,11 +33,9 @@ type GetCurrentTransitionResponse struct {
 	Name string `json:"name"`
 }
 
-// GetCurrentTransition sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetCurrentTransition(
-	paramss ...*GetCurrentTransitionParams,
-) (*GetCurrentTransitionResponse, error) {
+// GetCurrentTransition sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetCurrentTransition(paramss ...*GetCurrentTransitionParams) (*GetCurrentTransitionResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetCurrentTransitionParams{{}}
 	}

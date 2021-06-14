@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetStreamSettingsParams represents the params body for the "GetStreamSettings" request.
 Get the current streaming server settings.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStreamSettings.
+Since 4.1.0.
 */
 type GetStreamSettingsParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetStreamSettings".
-func (o *GetStreamSettingsParams) Name() string {
+// GetSelfName just returns "GetStreamSettings".
+func (o *GetStreamSettingsParams) GetSelfName() string {
 	return "GetStreamSettings"
 }
 
 /*
 GetStreamSettingsResponse represents the response body for the "GetStreamSettings" request.
 Get the current streaming server settings.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStreamSettings.
+Since v4.1.0.
 */
 type GetStreamSettingsResponse struct {
 	requests.ResponseBasic
@@ -32,8 +30,7 @@ type GetStreamSettingsResponse struct {
 		// The publish key of the stream.
 		Key string `json:"key"`
 
-		// The password to use when accessing the streaming server. Only present if `use_auth` is
-		// `true`.
+		// The password to use when accessing the streaming server. Only present if `use_auth` is `true`.
 		Password string `json:"password"`
 
 		// The publish URL.
@@ -42,8 +39,7 @@ type GetStreamSettingsResponse struct {
 		// Indicates whether authentication should be used when connecting to the streaming server.
 		UseAuth bool `json:"use_auth"`
 
-		// The username to use when accessing the streaming server. Only present if `use_auth` is
-		// `true`.
+		// The username to use when accessing the streaming server. Only present if `use_auth` is `true`.
 		Username string `json:"username"`
 	} `json:"settings"`
 
@@ -51,11 +47,9 @@ type GetStreamSettingsResponse struct {
 	Type string `json:"type"`
 }
 
-// GetStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetStreamSettings(
-	paramss ...*GetStreamSettingsParams,
-) (*GetStreamSettingsResponse, error) {
+// GetStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) GetStreamSettings(paramss ...*GetStreamSettingsParams) (*GetStreamSettingsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetStreamSettingsParams{{}}
 	}

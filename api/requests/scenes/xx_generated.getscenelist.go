@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetSceneListParams represents the params body for the "GetSceneList" request.
 Get a list of scenes in the currently active profile.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneList.
+Since 0.3.
 */
 type GetSceneListParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetSceneList".
-func (o *GetSceneListParams) Name() string {
+// GetSelfName just returns "GetSceneList".
+func (o *GetSceneListParams) GetSelfName() string {
 	return "GetSceneList"
 }
 
 /*
 GetSceneListResponse represents the response body for the "GetSceneList" request.
 Get a list of scenes in the currently active profile.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneList.
+Since v0.3.
 */
 type GetSceneListResponse struct {
 	requests.ResponseBasic
@@ -31,13 +29,12 @@ type GetSceneListResponse struct {
 	// Name of the currently active scene.
 	CurrentScene string `json:"current-scene"`
 
-	// Ordered list of the current profile's scenes (See [GetCurrentScene](#getcurrentscene) for
-	// more information).
+	// Ordered list of the current profile's scenes (See [GetCurrentScene](#getcurrentscene) for more information).
 	Scenes []map[string]interface{} `json:"scenes"`
 }
 
-// GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) GetSceneList(paramss ...*GetSceneListParams) (*GetSceneListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetSceneListParams{{}}

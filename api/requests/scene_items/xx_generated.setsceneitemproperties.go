@@ -8,8 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetSceneItemPropertiesParams represents the params body for the "SetSceneItemProperties" request.
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneItemProperties.
+Since 4.3.0.
 */
 type SetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
@@ -19,8 +18,8 @@ type SetSceneItemPropertiesParams struct {
 		Alignment int `json:"alignment"`
 
 		// The new bounds type of the source. Can be "OBS_BOUNDS_STRETCH", "OBS_BOUNDS_SCALE_INNER",
-		// "OBS_BOUNDS_SCALE_OUTER", "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT",
-		// "OBS_BOUNDS_MAX_ONLY" or "OBS_BOUNDS_NONE".
+		// "OBS_BOUNDS_SCALE_OUTER", "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT", "OBS_BOUNDS_MAX_ONLY" or
+		// "OBS_BOUNDS_NONE".
 		Type string `json:"type"`
 
 		// The new width of the bounding box.
@@ -52,8 +51,7 @@ type SetSceneItemPropertiesParams struct {
 		Name string `json:"name"`
 	} `json:"item"`
 
-	// The new locked status of the source. 'true' keeps it in its current position, 'false' allows
-	// movement.
+	// The new locked status of the source. 'true' keeps it in its current position, 'false' allows movement.
 	Locked bool `json:"locked"`
 
 	Position struct {
@@ -71,6 +69,10 @@ type SetSceneItemPropertiesParams struct {
 	Rotation float64 `json:"rotation"`
 
 	Scale struct {
+		// The new scale filter of the source. Can be "OBS_SCALE_DISABLE", "OBS_SCALE_POINT", "OBS_SCALE_BICUBIC",
+		// "OBS_SCALE_BILINEAR", "OBS_SCALE_LANCZOS" or "OBS_SCALE_AREA".
+		Filter string `json:"filter"`
+
 		// The new x scale of the item.
 		X float64 `json:"x"`
 
@@ -85,8 +87,8 @@ type SetSceneItemPropertiesParams struct {
 	Visible bool `json:"visible"`
 }
 
-// Name just returns "SetSceneItemProperties".
-func (o *SetSceneItemPropertiesParams) Name() string {
+// GetSelfName just returns "SetSceneItemProperties".
+func (o *SetSceneItemPropertiesParams) GetSelfName() string {
 	return "SetSceneItemProperties"
 }
 
@@ -94,17 +96,14 @@ func (o *SetSceneItemPropertiesParams) Name() string {
 SetSceneItemPropertiesResponse represents the response body for the "SetSceneItemProperties" request.
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneItemProperties.
+Since v4.3.0.
 */
 type SetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic
 }
 
 // SetSceneItemProperties sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetSceneItemProperties(
-	params *SetSceneItemPropertiesParams,
-) (*SetSceneItemPropertiesResponse, error) {
+func (c *Client) SetSceneItemProperties(params *SetSceneItemPropertiesParams) (*SetSceneItemPropertiesResponse, error) {
 	data := &SetSceneItemPropertiesResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

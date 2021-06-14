@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 DuplicateSceneItemParams represents the params body for the "DuplicateSceneItem" request.
 Duplicates a scene item.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#DuplicateSceneItem.
+Since 4.5.0.
 */
 type DuplicateSceneItemParams struct {
 	requests.ParamsBasic
@@ -28,16 +27,15 @@ type DuplicateSceneItemParams struct {
 	ToScene string `json:"toScene"`
 }
 
-// Name just returns "DuplicateSceneItem".
-func (o *DuplicateSceneItemParams) Name() string {
+// GetSelfName just returns "DuplicateSceneItem".
+func (o *DuplicateSceneItemParams) GetSelfName() string {
 	return "DuplicateSceneItem"
 }
 
 /*
 DuplicateSceneItemResponse represents the response body for the "DuplicateSceneItem" request.
 Duplicates a scene item.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#DuplicateSceneItem.
+Since v4.5.0.
 */
 type DuplicateSceneItemResponse struct {
 	requests.ResponseBasic
@@ -55,9 +53,7 @@ type DuplicateSceneItemResponse struct {
 }
 
 // DuplicateSceneItem sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) DuplicateSceneItem(
-	params *DuplicateSceneItemParams,
-) (*DuplicateSceneItemResponse, error) {
+func (c *Client) DuplicateSceneItem(params *DuplicateSceneItemParams) (*DuplicateSceneItemResponse, error) {
 	data := &DuplicateSceneItemResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

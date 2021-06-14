@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetTextGDIPlusPropertiesParams represents the params body for the "SetTextGDIPlusProperties" request.
 Set the current properties of a Text GDI Plus source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
+Since 4.1.0.
 */
 type SetTextGDIPlusPropertiesParams struct {
 	requests.ParamsBasic
@@ -17,10 +16,10 @@ type SetTextGDIPlusPropertiesParams struct {
 	Align string `json:"align"`
 
 	// Background color.
-	BkColor int `json:"bk-color"`
+	BkColor int `json:"bk_color"`
 
 	// Background opacity (0-100).
-	BkOpacity int `json:"bk-opacity"`
+	BkOpacity int `json:"bk_opacity"`
 
 	// Chat log.
 	Chatlog bool `json:"chatlog"`
@@ -100,16 +99,15 @@ type SetTextGDIPlusPropertiesParams struct {
 	Vertical bool `json:"vertical"`
 }
 
-// Name just returns "SetTextGDIPlusProperties".
-func (o *SetTextGDIPlusPropertiesParams) Name() string {
+// GetSelfName just returns "SetTextGDIPlusProperties".
+func (o *SetTextGDIPlusPropertiesParams) GetSelfName() string {
 	return "SetTextGDIPlusProperties"
 }
 
 /*
 SetTextGDIPlusPropertiesResponse represents the response body for the "SetTextGDIPlusProperties" request.
 Set the current properties of a Text GDI Plus source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetTextGDIPlusProperties.
+Since v4.1.0.
 */
 type SetTextGDIPlusPropertiesResponse struct {
 	requests.ResponseBasic

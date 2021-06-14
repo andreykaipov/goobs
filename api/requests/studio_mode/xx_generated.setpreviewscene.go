@@ -8,8 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetPreviewSceneParams represents the params body for the "SetPreviewScene" request.
 Set the active preview scene.
 Will return an `error` if Studio Mode is not enabled.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetPreviewScene.
+Since 4.1.0.
 */
 type SetPreviewSceneParams struct {
 	requests.ParamsBasic
@@ -18,8 +17,8 @@ type SetPreviewSceneParams struct {
 	SceneName string `json:"scene-name"`
 }
 
-// Name just returns "SetPreviewScene".
-func (o *SetPreviewSceneParams) Name() string {
+// GetSelfName just returns "SetPreviewScene".
+func (o *SetPreviewSceneParams) GetSelfName() string {
 	return "SetPreviewScene"
 }
 
@@ -27,8 +26,7 @@ func (o *SetPreviewSceneParams) Name() string {
 SetPreviewSceneResponse represents the response body for the "SetPreviewScene" request.
 Set the active preview scene.
 Will return an `error` if Studio Mode is not enabled.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetPreviewScene.
+Since v4.1.0.
 */
 type SetPreviewSceneResponse struct {
 	requests.ResponseBasic

@@ -8,15 +8,14 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 PauseRecordingParams represents the params body for the "PauseRecording" request.
 Pause the current recording.
 Returns an error if recording is not active or already paused.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#PauseRecording.
+Since 4.7.0.
 */
 type PauseRecordingParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "PauseRecording".
-func (o *PauseRecordingParams) Name() string {
+// GetSelfName just returns "PauseRecording".
+func (o *PauseRecordingParams) GetSelfName() string {
 	return "PauseRecording"
 }
 
@@ -24,15 +23,14 @@ func (o *PauseRecordingParams) Name() string {
 PauseRecordingResponse represents the response body for the "PauseRecording" request.
 Pause the current recording.
 Returns an error if recording is not active or already paused.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#PauseRecording.
+Since v4.7.0.
 */
 type PauseRecordingResponse struct {
 	requests.ResponseBasic
 }
 
-// PauseRecording sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// PauseRecording sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) PauseRecording(paramss ...*PauseRecordingParams) (*PauseRecordingResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*PauseRecordingParams{{}}

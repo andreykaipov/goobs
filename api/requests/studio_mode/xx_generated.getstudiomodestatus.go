@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetStudioModeStatusParams represents the params body for the "GetStudioModeStatus" request.
 Indicates if Studio Mode is currently enabled.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStudioModeStatus.
+Since 4.1.0.
 */
 type GetStudioModeStatusParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetStudioModeStatus".
-func (o *GetStudioModeStatusParams) Name() string {
+// GetSelfName just returns "GetStudioModeStatus".
+func (o *GetStudioModeStatusParams) GetSelfName() string {
 	return "GetStudioModeStatus"
 }
 
 /*
 GetStudioModeStatusResponse represents the response body for the "GetStudioModeStatus" request.
 Indicates if Studio Mode is currently enabled.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStudioModeStatus.
+Since v4.1.0.
 */
 type GetStudioModeStatusResponse struct {
 	requests.ResponseBasic
@@ -32,11 +30,9 @@ type GetStudioModeStatusResponse struct {
 	StudioMode bool `json:"studio-mode"`
 }
 
-// GetStudioModeStatus sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetStudioModeStatus(
-	paramss ...*GetStudioModeStatusParams,
-) (*GetStudioModeStatusResponse, error) {
+// GetStudioModeStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetStudioModeStatus(paramss ...*GetStudioModeStatusParams) (*GetStudioModeStatusResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetStudioModeStatusParams{{}}
 	}

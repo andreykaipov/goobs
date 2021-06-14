@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetVideoInfoParams represents the params body for the "GetVideoInfo" request.
 Get basic OBS video information
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVideoInfo.
+Since 4.6.0.
 */
 type GetVideoInfoParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetVideoInfo".
-func (o *GetVideoInfoParams) Name() string {
+// GetSelfName just returns "GetVideoInfo".
+func (o *GetVideoInfoParams) GetSelfName() string {
 	return "GetVideoInfo"
 }
 
 /*
 GetVideoInfoResponse represents the response body for the "GetVideoInfo" request.
 Get basic OBS video information
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVideoInfo.
+Since v4.6.0.
 */
 type GetVideoInfoResponse struct {
 	requests.ResponseBasic
@@ -56,8 +54,8 @@ type GetVideoInfoResponse struct {
 	VideoFormat string `json:"videoFormat"`
 }
 
-// GetVideoInfo sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// GetVideoInfo sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) GetVideoInfo(paramss ...*GetVideoInfoParams) (*GetVideoInfoResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetVideoInfoParams{{}}

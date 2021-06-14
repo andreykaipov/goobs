@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetTransitionListParams represents the params body for the "GetTransitionList" request.
 List of all transitions available in the frontend's dropdown menu.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTransitionList.
+Since 4.1.0.
 */
 type GetTransitionListParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetTransitionList".
-func (o *GetTransitionListParams) Name() string {
+// GetSelfName just returns "GetTransitionList".
+func (o *GetTransitionListParams) GetSelfName() string {
 	return "GetTransitionList"
 }
 
 /*
 GetTransitionListResponse represents the response body for the "GetTransitionList" request.
 List of all transitions available in the frontend's dropdown menu.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTransitionList.
+Since v4.1.0.
 */
 type GetTransitionListResponse struct {
 	requests.ResponseBasic
@@ -37,11 +35,9 @@ type GetTransitionListResponse struct {
 	} `json:"transitions"`
 }
 
-// GetTransitionList sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetTransitionList(
-	paramss ...*GetTransitionListParams,
-) (*GetTransitionListResponse, error) {
+// GetTransitionList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) GetTransitionList(paramss ...*GetTransitionListParams) (*GetTransitionListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetTransitionListParams{{}}
 	}

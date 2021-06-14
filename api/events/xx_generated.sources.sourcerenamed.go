@@ -4,8 +4,7 @@ package events
 
 /*
 SourceRenamed represents the event body for the "SourceRenamed" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SourceRenamed.
+Since v4.6.0.
 */
 type SourceRenamed struct {
 	EventBasic

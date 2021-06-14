@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetSourceTypesListParams represents the params body for the "GetSourceTypesList" request.
 Get a list of all available sources types
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSourceTypesList.
+Since 4.3.0.
 */
 type GetSourceTypesListParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetSourceTypesList".
-func (o *GetSourceTypesListParams) Name() string {
+// GetSelfName just returns "GetSourceTypesList".
+func (o *GetSourceTypesListParams) GetSelfName() string {
 	return "GetSourceTypesList"
 }
 
 /*
 GetSourceTypesListResponse represents the response body for the "GetSourceTypesList" request.
 Get a list of all available sources types
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSourceTypesList.
+Since v4.3.0.
 */
 type GetSourceTypesListResponse struct {
 	requests.ResponseBasic
@@ -36,8 +34,7 @@ type GetSourceTypesListResponse struct {
 			// True if sources of this type should not be fully duplicated
 			DoNotDuplicate bool `json:"doNotDuplicate"`
 
-			// True if sources of this type may cause a feedback loop if it's audio is monitored and
-			// shouldn't be
+			// True if sources of this type may cause a feedback loop if it's audio is monitored and shouldn't be
 			DoNotSelfMonitor bool `json:"doNotSelfMonitor"`
 
 			// True if sources of this type provide audio
@@ -67,11 +64,9 @@ type GetSourceTypesListResponse struct {
 	} `json:"types"`
 }
 
-// GetSourceTypesList sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetSourceTypesList(
-	paramss ...*GetSourceTypesListParams,
-) (*GetSourceTypesListResponse, error) {
+// GetSourceTypesList sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetSourceTypesList(paramss ...*GetSourceTypesListParams) (*GetSourceTypesListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetSourceTypesListParams{{}}
 	}

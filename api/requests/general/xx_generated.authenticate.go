@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 AuthenticateParams represents the params body for the "Authenticate" request.
 Attempt to authenticate the client to the server.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#Authenticate.
+Since 0.3.
 */
 type AuthenticateParams struct {
 	requests.ParamsBasic
@@ -17,16 +16,15 @@ type AuthenticateParams struct {
 	Auth string `json:"auth"`
 }
 
-// Name just returns "Authenticate".
-func (o *AuthenticateParams) Name() string {
+// GetSelfName just returns "Authenticate".
+func (o *AuthenticateParams) GetSelfName() string {
 	return "Authenticate"
 }
 
 /*
 AuthenticateResponse represents the response body for the "Authenticate" request.
 Attempt to authenticate the client to the server.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#Authenticate.
+Since v0.3.
 */
 type AuthenticateResponse struct {
 	requests.ResponseBasic

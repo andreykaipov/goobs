@@ -8,15 +8,14 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetAuthRequiredParams represents the params body for the "GetAuthRequired" request.
 Tells the client if authentication is required. If so, returns authentication parameters `challenge`
 and `salt` (see "Authentication" for more information).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetAuthRequired.
+Since 0.3.
 */
 type GetAuthRequiredParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetAuthRequired".
-func (o *GetAuthRequiredParams) Name() string {
+// GetSelfName just returns "GetAuthRequired".
+func (o *GetAuthRequiredParams) GetSelfName() string {
 	return "GetAuthRequired"
 }
 
@@ -24,8 +23,7 @@ func (o *GetAuthRequiredParams) Name() string {
 GetAuthRequiredResponse represents the response body for the "GetAuthRequired" request.
 Tells the client if authentication is required. If so, returns authentication parameters `challenge`
 and `salt` (see "Authentication" for more information).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetAuthRequired.
+Since v0.3.
 */
 type GetAuthRequiredResponse struct {
 	requests.ResponseBasic
@@ -38,11 +36,9 @@ type GetAuthRequiredResponse struct {
 	Salt string `json:"salt"`
 }
 
-// GetAuthRequired sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetAuthRequired(
-	paramss ...*GetAuthRequiredParams,
-) (*GetAuthRequiredResponse, error) {
+// GetAuthRequired sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) GetAuthRequired(paramss ...*GetAuthRequiredParams) (*GetAuthRequiredResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetAuthRequiredParams{{}}
 	}

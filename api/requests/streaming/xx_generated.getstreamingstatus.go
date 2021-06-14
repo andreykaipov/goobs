@@ -7,23 +7,21 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetStreamingStatusParams represents the params body for the "GetStreamingStatus" request.
 Get current streaming and recording status.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStreamingStatus.
+Since 0.3.
 */
 type GetStreamingStatusParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetStreamingStatus".
-func (o *GetStreamingStatusParams) Name() string {
+// GetSelfName just returns "GetStreamingStatus".
+func (o *GetStreamingStatusParams) GetSelfName() string {
 	return "GetStreamingStatus"
 }
 
 /*
 GetStreamingStatusResponse represents the response body for the "GetStreamingStatus" request.
 Get current streaming and recording status.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStreamingStatus.
+Since v0.3.
 */
 type GetStreamingStatusResponse struct {
 	requests.ResponseBasic
@@ -37,18 +35,25 @@ type GetStreamingStatusResponse struct {
 	// Current recording status.
 	Recording bool `json:"recording"`
 
+	// If recording is paused.
+	RecordingPaused bool `json:"recording-paused"`
+
 	// Time elapsed since streaming started (only present if currently streaming).
 	StreamTimecode string `json:"stream-timecode"`
 
 	// Current streaming status.
 	Streaming bool `json:"streaming"`
+
+	// Current virtual cam status.
+	Virtualcam bool `json:"virtualcam"`
+
+	// Time elapsed since virtual cam started (only present if virtual cam currently active).
+	VirtualcamTimecode string `json:"virtualcam-timecode"`
 }
 
-// GetStreamingStatus sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetStreamingStatus(
-	paramss ...*GetStreamingStatusParams,
-) (*GetStreamingStatusResponse, error) {
+// GetStreamingStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetStreamingStatus(paramss ...*GetStreamingStatusParams) (*GetStreamingStatusResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetStreamingStatusParams{{}}
 	}

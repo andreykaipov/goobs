@@ -8,15 +8,14 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 StopReplayBufferParams represents the params body for the "StopReplayBuffer" request.
 Stop recording into the Replay Buffer.
 Will return an `error` if the Replay Buffer is not active.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StopReplayBuffer.
+Since 4.2.0.
 */
 type StopReplayBufferParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "StopReplayBuffer".
-func (o *StopReplayBufferParams) Name() string {
+// GetSelfName just returns "StopReplayBuffer".
+func (o *StopReplayBufferParams) GetSelfName() string {
 	return "StopReplayBuffer"
 }
 
@@ -24,18 +23,15 @@ func (o *StopReplayBufferParams) Name() string {
 StopReplayBufferResponse represents the response body for the "StopReplayBuffer" request.
 Stop recording into the Replay Buffer.
 Will return an `error` if the Replay Buffer is not active.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StopReplayBuffer.
+Since v4.2.0.
 */
 type StopReplayBufferResponse struct {
 	requests.ResponseBasic
 }
 
-// StopReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
-func (c *Client) StopReplayBuffer(
-	paramss ...*StopReplayBufferParams,
-) (*StopReplayBufferResponse, error) {
+// StopReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) StopReplayBuffer(paramss ...*StopReplayBufferParams) (*StopReplayBufferResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StopReplayBufferParams{{}}
 	}

@@ -8,15 +8,14 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 StartRecordingParams represents the params body for the "StartRecording" request.
 Start recording.
 Will return an `error` if recording is already active.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartRecording.
+Since 4.1.0.
 */
 type StartRecordingParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "StartRecording".
-func (o *StartRecordingParams) Name() string {
+// GetSelfName just returns "StartRecording".
+func (o *StartRecordingParams) GetSelfName() string {
 	return "StartRecording"
 }
 
@@ -24,15 +23,14 @@ func (o *StartRecordingParams) Name() string {
 StartRecordingResponse represents the response body for the "StartRecording" request.
 Start recording.
 Will return an `error` if recording is already active.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartRecording.
+Since v4.1.0.
 */
 type StartRecordingResponse struct {
 	requests.ResponseBasic
 }
 
-// StartRecording sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// StartRecording sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) StartRecording(paramss ...*StartRecordingParams) (*StartRecordingResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StartRecordingParams{{}}

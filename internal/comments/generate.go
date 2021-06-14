@@ -188,7 +188,7 @@ func generateEvents(data *Comments) {
 			f.HeaderComment("This file has been automatically generated. Don't edit it.")
 			f.Add(s)
 			fName := strings.ToLower(event.Name)
-			if err := f.Save(fmt.Sprintf("%s/zz_generated.%s.%s.go", dir, categorySnake, fName)); err != nil {
+			if err := f.Save(fmt.Sprintf("%s/xx_generated.%s.%s.go", dir, categorySnake, fName)); err != nil {
 				panic(err)
 			}
 
@@ -209,7 +209,7 @@ func generateEvents(data *Comments) {
 			}),
 		),
 	)
-	if err := f.Save(fmt.Sprintf("%s/xx_generated.events.go", dir)); err != nil {
+	if err := f.Save(fmt.Sprintf("%s/zz_generated.events.go", dir)); err != nil {
 		panic(err)
 	}
 }

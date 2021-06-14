@@ -8,4 +8,7 @@ Since v4.0.0.
 */
 type ProfileChanged struct {
 	EventBasic
+
+	// Name of the new current profile.
+	Profile string `json:"profile"`
 }

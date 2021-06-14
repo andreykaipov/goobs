@@ -38,8 +38,7 @@ type GetVolumeResponse struct {
 	// Source name.
 	Name string `json:"name"`
 
-	// Volume of the source. Between `0.0` and `1.0` if using mul, under `0.0` if using dB (since it
-	// is attenuating).
+	// Volume of the source. Between `0.0` and `20.0` if using mul, under `26.0` if using dB.
 	Volume float64 `json:"volume"`
 }
 

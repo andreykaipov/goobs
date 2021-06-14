@@ -6,7 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StartStopRecordingParams represents the params body for the "StartStopRecording" request.
-Toggle recording on or off.
+Toggle recording on or off (depending on the current recording state).
 Since 0.3.
 */
 type StartStopRecordingParams struct {
@@ -20,7 +20,7 @@ func (o *StartStopRecordingParams) GetSelfName() string {
 
 /*
 StartStopRecordingResponse represents the response body for the "StartStopRecording" request.
-Toggle recording on or off.
+Toggle recording on or off (depending on the current recording state).
 Since v0.3.
 */
 type StartStopRecordingResponse struct {

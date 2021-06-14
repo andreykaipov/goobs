@@ -6,7 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 StartStopReplayBufferParams represents the params body for the "StartStopReplayBuffer" request.
-Toggle the Replay Buffer on/off.
+Toggle the Replay Buffer on/off (depending on the current state of the replay buffer).
 Since 4.2.0.
 */
 type StartStopReplayBufferParams struct {
@@ -20,7 +20,7 @@ func (o *StartStopReplayBufferParams) GetSelfName() string {
 
 /*
 StartStopReplayBufferResponse represents the response body for the "StartStopReplayBuffer" request.
-Toggle the Replay Buffer on/off.
+Toggle the Replay Buffer on/off (depending on the current state of the replay buffer).
 Since v4.2.0.
 */
 type StartStopReplayBufferResponse struct {

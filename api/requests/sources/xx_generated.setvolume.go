@@ -18,8 +18,9 @@ type SetVolumeParams struct {
 	// Interperet `volume` data as decibels instead of amplitude/mul.
 	UseDecibel bool `json:"useDecibel"`
 
-	// Desired volume. Must be between `0.0` and `1.0` for mul, and under 0.0 for dB. Note: OBS will
-	// interpret dB values under -100.0 as Inf.
+	// Desired volume. Must be between `0.0` and `20.0` for mul, and under 26.0 for dB. OBS will
+	// interpret dB values under -100.0 as Inf. Note: The OBS volume sliders only reach a maximum of
+	// 1.0mul/0.0dB, however OBS actually supports larger values.
 	Volume float64 `json:"volume"`
 }
 

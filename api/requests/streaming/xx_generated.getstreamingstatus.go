@@ -35,6 +35,9 @@ type GetStreamingStatusResponse struct {
 	// Current recording status.
 	Recording bool `json:"recording"`
 
+	// If recording is paused.
+	RecordingPaused bool `json:"recording-paused"`
+
 	// Time elapsed since streaming started (only present if currently streaming).
 	StreamTimecode string `json:"stream-timecode"`
 

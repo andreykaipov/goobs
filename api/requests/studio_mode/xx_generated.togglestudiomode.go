@@ -6,7 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 ToggleStudioModeParams represents the params body for the "ToggleStudioMode" request.
-Toggles Studio Mode.
+Toggles Studio Mode (depending on the current state of studio mode).
 Since 4.1.0.
 */
 type ToggleStudioModeParams struct {
@@ -20,7 +20,7 @@ func (o *ToggleStudioModeParams) GetSelfName() string {
 
 /*
 ToggleStudioModeResponse represents the response body for the "ToggleStudioMode" request.
-Toggles Studio Mode.
+Toggles Studio Mode (depending on the current state of studio mode).
 Since v4.1.0.
 */
 type ToggleStudioModeResponse struct {

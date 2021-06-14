@@ -7,7 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetSceneTransitionOverrideParams represents the params body for the "GetSceneTransitionOverride" request.
 Get the current scene transition override.
-Since 4.9.0.
+Since 4.8.0.
 */
 type GetSceneTransitionOverrideParams struct {
 	requests.ParamsBasic
@@ -24,7 +24,7 @@ func (o *GetSceneTransitionOverrideParams) GetSelfName() string {
 /*
 GetSceneTransitionOverrideResponse represents the response body for the "GetSceneTransitionOverride" request.
 Get the current scene transition override.
-Since v4.9.0.
+Since v4.8.0.
 */
 type GetSceneTransitionOverrideResponse struct {
 	requests.ResponseBasic

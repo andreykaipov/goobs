@@ -13,7 +13,7 @@ type OpenProjectorParams struct {
 	requests.ParamsBasic
 
 	// Size and position of the projector window (only if monitor is -1). Encoded in Base64 using
-	// Qt's geometry encoding (https://doc.qt.io/qt-5/qwidget.html#saveGeometry). Corresponds to
+	// [Qt's geometry encoding](https://doc.qt.io/qt-5/qwidget.html#saveGeometry). Corresponds to
 	// OBS's saved projectors.
 	Geometry string `json:"geometry"`
 
@@ -23,8 +23,8 @@ type OpenProjectorParams struct {
 	// Name of the source or scene to be displayed (ignored for other projector types).
 	Name string `json:"name"`
 
-	// Type of projector: Preview (default), Source, Scene, StudioProgram, or Multiview (case
-	// insensitive).
+	// Type of projector: `Preview` (default), `Source`, `Scene`, `StudioProgram`, or `Multiview`
+	// (case insensitive).
 	Type string `json:"type"`
 }
 

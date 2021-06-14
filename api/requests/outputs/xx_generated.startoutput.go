@@ -7,6 +7,8 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 StartOutputParams represents the params body for the "StartOutput" request.
 Start an output
+
+Note: Controlling outputs is an experimental feature of obs-websocket. Some plugins which add outputs to OBS may not function properly when they are controlled in this way.
 Since 4.7.0.
 */
 type StartOutputParams struct {
@@ -24,6 +26,8 @@ func (o *StartOutputParams) GetSelfName() string {
 /*
 StartOutputResponse represents the response body for the "StartOutput" request.
 Start an output
+
+Note: Controlling outputs is an experimental feature of obs-websocket. Some plugins which add outputs to OBS may not function properly when they are controlled in this way.
 Since v4.7.0.
 */
 type StartOutputResponse struct {

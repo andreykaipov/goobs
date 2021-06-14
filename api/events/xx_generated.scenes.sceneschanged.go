@@ -8,4 +8,7 @@ Since v0.3.
 */
 type ScenesChanged struct {
 	EventBasic
+
+	// Scenes list.
+	Scenes []map[string]interface{} `json:"scenes"`
 }

@@ -8,4 +8,9 @@ Since v4.0.0.
 */
 type TransitionListChanged struct {
 	EventBasic
+
+	Transitions []struct {
+		// Transition name.
+		Name string `json:"name"`
+	} `json:"transitions"`
 }

@@ -10,6 +10,9 @@ type SourceFiltersReordered struct {
 	EventBasic
 
 	Filters []struct {
+		// Filter visibility status
+		Enabled bool `json:"enabled"`
+
 		// Filter name
 		Name string `json:"name"`
 

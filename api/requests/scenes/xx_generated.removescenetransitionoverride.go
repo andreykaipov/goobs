@@ -7,7 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 RemoveSceneTransitionOverrideParams represents the params body for the "RemoveSceneTransitionOverride" request.
 Remove any transition override on a scene.
-Since 4.9.0.
+Since 4.8.0.
 */
 type RemoveSceneTransitionOverrideParams struct {
 	requests.ParamsBasic
@@ -24,7 +24,7 @@ func (o *RemoveSceneTransitionOverrideParams) GetSelfName() string {
 /*
 RemoveSceneTransitionOverrideResponse represents the response body for the "RemoveSceneTransitionOverride" request.
 Remove any transition override on a scene.
-Since v4.9.0.
+Since v4.8.0.
 */
 type RemoveSceneTransitionOverrideResponse struct {
 	requests.ResponseBasic

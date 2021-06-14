@@ -26,8 +26,10 @@ Since v4.0.0.
 type ListProfilesResponse struct {
 	requests.ResponseBasic
 
-	// List of available profiles.
-	Profiles []map[string]interface{} `json:"profiles"`
+	Profiles []struct {
+		// Filter name
+		ProfileName string `json:"profile-name"`
+	} `json:"profiles"`
 }
 
 // ListProfiles sends the corresponding request to the connected OBS WebSockets server. Note the

@@ -29,7 +29,7 @@ Since v4.6.0.
 type GetStatsResponse struct {
 	requests.ResponseBasic
 
-	// OBS stats
+	// [OBS stats](#obsstats)
 	Stats []typedefs.OBSStats `json:"stats"`
 }
 

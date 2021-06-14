@@ -6,7 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 /*
 Heartbeat represents the event body for the "Heartbeat" event.
-Since v.
+Since vv0.3.
 */
 type Heartbeat struct {
 	EventBasic

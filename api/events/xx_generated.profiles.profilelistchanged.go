@@ -8,4 +8,9 @@ Since v4.0.0.
 */
 type ProfileListChanged struct {
 	EventBasic
+
+	Profiles []struct {
+		// Profile name.
+		Name string `json:"name"`
+	} `json:"profiles"`
 }

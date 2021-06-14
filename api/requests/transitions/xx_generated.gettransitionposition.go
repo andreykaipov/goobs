@@ -7,7 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetTransitionPositionParams represents the params body for the "GetTransitionPosition" request.
 Get the position of the current transition.
-Since 4.8.0.
+Since 4.9.0.
 */
 type GetTransitionPositionParams struct {
 	requests.ParamsBasic
@@ -21,7 +21,7 @@ func (o *GetTransitionPositionParams) GetSelfName() string {
 /*
 GetTransitionPositionResponse represents the response body for the "GetTransitionPosition" request.
 Get the position of the current transition.
-Since v4.8.0.
+Since v4.9.0.
 */
 type GetTransitionPositionResponse struct {
 	requests.ResponseBasic

@@ -42,10 +42,6 @@ Since v4.3.0.
 type GetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic
 
-	// The point on the source that the item is manipulated from. The sum of 1=Left or 2=Right, and
-	// 4=Top or 8=Bottom, or omit to center on that axis.
-	Alignment int `json:"alignment"`
-
 	Bounds struct {
 		// Alignment of the bounding box.
 		Alignment int `json:"alignment"`
@@ -98,7 +94,8 @@ type GetSceneItemPropertiesResponse struct {
 	ParentGroupName string `json:"parentGroupName"`
 
 	Position struct {
-		// The point on the source that the item is manipulated from.
+		// The point on the source that the item is manipulated from. The sum of 1=Left or 2=Right,
+		// and 4=Top or 8=Bottom, or omit to center on that axis.
 		Alignment float64 `json:"alignment"`
 
 		// The x position of the source from the left.

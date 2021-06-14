@@ -34,7 +34,7 @@ type GetSourcesListResponse struct {
 		// "unknown"
 		Type string `json:"type"`
 
-		// Non-unique source internal type (a.k.a type id)
+		// Non-unique source internal type (a.k.a kind)
 		TypeId string `json:"typeId"`
 	} `json:"sources"`
 }

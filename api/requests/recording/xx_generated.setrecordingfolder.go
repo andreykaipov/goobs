@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetRecordingFolderParams represents the params body for the "SetRecordingFolder" request.
 In the current profile, sets the recording folder of the Simple and Advanced output modes to the specified value.
 
-Please note: if `SetRecordingFolder` is called while a recording is
+Note: If `SetRecordingFolder` is called while a recording is
 in progress, the change won't be applied immediately and will be
 effective on the next recording.
 Since 4.1.0.
@@ -29,7 +29,7 @@ func (o *SetRecordingFolderParams) GetSelfName() string {
 SetRecordingFolderResponse represents the response body for the "SetRecordingFolder" request.
 In the current profile, sets the recording folder of the Simple and Advanced output modes to the specified value.
 
-Please note: if `SetRecordingFolder` is called while a recording is
+Note: If `SetRecordingFolder` is called while a recording is
 in progress, the change won't be applied immediately and will be
 effective on the next recording.
 Since v4.1.0.

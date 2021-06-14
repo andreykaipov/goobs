@@ -16,10 +16,10 @@ type SetTextGDIPlusPropertiesParams struct {
 	Align string `json:"align"`
 
 	// Background color.
-	BkColor int `json:"bk-color"`
+	BkColor int `json:"bk_color"`
 
 	// Background opacity (0-100).
-	BkOpacity int `json:"bk-opacity"`
+	BkOpacity int `json:"bk_opacity"`
 
 	// Chat log.
 	Chatlog bool `json:"chatlog"`

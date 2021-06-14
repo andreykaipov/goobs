@@ -6,7 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 TakeSourceScreenshotParams represents the params body for the "TakeSourceScreenshot" request.
-Takes a picture snapshot of a source and then can either or both:    - Send it over as a Data URI (base64-encoded data) in the response (by specifying `embedPictureFormat` in the request)    - Save it to disk (by specifying `saveToFilePath` in the request)
+Takes a picture snapshot of a source and then can either or both: 	- Send it over as a Data URI (base64-encoded data) in the response (by specifying `embedPictureFormat` in the request) 	- Save it to disk (by specifying `saveToFilePath` in the request)
 
 At least `embedPictureFormat` or `saveToFilePath` must be specified.
 
@@ -37,7 +37,8 @@ type TakeSourceScreenshotParams struct {
 	// format different from `pictureFormat`. Can be a relative path.
 	SaveToFilePath string `json:"saveToFilePath"`
 
-	// Source name. Note that, since scenes are also sources, you can also provide a scene name.
+	// Source name. Note: Since scenes are also sources, you can also provide a scene name. If not
+	// provided, the currently active scene is used.
 	SourceName string `json:"sourceName"`
 
 	// Screenshot width. Defaults to the source's base width.
@@ -51,7 +52,7 @@ func (o *TakeSourceScreenshotParams) GetSelfName() string {
 
 /*
 TakeSourceScreenshotResponse represents the response body for the "TakeSourceScreenshot" request.
-Takes a picture snapshot of a source and then can either or both:    - Send it over as a Data URI (base64-encoded data) in the response (by specifying `embedPictureFormat` in the request)    - Save it to disk (by specifying `saveToFilePath` in the request)
+Takes a picture snapshot of a source and then can either or both: 	- Send it over as a Data URI (base64-encoded data) in the response (by specifying `embedPictureFormat` in the request) 	- Save it to disk (by specifying `saveToFilePath` in the request)
 
 At least `embedPictureFormat` or `saveToFilePath` must be specified.
 

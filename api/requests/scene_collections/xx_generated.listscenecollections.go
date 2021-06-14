@@ -2,7 +2,10 @@
 
 package scenecollections
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 ListSceneCollectionsParams represents the params body for the "ListSceneCollections" request.
@@ -27,7 +30,7 @@ type ListSceneCollectionsResponse struct {
 	requests.ResponseBasic
 
 	// Scene collections list
-	SceneCollections []string `json:"scene-collections"`
+	SceneCollections []typedefs.ScenesCollection `json:"scene-collections"`
 }
 
 // ListSceneCollections sends the corresponding request to the connected OBS WebSockets server. Note

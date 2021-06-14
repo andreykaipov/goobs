@@ -8,4 +8,7 @@ Since v0.3.
 */
 type RecordingStopped struct {
 	EventBasic
+
+	// Absolute path to the file of the current recording.
+	RecordingFilename string `json:"recordingFilename"`
 }

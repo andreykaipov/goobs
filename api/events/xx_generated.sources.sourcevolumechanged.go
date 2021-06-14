@@ -14,4 +14,7 @@ type SourceVolumeChanged struct {
 
 	// Source volume
 	Volume float64 `json:"volume"`
+
+	// Source volume in Decibel
+	VolumeDb float64 `json:"volumeDb"`
 }

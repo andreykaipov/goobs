@@ -61,6 +61,10 @@ type SceneItemTransform struct {
 	Rotation float64 `json:"rotation"`
 
 	Scale struct {
+		// The scale filter of the source. Can be "OBS_SCALE_DISABLE", "OBS_SCALE_POINT",
+		// "OBS_SCALE_BICUBIC", "OBS_SCALE_BILINEAR", "OBS_SCALE_LANCZOS" or "OBS_SCALE_AREA".
+		Filter string `json:"filter"`
+
 		// The x-scale factor of the scene item.
 		X float64 `json:"x"`
 

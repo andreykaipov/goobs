@@ -42,7 +42,7 @@ type Output struct {
 	// Output reconnection status (reconnecting or not)
 	Reconnecting bool `json:"reconnecting"`
 
-	// Output name
+	// Output settings
 	Settings map[string]interface{} `json:"settings"`
 
 	// Total bytes sent

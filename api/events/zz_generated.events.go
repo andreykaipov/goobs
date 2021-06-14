@@ -126,6 +126,10 @@ func GetEventForType(name string) Event {
 		return &TransitionEnd{}
 	case "TransitionVideoEnd":
 		return &TransitionVideoEnd{}
+	case "VirtualCamStarted":
+		return &VirtualCamStarted{}
+	case "VirtualCamStopped":
+		return &VirtualCamStopped{}
 	default:
 		return nil
 	}

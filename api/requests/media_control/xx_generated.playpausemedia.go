@@ -7,12 +7,13 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 PlayPauseMediaParams represents the params body for the "PlayPauseMedia" request.
 Pause or play a media source. Supports ffmpeg and vlc media sources (as of OBS v25.0.8)
+Note :Leaving out `playPause` toggles the current pause state
 Since 4.9.0.
 */
 type PlayPauseMediaParams struct {
 	requests.ParamsBasic
 
-	// Whether to pause or play the source. `false` for play, `true` for pause.
+	// (optional) Whether to pause or play the source. `false` for play, `true` for pause.
 	PlayPause bool `json:"playPause"`
 
 	// Source name.
@@ -27,6 +28,7 @@ func (o *PlayPauseMediaParams) GetSelfName() string {
 /*
 PlayPauseMediaResponse represents the response body for the "PlayPauseMedia" request.
 Pause or play a media source. Supports ffmpeg and vlc media sources (as of OBS v25.0.8)
+Note :Leaving out `playPause` toggles the current pause state
 Since v4.9.0.
 */
 type PlayPauseMediaResponse struct {

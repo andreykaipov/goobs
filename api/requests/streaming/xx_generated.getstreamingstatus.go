@@ -43,6 +43,12 @@ type GetStreamingStatusResponse struct {
 
 	// Current streaming status.
 	Streaming bool `json:"streaming"`
+
+	// Current virtual cam status.
+	Virtualcam bool `json:"virtualcam"`
+
+	// Time elapsed since virtual cam started (only present if virtual cam currently active).
+	VirtualcamTimecode string `json:"virtualcam-timecode"`
 }
 
 // GetStreamingStatus sends the corresponding request to the connected OBS WebSockets server. Note

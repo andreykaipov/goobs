@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetMuteParams represents the params body for the "SetMute" request.
 Sets the mute status of a specified source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetMute.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetMute.
 */
 type SetMuteParams struct {
 	requests.ParamsBasic
@@ -29,7 +29,7 @@ func (o *SetMuteParams) Name() string {
 SetMuteResponse represents the response body for the "SetMute" request.
 Sets the mute status of a specified source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetMute.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetMute.
 */
 type SetMuteResponse struct {
 	requests.ResponseBasic

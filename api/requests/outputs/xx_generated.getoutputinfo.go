@@ -11,7 +11,7 @@ import (
 GetOutputInfoParams represents the params body for the "GetOutputInfo" request.
 Get information about a single output
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetOutputInfo.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetOutputInfo.
 */
 type GetOutputInfoParams struct {
 	requests.ParamsBasic
@@ -29,7 +29,7 @@ func (o *GetOutputInfoParams) Name() string {
 GetOutputInfoResponse represents the response body for the "GetOutputInfo" request.
 Get information about a single output
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetOutputInfo.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetOutputInfo.
 */
 type GetOutputInfoResponse struct {
 	requests.ResponseBasic

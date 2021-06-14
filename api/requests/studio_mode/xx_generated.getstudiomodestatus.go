@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetStudioModeStatusParams represents the params body for the "GetStudioModeStatus" request.
 Indicates if Studio Mode is currently enabled.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetStudioModeStatus.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStudioModeStatus.
 */
 type GetStudioModeStatusParams struct {
 	requests.ParamsBasic
@@ -23,7 +23,7 @@ func (o *GetStudioModeStatusParams) Name() string {
 GetStudioModeStatusResponse represents the response body for the "GetStudioModeStatus" request.
 Indicates if Studio Mode is currently enabled.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetStudioModeStatus.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStudioModeStatus.
 */
 type GetStudioModeStatusResponse struct {
 	requests.ResponseBasic

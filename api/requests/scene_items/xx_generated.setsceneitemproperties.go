@@ -9,7 +9,7 @@ SetSceneItemPropertiesParams represents the params body for the "SetSceneItemPro
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneItemProperties.
 */
 type SetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
@@ -44,8 +44,13 @@ type SetSceneItemPropertiesParams struct {
 		Top int `json:"top"`
 	} `json:"crop"`
 
-	// The name of the source.
-	Item string `json:"item"`
+	Item struct {
+		// Scene Item ID (if the `item` field is an object)
+		Id int `json:"id"`
+
+		// Scene Item name (if the `item` field is an object)
+		Name string `json:"name"`
+	} `json:"item"`
 
 	// The new locked status of the source. 'true' keeps it in its current position, 'false' allows
 	// movement.
@@ -73,7 +78,7 @@ type SetSceneItemPropertiesParams struct {
 		Y float64 `json:"y"`
 	} `json:"scale"`
 
-	// the name of the scene that the source item belongs to. Defaults to the current scene.
+	// Name of the scene the source item belongs to. Defaults to the current scene.
 	SceneName string `json:"scene-name"`
 
 	// The new visibility of the source. 'true' shows source, 'false' hides source.
@@ -90,7 +95,7 @@ SetSceneItemPropertiesResponse represents the response body for the "SetSceneIte
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneItemProperties.
 */
 type SetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic

@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 StopOutputParams represents the params body for the "StopOutput" request.
 Stop an output
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StopOutput.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StopOutput.
 */
 type StopOutputParams struct {
 	requests.ParamsBasic
@@ -29,7 +29,7 @@ func (o *StopOutputParams) Name() string {
 StopOutputResponse represents the response body for the "StopOutput" request.
 Stop an output
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StopOutput.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StopOutput.
 */
 type StopOutputResponse struct {
 	requests.ResponseBasic

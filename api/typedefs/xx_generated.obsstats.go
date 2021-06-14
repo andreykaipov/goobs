@@ -5,7 +5,7 @@ package typedefs
 /*
 OBSStats represents the complex type for OBSStats.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#OBSStats.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#OBSStats.
 */
 type OBSStats struct {
 	// Average frame render time (in milliseconds)

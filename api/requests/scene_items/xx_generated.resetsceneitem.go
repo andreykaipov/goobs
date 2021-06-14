@@ -8,15 +8,20 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 ResetSceneItemParams represents the params body for the "ResetSceneItem" request.
 Reset a scene item.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#ResetSceneItem.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ResetSceneItem.
 */
 type ResetSceneItemParams struct {
 	requests.ParamsBasic
 
-	// Name of the source item.
-	Item string `json:"item"`
+	Item struct {
+		// Scene Item ID (if the `item` field is an object)
+		Id int `json:"id"`
 
-	// Name of the scene the source belongs to. Defaults to the current scene.
+		// Scene Item name (if the `item` field is an object)
+		Name string `json:"name"`
+	} `json:"item"`
+
+	// Name of the scene the scene item belongs to. Defaults to the current scene.
 	SceneName string `json:"scene-name"`
 }
 
@@ -29,7 +34,7 @@ func (o *ResetSceneItemParams) Name() string {
 ResetSceneItemResponse represents the response body for the "ResetSceneItem" request.
 Reset a scene item.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#ResetSceneItem.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ResetSceneItem.
 */
 type ResetSceneItemResponse struct {
 	requests.ResponseBasic

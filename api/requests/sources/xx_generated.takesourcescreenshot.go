@@ -13,14 +13,23 @@ At least `embedPictureFormat` or `saveToFilePath` must be specified.
 Clients can specify `width` and `height` parameters to receive scaled pictures. Aspect ratio is
 preserved if only one of these two parameters is specified.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#TakeSourceScreenshot.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#TakeSourceScreenshot.
 */
 type TakeSourceScreenshotParams struct {
 	requests.ParamsBasic
 
+	// Compression ratio between -1 and 100 to write the image with. -1 is automatic, 1 is smallest
+	// file/most compression, 100 is largest file/least compression. Varies with image type.
+	CompressionQuality int `json:"compressionQuality"`
+
 	// Format of the Data URI encoded picture. Can be "png", "jpg", "jpeg" or "bmp" (or any other
 	// value supported by Qt's Image module)
 	EmbedPictureFormat string `json:"embedPictureFormat"`
+
+	// Format to save the image file as (one of the values provided in the
+	// `supported-image-export-formats` response field of `GetVersion`). If not specified, tries to
+	// guess based on file extension.
+	FileFormat string `json:"fileFormat"`
 
 	// Screenshot height. Defaults to the source's base height.
 	Height int `json:"height"`
@@ -50,7 +59,7 @@ At least `embedPictureFormat` or `saveToFilePath` must be specified.
 Clients can specify `width` and `height` parameters to receive scaled pictures. Aspect ratio is
 preserved if only one of these two parameters is specified.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#TakeSourceScreenshot.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#TakeSourceScreenshot.
 */
 type TakeSourceScreenshotResponse struct {
 	requests.ResponseBasic

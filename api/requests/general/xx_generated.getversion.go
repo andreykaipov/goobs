@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetVersionParams represents the params body for the "GetVersion" request.
 Returns the latest version of the plugin and the API.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetVersion.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVersion.
 */
 type GetVersionParams struct {
 	requests.ParamsBasic
@@ -23,7 +23,7 @@ func (o *GetVersionParams) Name() string {
 GetVersionResponse represents the response body for the "GetVersion" request.
 Returns the latest version of the plugin and the API.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetVersion.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVersion.
 */
 type GetVersionResponse struct {
 	requests.ResponseBasic
@@ -37,6 +37,10 @@ type GetVersionResponse struct {
 
 	// obs-websocket plugin version.
 	ObsWebsocketVersion string `json:"obs-websocket-version"`
+
+	// List of supported formats for features that use image export (like the TakeSourceScreenshot
+	// request type) formatted as a comma-separated list string
+	SupportedImageExportFormats string `json:"supported-image-export-formats"`
 
 	// OBSRemote compatible API version. Fixed to 1.1 for retrocompatibility.
 	Version float64 `json:"version"`

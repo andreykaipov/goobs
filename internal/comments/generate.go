@@ -112,7 +112,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = request.Name + "Response"
 	s.Commentf("%s represents the response body for the %q request.\n%s%s\n\n%s", structName, request.Name, request.Lead, request.Description, note).Line()
 	request.Returns = append(request.Returns, &Param{Name: "ResponseBasic", Type: "~requests~"}) // internal type
-	if err = generateStructFromParams("request", s, structName, request.Returns); err != nil {
+	if err = generateStructFromParams("response", s, structName, request.Returns); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, request.Category)
 	}
 
@@ -285,6 +285,18 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			fieldType = String()
 		case "String":
 			fieldType = String()
+		case "String | Object":
+			// Field can't be both a string and an object unless we
+			// want to do some nasty interface{} crap. However,
+			// since this combo-type only appears in the param body
+			// of a request, we'll default to a string and call it
+			// a day.
+			switch origin {
+			case "request":
+				fieldType = String()
+			default:
+				panic(fmt.Errorf("in struct %q, %q can't be both %q", name, field.Name, field.Type))
+			}
 		case "int":
 			fieldType = Int()
 		case "Integer":

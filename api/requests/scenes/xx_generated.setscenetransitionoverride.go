@@ -38,7 +38,9 @@ type SetSceneTransitionOverrideResponse struct {
 }
 
 // SetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetSceneTransitionOverride(params *SetSceneTransitionOverrideParams) (*SetSceneTransitionOverrideResponse, error) {
+func (c *Client) SetSceneTransitionOverride(
+	params *SetSceneTransitionOverrideParams,
+) (*SetSceneTransitionOverrideResponse, error) {
 	data := &SetSceneTransitionOverrideResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

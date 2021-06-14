@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetTransitionDurationParams represents the params body for the "SetTransitionDuration" request.
 Set the duration of the currently selected transition if supported.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetTransitionDuration.
+Since 4.0.0.
 */
 type SetTransitionDurationParams struct {
 	requests.ParamsBasic
@@ -25,8 +24,7 @@ func (o *SetTransitionDurationParams) GetSelfName() string {
 /*
 SetTransitionDurationResponse represents the response body for the "SetTransitionDuration" request.
 Set the duration of the currently selected transition if supported.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetTransitionDuration.
+Since v4.0.0.
 */
 type SetTransitionDurationResponse struct {
 	requests.ResponseBasic

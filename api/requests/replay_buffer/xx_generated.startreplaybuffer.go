@@ -11,8 +11,7 @@ Will return an `error` if the Replay Buffer is already active or if the
 "Save Replay Buffer" hotkey is not set in OBS' settings.
 Setting this hotkey is mandatory, even when triggering saves only
 through obs-websocket.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartReplayBuffer.
+Since 4.2.0.
 */
 type StartReplayBufferParams struct {
 	requests.ParamsBasic
@@ -30,8 +29,7 @@ Will return an `error` if the Replay Buffer is already active or if the
 "Save Replay Buffer" hotkey is not set in OBS' settings.
 Setting this hotkey is mandatory, even when triggering saves only
 through obs-websocket.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartReplayBuffer.
+Since v4.2.0.
 */
 type StartReplayBufferResponse struct {
 	requests.ResponseBasic

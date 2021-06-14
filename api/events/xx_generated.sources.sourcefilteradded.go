@@ -4,8 +4,7 @@ package events
 
 /*
 SourceFilterAdded represents the event body for the "SourceFilterAdded" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SourceFilterAdded.
+Since v4.6.0.
 */
 type SourceFilterAdded struct {
 	EventBasic

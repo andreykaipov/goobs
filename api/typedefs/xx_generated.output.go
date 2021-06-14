@@ -2,11 +2,7 @@
 
 package typedefs
 
-/*
-Output represents the complex type for Output.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#Output.
-*/
+// Output represents the complex type for Output.
 type Output struct {
 	// Output status (active or not)
 	Active bool `json:"active"`

@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetSourceTypesListParams represents the params body for the "GetSourceTypesList" request.
 Get a list of all available sources types
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSourceTypesList.
+Since 4.3.0.
 */
 type GetSourceTypesListParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *GetSourceTypesListParams) GetSelfName() string {
 /*
 GetSourceTypesListResponse represents the response body for the "GetSourceTypesList" request.
 Get a list of all available sources types
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSourceTypesList.
+Since v4.3.0.
 */
 type GetSourceTypesListResponse struct {
 	requests.ResponseBasic

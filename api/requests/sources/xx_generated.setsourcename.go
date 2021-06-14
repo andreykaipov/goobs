@@ -9,8 +9,7 @@ SetSourceNameParams represents the params body for the "SetSourceName" request.
 Sets (aka rename) the name of a source. Also works with scenes since scenes are technically sources in OBS.
 
 Note: If the new name already exists as a source, OBS will automatically modify the name to not interfere.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSourceName.
+Since 4.8.0.
 */
 type SetSourceNameParams struct {
 	requests.ParamsBasic
@@ -32,8 +31,7 @@ SetSourceNameResponse represents the response body for the "SetSourceName" reque
 Sets (aka rename) the name of a source. Also works with scenes since scenes are technically sources in OBS.
 
 Note: If the new name already exists as a source, OBS will automatically modify the name to not interfere.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSourceName.
+Since v4.8.0.
 */
 type SetSourceNameResponse struct {
 	requests.ResponseBasic

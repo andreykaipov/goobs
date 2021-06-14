@@ -4,8 +4,7 @@ package events
 
 /*
 SceneItemAdded represents the event body for the "SceneItemAdded" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SceneItemAdded.
+Since v4.0.0.
 */
 type SceneItemAdded struct {
 	EventBasic

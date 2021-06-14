@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetTextFreetype2PropertiesParams represents the params body for the "SetTextFreetype2Properties" request.
 Set the current properties of a Text Freetype 2 source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetTextFreetype2Properties.
+Since 4.5.0.
 */
 type SetTextFreetype2PropertiesParams struct {
 	requests.ParamsBasic
@@ -69,8 +68,7 @@ func (o *SetTextFreetype2PropertiesParams) GetSelfName() string {
 /*
 SetTextFreetype2PropertiesResponse represents the response body for the "SetTextFreetype2Properties" request.
 Set the current properties of a Text Freetype 2 source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetTextFreetype2Properties.
+Since v4.5.0.
 */
 type SetTextFreetype2PropertiesResponse struct {
 	requests.ResponseBasic

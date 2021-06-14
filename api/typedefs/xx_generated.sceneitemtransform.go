@@ -2,11 +2,7 @@
 
 package typedefs
 
-/*
-SceneItemTransform represents the complex type for SceneItemTransform.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SceneItemTransform.
-*/
+// SceneItemTransform represents the complex type for SceneItemTransform.
 type SceneItemTransform struct {
 	Bounds struct {
 		// Alignment of the bounding box.

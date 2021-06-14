@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 DuplicateSceneItemParams represents the params body for the "DuplicateSceneItem" request.
 Duplicates a scene item.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#DuplicateSceneItem.
+Since 4.5.0.
 */
 type DuplicateSceneItemParams struct {
 	requests.ParamsBasic
@@ -36,8 +35,7 @@ func (o *DuplicateSceneItemParams) GetSelfName() string {
 /*
 DuplicateSceneItemResponse represents the response body for the "DuplicateSceneItem" request.
 Duplicates a scene item.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#DuplicateSceneItem.
+Since v4.5.0.
 */
 type DuplicateSceneItemResponse struct {
 	requests.ResponseBasic

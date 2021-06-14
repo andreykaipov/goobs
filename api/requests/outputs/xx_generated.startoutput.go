@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 StartOutputParams represents the params body for the "StartOutput" request.
 Start an output
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartOutput.
+Since 4.7.0.
 */
 type StartOutputParams struct {
 	requests.ParamsBasic
@@ -25,8 +24,7 @@ func (o *StartOutputParams) GetSelfName() string {
 /*
 StartOutputResponse represents the response body for the "StartOutput" request.
 Start an output
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartOutput.
+Since v4.7.0.
 */
 type StartOutputResponse struct {
 	requests.ResponseBasic

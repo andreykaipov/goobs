@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetVolumeParams represents the params body for the "GetVolume" request.
 Get the volume of the specified source. Default response uses mul format, NOT SLIDER PERCENTAGE.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVolume.
+Since 4.0.0.
 */
 type GetVolumeParams struct {
 	requests.ParamsBasic
@@ -28,8 +27,7 @@ func (o *GetVolumeParams) GetSelfName() string {
 /*
 GetVolumeResponse represents the response body for the "GetVolume" request.
 Get the volume of the specified source. Default response uses mul format, NOT SLIDER PERCENTAGE.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVolume.
+Since v4.0.0.
 */
 type GetVolumeResponse struct {
 	requests.ResponseBasic

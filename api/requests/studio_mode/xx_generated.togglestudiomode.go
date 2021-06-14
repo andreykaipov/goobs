@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 ToggleStudioModeParams represents the params body for the "ToggleStudioMode" request.
 Toggles Studio Mode.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ToggleStudioMode.
+Since 4.1.0.
 */
 type ToggleStudioModeParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *ToggleStudioModeParams) GetSelfName() string {
 /*
 ToggleStudioModeResponse represents the response body for the "ToggleStudioMode" request.
 Toggles Studio Mode.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ToggleStudioMode.
+Since v4.1.0.
 */
 type ToggleStudioModeResponse struct {
 	requests.ResponseBasic

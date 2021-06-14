@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 AddFilterToSourceParams represents the params body for the "AddFilterToSource" request.
 Add a new filter to a source. Available source types along with their settings properties are available from `GetSourceTypesList`.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#AddFilterToSource.
+Since 4.5.0.
 */
 type AddFilterToSourceParams struct {
 	requests.ParamsBasic
@@ -34,8 +33,7 @@ func (o *AddFilterToSourceParams) GetSelfName() string {
 /*
 AddFilterToSourceResponse represents the response body for the "AddFilterToSource" request.
 Add a new filter to a source. Available source types along with their settings properties are available from `GetSourceTypesList`.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#AddFilterToSource.
+Since v4.5.0.
 */
 type AddFilterToSourceResponse struct {
 	requests.ResponseBasic

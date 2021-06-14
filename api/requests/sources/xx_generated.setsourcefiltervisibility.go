@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetSourceFilterVisibilityParams represents the params body for the "SetSourceFilterVisibility" request.
 Change the visibility/enabled state of a filter
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSourceFilterVisibility.
+Since 4.7.0.
 */
 type SetSourceFilterVisibilityParams struct {
 	requests.ParamsBasic
@@ -31,8 +30,7 @@ func (o *SetSourceFilterVisibilityParams) GetSelfName() string {
 /*
 SetSourceFilterVisibilityResponse represents the response body for the "SetSourceFilterVisibility" request.
 Change the visibility/enabled state of a filter
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSourceFilterVisibility.
+Since v4.7.0.
 */
 type SetSourceFilterVisibilityResponse struct {
 	requests.ResponseBasic

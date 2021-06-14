@@ -6,8 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 /*
 PreviewSceneChanged represents the event body for the "PreviewSceneChanged" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#PreviewSceneChanged.
+Since v4.1.0.
 */
 type PreviewSceneChanged struct {
 	EventBasic

@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 ListSceneCollectionsParams represents the params body for the "ListSceneCollections" request.
 List available scene collections
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ListSceneCollections.
+Since 4.0.0.
 */
 type ListSceneCollectionsParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *ListSceneCollectionsParams) GetSelfName() string {
 /*
 ListSceneCollectionsResponse represents the response body for the "ListSceneCollections" request.
 List available scene collections
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ListSceneCollections.
+Since v4.0.0.
 */
 type ListSceneCollectionsResponse struct {
 	requests.ResponseBasic

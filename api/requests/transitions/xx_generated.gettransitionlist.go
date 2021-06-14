@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetTransitionListParams represents the params body for the "GetTransitionList" request.
 List of all transitions available in the frontend's dropdown menu.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTransitionList.
+Since 4.1.0.
 */
 type GetTransitionListParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *GetTransitionListParams) GetSelfName() string {
 /*
 GetTransitionListResponse represents the response body for the "GetTransitionList" request.
 List of all transitions available in the frontend's dropdown menu.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTransitionList.
+Since v4.1.0.
 */
 type GetTransitionListResponse struct {
 	requests.ResponseBasic

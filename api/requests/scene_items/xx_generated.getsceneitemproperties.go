@@ -11,8 +11,7 @@ import (
 GetSceneItemPropertiesParams represents the params body for the "GetSceneItemProperties" request.
 Gets the scene specific properties of the specified source item.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneItemProperties.
+Since 4.3.0.
 */
 type GetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
@@ -38,8 +37,7 @@ func (o *GetSceneItemPropertiesParams) GetSelfName() string {
 GetSceneItemPropertiesResponse represents the response body for the "GetSceneItemProperties" request.
 Gets the scene specific properties of the specified source item.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneItemProperties.
+Since v4.3.0.
 */
 type GetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic

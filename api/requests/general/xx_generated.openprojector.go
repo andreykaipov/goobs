@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 OpenProjectorParams represents the params body for the "OpenProjector" request.
 Open a projector window or create a projector on a monitor. Requires OBS v24.0.4 or newer.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#OpenProjector.
+Since 4.8.0.
 */
 type OpenProjectorParams struct {
 	requests.ParamsBasic
@@ -37,8 +36,7 @@ func (o *OpenProjectorParams) GetSelfName() string {
 /*
 OpenProjectorResponse represents the response body for the "OpenProjector" request.
 Open a projector window or create a projector on a monitor. Requires OBS v24.0.4 or newer.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#OpenProjector.
+Since v4.8.0.
 */
 type OpenProjectorResponse struct {
 	requests.ResponseBasic

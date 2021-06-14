@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetCurrentTransitionParams represents the params body for the "SetCurrentTransition" request.
 Set the active transition.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetCurrentTransition.
+Since 0.3.
 */
 type SetCurrentTransitionParams struct {
 	requests.ParamsBasic
@@ -25,8 +24,7 @@ func (o *SetCurrentTransitionParams) GetSelfName() string {
 /*
 SetCurrentTransitionResponse represents the response body for the "SetCurrentTransition" request.
 Set the active transition.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetCurrentTransition.
+Since v0.3.
 */
 type SetCurrentTransitionResponse struct {
 	requests.ResponseBasic

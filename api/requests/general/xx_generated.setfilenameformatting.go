@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetFilenameFormattingParams represents the params body for the "SetFilenameFormatting" request.
 Set the filename formatting string
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetFilenameFormatting.
+Since 4.3.0.
 */
 type SetFilenameFormattingParams struct {
 	requests.ParamsBasic
@@ -25,8 +24,7 @@ func (o *SetFilenameFormattingParams) GetSelfName() string {
 /*
 SetFilenameFormattingResponse represents the response body for the "SetFilenameFormatting" request.
 Set the filename formatting string
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetFilenameFormatting.
+Since v4.3.0.
 */
 type SetFilenameFormattingResponse struct {
 	requests.ResponseBasic

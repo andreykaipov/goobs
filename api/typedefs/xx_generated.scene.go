@@ -2,11 +2,7 @@
 
 package typedefs
 
-/*
-Scene represents the complex type for Scene.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#Scene.
-*/
+// Scene represents the complex type for Scene.
 type Scene struct {
 	// Name of the currently active scene.
 	Name string `json:"name"`

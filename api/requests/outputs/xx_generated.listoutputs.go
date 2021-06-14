@@ -10,8 +10,7 @@ import (
 /*
 ListOutputsParams represents the params body for the "ListOutputs" request.
 List existing outputs
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ListOutputs.
+Since 4.7.0.
 */
 type ListOutputsParams struct {
 	requests.ParamsBasic
@@ -25,8 +24,7 @@ func (o *ListOutputsParams) GetSelfName() string {
 /*
 ListOutputsResponse represents the response body for the "ListOutputs" request.
 List existing outputs
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ListOutputs.
+Since v4.7.0.
 */
 type ListOutputsResponse struct {
 	requests.ResponseBasic

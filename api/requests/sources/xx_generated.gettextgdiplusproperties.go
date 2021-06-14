@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetTextGDIPlusPropertiesParams represents the params body for the "GetTextGDIPlusProperties" request.
 Get the current properties of a Text GDI Plus source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
+Since 4.1.0.
 */
 type GetTextGDIPlusPropertiesParams struct {
 	requests.ParamsBasic
@@ -25,8 +24,7 @@ func (o *GetTextGDIPlusPropertiesParams) GetSelfName() string {
 /*
 GetTextGDIPlusPropertiesResponse represents the response body for the "GetTextGDIPlusProperties" request.
 Get the current properties of a Text GDI Plus source.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetTextGDIPlusProperties.
+Since v4.1.0.
 */
 type GetTextGDIPlusPropertiesResponse struct {
 	requests.ResponseBasic

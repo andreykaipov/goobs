@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetRecordingFolderParams represents the params body for the "GetRecordingFolder" request.
 Get the path of  the current recording folder.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetRecordingFolder.
+Since 4.1.0.
 */
 type GetRecordingFolderParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *GetRecordingFolderParams) GetSelfName() string {
 /*
 GetRecordingFolderResponse represents the response body for the "GetRecordingFolder" request.
 Get the path of  the current recording folder.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetRecordingFolder.
+Since v4.1.0.
 */
 type GetRecordingFolderResponse struct {
 	requests.ResponseBasic

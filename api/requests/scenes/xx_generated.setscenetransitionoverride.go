@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetSceneTransitionOverrideParams represents the params body for the "SetSceneTransitionOverride" request.
 Set a scene to use a specific transition override.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneTransitionOverride.
+Since 4.9.0.
 */
 type SetSceneTransitionOverrideParams struct {
 	requests.ParamsBasic
@@ -33,8 +32,7 @@ func (o *SetSceneTransitionOverrideParams) GetSelfName() string {
 /*
 SetSceneTransitionOverrideResponse represents the response body for the "SetSceneTransitionOverride" request.
 Set a scene to use a specific transition override.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneTransitionOverride.
+Since v4.9.0.
 */
 type SetSceneTransitionOverrideResponse struct {
 	requests.ResponseBasic

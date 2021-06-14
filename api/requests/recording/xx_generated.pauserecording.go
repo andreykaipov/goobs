@@ -8,8 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 PauseRecordingParams represents the params body for the "PauseRecording" request.
 Pause the current recording.
 Returns an error if recording is not active or already paused.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#PauseRecording.
+Since 4.7.0.
 */
 type PauseRecordingParams struct {
 	requests.ParamsBasic
@@ -24,8 +23,7 @@ func (o *PauseRecordingParams) GetSelfName() string {
 PauseRecordingResponse represents the response body for the "PauseRecording" request.
 Pause the current recording.
 Returns an error if recording is not active or already paused.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#PauseRecording.
+Since v4.7.0.
 */
 type PauseRecordingResponse struct {
 	requests.ResponseBasic

@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 StartStopStreamingParams represents the params body for the "StartStopStreaming" request.
 Toggle streaming on or off.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartStopStreaming.
+Since 0.3.
 */
 type StartStopStreamingParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *StartStopStreamingParams) GetSelfName() string {
 /*
 StartStopStreamingResponse represents the response body for the "StartStopStreaming" request.
 Toggle streaming on or off.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartStopStreaming.
+Since v0.3.
 */
 type StartStopStreamingResponse struct {
 	requests.ResponseBasic

@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 DisableStudioModeParams represents the params body for the "DisableStudioMode" request.
 Disables Studio Mode.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#DisableStudioMode.
+Since 4.1.0.
 */
 type DisableStudioModeParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *DisableStudioModeParams) GetSelfName() string {
 /*
 DisableStudioModeResponse represents the response body for the "DisableStudioMode" request.
 Disables Studio Mode.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#DisableStudioMode.
+Since v4.1.0.
 */
 type DisableStudioModeResponse struct {
 	requests.ResponseBasic

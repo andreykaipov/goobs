@@ -4,8 +4,7 @@ package events
 
 /*
 SourceCreated represents the event body for the "SourceCreated" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SourceCreated.
+Since v4.6.0.
 */
 type SourceCreated struct {
 	EventBasic

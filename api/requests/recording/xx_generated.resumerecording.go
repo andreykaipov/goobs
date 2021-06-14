@@ -8,8 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 ResumeRecordingParams represents the params body for the "ResumeRecording" request.
 Resume/unpause the current recording (if paused).
 Returns an error if recording is not active or not paused.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ResumeRecording.
+Since 4.7.0.
 */
 type ResumeRecordingParams struct {
 	requests.ParamsBasic
@@ -24,8 +23,7 @@ func (o *ResumeRecordingParams) GetSelfName() string {
 ResumeRecordingResponse represents the response body for the "ResumeRecording" request.
 Resume/unpause the current recording (if paused).
 Returns an error if recording is not active or not paused.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ResumeRecording.
+Since v4.7.0.
 */
 type ResumeRecordingResponse struct {
 	requests.ResponseBasic

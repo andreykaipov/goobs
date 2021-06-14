@@ -8,8 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 TransitionToProgramParams represents the params body for the "TransitionToProgram" request.
 Transitions the currently previewed scene to the main output.
 Will return an `error` if Studio Mode is not enabled.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#TransitionToProgram.
+Since 4.1.0.
 */
 type TransitionToProgramParams struct {
 	requests.ParamsBasic
@@ -32,8 +31,7 @@ func (o *TransitionToProgramParams) GetSelfName() string {
 TransitionToProgramResponse represents the response body for the "TransitionToProgram" request.
 Transitions the currently previewed scene to the main output.
 Will return an `error` if Studio Mode is not enabled.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#TransitionToProgram.
+Since v4.1.0.
 */
 type TransitionToProgramResponse struct {
 	requests.ResponseBasic

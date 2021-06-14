@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SaveStreamSettingsParams represents the params body for the "SaveStreamSettings" request.
 Save the current streaming server settings to disk.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SaveStreamSettings.
+Since 4.1.0.
 */
 type SaveStreamSettingsParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *SaveStreamSettingsParams) GetSelfName() string {
 /*
 SaveStreamSettingsResponse represents the response body for the "SaveStreamSettings" request.
 Save the current streaming server settings to disk.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SaveStreamSettings.
+Since v4.1.0.
 */
 type SaveStreamSettingsResponse struct {
 	requests.ResponseBasic

@@ -2,11 +2,7 @@
 
 package typedefs
 
-/*
-SceneItem represents the complex type for SceneItem.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SceneItem.
-*/
+// SceneItem represents the complex type for SceneItem.
 type SceneItem struct {
 	// The point on the source that the item is manipulated from. The sum of 1=Left or 2=Right, and
 	// 4=Top or 8=Bottom, or omit to center on that axis.

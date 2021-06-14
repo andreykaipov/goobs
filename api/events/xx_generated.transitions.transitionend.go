@@ -4,8 +4,7 @@ package events
 
 /*
 TransitionEnd represents the event body for the "TransitionEnd" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#TransitionEnd.
+Since v4.8.0.
 */
 type TransitionEnd struct {
 	EventBasic

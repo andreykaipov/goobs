@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetHeartbeatParams represents the params body for the "SetHeartbeat" request.
 Enable/disable sending of the Heartbeat event
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetHeartbeat.
+Since 4.3.0.
 */
 type SetHeartbeatParams struct {
 	requests.ParamsBasic
@@ -25,8 +24,7 @@ func (o *SetHeartbeatParams) GetSelfName() string {
 /*
 SetHeartbeatResponse represents the response body for the "SetHeartbeat" request.
 Enable/disable sending of the Heartbeat event
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetHeartbeat.
+Since v4.3.0.
 */
 type SetHeartbeatResponse struct {
 	requests.ResponseBasic

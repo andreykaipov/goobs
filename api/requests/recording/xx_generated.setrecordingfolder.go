@@ -11,8 +11,7 @@ In the current profile, sets the recording folder of the Simple and Advanced out
 Please note: if `SetRecordingFolder` is called while a recording is
 in progress, the change won't be applied immediately and will be
 effective on the next recording.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetRecordingFolder.
+Since 4.1.0.
 */
 type SetRecordingFolderParams struct {
 	requests.ParamsBasic
@@ -33,8 +32,7 @@ In the current profile, sets the recording folder of the Simple and Advanced out
 Please note: if `SetRecordingFolder` is called while a recording is
 in progress, the change won't be applied immediately and will be
 effective on the next recording.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetRecordingFolder.
+Since v4.1.0.
 */
 type SetRecordingFolderResponse struct {
 	requests.ResponseBasic

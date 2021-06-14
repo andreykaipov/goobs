@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 ReorderSceneItemsParams represents the params body for the "ReorderSceneItems" request.
 Changes the order of scene items in the requested scene.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ReorderSceneItems.
+Since 4.5.0.
 */
 type ReorderSceneItemsParams struct {
 	requests.ParamsBasic
@@ -34,8 +33,7 @@ func (o *ReorderSceneItemsParams) GetSelfName() string {
 /*
 ReorderSceneItemsResponse represents the response body for the "ReorderSceneItems" request.
 Changes the order of scene items in the requested scene.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ReorderSceneItems.
+Since v4.5.0.
 */
 type ReorderSceneItemsResponse struct {
 	requests.ResponseBasic

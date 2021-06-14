@@ -10,8 +10,7 @@ import (
 /*
 GetCurrentSceneParams represents the params body for the "GetCurrentScene" request.
 Get the current scene's name and source items.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetCurrentScene.
+Since 0.3.
 */
 type GetCurrentSceneParams struct {
 	requests.ParamsBasic
@@ -25,8 +24,7 @@ func (o *GetCurrentSceneParams) GetSelfName() string {
 /*
 GetCurrentSceneResponse represents the response body for the "GetCurrentScene" request.
 Get the current scene's name and source items.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetCurrentScene.
+Since v0.3.
 */
 type GetCurrentSceneResponse struct {
 	requests.ResponseBasic

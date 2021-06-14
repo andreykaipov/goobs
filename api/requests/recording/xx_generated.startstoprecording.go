@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 StartStopRecordingParams represents the params body for the "StartStopRecording" request.
 Toggle recording on or off.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartStopRecording.
+Since 0.3.
 */
 type StartStopRecordingParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *StartStopRecordingParams) GetSelfName() string {
 /*
 StartStopRecordingResponse represents the response body for the "StartStopRecording" request.
 Toggle recording on or off.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartStopRecording.
+Since v0.3.
 */
 type StartStopRecordingResponse struct {
 	requests.ResponseBasic

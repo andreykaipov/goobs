@@ -8,8 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 StopRecordingParams represents the params body for the "StopRecording" request.
 Stop recording.
 Will return an `error` if recording is not active.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StopRecording.
+Since 4.1.0.
 */
 type StopRecordingParams struct {
 	requests.ParamsBasic
@@ -24,8 +23,7 @@ func (o *StopRecordingParams) GetSelfName() string {
 StopRecordingResponse represents the response body for the "StopRecording" request.
 Stop recording.
 Will return an `error` if recording is not active.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StopRecording.
+Since v4.1.0.
 */
 type StopRecordingResponse struct {
 	requests.ResponseBasic

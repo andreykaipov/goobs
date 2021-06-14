@@ -4,8 +4,7 @@ package events
 
 /*
 SourceVolumeChanged represents the event body for the "SourceVolumeChanged" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SourceVolumeChanged.
+Since v4.6.0.
 */
 type SourceVolumeChanged struct {
 	EventBasic

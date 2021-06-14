@@ -4,8 +4,7 @@ package events
 
 /*
 RecordingStarting represents the event body for the "RecordingStarting" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#RecordingStarting.
+Since v0.3.
 */
 type RecordingStarting struct {
 	EventBasic

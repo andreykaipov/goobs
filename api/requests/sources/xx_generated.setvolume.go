@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 SetVolumeParams represents the params body for the "SetVolume" request.
 Set the volume of the specified source. Default request format uses mul, NOT SLIDER PERCENTAGE.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetVolume.
+Since 4.0.0.
 */
 type SetVolumeParams struct {
 	requests.ParamsBasic
@@ -32,8 +31,7 @@ func (o *SetVolumeParams) GetSelfName() string {
 /*
 SetVolumeResponse represents the response body for the "SetVolume" request.
 Set the volume of the specified source. Default request format uses mul, NOT SLIDER PERCENTAGE.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetVolume.
+Since v4.0.0.
 */
 type SetVolumeResponse struct {
 	requests.ResponseBasic

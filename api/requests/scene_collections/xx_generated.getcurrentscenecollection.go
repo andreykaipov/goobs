@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetCurrentSceneCollectionParams represents the params body for the "GetCurrentSceneCollection" request.
 Get the name of the current scene collection.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetCurrentSceneCollection.
+Since 4.0.0.
 */
 type GetCurrentSceneCollectionParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *GetCurrentSceneCollectionParams) GetSelfName() string {
 /*
 GetCurrentSceneCollectionResponse represents the response body for the "GetCurrentSceneCollection" request.
 Get the name of the current scene collection.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetCurrentSceneCollection.
+Since v4.0.0.
 */
 type GetCurrentSceneCollectionResponse struct {
 	requests.ResponseBasic

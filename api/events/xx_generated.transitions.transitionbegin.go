@@ -4,8 +4,7 @@ package events
 
 /*
 TransitionBegin represents the event body for the "TransitionBegin" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#TransitionBegin.
+Since v4.0.0.
 */
 type TransitionBegin struct {
 	EventBasic

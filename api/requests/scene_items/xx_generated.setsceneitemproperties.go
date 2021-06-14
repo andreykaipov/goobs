@@ -8,8 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetSceneItemPropertiesParams represents the params body for the "SetSceneItemProperties" request.
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneItemProperties.
+Since 4.3.0.
 */
 type SetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
@@ -94,8 +93,7 @@ func (o *SetSceneItemPropertiesParams) GetSelfName() string {
 SetSceneItemPropertiesResponse represents the response body for the "SetSceneItemProperties" request.
 Sets the scene specific properties of a source. Unspecified properties will remain unchanged.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetSceneItemProperties.
+Since v4.3.0.
 */
 type SetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic

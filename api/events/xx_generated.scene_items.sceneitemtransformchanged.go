@@ -6,8 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 /*
 SceneItemTransformChanged represents the event body for the "SceneItemTransformChanged" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SceneItemTransformChanged.
+Since v4.6.0.
 */
 type SceneItemTransformChanged struct {
 	EventBasic

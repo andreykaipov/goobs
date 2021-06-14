@@ -4,8 +4,7 @@ package events
 
 /*
 SceneItemSelected represents the event body for the "SceneItemSelected" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SceneItemSelected.
+Since v4.6.0.
 */
 type SceneItemSelected struct {
 	EventBasic

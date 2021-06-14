@@ -4,8 +4,7 @@ package events
 
 /*
 ReplayStarting represents the event body for the "ReplayStarting" event.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ReplayStarting.
+Since v4.2.0.
 */
 type ReplayStarting struct {
 	EventBasic

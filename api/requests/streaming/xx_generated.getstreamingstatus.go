@@ -7,8 +7,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetStreamingStatusParams represents the params body for the "GetStreamingStatus" request.
 Get current streaming and recording status.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStreamingStatus.
+Since 0.3.
 */
 type GetStreamingStatusParams struct {
 	requests.ParamsBasic
@@ -22,8 +21,7 @@ func (o *GetStreamingStatusParams) GetSelfName() string {
 /*
 GetStreamingStatusResponse represents the response body for the "GetStreamingStatus" request.
 Get current streaming and recording status.
-
-Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStreamingStatus.
+Since v0.3.
 */
 type GetStreamingStatusResponse struct {
 	requests.ResponseBasic

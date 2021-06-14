@@ -10,7 +10,7 @@ type Params interface {
 
 	// The name of the actual request, i.e. "Abc" for "AbcParams". Used to
 	// set the RequestType.
-	Name() string
+	GetSelfName() string
 }
 
 // ParamsBasic represents common parameters for any request.

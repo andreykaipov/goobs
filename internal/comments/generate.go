@@ -102,8 +102,8 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	}
 
 	s.Add(
-		Commentf("Name just returns %q.", request.Name).Line(),
-		Func().Params(Id("o").Op("*").Id(structName)).Id("Name").Params().String().Block(
+		Commentf("GetSelfName just returns %q.", request.Name).Line(),
+		Func().Params(Id("o").Op("*").Id(structName)).Id("GetSelfName").Params().String().Block(
 			Return(Lit(request.Name)),
 		).Line(),
 	)

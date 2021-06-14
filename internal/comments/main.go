@@ -173,6 +173,31 @@ func main() {
 	if err := f.Save(fmt.Sprintf("%s/xx_generated.events.go", dir)); err != nil {
 		panic(err)
 	}
+
+	/**********************/
+	fmt.Println("TypeDefs")
+	dir = fmt.Sprintf("%s/api/typedefs", root)
+	if err := os.MkdirAll(dir, 0777); err != nil {
+		panic(err)
+	}
+
+	for _, typeDef := range data.TypeDefs {
+		name := typeDef.TypeDefs[0].Name
+		fmt.Printf("- %s\n", name)
+
+		s, err := generateTypeDef(typeDef)
+		if err != nil {
+			panic(err)
+		}
+
+		f := NewFile("typedefs")
+		f.HeaderComment("This file has been automatically generated. Don't edit it.")
+		f.Add(s)
+		fName := strings.ToLower(name)
+		if err := f.Save(fmt.Sprintf("%s/xx_generated.%s.go", dir, fName)); err != nil {
+			panic(err)
+		}
+	}
 }
 
 func generateRequest(request *Request) (s *Statement, err error) {
@@ -184,7 +209,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = request.Name + "Params"
 	s.Commentf("%s represents the params body for the %q request.\n%s%s\n\n%s", structName, request.Name, request.Lead, request.Description, note).Line()
 	request.Params = append(request.Params, &Param{Name: "ParamsBasic", Type: "~requests~"}) // internal type
-	if err = generateStructFromParams(s, structName, request.Params); err != nil {
+	if err = generateStructFromParams("request", s, structName, request.Params); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, request.Category)
 	}
 
@@ -199,7 +224,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = request.Name + "Response"
 	s.Commentf("%s represents the response body for the %q request.\n%s%s\n\n%s", structName, request.Name, request.Lead, request.Description, note).Line()
 	request.Returns = append(request.Returns, &Param{Name: "ResponseBasic", Type: "~requests~"}) // internal type
-	if err = generateStructFromParams(s, structName, request.Returns); err != nil {
+	if err = generateStructFromParams("request", s, structName, request.Returns); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, request.Category)
 	}
 
@@ -252,14 +277,27 @@ func generateEvent(event *Event) (s *Statement, err error) {
 
 	s.Commentf("%s represents the event body for the %q event.\n\n%s", event.Name, event.Name, note).Line()
 	event.Returns = append(event.Returns, &Param{Name: "EventBasic", Type: "~events~"}) // internal type
-	if err = generateStructFromParams(s, event.Name, event.Returns); err != nil {
+	if err = generateStructFromParams("event", s, event.Name, event.Returns); err != nil {
 		return nil, fmt.Errorf("Failed generating event %q in category %q", event.Name, event.Category)
 	}
 
 	return s, nil
 }
 
-func generateStructFromParams(s *Statement, name string, params []*Param) error {
+func generateTypeDef(typeDef *TypeDef) (s *Statement, err error) {
+	name := typeDef.TypeDefs[0].Name
+
+	s = Line()
+	note := fmt.Sprintf("Generated from https://github.com/Palakis/obs-websocket/blob/%s/docs/generated/protocol.md#%s.", version, name)
+	s.Commentf("%s represents the complex type for %s.\n\n%s", name, name, note).Line()
+	if err = generateStructFromParams("typedef", s, name, typeDef.Properties); err != nil {
+		return nil, fmt.Errorf("Failed generating struct for complex type %q", name)
+	}
+
+	return s, nil
+}
+
+func generateStructFromParams(origin string, s *Statement, name string, params []*Param) error {
 	keysInfo := map[string]keyInfo{}
 
 	for _, field := range params {
@@ -285,6 +323,10 @@ func generateStructFromParams(s *Statement, name string, params []*Param) error 
 			fieldType = Float64()
 		case "float":
 			fieldType = Float64()
+		case "Number":
+			// only happens in SceneItem https://github.com/Palakis/obs-websocket/blob/4.9.1/src/Utils.cpp#L160
+			// used for both Ints & Floats, so we'll use Float
+			fieldType = Float64()
 		case "bool":
 			fieldType = Bool()
 		case "boolean":
@@ -294,17 +336,31 @@ func generateStructFromParams(s *Statement, name string, params []*Param) error 
 		case "Object":
 			fieldType = Map(String()).Interface()
 		case "OBSStats":
-			fieldType = Map(String()).Interface()
+			fieldType = Index().Qual(goobs+"/api/typedefs", "OBSStats")
 		case "SceneItemTransform":
-			fieldType = Map(String()).Interface()
+			fieldType = Index().Qual(goobs+"/api/typedefs", "SceneItemTransform")
 		case "Array<String>":
 			fieldType = Index().String()
 		case "Array<Object>":
 			fieldType = Index().Map(String()).Interface()
-		case "Array<SceneItem>":
-			fieldType = Index().Map(String()).Interface()
 		case "Array<Scene>":
 			fieldType = Index().Map(String()).Interface()
+		case "Array<SceneItem>":
+			switch origin {
+			case "typedef":
+				fieldType = Index().Id("SceneItem")
+			default:
+				fieldType = Index().Qual(goobs+"/api/typedefs", "SceneItem")
+			}
+		case "Array<SceneItemTransform>":
+			switch origin {
+			case "typedef":
+				fieldType = Index().Id("SceneItemTransform")
+			default:
+				fieldType = Index().Qual(goobs+"/api/typedefs", "SceneItemTransform")
+			}
+		// internal types that add embed a manually written struct
+		// within the generated struct
 		case "~requests~":
 			fieldType = Qual(goobs+"/api/requests", field.Name)
 			embedded = true

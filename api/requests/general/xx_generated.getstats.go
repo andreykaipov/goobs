@@ -11,7 +11,7 @@ import (
 GetStatsParams represents the params body for the "GetStats" request.
 Get OBS stats (almost the same info as provided in OBS' stats window)
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetStats.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStats.
 */
 type GetStatsParams struct {
 	requests.ParamsBasic
@@ -26,7 +26,7 @@ func (o *GetStatsParams) Name() string {
 GetStatsResponse represents the response body for the "GetStats" request.
 Get OBS stats (almost the same info as provided in OBS' stats window)
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetStats.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStats.
 */
 type GetStatsResponse struct {
 	requests.ResponseBasic

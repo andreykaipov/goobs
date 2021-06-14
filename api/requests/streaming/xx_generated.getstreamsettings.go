@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetStreamSettingsParams represents the params body for the "GetStreamSettings" request.
 Get the current streaming server settings.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetStreamSettings.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStreamSettings.
 */
 type GetStreamSettingsParams struct {
 	requests.ParamsBasic
@@ -23,7 +23,7 @@ func (o *GetStreamSettingsParams) Name() string {
 GetStreamSettingsResponse represents the response body for the "GetStreamSettings" request.
 Get the current streaming server settings.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetStreamSettings.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetStreamSettings.
 */
 type GetStreamSettingsResponse struct {
 	requests.ResponseBasic
@@ -32,7 +32,7 @@ type GetStreamSettingsResponse struct {
 		// The publish key of the stream.
 		Key string `json:"key"`
 
-		// The password to use when accessing the streaming server. Only present if `use-auth` is
+		// The password to use when accessing the streaming server. Only present if `use_auth` is
 		// `true`.
 		Password string `json:"password"`
 
@@ -40,9 +40,9 @@ type GetStreamSettingsResponse struct {
 		Server string `json:"server"`
 
 		// Indicates whether authentication should be used when connecting to the streaming server.
-		UseAuth bool `json:"use-auth"`
+		UseAuth bool `json:"use_auth"`
 
-		// The username to use when accessing the streaming server. Only present if `use-auth` is
+		// The username to use when accessing the streaming server. Only present if `use_auth` is
 		// `true`.
 		Username string `json:"username"`
 	} `json:"settings"`

@@ -9,7 +9,7 @@ StartStreamingParams represents the params body for the "StartStreaming" request
 Start streaming.
 Will return an `error` if streaming is already active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StartStreaming.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartStreaming.
 */
 type StartStreamingParams struct {
 	requests.ParamsBasic
@@ -25,7 +25,7 @@ type StartStreamingParams struct {
 			Key string `json:"key"`
 
 			// If authentication is enabled, the password for the streaming server. Ignored if
-			// `use-auth` is not set to `true`.
+			// `use_auth` is not set to `true`.
 			Password string `json:"password"`
 
 			// The publish URL.
@@ -33,10 +33,10 @@ type StartStreamingParams struct {
 
 			// Indicates whether authentication should be used when connecting to the streaming
 			// server.
-			UseAuth bool `json:"use-auth"`
+			UseAuth bool `json:"use_auth"`
 
 			// If authentication is enabled, the username for the streaming server. Ignored if
-			// `use-auth` is not set to `true`.
+			// `use_auth` is not set to `true`.
 			Username string `json:"username"`
 		} `json:"settings"`
 
@@ -58,7 +58,7 @@ StartStreamingResponse represents the response body for the "StartStreaming" req
 Start streaming.
 Will return an `error` if streaming is already active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StartStreaming.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartStreaming.
 */
 type StartStreamingResponse struct {
 	requests.ResponseBasic

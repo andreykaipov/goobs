@@ -5,7 +5,7 @@ package typedefs
 /*
 Output represents the complex type for Output.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#Output.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#Output.
 */
 type Output struct {
 	// Output status (active or not)

@@ -5,7 +5,7 @@ package events
 /*
 SourceAudioMixersChanged represents the event body for the "SourceAudioMixersChanged" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SourceAudioMixersChanged.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SourceAudioMixersChanged.
 */
 type SourceAudioMixersChanged struct {
 	EventBasic

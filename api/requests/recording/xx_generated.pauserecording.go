@@ -9,7 +9,7 @@ PauseRecordingParams represents the params body for the "PauseRecording" request
 Pause the current recording.
 Returns an error if recording is not active or already paused.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#PauseRecording.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#PauseRecording.
 */
 type PauseRecordingParams struct {
 	requests.ParamsBasic
@@ -25,7 +25,7 @@ PauseRecordingResponse represents the response body for the "PauseRecording" req
 Pause the current recording.
 Returns an error if recording is not active or already paused.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#PauseRecording.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#PauseRecording.
 */
 type PauseRecordingResponse struct {
 	requests.ResponseBasic

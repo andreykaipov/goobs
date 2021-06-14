@@ -34,6 +34,22 @@ func GetEventForType(name string) Event {
 		return &ReplayStopping{}
 	case "ReplayStopped":
 		return &ReplayStopped{}
+	case "SourceOrderChanged":
+		return &SourceOrderChanged{}
+	case "SceneItemAdded":
+		return &SceneItemAdded{}
+	case "SceneItemRemoved":
+		return &SceneItemRemoved{}
+	case "SceneItemVisibilityChanged":
+		return &SceneItemVisibilityChanged{}
+	case "SceneItemLockChanged":
+		return &SceneItemLockChanged{}
+	case "SceneItemTransformChanged":
+		return &SceneItemTransformChanged{}
+	case "SceneItemSelected":
+		return &SceneItemSelected{}
+	case "SceneItemDeselected":
+		return &SceneItemDeselected{}
 	case "SwitchScenes":
 		return &SwitchScenes{}
 	case "ScenesChanged":
@@ -64,20 +80,6 @@ func GetEventForType(name string) Event {
 		return &SourceFilterVisibilityChanged{}
 	case "SourceFiltersReordered":
 		return &SourceFiltersReordered{}
-	case "SourceOrderChanged":
-		return &SourceOrderChanged{}
-	case "SceneItemAdded":
-		return &SceneItemAdded{}
-	case "SceneItemRemoved":
-		return &SceneItemRemoved{}
-	case "SceneItemVisibilityChanged":
-		return &SceneItemVisibilityChanged{}
-	case "SceneItemTransformChanged":
-		return &SceneItemTransformChanged{}
-	case "SceneItemSelected":
-		return &SceneItemSelected{}
-	case "SceneItemDeselected":
-		return &SceneItemDeselected{}
 	case "StreamStarting":
 		return &StreamStarting{}
 	case "StreamStarted":
@@ -100,6 +102,10 @@ func GetEventForType(name string) Event {
 		return &TransitionDurationChanged{}
 	case "TransitionBegin":
 		return &TransitionBegin{}
+	case "TransitionEnd":
+		return &TransitionEnd{}
+	case "TransitionVideoEnd":
+		return &TransitionVideoEnd{}
 	default:
 		return nil
 	}

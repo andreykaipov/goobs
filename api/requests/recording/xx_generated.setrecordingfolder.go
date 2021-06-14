@@ -12,7 +12,7 @@ Please note: if `SetRecordingFolder` is called while a recording is
 in progress, the change won't be applied immediately and will be
 effective on the next recording.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetRecordingFolder.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetRecordingFolder.
 */
 type SetRecordingFolderParams struct {
 	requests.ParamsBasic
@@ -34,7 +34,7 @@ Please note: if `SetRecordingFolder` is called while a recording is
 in progress, the change won't be applied immediately and will be
 effective on the next recording.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SetRecordingFolder.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SetRecordingFolder.
 */
 type SetRecordingFolderResponse struct {
 	requests.ResponseBasic

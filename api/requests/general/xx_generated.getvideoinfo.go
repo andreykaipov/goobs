@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetVideoInfoParams represents the params body for the "GetVideoInfo" request.
 Get basic OBS video information
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetVideoInfo.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVideoInfo.
 */
 type GetVideoInfoParams struct {
 	requests.ParamsBasic
@@ -23,7 +23,7 @@ func (o *GetVideoInfoParams) Name() string {
 GetVideoInfoResponse represents the response body for the "GetVideoInfo" request.
 Get basic OBS video information
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetVideoInfo.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetVideoInfo.
 */
 type GetVideoInfoResponse struct {
 	requests.ResponseBasic

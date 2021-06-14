@@ -9,7 +9,7 @@ ResumeRecordingParams represents the params body for the "ResumeRecording" reque
 Resume/unpause the current recording (if paused).
 Returns an error if recording is not active or not paused.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#ResumeRecording.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ResumeRecording.
 */
 type ResumeRecordingParams struct {
 	requests.ParamsBasic
@@ -25,7 +25,7 @@ ResumeRecordingResponse represents the response body for the "ResumeRecording" r
 Resume/unpause the current recording (if paused).
 Returns an error if recording is not active or not paused.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#ResumeRecording.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#ResumeRecording.
 */
 type ResumeRecordingResponse struct {
 	requests.ResponseBasic

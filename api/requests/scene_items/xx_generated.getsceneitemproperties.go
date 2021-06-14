@@ -2,22 +2,30 @@
 
 package sceneitems
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 GetSceneItemPropertiesParams represents the params body for the "GetSceneItemProperties" request.
 Gets the scene specific properties of the specified source item.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneItemProperties.
 */
 type GetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
 
-	// The name of the source.
-	Item string `json:"item"`
+	Item struct {
+		// Scene Item ID (if the `item` field is an object)
+		Id int `json:"id"`
 
-	// the name of the scene that the source item belongs to. Defaults to the current scene.
+		// Scene Item name (if the `item` field is an object)
+		Name string `json:"name"`
+	} `json:"item"`
+
+	// Name of the scene the scene item belongs to. Defaults to the current scene.
 	SceneName string `json:"scene-name"`
 }
 
@@ -31,10 +39,14 @@ GetSceneItemPropertiesResponse represents the response body for the "GetSceneIte
 Gets the scene specific properties of the specified source item.
 Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneItemProperties.
 */
 type GetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic
+
+	// The point on the source that the item is manipulated from. The sum of 1=Left or 2=Right, and
+	// 4=Top or 8=Bottom, or omit to center on that axis.
+	Alignment int `json:"alignment"`
 
 	Bounds struct {
 		// Alignment of the bounding box.
@@ -66,14 +78,26 @@ type GetSceneItemPropertiesResponse struct {
 		Top int `json:"top"`
 	} `json:"crop"`
 
+	// List of children (if this item is a group)
+	GroupChildren []typedefs.SceneItemTransform `json:"groupChildren"`
+
 	// Scene item height (base source height multiplied by the vertical scaling factor)
 	Height float64 `json:"height"`
+
+	// Scene Item ID.
+	ItemId int `json:"itemId"`
 
 	// If the source's transform is locked.
 	Locked bool `json:"locked"`
 
-	// The name of the source.
+	// If the source is muted.
+	Muted bool `json:"muted"`
+
+	// Scene Item name.
 	Name string `json:"name"`
+
+	// Name of the item's parent (if this item belongs to a group)
+	ParentGroupName string `json:"parentGroupName"`
 
 	Position struct {
 		// The point on the source that the item is manipulated from.

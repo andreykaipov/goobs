@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 BroadcastCustomMessageParams represents the params body for the "BroadcastCustomMessage" request.
 Broadcast custom message to all connected WebSocket clients
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#BroadcastCustomMessage.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#BroadcastCustomMessage.
 */
 type BroadcastCustomMessageParams struct {
 	requests.ParamsBasic
@@ -29,7 +29,7 @@ func (o *BroadcastCustomMessageParams) Name() string {
 BroadcastCustomMessageResponse represents the response body for the "BroadcastCustomMessage" request.
 Broadcast custom message to all connected WebSocket clients
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#BroadcastCustomMessage.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#BroadcastCustomMessage.
 */
 type BroadcastCustomMessageResponse struct {
 	requests.ResponseBasic

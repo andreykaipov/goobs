@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetSceneListParams represents the params body for the "GetSceneList" request.
 Get a list of scenes in the currently active profile.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetSceneList.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneList.
 */
 type GetSceneListParams struct {
 	requests.ParamsBasic
@@ -23,7 +23,7 @@ func (o *GetSceneListParams) Name() string {
 GetSceneListResponse represents the response body for the "GetSceneList" request.
 Get a list of scenes in the currently active profile.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetSceneList.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#GetSceneList.
 */
 type GetSceneListResponse struct {
 	requests.ResponseBasic
@@ -31,7 +31,7 @@ type GetSceneListResponse struct {
 	// Name of the currently active scene.
 	CurrentScene string `json:"current-scene"`
 
-	// Ordered list of the current profile's scenes (See `[GetCurrentScene](#getcurrentscene)` for
+	// Ordered list of the current profile's scenes (See [GetCurrentScene](#getcurrentscene) for
 	// more information).
 	Scenes []map[string]interface{} `json:"scenes"`
 }

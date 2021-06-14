@@ -5,7 +5,7 @@ package events
 /*
 SourceFilterVisibilityChanged represents the event body for the "SourceFilterVisibilityChanged" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SourceFilterVisibilityChanged.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SourceFilterVisibilityChanged.
 */
 type SourceFilterVisibilityChanged struct {
 	EventBasic

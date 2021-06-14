@@ -5,7 +5,7 @@ package events
 /*
 SourceMuteStateChanged represents the event body for the "SourceMuteStateChanged" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SourceMuteStateChanged.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#SourceMuteStateChanged.
 */
 type SourceMuteStateChanged struct {
 	EventBasic

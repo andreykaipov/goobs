@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 MoveSourceFilterParams represents the params body for the "MoveSourceFilter" request.
 Move a filter in the chain (relative positioning)
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#MoveSourceFilter.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#MoveSourceFilter.
 */
 type MoveSourceFilterParams struct {
 	requests.ParamsBasic
@@ -33,7 +33,7 @@ func (o *MoveSourceFilterParams) Name() string {
 MoveSourceFilterResponse represents the response body for the "MoveSourceFilter" request.
 Move a filter in the chain (relative positioning)
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#MoveSourceFilter.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#MoveSourceFilter.
 */
 type MoveSourceFilterResponse struct {
 	requests.ResponseBasic

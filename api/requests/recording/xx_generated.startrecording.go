@@ -9,7 +9,7 @@ StartRecordingParams represents the params body for the "StartRecording" request
 Start recording.
 Will return an `error` if recording is already active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StartRecording.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartRecording.
 */
 type StartRecordingParams struct {
 	requests.ParamsBasic
@@ -25,7 +25,7 @@ StartRecordingResponse represents the response body for the "StartRecording" req
 Start recording.
 Will return an `error` if recording is already active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StartRecording.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.8.0/docs/generated/protocol.md#StartRecording.
 */
 type StartRecordingResponse struct {
 	requests.ResponseBasic

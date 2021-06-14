@@ -91,11 +91,10 @@ func generateRequests(data *Comments) {
 func generateRequest(request *Request) (s *Statement, err error) {
 	var structName string
 	s = Line()
-	note := fmt.Sprintf("Generated from https://github.com/Palakis/obs-websocket/blob/%s/docs/generated/protocol.md#%s.", version, request.Name)
 
 	// Params
 	structName = request.Name + "Params"
-	s.Commentf("%s represents the params body for the %q request.\n%s%s\n\n%s", structName, request.Name, request.Lead, request.Description, note).Line()
+	s.Commentf("%s represents the params body for the %q request.\n%s%s\nSince %s.", structName, request.Name, request.Lead, request.Description, request.Since).Line()
 	request.Params = append(request.Params, &Param{Name: "ParamsBasic", Type: "~requests~"}) // internal type
 	if err = generateStructFromParams("request", s, structName, request.Params); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", request.Name, request.Category)
@@ -110,7 +109,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 
 	// Returns
 	structName = request.Name + "Response"
-	s.Commentf("%s represents the response body for the %q request.\n%s%s\n\n%s", structName, request.Name, request.Lead, request.Description, note).Line()
+	s.Commentf("%s represents the response body for the %q request.\n%s%s\nSince v%s.", structName, request.Name, request.Lead, request.Description, request.Since).Line()
 	request.Returns = append(request.Returns, &Param{Name: "ResponseBasic", Type: "~requests~"}) // internal type
 	if err = generateStructFromParams("response", s, structName, request.Returns); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", request.Name, request.Category)
@@ -217,9 +216,8 @@ func generateEvents(data *Comments) {
 
 func generateEvent(event *Event) (s *Statement, err error) {
 	s = Line()
-	note := fmt.Sprintf("Generated from https://github.com/Palakis/obs-websocket/blob/%s/docs/generated/protocol.md#%s.", version, event.Name)
+	s.Commentf("%s represents the event body for the %q event.\nSince v%s.", event.Name, event.Name, event.Since).Line()
 
-	s.Commentf("%s represents the event body for the %q event.\n\n%s", event.Name, event.Name, note).Line()
 	event.Returns = append(event.Returns, &Param{Name: "EventBasic", Type: "~events~"}) // internal type
 	if err = generateStructFromParams("event", s, event.Name, event.Returns); err != nil {
 		return nil, fmt.Errorf("Failed generating event %q in category %q", event.Name, event.Category)
@@ -257,8 +255,8 @@ func generateTypeDef(typeDef *TypeDef) (s *Statement, err error) {
 	name := typeDef.TypeDefs[0].Name
 
 	s = Line()
-	note := fmt.Sprintf("Generated from https://github.com/Palakis/obs-websocket/blob/%s/docs/generated/protocol.md#%s.", version, name)
-	s.Commentf("%s represents the complex type for %s.\n\n%s", name, name, note).Line()
+	s.Commentf("%s represents the complex type for %s.", name, name).Line()
+
 	if err = generateStructFromParams("typedef", s, name, typeDef.Properties); err != nil {
 		return nil, fmt.Errorf("Failed generating struct for complex type %q", name)
 	}

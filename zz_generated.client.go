@@ -4,6 +4,7 @@ package goobs
 
 import (
 	general "github.com/andreykaipov/goobs/api/requests/general"
+	outputs "github.com/andreykaipov/goobs/api/requests/outputs"
 	profiles "github.com/andreykaipov/goobs/api/requests/profiles"
 	recording "github.com/andreykaipov/goobs/api/requests/recording"
 	replaybuffer "github.com/andreykaipov/goobs/api/requests/replay_buffer"
@@ -18,6 +19,7 @@ import (
 
 type subclients struct {
 	General          *general.Client
+	Outputs          *outputs.Client
 	Profiles         *profiles.Client
 	Recording        *recording.Client
 	ReplayBuffer     *replaybuffer.Client
@@ -32,6 +34,7 @@ type subclients struct {
 
 func setClients(c *Client) {
 	c.General = &general.Client{Client: c.Client}
+	c.Outputs = &outputs.Client{Client: c.Client}
 	c.Profiles = &profiles.Client{Client: c.Client}
 	c.Recording = &recording.Client{Client: c.Client}
 	c.ReplayBuffer = &replaybuffer.Client{Client: c.Client}

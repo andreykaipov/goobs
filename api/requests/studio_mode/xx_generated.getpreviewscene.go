@@ -12,7 +12,7 @@ GetPreviewSceneParams represents the params body for the "GetPreviewScene" reque
 Get the name of the currently previewed scene and its list of sources.
 Will return an `error` if Studio Mode is not enabled.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetPreviewScene.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetPreviewScene.
 */
 type GetPreviewSceneParams struct {
 	requests.ParamsBasic
@@ -28,7 +28,7 @@ GetPreviewSceneResponse represents the response body for the "GetPreviewScene" r
 Get the name of the currently previewed scene and its list of sources.
 Will return an `error` if Studio Mode is not enabled.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetPreviewScene.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#GetPreviewScene.
 */
 type GetPreviewSceneResponse struct {
 	requests.ResponseBasic

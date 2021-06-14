@@ -20,7 +20,7 @@ import (
 var (
 	goobs = "github.com/andreykaipov/goobs"
 
-	version  = "4.6.1"
+	version  = "4.7.0"
 	comments = fmt.Sprintf("https://raw.githubusercontent.com/Palakis/obs-websocket/%s/docs/generated/comments.json", version)
 )
 
@@ -339,6 +339,8 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			fieldType = Index().Qual(goobs+"/api/typedefs", "OBSStats")
 		case "SceneItemTransform":
 			fieldType = Index().Qual(goobs+"/api/typedefs", "SceneItemTransform")
+		case "Output":
+			fieldType = Index().Qual(goobs+"/api/typedefs", "Output")
 		case "Array<String>":
 			fieldType = Index().String()
 		case "Array<Object>":
@@ -358,6 +360,13 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 				fieldType = Index().Id("SceneItemTransform")
 			default:
 				fieldType = Index().Qual(goobs+"/api/typedefs", "SceneItemTransform")
+			}
+		case "Array<Output>":
+			switch origin {
+			case "typedef":
+				fieldType = Index().Id("Output")
+			default:
+				fieldType = Index().Qual(goobs+"/api/typedefs", "Output")
 			}
 		// internal types that add embed a manually written struct
 		// within the generated struct

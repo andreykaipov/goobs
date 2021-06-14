@@ -9,7 +9,7 @@ StopRecordingParams represents the params body for the "StopRecording" request.
 Stop recording.
 Will return an `error` if recording is not active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#StopRecording.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StopRecording.
 */
 type StopRecordingParams struct {
 	requests.ParamsBasic
@@ -25,7 +25,7 @@ StopRecordingResponse represents the response body for the "StopRecording" reque
 Stop recording.
 Will return an `error` if recording is not active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#StopRecording.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StopRecording.
 */
 type StopRecordingResponse struct {
 	requests.ResponseBasic

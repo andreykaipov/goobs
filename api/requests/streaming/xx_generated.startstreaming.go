@@ -9,7 +9,7 @@ StartStreamingParams represents the params body for the "StartStreaming" request
 Start streaming.
 Will return an `error` if streaming is already active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#StartStreaming.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StartStreaming.
 */
 type StartStreamingParams struct {
 	requests.ParamsBasic
@@ -58,7 +58,7 @@ StartStreamingResponse represents the response body for the "StartStreaming" req
 Start streaming.
 Will return an `error` if streaming is already active.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#StartStreaming.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#StartStreaming.
 */
 type StartStreamingResponse struct {
 	requests.ResponseBasic

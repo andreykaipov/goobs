@@ -5,7 +5,7 @@ package typedefs
 /*
 SceneItem represents the complex type for SceneItem.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SceneItem.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.7.0/docs/generated/protocol.md#SceneItem.
 */
 type SceneItem struct {
 	Cx float64 `json:"cx"`

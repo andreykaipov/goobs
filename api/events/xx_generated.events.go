@@ -6,6 +6,8 @@ func GetEventForType(name string) Event {
 	switch name {
 	case "Heartbeat":
 		return &Heartbeat{}
+	case "BroadcastCustomMessage":
+		return &BroadcastCustomMessage{}
 	case "Exiting":
 		return &Exiting{}
 	case "ProfileChanged":
@@ -20,6 +22,10 @@ func GetEventForType(name string) Event {
 		return &RecordingStopping{}
 	case "RecordingStopped":
 		return &RecordingStopped{}
+	case "RecordingPaused":
+		return &RecordingPaused{}
+	case "RecordingResumed":
+		return &RecordingResumed{}
 	case "ReplayStarting":
 		return &ReplayStarting{}
 	case "ReplayStarted":
@@ -54,6 +60,8 @@ func GetEventForType(name string) Event {
 		return &SourceFilterAdded{}
 	case "SourceFilterRemoved":
 		return &SourceFilterRemoved{}
+	case "SourceFilterVisibilityChanged":
+		return &SourceFilterVisibilityChanged{}
 	case "SourceFiltersReordered":
 		return &SourceFiltersReordered{}
 	case "SourceOrderChanged":

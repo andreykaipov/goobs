@@ -5,7 +5,6 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/url"
 
 	"github.com/andreykaipov/goobs/api/events"
@@ -82,8 +81,7 @@ func New(host string, opts ...Option) (*Client, error) {
 func (c *Client) connect() (err error) {
 	u := url.URL{Scheme: "ws", Host: c.host}
 
-	log.Printf("connecting to %s", u.String())
-
+	// log.Printf("connecting to %s", u.String())
 	if c.Conn, _, err = websocket.DefaultDialer.Dial(u.String(), nil); err != nil {
 		return err
 	}

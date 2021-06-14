@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 SetCurrentProfileParams represents the params body for the "SetCurrentProfile" request.
 Set the currently active profile.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetCurrentProfile.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetCurrentProfile.
 */
 type SetCurrentProfileParams struct {
 	requests.ParamsBasic
@@ -26,7 +26,7 @@ func (o *SetCurrentProfileParams) Name() string {
 SetCurrentProfileResponse represents the response body for the "SetCurrentProfile" request.
 Set the currently active profile.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SetCurrentProfile.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SetCurrentProfile.
 */
 type SetCurrentProfileResponse struct {
 	requests.ResponseBasic

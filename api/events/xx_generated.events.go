@@ -36,6 +36,26 @@ func GetEventForType(name string) Event {
 		return &SceneCollectionChanged{}
 	case "SceneCollectionListChanged":
 		return &SceneCollectionListChanged{}
+	case "SourceCreated":
+		return &SourceCreated{}
+	case "SourceDestroyed":
+		return &SourceDestroyed{}
+	case "SourceVolumeChanged":
+		return &SourceVolumeChanged{}
+	case "SourceMuteStateChanged":
+		return &SourceMuteStateChanged{}
+	case "SourceAudioSyncOffsetChanged":
+		return &SourceAudioSyncOffsetChanged{}
+	case "SourceAudioMixersChanged":
+		return &SourceAudioMixersChanged{}
+	case "SourceRenamed":
+		return &SourceRenamed{}
+	case "SourceFilterAdded":
+		return &SourceFilterAdded{}
+	case "SourceFilterRemoved":
+		return &SourceFilterRemoved{}
+	case "SourceFiltersReordered":
+		return &SourceFiltersReordered{}
 	case "SourceOrderChanged":
 		return &SourceOrderChanged{}
 	case "SceneItemAdded":
@@ -44,6 +64,12 @@ func GetEventForType(name string) Event {
 		return &SceneItemRemoved{}
 	case "SceneItemVisibilityChanged":
 		return &SceneItemVisibilityChanged{}
+	case "SceneItemTransformChanged":
+		return &SceneItemTransformChanged{}
+	case "SceneItemSelected":
+		return &SceneItemSelected{}
+	case "SceneItemDeselected":
+		return &SceneItemDeselected{}
 	case "StreamStarting":
 		return &StreamStarting{}
 	case "StreamStarted":

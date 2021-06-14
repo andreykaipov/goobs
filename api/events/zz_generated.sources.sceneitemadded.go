@@ -5,10 +5,13 @@ package events
 /*
 SceneItemAdded represents the event body for the "SceneItemAdded" event.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#SceneItemAdded.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#SceneItemAdded.
 */
 type SceneItemAdded struct {
 	EventBasic
+
+	// Scene item ID
+	ItemId int `json:"item-id"`
 
 	// Name of the item added to the scene.
 	ItemName string `json:"item-name"`

@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetSyncOffsetParams represents the params body for the "GetSyncOffset" request.
 Get the audio sync offset of a specified source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetSyncOffset.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSyncOffset.
 */
 type GetSyncOffsetParams struct {
 	requests.ParamsBasic
@@ -26,7 +26,7 @@ func (o *GetSyncOffsetParams) Name() string {
 GetSyncOffsetResponse represents the response body for the "GetSyncOffset" request.
 Get the audio sync offset of a specified source.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetSyncOffset.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSyncOffset.
 */
 type GetSyncOffsetResponse struct {
 	requests.ResponseBasic

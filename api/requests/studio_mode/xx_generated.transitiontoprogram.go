@@ -9,7 +9,7 @@ TransitionToProgramParams represents the params body for the "TransitionToProgra
 Transitions the currently previewed scene to the main output.
 Will return an `error` if Studio Mode is not enabled.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#TransitionToProgram.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#TransitionToProgram.
 */
 type TransitionToProgramParams struct {
 	requests.ParamsBasic
@@ -33,7 +33,7 @@ TransitionToProgramResponse represents the response body for the "TransitionToPr
 Transitions the currently previewed scene to the main output.
 Will return an `error` if Studio Mode is not enabled.
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#TransitionToProgram.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#TransitionToProgram.
 */
 type TransitionToProgramResponse struct {
 	requests.ResponseBasic

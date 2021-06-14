@@ -7,8 +7,9 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 /*
 GetSceneItemPropertiesParams represents the params body for the "GetSceneItemProperties" request.
 Gets the scene specific properties of the specified source item.
+Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSceneItemProperties.
 */
 type GetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
@@ -28,8 +29,9 @@ func (o *GetSceneItemPropertiesParams) Name() string {
 /*
 GetSceneItemPropertiesResponse represents the response body for the "GetSceneItemProperties" request.
 Gets the scene specific properties of the specified source item.
+Coordinates are relative to the item's parent (the scene or group it belongs to).
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetSceneItemProperties.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSceneItemProperties.
 */
 type GetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic
@@ -38,7 +40,9 @@ type GetSceneItemPropertiesResponse struct {
 		// Alignment of the bounding box.
 		Alignment int `json:"alignment"`
 
-		// Type of bounding box.
+		// Type of bounding box. Can be "OBS_BOUNDS_STRETCH", "OBS_BOUNDS_SCALE_INNER",
+		// "OBS_BOUNDS_SCALE_OUTER", "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT",
+		// "OBS_BOUNDS_MAX_ONLY" or "OBS_BOUNDS_NONE".
 		Type string `json:"type"`
 
 		// Width of the bounding box.
@@ -61,6 +65,12 @@ type GetSceneItemPropertiesResponse struct {
 		// The number of pixels cropped off the top of the source before scaling.
 		Top int `json:"top"`
 	} `json:"crop"`
+
+	// Scene item height (base source height multiplied by the vertical scaling factor)
+	Height float64 `json:"height"`
+
+	// If the source's transform is locked.
+	Locked bool `json:"locked"`
 
 	// The name of the source.
 	Name string `json:"name"`
@@ -87,8 +97,17 @@ type GetSceneItemPropertiesResponse struct {
 		Y float64 `json:"y"`
 	} `json:"scale"`
 
+	// Base source (without scaling) of the source
+	SourceHeight int `json:"sourceHeight"`
+
+	// Base width (without scaling) of the source
+	SourceWidth int `json:"sourceWidth"`
+
 	// If the source is visible.
 	Visible bool `json:"visible"`
+
+	// Scene item width (base source width multiplied by the horizontal scaling factor)
+	Width float64 `json:"width"`
 }
 
 // GetSceneItemProperties sends the corresponding request to the connected OBS WebSockets server.

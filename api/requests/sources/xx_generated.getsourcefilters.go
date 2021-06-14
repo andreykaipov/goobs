@@ -8,7 +8,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 GetSourceFiltersParams represents the params body for the "GetSourceFilters" request.
 List filters applied to a source
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetSourceFilters.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSourceFilters.
 */
 type GetSourceFiltersParams struct {
 	requests.ParamsBasic
@@ -26,7 +26,7 @@ func (o *GetSourceFiltersParams) Name() string {
 GetSourceFiltersResponse represents the response body for the "GetSourceFilters" request.
 List filters applied to a source
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetSourceFilters.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSourceFilters.
 */
 type GetSourceFiltersResponse struct {
 	requests.ResponseBasic

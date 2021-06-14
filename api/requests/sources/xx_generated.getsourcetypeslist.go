@@ -5,27 +5,27 @@ package sources
 import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
-GetSourcesTypesListParams represents the params body for the "GetSourcesTypesList" request.
+GetSourceTypesListParams represents the params body for the "GetSourceTypesList" request.
 Get a list of all available sources types
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetSourcesTypesList.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSourceTypesList.
 */
-type GetSourcesTypesListParams struct {
+type GetSourceTypesListParams struct {
 	requests.ParamsBasic
 }
 
-// Name just returns "GetSourcesTypesList".
-func (o *GetSourcesTypesListParams) Name() string {
-	return "GetSourcesTypesList"
+// Name just returns "GetSourceTypesList".
+func (o *GetSourceTypesListParams) Name() string {
+	return "GetSourceTypesList"
 }
 
 /*
-GetSourcesTypesListResponse represents the response body for the "GetSourcesTypesList" request.
+GetSourceTypesListResponse represents the response body for the "GetSourceTypesList" request.
 Get a list of all available sources types
 
-Generated from https://github.com/Palakis/obs-websocket/blob/4.5.1/docs/generated/protocol.md#GetSourcesTypesList.
+Generated from https://github.com/Palakis/obs-websocket/blob/4.6.1/docs/generated/protocol.md#GetSourceTypesList.
 */
-type GetSourcesTypesListResponse struct {
+type GetSourceTypesListResponse struct {
 	requests.ResponseBasic
 
 	Ids []struct {
@@ -67,16 +67,16 @@ type GetSourcesTypesListResponse struct {
 	} `json:"ids"`
 }
 
-// GetSourcesTypesList sends the corresponding request to the connected OBS WebSockets server. Note
+// GetSourceTypesList sends the corresponding request to the connected OBS WebSockets server. Note
 // the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetSourcesTypesList(
-	paramss ...*GetSourcesTypesListParams,
-) (*GetSourcesTypesListResponse, error) {
+func (c *Client) GetSourceTypesList(
+	paramss ...*GetSourceTypesListParams,
+) (*GetSourceTypesListResponse, error) {
 	if len(paramss) == 0 {
-		paramss = []*GetSourcesTypesListParams{{}}
+		paramss = []*GetSourceTypesListParams{{}}
 	}
 	params := paramss[0]
-	data := &GetSourcesTypesListResponse{}
+	data := &GetSourceTypesListResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err
 	}

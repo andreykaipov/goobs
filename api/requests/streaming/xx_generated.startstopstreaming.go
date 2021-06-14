@@ -27,11 +27,9 @@ type StartStopStreamingResponse struct {
 	requests.ResponseBasic
 }
 
-// StartStopStreaming sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) StartStopStreaming(
-	paramss ...*StartStopStreamingParams,
-) (*StartStopStreamingResponse, error) {
+// StartStopStreaming sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) StartStopStreaming(paramss ...*StartStopStreamingParams) (*StartStopStreamingResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StartStopStreamingParams{{}}
 	}

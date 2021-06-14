@@ -18,8 +18,8 @@ type SetSourceSettingsParams struct {
 	// Source settings (varies between source types, may require some probing around).
 	SourceSettings map[string]interface{} `json:"sourceSettings"`
 
-	// Type of the specified source. Useful for type-checking to avoid settings a set of settings
-	// incompatible with the actual source's type.
+	// Type of the specified source. Useful for type-checking to avoid settings a set of settings incompatible with the
+	// actual source's type.
 	SourceType string `json:"sourceType"`
 }
 
@@ -47,9 +47,7 @@ type SetSourceSettingsResponse struct {
 }
 
 // SetSourceSettings sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetSourceSettings(
-	params *SetSourceSettingsParams,
-) (*SetSourceSettingsResponse, error) {
+func (c *Client) SetSourceSettings(params *SetSourceSettingsParams) (*SetSourceSettingsResponse, error) {
 	data := &SetSourceSettingsResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

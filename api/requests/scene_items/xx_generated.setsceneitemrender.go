@@ -40,9 +40,7 @@ type SetSceneItemRenderResponse struct {
 }
 
 // SetSceneItemRender sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetSceneItemRender(
-	params *SetSceneItemRenderParams,
-) (*SetSceneItemRenderResponse, error) {
+func (c *Client) SetSceneItemRender(params *SetSceneItemRenderParams) (*SetSceneItemRenderResponse, error) {
 	data := &SetSceneItemRenderResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

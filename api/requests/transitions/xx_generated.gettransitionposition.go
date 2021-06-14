@@ -26,13 +26,13 @@ Since v4.9.0.
 type GetTransitionPositionResponse struct {
 	requests.ResponseBasic
 
-	// current transition position. This value will be between 0.0 and 1.0. Note: Transition returns
-	// 1.0 when not active.
+	// current transition position. This value will be between 0.0 and 1.0. Note: Transition returns 1.0 when not
+	// active.
 	Position float64 `json:"position"`
 }
 
-// GetTransitionPosition sends the corresponding request to the connected OBS WebSockets server.
-// Note the variadic arguments as this request doesn't require any parameters.
+// GetTransitionPosition sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
 func (c *Client) GetTransitionPosition(
 	paramss ...*GetTransitionPositionParams,
 ) (*GetTransitionPositionResponse, error) {

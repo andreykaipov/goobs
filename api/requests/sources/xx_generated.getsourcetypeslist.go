@@ -34,8 +34,7 @@ type GetSourceTypesListResponse struct {
 			// True if sources of this type should not be fully duplicated
 			DoNotDuplicate bool `json:"doNotDuplicate"`
 
-			// True if sources of this type may cause a feedback loop if it's audio is monitored and
-			// shouldn't be
+			// True if sources of this type may cause a feedback loop if it's audio is monitored and shouldn't be
 			DoNotSelfMonitor bool `json:"doNotSelfMonitor"`
 
 			// True if sources of this type provide audio
@@ -65,11 +64,9 @@ type GetSourceTypesListResponse struct {
 	} `json:"types"`
 }
 
-// GetSourceTypesList sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetSourceTypesList(
-	paramss ...*GetSourceTypesListParams,
-) (*GetSourceTypesListResponse, error) {
+// GetSourceTypesList sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetSourceTypesList(paramss ...*GetSourceTypesListParams) (*GetSourceTypesListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetSourceTypesListParams{{}}
 	}

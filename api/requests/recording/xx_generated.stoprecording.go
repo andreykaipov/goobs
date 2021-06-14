@@ -29,8 +29,8 @@ type StopRecordingResponse struct {
 	requests.ResponseBasic
 }
 
-// StopRecording sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// StopRecording sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) StopRecording(paramss ...*StopRecordingParams) (*StopRecordingResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StopRecordingParams{{}}

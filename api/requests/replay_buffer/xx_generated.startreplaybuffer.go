@@ -35,11 +35,9 @@ type StartReplayBufferResponse struct {
 	requests.ResponseBasic
 }
 
-// StartReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) StartReplayBuffer(
-	paramss ...*StartReplayBufferParams,
-) (*StartReplayBufferResponse, error) {
+// StartReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) StartReplayBuffer(paramss ...*StartReplayBufferParams) (*StartReplayBufferResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StartReplayBufferParams{{}}
 	}

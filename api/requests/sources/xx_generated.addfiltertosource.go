@@ -40,9 +40,7 @@ type AddFilterToSourceResponse struct {
 }
 
 // AddFilterToSource sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) AddFilterToSource(
-	params *AddFilterToSourceParams,
-) (*AddFilterToSourceResponse, error) {
+func (c *Client) AddFilterToSource(params *AddFilterToSourceParams) (*AddFilterToSourceResponse, error) {
 	data := &AddFilterToSourceResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

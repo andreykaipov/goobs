@@ -15,8 +15,7 @@ type GetSourceSettingsParams struct {
 	// Source name.
 	SourceName string `json:"sourceName"`
 
-	// Type of the specified source. Useful for type-checking if you expect a specific settings
-	// schema.
+	// Type of the specified source. Useful for type-checking if you expect a specific settings schema.
 	SourceType string `json:"sourceType"`
 }
 
@@ -44,9 +43,7 @@ type GetSourceSettingsResponse struct {
 }
 
 // GetSourceSettings sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) GetSourceSettings(
-	params *GetSourceSettingsParams,
-) (*GetSourceSettingsResponse, error) {
+func (c *Client) GetSourceSettings(params *GetSourceSettingsParams) (*GetSourceSettingsResponse, error) {
 	data := &GetSourceSettingsResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

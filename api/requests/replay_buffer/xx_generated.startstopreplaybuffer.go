@@ -27,8 +27,8 @@ type StartStopReplayBufferResponse struct {
 	requests.ResponseBasic
 }
 
-// StartStopReplayBuffer sends the corresponding request to the connected OBS WebSockets server.
-// Note the variadic arguments as this request doesn't require any parameters.
+// StartStopReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
 func (c *Client) StartStopReplayBuffer(
 	paramss ...*StartStopReplayBufferParams,
 ) (*StartStopReplayBufferResponse, error) {

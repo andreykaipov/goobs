@@ -27,11 +27,9 @@ type StartStopVirtualCamResponse struct {
 	requests.ResponseBasic
 }
 
-// StartStopVirtualCam sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) StartStopVirtualCam(
-	paramss ...*StartStopVirtualCamParams,
-) (*StartStopVirtualCamResponse, error) {
+// StartStopVirtualCam sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) StartStopVirtualCam(paramss ...*StartStopVirtualCamParams) (*StartStopVirtualCamResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StartStopVirtualCamParams{{}}
 	}

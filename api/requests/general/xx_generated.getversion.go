@@ -26,8 +26,7 @@ Since v0.3.
 type GetVersionResponse struct {
 	requests.ResponseBasic
 
-	// List of available request types, formatted as a comma-separated list string (e.g. :
-	// "Method1,Method2,Method3").
+	// List of available request types, formatted as a comma-separated list string (e.g. : "Method1,Method2,Method3").
 	AvailableRequests string `json:"available-requests"`
 
 	// OBS Studio program version.
@@ -36,16 +35,16 @@ type GetVersionResponse struct {
 	// obs-websocket plugin version.
 	ObsWebsocketVersion string `json:"obs-websocket-version"`
 
-	// List of supported formats for features that use image export (like the TakeSourceScreenshot
-	// request type) formatted as a comma-separated list string
+	// List of supported formats for features that use image export (like the TakeSourceScreenshot request type)
+	// formatted as a comma-separated list string
 	SupportedImageExportFormats string `json:"supported-image-export-formats"`
 
 	// OBSRemote compatible API version. Fixed to 1.1 for retrocompatibility.
 	Version float64 `json:"version"`
 }
 
-// GetVersion sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// GetVersion sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) GetVersion(paramss ...*GetVersionParams) (*GetVersionResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetVersionParams{{}}

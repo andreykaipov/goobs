@@ -30,11 +30,9 @@ type GetCurrentProfileResponse struct {
 	ProfileName string `json:"profile-name"`
 }
 
-// GetCurrentProfile sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetCurrentProfile(
-	paramss ...*GetCurrentProfileParams,
-) (*GetCurrentProfileResponse, error) {
+// GetCurrentProfile sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) GetCurrentProfile(paramss ...*GetCurrentProfileParams) (*GetCurrentProfileResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetCurrentProfileParams{{}}
 	}

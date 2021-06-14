@@ -27,11 +27,9 @@ type DisableStudioModeResponse struct {
 	requests.ResponseBasic
 }
 
-// DisableStudioMode sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) DisableStudioMode(
-	paramss ...*DisableStudioModeParams,
-) (*DisableStudioModeResponse, error) {
+// DisableStudioMode sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) DisableStudioMode(paramss ...*DisableStudioModeParams) (*DisableStudioModeResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*DisableStudioModeParams{{}}
 	}

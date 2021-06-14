@@ -31,9 +31,7 @@ type SetCurrentProfileResponse struct {
 }
 
 // SetCurrentProfile sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetCurrentProfile(
-	params *SetCurrentProfileParams,
-) (*SetCurrentProfileResponse, error) {
+func (c *Client) SetCurrentProfile(params *SetCurrentProfileParams) (*SetCurrentProfileResponse, error) {
 	data := &SetCurrentProfileResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

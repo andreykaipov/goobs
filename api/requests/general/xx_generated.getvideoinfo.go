@@ -54,8 +54,8 @@ type GetVideoInfoResponse struct {
 	VideoFormat string `json:"videoFormat"`
 }
 
-// GetVideoInfo sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// GetVideoInfo sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) GetVideoInfo(paramss ...*GetVideoInfoParams) (*GetVideoInfoResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetVideoInfoParams{{}}

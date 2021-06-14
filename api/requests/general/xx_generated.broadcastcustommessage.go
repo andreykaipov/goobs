@@ -34,9 +34,7 @@ type BroadcastCustomMessageResponse struct {
 }
 
 // BroadcastCustomMessage sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) BroadcastCustomMessage(
-	params *BroadcastCustomMessageParams,
-) (*BroadcastCustomMessageResponse, error) {
+func (c *Client) BroadcastCustomMessage(params *BroadcastCustomMessageParams) (*BroadcastCustomMessageResponse, error) {
 	data := &BroadcastCustomMessageResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

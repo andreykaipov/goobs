@@ -27,11 +27,9 @@ type SaveStreamSettingsResponse struct {
 	requests.ResponseBasic
 }
 
-// SaveStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) SaveStreamSettings(
-	paramss ...*SaveStreamSettingsParams,
-) (*SaveStreamSettingsResponse, error) {
+// SaveStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) SaveStreamSettings(paramss ...*SaveStreamSettingsParams) (*SaveStreamSettingsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*SaveStreamSettingsParams{{}}
 	}

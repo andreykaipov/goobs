@@ -33,11 +33,9 @@ type GetCurrentTransitionResponse struct {
 	Name string `json:"name"`
 }
 
-// GetCurrentTransition sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetCurrentTransition(
-	paramss ...*GetCurrentTransitionParams,
-) (*GetCurrentTransitionResponse, error) {
+// GetCurrentTransition sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetCurrentTransition(paramss ...*GetCurrentTransitionParams) (*GetCurrentTransitionResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetCurrentTransitionParams{{}}
 	}

@@ -51,9 +51,7 @@ type SetStreamSettingsResponse struct {
 }
 
 // SetStreamSettings sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetStreamSettings(
-	params *SetStreamSettingsParams,
-) (*SetStreamSettingsResponse, error) {
+func (c *Client) SetStreamSettings(params *SetStreamSettingsParams) (*SetStreamSettingsResponse, error) {
 	data := &SetStreamSettingsResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

@@ -74,8 +74,7 @@ type SetTextFreetype2PropertiesResponse struct {
 	requests.ResponseBasic
 }
 
-// SetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets
-// server.
+// SetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetTextFreetype2Properties(
 	params *SetTextFreetype2PropertiesParams,
 ) (*SetTextFreetype2PropertiesResponse, error) {

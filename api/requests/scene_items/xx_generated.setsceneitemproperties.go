@@ -18,8 +18,8 @@ type SetSceneItemPropertiesParams struct {
 		Alignment int `json:"alignment"`
 
 		// The new bounds type of the source. Can be "OBS_BOUNDS_STRETCH", "OBS_BOUNDS_SCALE_INNER",
-		// "OBS_BOUNDS_SCALE_OUTER", "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT",
-		// "OBS_BOUNDS_MAX_ONLY" or "OBS_BOUNDS_NONE".
+		// "OBS_BOUNDS_SCALE_OUTER", "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT", "OBS_BOUNDS_MAX_ONLY" or
+		// "OBS_BOUNDS_NONE".
 		Type string `json:"type"`
 
 		// The new width of the bounding box.
@@ -51,8 +51,7 @@ type SetSceneItemPropertiesParams struct {
 		Name string `json:"name"`
 	} `json:"item"`
 
-	// The new locked status of the source. 'true' keeps it in its current position, 'false' allows
-	// movement.
+	// The new locked status of the source. 'true' keeps it in its current position, 'false' allows movement.
 	Locked bool `json:"locked"`
 
 	Position struct {
@@ -70,8 +69,8 @@ type SetSceneItemPropertiesParams struct {
 	Rotation float64 `json:"rotation"`
 
 	Scale struct {
-		// The new scale filter of the source. Can be "OBS_SCALE_DISABLE", "OBS_SCALE_POINT",
-		// "OBS_SCALE_BICUBIC", "OBS_SCALE_BILINEAR", "OBS_SCALE_LANCZOS" or "OBS_SCALE_AREA".
+		// The new scale filter of the source. Can be "OBS_SCALE_DISABLE", "OBS_SCALE_POINT", "OBS_SCALE_BICUBIC",
+		// "OBS_SCALE_BILINEAR", "OBS_SCALE_LANCZOS" or "OBS_SCALE_AREA".
 		Filter string `json:"filter"`
 
 		// The new x scale of the item.
@@ -104,9 +103,7 @@ type SetSceneItemPropertiesResponse struct {
 }
 
 // SetSceneItemProperties sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetSceneItemProperties(
-	params *SetSceneItemPropertiesParams,
-) (*SetSceneItemPropertiesResponse, error) {
+func (c *Client) SetSceneItemProperties(params *SetSceneItemPropertiesParams) (*SetSceneItemPropertiesResponse, error) {
 	data := &SetSceneItemPropertiesResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

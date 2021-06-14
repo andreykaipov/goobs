@@ -31,9 +31,7 @@ type RefreshBrowserSourceResponse struct {
 }
 
 // RefreshBrowserSource sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) RefreshBrowserSource(
-	params *RefreshBrowserSourceParams,
-) (*RefreshBrowserSourceResponse, error) {
+func (c *Client) RefreshBrowserSource(params *RefreshBrowserSourceParams) (*RefreshBrowserSourceResponse, error) {
 	data := &RefreshBrowserSourceResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

@@ -77,8 +77,7 @@ type GetTextFreetype2PropertiesResponse struct {
 	WordWrap bool `json:"word_wrap"`
 }
 
-// GetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets
-// server.
+// GetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetTextFreetype2Properties(
 	params *GetTextFreetype2PropertiesParams,
 ) (*GetTextFreetype2PropertiesResponse, error) {

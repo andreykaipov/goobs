@@ -30,8 +30,7 @@ type RemoveSceneTransitionOverrideResponse struct {
 	requests.ResponseBasic
 }
 
-// RemoveSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets
-// server.
+// RemoveSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) RemoveSceneTransitionOverride(
 	params *RemoveSceneTransitionOverrideParams,
 ) (*RemoveSceneTransitionOverrideResponse, error) {

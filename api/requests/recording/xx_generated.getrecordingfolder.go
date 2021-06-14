@@ -30,11 +30,9 @@ type GetRecordingFolderResponse struct {
 	RecFolder string `json:"rec-folder"`
 }
 
-// GetRecordingFolder sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetRecordingFolder(
-	paramss ...*GetRecordingFolderParams,
-) (*GetRecordingFolderResponse, error) {
+// GetRecordingFolder sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetRecordingFolder(paramss ...*GetRecordingFolderParams) (*GetRecordingFolderResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetRecordingFolderParams{{}}
 	}

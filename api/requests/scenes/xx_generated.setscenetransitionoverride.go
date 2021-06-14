@@ -15,9 +15,8 @@ type SetSceneTransitionOverrideParams struct {
 	// Name of the scene to switch to.
 	SceneName string `json:"sceneName"`
 
-	// Duration in milliseconds of the transition if transition is not fixed. Defaults to the
-	// current duration specified in the UI if there is no current override and this value is not
-	// given.
+	// Duration in milliseconds of the transition if transition is not fixed. Defaults to the current duration specified
+	// in the UI if there is no current override and this value is not given.
 	TransitionDuration int `json:"transitionDuration"`
 
 	// Name of the transition to use.
@@ -38,11 +37,8 @@ type SetSceneTransitionOverrideResponse struct {
 	requests.ResponseBasic
 }
 
-// SetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets
-// server.
-func (c *Client) SetSceneTransitionOverride(
-	params *SetSceneTransitionOverrideParams,
-) (*SetSceneTransitionOverrideResponse, error) {
+// SetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets server.
+func (c *Client) SetSceneTransitionOverride(params *SetSceneTransitionOverrideParams) (*SetSceneTransitionOverrideResponse, error) {
 	data := &SetSceneTransitionOverrideResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

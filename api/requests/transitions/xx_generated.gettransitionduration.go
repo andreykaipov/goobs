@@ -30,8 +30,8 @@ type GetTransitionDurationResponse struct {
 	TransitionDuration int `json:"transition-duration"`
 }
 
-// GetTransitionDuration sends the corresponding request to the connected OBS WebSockets server.
-// Note the variadic arguments as this request doesn't require any parameters.
+// GetTransitionDuration sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
 func (c *Client) GetTransitionDuration(
 	paramss ...*GetTransitionDurationParams,
 ) (*GetTransitionDurationResponse, error) {

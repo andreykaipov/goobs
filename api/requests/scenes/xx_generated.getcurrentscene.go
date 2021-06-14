@@ -36,11 +36,9 @@ type GetCurrentSceneResponse struct {
 	Sources []typedefs.SceneItem `json:"sources"`
 }
 
-// GetCurrentScene sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetCurrentScene(
-	paramss ...*GetCurrentSceneParams,
-) (*GetCurrentSceneResponse, error) {
+// GetCurrentScene sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) GetCurrentScene(paramss ...*GetCurrentSceneParams) (*GetCurrentSceneResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetCurrentSceneParams{{}}
 	}

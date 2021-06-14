@@ -38,9 +38,7 @@ type TransitionToProgramResponse struct {
 }
 
 // TransitionToProgram sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) TransitionToProgram(
-	params *TransitionToProgramParams,
-) (*TransitionToProgramResponse, error) {
+func (c *Client) TransitionToProgram(params *TransitionToProgramParams) (*TransitionToProgramResponse, error) {
 	data := &TransitionToProgramResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

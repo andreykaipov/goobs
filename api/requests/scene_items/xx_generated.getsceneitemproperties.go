@@ -46,9 +46,8 @@ type GetSceneItemPropertiesResponse struct {
 		// Alignment of the bounding box.
 		Alignment int `json:"alignment"`
 
-		// Type of bounding box. Can be "OBS_BOUNDS_STRETCH", "OBS_BOUNDS_SCALE_INNER",
-		// "OBS_BOUNDS_SCALE_OUTER", "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT",
-		// "OBS_BOUNDS_MAX_ONLY" or "OBS_BOUNDS_NONE".
+		// Type of bounding box. Can be "OBS_BOUNDS_STRETCH", "OBS_BOUNDS_SCALE_INNER", "OBS_BOUNDS_SCALE_OUTER",
+		// "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT", "OBS_BOUNDS_MAX_ONLY" or "OBS_BOUNDS_NONE".
 		Type string `json:"type"`
 
 		// Width of the bounding box.
@@ -94,8 +93,8 @@ type GetSceneItemPropertiesResponse struct {
 	ParentGroupName string `json:"parentGroupName"`
 
 	Position struct {
-		// The point on the source that the item is manipulated from. The sum of 1=Left or 2=Right,
-		// and 4=Top or 8=Bottom, or omit to center on that axis.
+		// The point on the source that the item is manipulated from. The sum of 1=Left or 2=Right, and 4=Top or
+		// 8=Bottom, or omit to center on that axis.
 		Alignment float64 `json:"alignment"`
 
 		// The x position of the source from the left.
@@ -109,8 +108,8 @@ type GetSceneItemPropertiesResponse struct {
 	Rotation float64 `json:"rotation"`
 
 	Scale struct {
-		// The scale filter of the source. Can be "OBS_SCALE_DISABLE", "OBS_SCALE_POINT",
-		// "OBS_SCALE_BICUBIC", "OBS_SCALE_BILINEAR", "OBS_SCALE_LANCZOS" or "OBS_SCALE_AREA".
+		// The scale filter of the source. Can be "OBS_SCALE_DISABLE", "OBS_SCALE_POINT", "OBS_SCALE_BICUBIC",
+		// "OBS_SCALE_BILINEAR", "OBS_SCALE_LANCZOS" or "OBS_SCALE_AREA".
 		Filter string `json:"filter"`
 
 		// The x-scale factor of the source.
@@ -134,9 +133,7 @@ type GetSceneItemPropertiesResponse struct {
 }
 
 // GetSceneItemProperties sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) GetSceneItemProperties(
-	params *GetSceneItemPropertiesParams,
-) (*GetSceneItemPropertiesResponse, error) {
+func (c *Client) GetSceneItemProperties(params *GetSceneItemPropertiesParams) (*GetSceneItemPropertiesResponse, error) {
 	data := &GetSceneItemPropertiesResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

@@ -39,9 +39,7 @@ type SetRecordingFolderResponse struct {
 }
 
 // SetRecordingFolder sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetRecordingFolder(
-	params *SetRecordingFolderParams,
-) (*SetRecordingFolderResponse, error) {
+func (c *Client) SetRecordingFolder(params *SetRecordingFolderParams) (*SetRecordingFolderResponse, error) {
 	data := &SetRecordingFolderResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

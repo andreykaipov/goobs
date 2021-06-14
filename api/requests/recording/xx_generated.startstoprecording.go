@@ -27,11 +27,9 @@ type StartStopRecordingResponse struct {
 	requests.ResponseBasic
 }
 
-// StartStopRecording sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) StartStopRecording(
-	paramss ...*StartStopRecordingParams,
-) (*StartStopRecordingResponse, error) {
+// StartStopRecording sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) StartStopRecording(paramss ...*StartStopRecordingParams) (*StartStopRecordingResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StartStopRecordingParams{{}}
 	}

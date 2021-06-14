@@ -4,7 +4,7 @@ test:
 generate: clean
 	cd internal; go run ./comments/
 	cd internal; go build -o bin/ github.com/segmentio/golines
-	./internal/bin/golines --shorten-comments --max-len=100 --reformat-tags --write-output api
+	./internal/bin/golines --shorten-comments --max-len=120 --reformat-tags --write-output api
 
 clean:
 	find . -name '*_generated.*.go' -exec rm -f {} \;

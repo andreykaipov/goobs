@@ -42,11 +42,9 @@ type GetSpecialSourcesResponse struct {
 	Mic3 string `json:"mic-3"`
 }
 
-// GetSpecialSources sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetSpecialSources(
-	paramss ...*GetSpecialSourcesParams,
-) (*GetSpecialSourcesResponse, error) {
+// GetSpecialSources sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) GetSpecialSources(paramss ...*GetSpecialSourcesParams) (*GetSpecialSourcesResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetSpecialSourcesParams{{}}
 	}

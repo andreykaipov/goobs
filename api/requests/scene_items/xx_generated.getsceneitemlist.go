@@ -12,8 +12,7 @@ Since 4.9.0.
 type GetSceneItemListParams struct {
 	requests.ParamsBasic
 
-	// Name of the scene to get the list of scene items from. Defaults to the current scene if not
-	// specified.
+	// Name of the scene to get the list of scene items from. Defaults to the current scene if not specified.
 	SceneName string `json:"sceneName"`
 }
 
@@ -49,9 +48,7 @@ type GetSceneItemListResponse struct {
 }
 
 // GetSceneItemList sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) GetSceneItemList(
-	params *GetSceneItemListParams,
-) (*GetSceneItemListResponse, error) {
+func (c *Client) GetSceneItemList(params *GetSceneItemListParams) (*GetSceneItemListResponse, error) {
 	data := &GetSceneItemListResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

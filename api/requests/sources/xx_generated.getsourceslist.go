@@ -30,8 +30,7 @@ type GetSourcesListResponse struct {
 		// Unique source name
 		Name string `json:"name"`
 
-		// Source type. Value is one of the following: "input", "filter", "transition", "scene" or
-		// "unknown"
+		// Source type. Value is one of the following: "input", "filter", "transition", "scene" or "unknown"
 		Type string `json:"type"`
 
 		// Non-unique source internal type (a.k.a kind)
@@ -39,8 +38,8 @@ type GetSourcesListResponse struct {
 	} `json:"sources"`
 }
 
-// GetSourcesList sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// GetSourcesList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) GetSourcesList(paramss ...*GetSourcesListParams) (*GetSourcesListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetSourcesListParams{{}}

@@ -30,11 +30,9 @@ type GetStudioModeStatusResponse struct {
 	StudioMode bool `json:"studio-mode"`
 }
 
-// GetStudioModeStatus sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetStudioModeStatus(
-	paramss ...*GetStudioModeStatusParams,
-) (*GetStudioModeStatusResponse, error) {
+// GetStudioModeStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetStudioModeStatus(paramss ...*GetStudioModeStatusParams) (*GetStudioModeStatusResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetStudioModeStatusParams{{}}
 	}

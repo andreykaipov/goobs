@@ -30,8 +30,8 @@ type GetFilenameFormattingResponse struct {
 	FilenameFormatting string `json:"filename-formatting"`
 }
 
-// GetFilenameFormatting sends the corresponding request to the connected OBS WebSockets server.
-// Note the variadic arguments as this request doesn't require any parameters.
+// GetFilenameFormatting sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
 func (c *Client) GetFilenameFormatting(
 	paramss ...*GetFilenameFormattingParams,
 ) (*GetFilenameFormattingResponse, error) {

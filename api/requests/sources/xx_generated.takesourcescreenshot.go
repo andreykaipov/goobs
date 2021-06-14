@@ -17,28 +17,27 @@ Since 4.6.0.
 type TakeSourceScreenshotParams struct {
 	requests.ParamsBasic
 
-	// Compression ratio between -1 and 100 to write the image with. -1 is automatic, 1 is smallest
-	// file/most compression, 100 is largest file/least compression. Varies with image type.
+	// Compression ratio between -1 and 100 to write the image with. -1 is automatic, 1 is smallest file/most
+	// compression, 100 is largest file/least compression. Varies with image type.
 	CompressionQuality int `json:"compressionQuality"`
 
-	// Format of the Data URI encoded picture. Can be "png", "jpg", "jpeg" or "bmp" (or any other
-	// value supported by Qt's Image module)
+	// Format of the Data URI encoded picture. Can be "png", "jpg", "jpeg" or "bmp" (or any other value supported by
+	// Qt's Image module)
 	EmbedPictureFormat string `json:"embedPictureFormat"`
 
-	// Format to save the image file as (one of the values provided in the
-	// `supported-image-export-formats` response field of `GetVersion`). If not specified, tries to
-	// guess based on file extension.
+	// Format to save the image file as (one of the values provided in the `supported-image-export-formats` response
+	// field of `GetVersion`). If not specified, tries to guess based on file extension.
 	FileFormat string `json:"fileFormat"`
 
 	// Screenshot height. Defaults to the source's base height.
 	Height int `json:"height"`
 
-	// Full file path (file extension included) where the captured image is to be saved. Can be in a
-	// format different from `pictureFormat`. Can be a relative path.
+	// Full file path (file extension included) where the captured image is to be saved. Can be in a format different
+	// from `pictureFormat`. Can be a relative path.
 	SaveToFilePath string `json:"saveToFilePath"`
 
-	// Source name. Note: Since scenes are also sources, you can also provide a scene name. If not
-	// provided, the currently active scene is used.
+	// Source name. Note: Since scenes are also sources, you can also provide a scene name. If not provided, the
+	// currently active scene is used.
 	SourceName string `json:"sourceName"`
 
 	// Screenshot width. Defaults to the source's base width.
@@ -74,9 +73,7 @@ type TakeSourceScreenshotResponse struct {
 }
 
 // TakeSourceScreenshot sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) TakeSourceScreenshot(
-	params *TakeSourceScreenshotParams,
-) (*TakeSourceScreenshotResponse, error) {
+func (c *Client) TakeSourceScreenshot(params *TakeSourceScreenshotParams) (*TakeSourceScreenshotResponse, error) {
 	data := &TakeSourceScreenshotResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

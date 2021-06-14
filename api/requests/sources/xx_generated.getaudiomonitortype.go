@@ -34,9 +34,7 @@ type GetAudioMonitorTypeResponse struct {
 }
 
 // GetAudioMonitorType sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) GetAudioMonitorType(
-	params *GetAudioMonitorTypeParams,
-) (*GetAudioMonitorTypeResponse, error) {
+func (c *Client) GetAudioMonitorType(params *GetAudioMonitorTypeParams) (*GetAudioMonitorTypeResponse, error) {
 	data := &GetAudioMonitorTypeResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

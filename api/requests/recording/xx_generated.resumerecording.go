@@ -29,11 +29,9 @@ type ResumeRecordingResponse struct {
 	requests.ResponseBasic
 }
 
-// ResumeRecording sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
-func (c *Client) ResumeRecording(
-	paramss ...*ResumeRecordingParams,
-) (*ResumeRecordingResponse, error) {
+// ResumeRecording sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) ResumeRecording(paramss ...*ResumeRecordingParams) (*ResumeRecordingResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*ResumeRecordingParams{{}}
 	}

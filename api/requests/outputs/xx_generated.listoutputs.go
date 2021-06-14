@@ -33,8 +33,8 @@ type ListOutputsResponse struct {
 	Outputs []typedefs.Output `json:"outputs"`
 }
 
-// ListOutputs sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// ListOutputs sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) ListOutputs(paramss ...*ListOutputsParams) (*ListOutputsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*ListOutputsParams{{}}

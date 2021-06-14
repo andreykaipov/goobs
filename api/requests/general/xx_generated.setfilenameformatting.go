@@ -31,9 +31,7 @@ type SetFilenameFormattingResponse struct {
 }
 
 // SetFilenameFormatting sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetFilenameFormatting(
-	params *SetFilenameFormattingParams,
-) (*SetFilenameFormattingResponse, error) {
+func (c *Client) SetFilenameFormatting(params *SetFilenameFormattingParams) (*SetFilenameFormattingResponse, error) {
 	data := &SetFilenameFormattingResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

@@ -16,8 +16,8 @@ type ExecuteBatchParams struct {
 	AbortOnFail bool `json:"abortOnFail"`
 
 	Requests []struct {
-		// ID of the individual request. Can be any string and not required to be unique. Defaults
-		// to empty string if not specified.
+		// ID of the individual request. Can be any string and not required to be unique. Defaults to empty string if
+		// not specified.
 		MessageId string `json:"message-id"`
 
 		// Request type. Eg. `GetVersion`.

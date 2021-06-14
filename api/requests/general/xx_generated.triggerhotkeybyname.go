@@ -31,9 +31,7 @@ type TriggerHotkeyByNameResponse struct {
 }
 
 // TriggerHotkeyByName sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) TriggerHotkeyByName(
-	params *TriggerHotkeyByNameParams,
-) (*TriggerHotkeyByNameResponse, error) {
+func (c *Client) TriggerHotkeyByName(params *TriggerHotkeyByNameParams) (*TriggerHotkeyByNameResponse, error) {
 	data := &TriggerHotkeyByNameResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

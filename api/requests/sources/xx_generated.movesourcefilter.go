@@ -15,8 +15,7 @@ type MoveSourceFilterParams struct {
 	// Name of the filter to reorder
 	FilterName string `json:"filterName"`
 
-	// How to move the filter around in the source's filter chain. Either "up", "down", "top" or
-	// "bottom".
+	// How to move the filter around in the source's filter chain. Either "up", "down", "top" or "bottom".
 	MovementType string `json:"movementType"`
 
 	// Name of the source to which the filter belongs
@@ -38,9 +37,7 @@ type MoveSourceFilterResponse struct {
 }
 
 // MoveSourceFilter sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) MoveSourceFilter(
-	params *MoveSourceFilterParams,
-) (*MoveSourceFilterResponse, error) {
+func (c *Client) MoveSourceFilter(params *MoveSourceFilterParams) (*MoveSourceFilterResponse, error) {
 	data := &MoveSourceFilterResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

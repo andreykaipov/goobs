@@ -51,11 +51,9 @@ type GetStreamingStatusResponse struct {
 	VirtualcamTimecode string `json:"virtualcam-timecode"`
 }
 
-// GetStreamingStatus sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetStreamingStatus(
-	paramss ...*GetStreamingStatusParams,
-) (*GetStreamingStatusResponse, error) {
+// GetStreamingStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) GetStreamingStatus(paramss ...*GetStreamingStatusParams) (*GetStreamingStatusResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetStreamingStatusParams{{}}
 	}

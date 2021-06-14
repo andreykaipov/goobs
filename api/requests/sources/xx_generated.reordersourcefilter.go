@@ -37,9 +37,7 @@ type ReorderSourceFilterResponse struct {
 }
 
 // ReorderSourceFilter sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) ReorderSourceFilter(
-	params *ReorderSourceFilterParams,
-) (*ReorderSourceFilterResponse, error) {
+func (c *Client) ReorderSourceFilter(params *ReorderSourceFilterParams) (*ReorderSourceFilterResponse, error) {
 	data := &ReorderSourceFilterResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

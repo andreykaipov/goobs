@@ -29,11 +29,9 @@ type StopReplayBufferResponse struct {
 	requests.ResponseBasic
 }
 
-// StopReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
-func (c *Client) StopReplayBuffer(
-	paramss ...*StopReplayBufferParams,
-) (*StopReplayBufferResponse, error) {
+// StopReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) StopReplayBuffer(paramss ...*StopReplayBufferParams) (*StopReplayBufferResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StopReplayBufferParams{{}}
 	}

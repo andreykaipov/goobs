@@ -27,11 +27,9 @@ type ToggleStudioModeResponse struct {
 	requests.ResponseBasic
 }
 
-// ToggleStudioMode sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
-func (c *Client) ToggleStudioMode(
-	paramss ...*ToggleStudioModeParams,
-) (*ToggleStudioModeResponse, error) {
+// ToggleStudioMode sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) ToggleStudioMode(paramss ...*ToggleStudioModeParams) (*ToggleStudioModeResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*ToggleStudioModeParams{{}}
 	}

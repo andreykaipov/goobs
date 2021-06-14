@@ -37,9 +37,7 @@ type SetTransitionSettingsResponse struct {
 }
 
 // SetTransitionSettings sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetTransitionSettings(
-	params *SetTransitionSettingsParams,
-) (*SetTransitionSettingsResponse, error) {
+func (c *Client) SetTransitionSettings(params *SetTransitionSettingsParams) (*SetTransitionSettingsResponse, error) {
 	data := &SetTransitionSettingsResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

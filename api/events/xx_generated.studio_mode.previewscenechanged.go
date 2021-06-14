@@ -14,7 +14,6 @@ type PreviewSceneChanged struct {
 	// Name of the scene being previewed.
 	SceneName string `json:"scene-name"`
 
-	// List of sources composing the scene. Same specification as
-	// [`GetCurrentScene`](#getcurrentscene).
+	// List of sources composing the scene. Same specification as [`GetCurrentScene`](#getcurrentscene).
 	Sources []typedefs.SceneItem `json:"sources"`
 }

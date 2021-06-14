@@ -36,11 +36,9 @@ type GetAuthRequiredResponse struct {
 	Salt string `json:"salt"`
 }
 
-// GetAuthRequired sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetAuthRequired(
-	paramss ...*GetAuthRequiredParams,
-) (*GetAuthRequiredResponse, error) {
+// GetAuthRequired sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) GetAuthRequired(paramss ...*GetAuthRequiredParams) (*GetAuthRequiredResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetAuthRequiredParams{{}}
 	}

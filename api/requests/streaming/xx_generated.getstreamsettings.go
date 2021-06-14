@@ -30,8 +30,7 @@ type GetStreamSettingsResponse struct {
 		// The publish key of the stream.
 		Key string `json:"key"`
 
-		// The password to use when accessing the streaming server. Only present if `use_auth` is
-		// `true`.
+		// The password to use when accessing the streaming server. Only present if `use_auth` is `true`.
 		Password string `json:"password"`
 
 		// The publish URL.
@@ -40,8 +39,7 @@ type GetStreamSettingsResponse struct {
 		// Indicates whether authentication should be used when connecting to the streaming server.
 		UseAuth bool `json:"use_auth"`
 
-		// The username to use when accessing the streaming server. Only present if `use_auth` is
-		// `true`.
+		// The username to use when accessing the streaming server. Only present if `use_auth` is `true`.
 		Username string `json:"username"`
 	} `json:"settings"`
 
@@ -49,11 +47,9 @@ type GetStreamSettingsResponse struct {
 	Type string `json:"type"`
 }
 
-// GetStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) GetStreamSettings(
-	paramss ...*GetStreamSettingsParams,
-) (*GetStreamSettingsResponse, error) {
+// GetStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) GetStreamSettings(paramss ...*GetStreamSettingsParams) (*GetStreamSettingsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetStreamSettingsParams{{}}
 	}

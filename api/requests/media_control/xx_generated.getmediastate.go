@@ -29,8 +29,8 @@ Since v4.9.0.
 type GetMediaStateResponse struct {
 	requests.ResponseBasic
 
-	// The media state of the provided source. States: `none`, `playing`, `opening`, `buffering`,
-	// `paused`, `stopped`, `ended`, `error`, `unknown`
+	// The media state of the provided source. States: `none`, `playing`, `opening`, `buffering`, `paused`, `stopped`,
+	// `ended`, `error`, `unknown`
 	MediaState string `json:"mediaState"`
 }
 

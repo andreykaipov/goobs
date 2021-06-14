@@ -36,8 +36,7 @@ type GetSceneTransitionOverrideResponse struct {
 	TransitionName string `json:"transitionName"`
 }
 
-// GetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets
-// server.
+// GetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetSceneTransitionOverride(
 	params *GetSceneTransitionOverrideParams,
 ) (*GetSceneTransitionOverrideResponse, error) {

@@ -29,13 +29,12 @@ type GetSceneListResponse struct {
 	// Name of the currently active scene.
 	CurrentScene string `json:"current-scene"`
 
-	// Ordered list of the current profile's scenes (See [GetCurrentScene](#getcurrentscene) for
-	// more information).
+	// Ordered list of the current profile's scenes (See [GetCurrentScene](#getcurrentscene) for more information).
 	Scenes []map[string]interface{} `json:"scenes"`
 }
 
-// GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the
-// variadic arguments as this request doesn't require any parameters.
+// GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
+// this request doesn't require any parameters.
 func (c *Client) GetSceneList(paramss ...*GetSceneListParams) (*GetSceneListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetSceneListParams{{}}

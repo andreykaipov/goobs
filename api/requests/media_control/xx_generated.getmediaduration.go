@@ -36,9 +36,7 @@ type GetMediaDurationResponse struct {
 }
 
 // GetMediaDuration sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) GetMediaDuration(
-	params *GetMediaDurationParams,
-) (*GetMediaDurationResponse, error) {
+func (c *Client) GetMediaDuration(params *GetMediaDurationParams) (*GetMediaDurationResponse, error) {
 	data := &GetMediaDurationResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

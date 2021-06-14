@@ -34,9 +34,7 @@ type RemoveFilterFromSourceResponse struct {
 }
 
 // RemoveFilterFromSource sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) RemoveFilterFromSource(
-	params *RemoveFilterFromSourceParams,
-) (*RemoveFilterFromSourceResponse, error) {
+func (c *Client) RemoveFilterFromSource(params *RemoveFilterFromSourceParams) (*RemoveFilterFromSourceResponse, error) {
 	data := &RemoveFilterFromSourceResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

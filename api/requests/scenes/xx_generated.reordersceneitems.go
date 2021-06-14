@@ -16,8 +16,7 @@ type ReorderSceneItemsParams struct {
 		// Id of a specific scene item. Unique on a scene by scene basis.
 		Id int `json:"id"`
 
-		// Name of a scene item. Sufficiently unique if no scene items share sources within the
-		// scene.
+		// Name of a scene item. Sufficiently unique if no scene items share sources within the scene.
 		Name string `json:"name"`
 	} `json:"items"`
 
@@ -40,9 +39,7 @@ type ReorderSceneItemsResponse struct {
 }
 
 // ReorderSceneItems sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) ReorderSceneItems(
-	params *ReorderSceneItemsParams,
-) (*ReorderSceneItemsResponse, error) {
+func (c *Client) ReorderSceneItems(params *ReorderSceneItemsParams) (*ReorderSceneItemsResponse, error) {
 	data := &ReorderSceneItemsResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

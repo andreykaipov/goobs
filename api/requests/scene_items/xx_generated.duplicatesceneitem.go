@@ -53,9 +53,7 @@ type DuplicateSceneItemResponse struct {
 }
 
 // DuplicateSceneItem sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) DuplicateSceneItem(
-	params *DuplicateSceneItemParams,
-) (*DuplicateSceneItemResponse, error) {
+func (c *Client) DuplicateSceneItem(params *DuplicateSceneItemParams) (*DuplicateSceneItemResponse, error) {
 	data := &DuplicateSceneItemResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

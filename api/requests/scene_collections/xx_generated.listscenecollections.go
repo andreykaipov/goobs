@@ -33,11 +33,9 @@ type ListSceneCollectionsResponse struct {
 	SceneCollections []typedefs.ScenesCollection `json:"scene-collections"`
 }
 
-// ListSceneCollections sends the corresponding request to the connected OBS WebSockets server. Note
-// the variadic arguments as this request doesn't require any parameters.
-func (c *Client) ListSceneCollections(
-	paramss ...*ListSceneCollectionsParams,
-) (*ListSceneCollectionsResponse, error) {
+// ListSceneCollections sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
+func (c *Client) ListSceneCollections(paramss ...*ListSceneCollectionsParams) (*ListSceneCollectionsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*ListSceneCollectionsParams{{}}
 	}

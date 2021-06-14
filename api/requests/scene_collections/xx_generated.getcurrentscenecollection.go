@@ -30,8 +30,8 @@ type GetCurrentSceneCollectionResponse struct {
 	ScName string `json:"sc-name"`
 }
 
-// GetCurrentSceneCollection sends the corresponding request to the connected OBS WebSockets server.
-// Note the variadic arguments as this request doesn't require any parameters.
+// GetCurrentSceneCollection sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
 func (c *Client) GetCurrentSceneCollection(
 	paramss ...*GetCurrentSceneCollectionParams,
 ) (*GetCurrentSceneCollectionResponse, error) {

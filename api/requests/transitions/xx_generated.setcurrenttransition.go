@@ -31,9 +31,7 @@ type SetCurrentTransitionResponse struct {
 }
 
 // SetCurrentTransition sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetCurrentTransition(
-	params *SetCurrentTransitionParams,
-) (*SetCurrentTransitionResponse, error) {
+func (c *Client) SetCurrentTransition(params *SetCurrentTransitionParams) (*SetCurrentTransitionResponse, error) {
 	data := &SetCurrentTransitionResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

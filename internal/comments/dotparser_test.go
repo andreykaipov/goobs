@@ -15,7 +15,7 @@ func assertJenStruct(t *testing.T, s *jen.Statement, err error) {
 	buf := new(bytes.Buffer)
 	f := jen.NewFile("testfixtures")
 	f.Add(s)
-	f.Render(buf)
+	assert.NoError(t, f.Render(buf))
 	actual := buf.String()
 	// fmt.Println(actual)
 

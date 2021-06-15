@@ -1,11 +1,15 @@
 package testfixtures
 
 type IDK struct {
-	A struct {
-		B string `json:"B"`
-	} `json:"A"`
+	A A `json:"A"`
 
-	C struct {
-		D string `json:"D"`
-	} `json:"C"`
+	C C `json:"C"`
+}
+
+type A struct {
+	B string `json:"B"`
+}
+
+type C struct {
+	D string `json:"D"`
 }

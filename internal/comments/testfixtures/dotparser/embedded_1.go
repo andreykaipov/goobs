@@ -1,7 +1,9 @@
 package testfixtures
 
 type Embedded1 struct {
-	A struct {
-		EmbeddedDummy
-	} `json:"a"`
+	A A `json:"a"`
+}
+
+type A struct {
+	EmbeddedDummy
 }

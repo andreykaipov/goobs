@@ -7,8 +7,10 @@ type Ugh struct {
 	// hi
 	B string `json:"b"`
 
-	C struct {
-		// bye
-		D int `json:"d"`
-	} `json:"c"`
+	C C `json:"c"`
+}
+
+type C struct {
+	// bye
+	D int `json:"d"`
 }

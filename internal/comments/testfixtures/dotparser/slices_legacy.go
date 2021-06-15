@@ -1,9 +1,11 @@
 package testfixtures
 
 type ReorderSceneItemsRequestLegacy struct {
-	Items []struct {
-		Id int `json:"Id"`
+	Items []Item `json:"Items"`
+}
 
-		Name string `json:"Name"`
-	} `json:"Items"`
+type Item struct {
+	Id int `json:"Id"`
+
+	Name string `json:"Name"`
 }

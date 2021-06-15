@@ -1,7 +1,9 @@
 package testfixtures
 
 type Interfaces1 struct {
-	A struct {
-		MyInterface Interface
-	} `json:"a"`
+	A A `json:"a"`
+}
+
+type A struct {
+	MyInterface Interface
 }

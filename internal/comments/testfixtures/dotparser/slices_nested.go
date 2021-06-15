@@ -1,35 +1,41 @@
 package testfixtures
 
 type GetSourcesTypesListResponse struct {
-	Ids []struct {
-		Caps struct {
-			CanInteract bool `json:"CanInteract"`
+	Ids []Id `json:"Ids"`
+}
 
-			DoNotDuplicate bool `json:"DoNotDuplicate"`
+type Extra struct {
+	Poopy bool `json:"Poopy"`
 
-			DoNotSelfMonitor bool `json:"DoNotSelfMonitor"`
+	Wow bool `json:"Wow"`
+}
 
-			Extra []struct {
-				Poopy bool `json:"Poopy"`
+type Caps struct {
+	CanInteract bool `json:"CanInteract"`
 
-				Wow bool `json:"Wow"`
-			} `json:"Extra"`
+	DoNotDuplicate bool `json:"DoNotDuplicate"`
 
-			HasAudio bool `json:"HasAudio"`
+	DoNotSelfMonitor bool `json:"DoNotSelfMonitor"`
 
-			HasVideo bool `json:"HasVideo"`
+	Extra []Extra `json:"Extra"`
 
-			IsAsync bool `json:"IsAsync"`
+	HasAudio bool `json:"HasAudio"`
 
-			IsComposite bool `json:"IsComposite"`
-		} `json:"Caps"`
+	HasVideo bool `json:"HasVideo"`
 
-		DefaultSettings map[string]interface{} `json:"DefaultSettings"`
+	IsAsync bool `json:"IsAsync"`
 
-		DisplayName string `json:"DisplayName"`
+	IsComposite bool `json:"IsComposite"`
+}
 
-		Type string `json:"Type"`
+type Id struct {
+	Caps Caps `json:"Caps"`
 
-		TypeId string `json:"TypeId"`
-	} `json:"Ids"`
+	DefaultSettings map[string]interface{} `json:"DefaultSettings"`
+
+	DisplayName string `json:"DisplayName"`
+
+	Type string `json:"Type"`
+
+	TypeId string `json:"TypeId"`
 }

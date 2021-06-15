@@ -1,11 +1,13 @@
 package testfixtures
 
 type GetSourcesListRequest struct {
-	Sources []struct {
-		Name string `json:"Name"`
+	Sources []Source `json:"Sources"`
+}
 
-		Type string `json:"Type"`
+type Source struct {
+	Name string `json:"Name"`
 
-		TypeId string `json:"TypeId"`
-	} `json:"Sources"`
+	Type string `json:"Type"`
+
+	TypeId string `json:"TypeId"`
 }

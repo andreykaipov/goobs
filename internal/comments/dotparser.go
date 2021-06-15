@@ -86,6 +86,8 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 	// returns whether to skip the current group (slice support)
 	var f func(data interface{}, g *jen.Group, parent string)
 
+	anonymousStructs := []*jen.Statement{}
+
 	f = func(data interface{}, g *jen.Group, parent string) {
 		switch t := data.(type) {
 		case map[string]interface{}:
@@ -96,6 +98,36 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 					f(v, g, parent+" []")
 					return
 				}
+			}
+
+			// is a nested anon struct, we want to propogate it up
+			if parent != name {
+				id := pascal(parent)
+				idDeplural := id
+				idType := id
+				if strings.HasSuffix(id, "[]") {
+					id = strings.TrimSuffix(id, "[]")
+					idDeplural = id
+
+					// try to depluralize
+					if strings.HasSuffix(id, "s") {
+						idDeplural = strings.TrimSuffix(id, "s")
+					}
+
+					idType = "[]" + idDeplural
+				}
+
+				anonymousStructs = append(
+					anonymousStructs,
+					jen.Id(idDeplural).StructFunc(func(subg *jen.Group) {
+						for _, k := range sortedKeys(t) {
+							v := t[k]
+							f(v, subg, k)
+						}
+					}),
+				)
+				g.Id(id).Id(idType).Do(addTag(strings.TrimSuffix(parent, " []"))).Line()
+				return
 			}
 
 			g.Id(pascal(parent)).StructFunc(func(subg *jen.Group) {
@@ -133,6 +165,10 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 
 	return jen.Type().CustomFunc(jen.Options{}, func(g *jen.Group) {
 		f(m, g, name)
+	}).Do(func(z *jen.Statement) {
+		for _, q := range anonymousStructs {
+			z.Line().Type().Add(q).Line()
+		}
 	}), nil
 }
 

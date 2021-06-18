@@ -20,7 +20,7 @@ func assertJenStruct(t *testing.T, s *jen.Statement, err error) {
 	// fmt.Println(actual)
 
 	fixture := strings.Join(strings.Split(t.Name(), "_")[2:], "_")
-	expected, err := ioutil.ReadFile(fmt.Sprintf("testfixtures/dotparser/%s.go", fixture))
+	expected, err := ioutil.ReadFile(fmt.Sprintf("testfixtures/dotparser/%s/expected.go", fixture))
 	if err != nil {
 		panic(err)
 	}

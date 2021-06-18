@@ -107,7 +107,7 @@ func Test_parseKeysAsJenStruct_slices_nested(t *testing.T) {
 }
 
 func Test_parseKeysAsJenStruct_slices_legacy(t *testing.T) {
-	statement, err := parseJenKeysAsStruct("ReorderSceneItemsRequest_Legacy", map[string]keyInfo{
+	statement, err := parseJenKeysAsStruct("ReorderSceneItemsRequestLegacy", map[string]keyInfo{
 		"Items":        keyInfo{Type: jen.Index().Map(jen.String()).Interface()},
 		"Items[].Id":   keyInfo{Type: jen.Int()},
 		"Items[].Name": keyInfo{Type: jen.String()},

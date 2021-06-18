@@ -83,63 +83,59 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 		}
 	}
 
-	// returns whether to skip the current group (slice support)
-	var f func(data interface{}, g *jen.Group, parent string)
+	// mutually recrusive recursive with traverseStruct
+	var traverse func(data interface{}, g *jen.Group, parent string)
 
+	traverseStruct := func(s *jen.Statement, name string, t map[string]interface{}) {
+		s.Id(name).StructFunc(func(subg *jen.Group) {
+			for _, k := range sortedKeys(t) {
+				v := t[k]
+				traverse(v, subg, k)
+			}
+		}).Line()
+	}
+
+	// keep track of any anonymous structs as we'll want to make them
+	// siblings with the original parent struct
 	anonymousStructs := []*jen.Statement{}
 
-	f = func(data interface{}, g *jen.Group, parent string) {
+	traverse = func(data interface{}, g *jen.Group, parent string) {
 		switch t := data.(type) {
 		case map[string]interface{}:
 			// if there's an *, redo the recursion with a slice
 			for _, k := range sortedKeys(t) {
 				v := t[k]
 				if k == "*" {
-					f(v, g, parent+" []")
+					traverse(v, g, parent+" []")
 					return
 				}
 			}
 
-			// is a nested anon struct, we want to propogate it up
-			if parent != name {
-				id := pascal(parent)
-				idDeplural := id
-				idType := id
-				if strings.HasSuffix(id, "[]") {
-					id = strings.TrimSuffix(id, "[]")
-					idDeplural = id
+			// is a nested anon struct
+			id := pascal(parent)
+			idDeplural := id
+			idType := id
 
-					// try to depluralize
-					if strings.HasSuffix(id, "s") {
-						idDeplural = strings.TrimSuffix(id, "s")
-					}
+			if strings.HasSuffix(id, "[]") {
+				id = strings.TrimSuffix(id, "[]")
+				idDeplural = id
 
-					idType = "[]" + idDeplural
+				// try to depluralize lol
+				// TODO add more exhaustive rules as necessary
+				// because this isn't really robust
+				if strings.HasSuffix(id, "s") {
+					fmt.Printf("  ! %s is a slice and looks plural, we'll try to depluralize...\n", id)
+					idDeplural = strings.TrimSuffix(id, "s")
 				}
 
-				anonymousStructs = append(
-					anonymousStructs,
-					jen.Id(idDeplural).StructFunc(func(subg *jen.Group) {
-						for _, k := range sortedKeys(t) {
-							v := t[k]
-							f(v, subg, k)
-						}
-					}),
-				)
-				g.Id(id).Id(idType).Do(addTag(strings.TrimSuffix(parent, " []"))).Line()
-				return
+				idType = "[]" + idDeplural
 			}
 
-			g.Id(pascal(parent)).StructFunc(func(subg *jen.Group) {
-				for _, k := range sortedKeys(t) {
-					v := t[k]
-					f(v, subg, k)
-				}
-			}).Do(func(s *jen.Statement) {
-				if parent != name {
-					s.Do(addTag(strings.TrimSuffix(parent, " []")))
-				}
-			})
+			s := jen.Empty()
+			traverseStruct(s, idDeplural, t)
+			anonymousStructs = append(anonymousStructs, s)
+			g.Id(id).Id(idType).Do(addTag(strings.TrimSuffix(parent, " []"))).Line()
+			return
 		case keyInfo:
 			if t.Comment != "" {
 				g.Comment(t.Comment)
@@ -163,13 +159,12 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 		g.Line()
 	}
 
-	return jen.Type().CustomFunc(jen.Options{}, func(g *jen.Group) {
-		f(m, g, name)
-	}).Do(func(z *jen.Statement) {
-		for _, q := range anonymousStructs {
-			z.Line().Type().Add(q).Line()
-		}
-	}), nil
+	s := jen.Type()
+	traverseStruct(s, name, m)
+	for _, q := range anonymousStructs {
+		s.Line().Type().Add(q).Line()
+	}
+	return s, nil
 }
 
 func pascal(text string) string {

@@ -63,7 +63,7 @@ type GetTextGDIPlusPropertiesResponse struct {
 	File string `json:"file"`
 
 	// The font specification for this object.
-	Font typedefs.Font `json:"font"`
+	Font *typedefs.Font `json:"font"`
 
 	// Gradient enabled.
 	Gradient bool `json:"gradient"`

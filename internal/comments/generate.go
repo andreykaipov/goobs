@@ -352,7 +352,7 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, field.Name, field.Type))
 		}
 
-		if key, keyInfo := handleCommonObjects(origin, fieldName); keyInfo != nil {
+		if key, keyInfo := handleCommonObjects(origin, fieldName, name); keyInfo != nil {
 			keysInfo[key] = *keyInfo
 			continue
 		}
@@ -375,30 +375,54 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 	return nil
 }
 
-func handleCommonObjects(origin, fieldName string) (string, *keyInfo) {
+func handleCommonObjects(origin, fieldName, structName string) (string, *keyInfo) {
 	if !strings.Contains(fieldName, ".") {
 		return "", nil
 	}
 
-	// key prefix to manually declared struct in typedefs package
-	lookup := map[string][]string{
-		"bounds.":          {"Bounds", "The bounding box of the object (source, scene item, etc)."},
-		"crop.":            {"Crop", "The crop specification for the object (source, scene item, etc)."},
-		"position.":        {"Position", "The position of the object (source, scene item, etc)."},
-		"scale.":           {"Scale", "The scaling specification for the object (source, scene item, etc)."},
-		"item.":            {"Item", "The item specification for this object."},
-		"font.":            {"Font", "The font specification for this object."},
-		"settings.":        {"Settings", " "},
-		"stream.settings.": {"Settings", " "},
-		"items.*.":         {"Item", "The items for this object."},
-		"filters.*.":       {"Filter", "The filters for this object."},
+	type nestedInfo struct {
+		Refer   string
+		Comment string
+		OnlyFor []string // additional requirement to allow us to use different types for the same key prefix
 	}
 
-	for k, vs := range lookup {
+	// key prefix to manually declared struct in typedefs package
+	lookup := map[string]nestedInfo{
+		"bounds.":          {"Bounds", "The bounding box of the object (source, scene item, etc).", []string{}},
+		"crop.":            {"Crop", "The crop specification for the object (source, scene item, etc).", []string{}},
+		"position.":        {"Position", "The position of the object (source, scene item, etc).", []string{}},
+		"scale.":           {"Scale", "The scaling specification for the object (source, scene item, etc).", []string{}},
+		"item.":            {"Item", "The item specification for this object.", []string{}},
+		"font.":            {"Font", "The font specification for this object.", []string{}},
+		"items.*.":         {"Item", "The items for this object.", []string{}},
+		"filters.*.":       {"Filter", "The filters for this object.", []string{}},
+		"settings.":        {"StreamSettings", " ", []string{"GetStreamSettings", "SetStreamSettings"}},
+		"stream.settings.": {"StreamSettings", " ", []string{}},
+	}
+
+	valid := func(i nestedInfo) bool {
+		if len(i.OnlyFor) == 0 {
+			return true
+		}
+
+		for _, v := range i.OnlyFor {
+			if strings.HasPrefix(structName, v) {
+				return true
+			}
+		}
+
+		return false
+	}
+
+	for k, info := range lookup {
+		if !valid(info) {
+			continue
+		}
+
 		if strings.HasPrefix(fieldName, k) {
 			k = strings.TrimSuffix(k, ".")
-			s := Qual(typedefQualifier(origin), vs[0])
-			return k, &keyInfo{Type: s, Comment: vs[1]}
+			s := Op("*").Qual(typedefQualifier(origin), info.Refer)
+			return k, &keyInfo{Type: s, Comment: info.Comment}
 		}
 	}
 

@@ -12,7 +12,7 @@ type SourceFiltersReordered struct {
 	EventBasic
 
 	// The filters for this object.
-	Filters []typedefs.Filter `json:"filters"`
+	Filters []*typedefs.Filter `json:"filters"`
 
 	// Source name
 	SourceName string `json:"sourceName"`

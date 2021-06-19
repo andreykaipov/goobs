@@ -19,7 +19,7 @@ type SetStreamSettingsParams struct {
 	Save bool `json:"save"`
 
 	//
-	Settings typedefs.Settings `json:"settings"`
+	Settings *typedefs.StreamSettings `json:"settings"`
 
 	// The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`.
 	Type string `json:"type"`

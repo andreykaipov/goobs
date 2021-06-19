@@ -1,7 +1,7 @@
 package typedefs
 
-// Settings specifies the stream settings.
-type Settings struct {
+// StreamSettings specifies the stream settings.
+type StreamSettings struct {
 	// The publish key of the stream.
 	Key string `json:"key"`
 

@@ -5,10 +5,10 @@ package typedefs
 // SceneItemTransform represents the complex type for SceneItemTransform.
 type SceneItemTransform struct {
 	// The bounding box of the object (source, scene item, etc).
-	Bounds Bounds `json:"bounds"`
+	Bounds *Bounds `json:"bounds"`
 
 	// The crop specification for the object (source, scene item, etc).
-	Crop Crop `json:"crop"`
+	Crop *Crop `json:"crop"`
 
 	// List of children (if this item is a group)
 	GroupChildren []SceneItemTransform `json:"groupChildren"`
@@ -23,13 +23,13 @@ type SceneItemTransform struct {
 	ParentGroupName string `json:"parentGroupName"`
 
 	// The position of the object (source, scene item, etc).
-	Position Position `json:"position"`
+	Position *Position `json:"position"`
 
 	// The clockwise rotation of the scene item in degrees around the point of alignment.
 	Rotation float64 `json:"rotation"`
 
 	// The scaling specification for the object (source, scene item, etc).
-	Scale Scale `json:"scale"`
+	Scale *Scale `json:"scale"`
 
 	// Base source (without scaling) of the source
 	SourceHeight int `json:"sourceHeight"`

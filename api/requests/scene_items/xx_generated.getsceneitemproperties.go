@@ -17,7 +17,7 @@ type GetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
 
 	// The item specification for this object.
-	Item typedefs.Item `json:"item"`
+	Item *typedefs.Item `json:"item"`
 
 	// Name of the scene the scene item belongs to. Defaults to the current scene.
 	SceneName string `json:"scene-name"`
@@ -38,10 +38,10 @@ type GetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic
 
 	// The bounding box of the object (source, scene item, etc).
-	Bounds typedefs.Bounds `json:"bounds"`
+	Bounds *typedefs.Bounds `json:"bounds"`
 
 	// The crop specification for the object (source, scene item, etc).
-	Crop typedefs.Crop `json:"crop"`
+	Crop *typedefs.Crop `json:"crop"`
 
 	// List of children (if this item is a group)
 	GroupChildren []typedefs.SceneItemTransform `json:"groupChildren"`
@@ -65,13 +65,13 @@ type GetSceneItemPropertiesResponse struct {
 	ParentGroupName string `json:"parentGroupName"`
 
 	// The position of the object (source, scene item, etc).
-	Position typedefs.Position `json:"position"`
+	Position *typedefs.Position `json:"position"`
 
 	// The clockwise rotation of the item in degrees around the point of alignment.
 	Rotation float64 `json:"rotation"`
 
 	// The scaling specification for the object (source, scene item, etc).
-	Scale typedefs.Scale `json:"scale"`
+	Scale *typedefs.Scale `json:"scale"`
 
 	// Base source (without scaling) of the source
 	SourceHeight int `json:"sourceHeight"`

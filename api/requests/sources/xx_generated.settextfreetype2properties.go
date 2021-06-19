@@ -28,7 +28,7 @@ type SetTextFreetype2PropertiesParams struct {
 	DropShadow bool `json:"drop_shadow"`
 
 	// The font specification for this object.
-	Font typedefs.Font `json:"font"`
+	Font *typedefs.Font `json:"font"`
 
 	// Read text from the specified file.
 	FromFile bool `json:"from_file"`

@@ -84,6 +84,16 @@ func Test_parseKeysAsJenStruct_slices(t *testing.T) {
 	assertJenStruct(t, statement, err)
 }
 
+func Test_parseKeysAsJenStruct_slices_qualified(t *testing.T) {
+	// can specify slices explicitly or implicitly
+	statement, err := parseJenKeysAsStruct("QualifiedCrap", map[string]keyInfo{
+		"explicitSlice":   keyInfo{Type: jen.Index().Qual("bytes", "Buffer")},
+		"implicitSlice.*": keyInfo{Type: jen.Qual("bytes", "Buffer")},
+	})
+
+	assertJenStruct(t, statement, err)
+}
+
 func Test_parseKeysAsJenStruct_slices_nested(t *testing.T) {
 	statement, err := parseJenKeysAsStruct("GetSourcesTypesListResponse", map[string]keyInfo{
 		"Ids":                         keyInfo{Type: jen.Index().Map(jen.String()).Interface()},

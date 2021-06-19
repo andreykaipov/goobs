@@ -23,8 +23,8 @@ func parseJenKeysAsMap(lines map[string]keyInfo) (map[string]interface{}, error)
 		typ3 := lines[line].Type
 
 		// prepend $. so the following loop always runs even for parts
-		// with no dots, and replace [] as .* for legacy interpretations
-		// of slices
+		// with no dots, and replace [] as .* to easily treat slices as
+		// maps for now
 		lineMod := "$." + strings.ReplaceAll(line, "[]", ".*")
 
 		parts := strings.Split(lineMod, ".")
@@ -77,12 +77,6 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 		return nil, err
 	}
 
-	addTag := func(tag string) func(g *jen.Statement) {
-		return func(s *jen.Statement) {
-			s.Tag(map[string]string{"json": tag})
-		}
-	}
-
 	// mutually recrusive recursive with traverseStruct
 	var traverse func(data interface{}, g *jen.Group, parent string)
 
@@ -100,21 +94,25 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 	anonymousStructs := []*jen.Statement{}
 
 	traverse = func(data interface{}, g *jen.Group, parent string) {
+		var idType jen.Code
+		id := pascal(parent)
+		tag := strings.TrimSuffix(parent, "[]")
+
 		switch t := data.(type) {
 		case map[string]interface{}:
-			// if there's an *, redo the recursion with a slice
+			// if there's an * in the keys, the parent key we're on
+			// must have been a slice, so use "[]" as the marker,
+			// and redo the recursion
 			for _, k := range sortedKeys(t) {
 				v := t[k]
 				if k == "*" {
-					traverse(v, g, parent+" []")
+					traverse(v, g, parent+"[]")
 					return
 				}
 			}
 
-			// is a nested anon struct
-			id := pascal(parent)
+			idType = jen.Id(id) // is a nested anon struct, so use itself as the type
 			idDeplural := id
-			idType := id
 
 			if strings.HasSuffix(id, "[]") {
 				id = strings.TrimSuffix(id, "[]")
@@ -128,35 +126,35 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 					idDeplural = strings.TrimSuffix(id, "s")
 				}
 
-				idType = "[]" + idDeplural
+				idType = jen.Index().Id(idDeplural)
 			}
 
 			s := jen.Empty()
 			traverseStruct(s, idDeplural, t)
 			anonymousStructs = append(anonymousStructs, s)
-			g.Id(id).Id(idType).Do(addTag(strings.TrimSuffix(parent, " []"))).Line()
-			return
 		case keyInfo:
+			idType = t.Type
+
 			if t.Comment != "" {
 				g.Comment(t.Comment)
 			}
-			g.Do(func(s *jen.Statement) {
-				if t.Embedded {
-					t.NoJSONTag = true
-				} else {
-					s.Id(pascal(parent))
-				}
-				s.Add(t.Type)
-				if t.NoJSONTag {
-					return
-				}
-				s.Do(addTag(parent))
-			})
+			if t.Embedded {
+				id = ""
+				t.NoJSONTag = true
+			}
+			if t.NoJSONTag {
+				tag = ""
+			}
 		default:
 			panic("unhandled case idk")
 		}
 
-		g.Line()
+		g.Id(id).Add(idType).Do(func(s *jen.Statement) {
+			if tag == "" {
+				return
+			}
+			s.Tag(map[string]string{"json": tag})
+		}).Line()
 	}
 
 	s := jen.Type()

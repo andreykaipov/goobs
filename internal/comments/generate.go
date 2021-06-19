@@ -307,30 +307,41 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			fieldType = Bool()
 		case "Boolean":
 			fieldType = Bool()
+		// funkier types
 		case "Object":
 			fieldType = Map(String()).Interface()
-		case "OBSStats":
-			fieldType = Index().Qual(typedefQualifier(origin), val)
-		case "SceneItemTransform":
-			fieldType = Index().Qual(typedefQualifier(origin), val)
-		case "Output":
-			fieldType = Index().Qual(typedefQualifier(origin), val)
 		case "Array<String>":
 			fieldType = Index().String()
 		case "Array<Object>":
 			fieldType = Index().Map(String()).Interface()
-		case "Array<Scene>":
-			fieldType = Index().Map(String()).Interface()
+		// all the possible typedefs
+		case "SceneItem":
+			fallthrough
+		case "SceneItemTransform":
+			fallthrough
+		case "OBSStats":
+			fallthrough
+		case "Output":
+			fallthrough
+		case "ScenesCollection":
+			fallthrough
+		case "Scene":
+			fieldType = Qual(typedefQualifier(origin), val)
+		// arrays of the all the possible typedefs
 		case "Array<SceneItem>":
-			fieldType = Index().Qual(typedefQualifier(origin), "SceneItem")
+			fallthrough
 		case "Array<SceneItemTransform>":
-			fieldType = Index().Qual(typedefQualifier(origin), "SceneItemTransform")
+			fallthrough
+		case "Array<OBSStats>":
+			fallthrough
 		case "Array<Output>":
-			fieldType = Index().Qual(typedefQualifier(origin), "Output")
+			fallthrough
 		case "Array<ScenesCollection>":
-			fieldType = Index().Qual(typedefQualifier(origin), "ScenesCollection")
-		// internal types that add embed a manually written struct
-		// within the generated struct
+			fallthrough
+		case "Array<Scene>":
+			typedef := val[6 : len(val)-1]
+			fieldType = Index().Qual(typedefQualifier(origin), typedef)
+		// internal types we use in our generation to embed base structs
 		case "~requests~":
 			fieldType = Qual(goobs+"/api/requests", field.Name)
 			embedded = true

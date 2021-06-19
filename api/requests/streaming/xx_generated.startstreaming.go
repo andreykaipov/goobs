@@ -25,7 +25,7 @@ type Stream struct {
 	Metadata map[string]interface{} `json:"metadata"`
 
 	//
-	Settings typedefs.StreamSettings `json:"settings"`
+	Settings *typedefs.StreamSettings `json:"settings"`
 
 	// If specified ensures the type of stream matches the given type (usually 'rtmp_custom' or 'rtmp_common'). If the
 	// currently configured stream type does not match the given stream type, all settings must be specified in the

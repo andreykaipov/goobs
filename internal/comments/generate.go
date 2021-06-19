@@ -421,7 +421,7 @@ func handleCommonObjects(origin, fieldName, structName string) (string, *keyInfo
 
 		if strings.HasPrefix(fieldName, k) {
 			k = strings.TrimSuffix(k, ".")
-			s := Qual(typedefQualifier(origin), info.Refer)
+			s := Op("*").Qual(typedefQualifier(origin), info.Refer)
 			return k, &keyInfo{Type: s, Comment: info.Comment}
 		}
 	}

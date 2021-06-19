@@ -33,7 +33,7 @@ type GetSourceFiltersResponse struct {
 	requests.ResponseBasic
 
 	// The filters for this object.
-	Filters []typedefs.Filter `json:"filters"`
+	Filters []*typedefs.Filter `json:"filters"`
 }
 
 // GetSourceFilters sends the corresponding request to the connected OBS WebSockets server.

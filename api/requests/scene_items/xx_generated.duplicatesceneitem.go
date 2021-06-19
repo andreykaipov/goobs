@@ -19,7 +19,7 @@ type DuplicateSceneItemParams struct {
 	FromScene string `json:"fromScene"`
 
 	// The item specification for this object.
-	Item typedefs.Item `json:"item"`
+	Item *typedefs.Item `json:"item"`
 
 	// Name of the scene to create the item in. Defaults to the current scene.
 	ToScene string `json:"toScene"`
@@ -39,7 +39,7 @@ type DuplicateSceneItemResponse struct {
 	requests.ResponseBasic
 
 	// The item specification for this object.
-	Item typedefs.Item `json:"item"`
+	Item *typedefs.Item `json:"item"`
 
 	// Name of the scene where the new item was created
 	Scene string `json:"scene"`

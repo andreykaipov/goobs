@@ -16,7 +16,7 @@ type DeleteSceneItemParams struct {
 	requests.ParamsBasic
 
 	// The item specification for this object.
-	Item typedefs.Item `json:"item"`
+	Item *typedefs.Item `json:"item"`
 
 	// Name of the scene the scene item belongs to. Defaults to the current scene.
 	Scene string `json:"scene"`

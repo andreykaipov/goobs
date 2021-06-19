@@ -17,25 +17,25 @@ type SetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
 
 	// The bounding box of the object (source, scene item, etc).
-	Bounds typedefs.Bounds `json:"bounds"`
+	Bounds *typedefs.Bounds `json:"bounds"`
 
 	// The crop specification for the object (source, scene item, etc).
-	Crop typedefs.Crop `json:"crop"`
+	Crop *typedefs.Crop `json:"crop"`
 
 	// The item specification for this object.
-	Item typedefs.Item `json:"item"`
+	Item *typedefs.Item `json:"item"`
 
 	// The new locked status of the source. 'true' keeps it in its current position, 'false' allows movement.
 	Locked bool `json:"locked"`
 
 	// The position of the object (source, scene item, etc).
-	Position typedefs.Position `json:"position"`
+	Position *typedefs.Position `json:"position"`
 
 	// The new clockwise rotation of the item in degrees.
 	Rotation float64 `json:"rotation"`
 
 	// The scaling specification for the object (source, scene item, etc).
-	Scale typedefs.Scale `json:"scale"`
+	Scale *typedefs.Scale `json:"scale"`
 
 	// Name of the scene the source item belongs to. Defaults to the current scene.
 	SceneName string `json:"scene-name"`

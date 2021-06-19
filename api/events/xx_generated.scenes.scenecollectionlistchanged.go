@@ -9,8 +9,10 @@ Since v4.0.0.
 type SceneCollectionListChanged struct {
 	EventBasic
 
-	SceneCollections []struct {
-		// Scene collection name.
-		Name string `json:"name"`
-	} `json:"sceneCollections"`
+	SceneCollections []SceneCollection `json:"sceneCollections"`
+}
+
+type SceneCollection struct {
+	// Scene collection name.
+	Name string `json:"name"`
 }

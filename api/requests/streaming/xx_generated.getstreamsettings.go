@@ -2,7 +2,10 @@
 
 package streaming
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 GetStreamSettingsParams represents the params body for the "GetStreamSettings" request.
@@ -26,22 +29,8 @@ Since v4.1.0.
 type GetStreamSettingsResponse struct {
 	requests.ResponseBasic
 
-	Settings struct {
-		// The publish key of the stream.
-		Key string `json:"key"`
-
-		// The password to use when accessing the streaming server. Only present if `use_auth` is `true`.
-		Password string `json:"password"`
-
-		// The publish URL.
-		Server string `json:"server"`
-
-		// Indicates whether authentication should be used when connecting to the streaming server.
-		UseAuth bool `json:"use_auth"`
-
-		// The username to use when accessing the streaming server. Only present if `use_auth` is `true`.
-		Username string `json:"username"`
-	} `json:"settings"`
+	//
+	Settings typedefs.Settings `json:"settings"`
 
 	// The type of streaming service configuration. Possible values: 'rtmp_custom' or 'rtmp_common'.
 	Type string `json:"type"`

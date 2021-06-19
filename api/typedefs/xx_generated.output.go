@@ -13,25 +13,7 @@ type Output struct {
 	// Number of frames dropped
 	DroppedFrames int `json:"droppedFrames"`
 
-	Flags struct {
-		// Output uses audio
-		Audio bool `json:"audio"`
-
-		// Output is encoded
-		Encoded bool `json:"encoded"`
-
-		// Output uses several audio tracks
-		MultiTrack bool `json:"multiTrack"`
-
-		// Raw flags value
-		RawValue int `json:"rawValue"`
-
-		// Output uses a service
-		Service bool `json:"service"`
-
-		// Output uses video
-		Video bool `json:"video"`
-	} `json:"flags"`
+	Flags Flags `json:"flags"`
 
 	// Video output height
 	Height int `json:"height"`
@@ -56,4 +38,24 @@ type Output struct {
 
 	// Video output width
 	Width int `json:"width"`
+}
+
+type Flags struct {
+	// Output uses audio
+	Audio bool `json:"audio"`
+
+	// Output is encoded
+	Encoded bool `json:"encoded"`
+
+	// Output uses several audio tracks
+	MultiTrack bool `json:"multiTrack"`
+
+	// Raw flags value
+	RawValue int `json:"rawValue"`
+
+	// Output uses a service
+	Service bool `json:"service"`
+
+	// Output uses video
+	Video bool `json:"video"`
 }

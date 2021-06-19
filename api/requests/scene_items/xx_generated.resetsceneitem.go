@@ -2,7 +2,10 @@
 
 package sceneitems
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 ResetSceneItemParams represents the params body for the "ResetSceneItem" request.
@@ -12,13 +15,8 @@ Since 4.2.0.
 type ResetSceneItemParams struct {
 	requests.ParamsBasic
 
-	Item struct {
-		// Scene Item ID (if the `item` field is an object)
-		Id int `json:"id"`
-
-		// Scene Item name (if the `item` field is an object)
-		Name string `json:"name"`
-	} `json:"item"`
+	// The item specification for this object.
+	Item typedefs.Item `json:"item"`
 
 	// Name of the scene the scene item belongs to. Defaults to the current scene.
 	SceneName string `json:"scene-name"`

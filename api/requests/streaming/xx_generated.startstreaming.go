@@ -2,7 +2,10 @@
 
 package streaming
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 StartStreamingParams represents the params body for the "StartStreaming" request.
@@ -13,35 +16,21 @@ Since 4.1.0.
 type StartStreamingParams struct {
 	requests.ParamsBasic
 
-	Stream struct {
-		// Adds the given object parameters as encoded query string parameters to the 'key' of the RTMP stream. Used to
-		// pass data to the RTMP service about the streaming. May be any String, Numeric, or Boolean field.
-		Metadata map[string]interface{} `json:"metadata"`
+	Stream Stream `json:"stream"`
+}
 
-		Settings struct {
-			// The publish key of the stream.
-			Key string `json:"key"`
+type Stream struct {
+	// Adds the given object parameters as encoded query string parameters to the 'key' of the RTMP stream. Used to pass
+	// data to the RTMP service about the streaming. May be any String, Numeric, or Boolean field.
+	Metadata map[string]interface{} `json:"metadata"`
 
-			// If authentication is enabled, the password for the streaming server. Ignored if `use_auth` is not set to
-			// `true`.
-			Password string `json:"password"`
+	//
+	Settings typedefs.Settings `json:"settings"`
 
-			// The publish URL.
-			Server string `json:"server"`
-
-			// Indicates whether authentication should be used when connecting to the streaming server.
-			UseAuth bool `json:"use_auth"`
-
-			// If authentication is enabled, the username for the streaming server. Ignored if `use_auth` is not set to
-			// `true`.
-			Username string `json:"username"`
-		} `json:"settings"`
-
-		// If specified ensures the type of stream matches the given type (usually 'rtmp_custom' or 'rtmp_common'). If
-		// the currently configured stream type does not match the given stream type, all settings must be specified in
-		// the `settings` object or an error will occur when starting the stream.
-		Type string `json:"type"`
-	} `json:"stream"`
+	// If specified ensures the type of stream matches the given type (usually 'rtmp_custom' or 'rtmp_common'). If the
+	// currently configured stream type does not match the given stream type, all settings must be specified in the
+	// `settings` object or an error will occur when starting the stream.
+	Type string `json:"type"`
 }
 
 // GetSelfName just returns "StartStreaming".

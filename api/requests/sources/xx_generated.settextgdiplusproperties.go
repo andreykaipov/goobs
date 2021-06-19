@@ -2,7 +2,10 @@
 
 package sources
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 SetTextGDIPlusPropertiesParams represents the params body for the "SetTextGDIPlusProperties" request.
@@ -42,19 +45,8 @@ type SetTextGDIPlusPropertiesParams struct {
 	// File path name.
 	File string `json:"file"`
 
-	Font struct {
-		// Font face.
-		Face string `json:"face"`
-
-		// Font text styling flag. `Bold=1, Italic=2, Bold Italic=3, Underline=5, Strikeout=8`
-		Flags int `json:"flags"`
-
-		// Font text size.
-		Size int `json:"size"`
-
-		// Font Style (unknown function).
-		Style string `json:"style"`
-	} `json:"font"`
+	// The font specification for this object.
+	Font typedefs.Font `json:"font"`
 
 	// Gradient enabled.
 	Gradient bool `json:"gradient"`

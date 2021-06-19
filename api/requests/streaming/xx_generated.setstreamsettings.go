@@ -2,7 +2,10 @@
 
 package streaming
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 SetStreamSettingsParams represents the params body for the "SetStreamSettings" request.
@@ -15,22 +18,8 @@ type SetStreamSettingsParams struct {
 	// Persist the settings to disk.
 	Save bool `json:"save"`
 
-	Settings struct {
-		// The publish key.
-		Key string `json:"key"`
-
-		// The password for the streaming service.
-		Password string `json:"password"`
-
-		// The publish URL.
-		Server string `json:"server"`
-
-		// Indicates whether authentication should be used when connecting to the streaming server.
-		UseAuth bool `json:"use_auth"`
-
-		// The username for the streaming service.
-		Username string `json:"username"`
-	} `json:"settings"`
+	//
+	Settings typedefs.Settings `json:"settings"`
 
 	// The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`.
 	Type string `json:"type"`

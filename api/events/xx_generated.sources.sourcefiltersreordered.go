@@ -2,6 +2,8 @@
 
 package events
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 SourceFiltersReordered represents the event body for the "SourceFiltersReordered" event.
 Since v4.6.0.
@@ -9,16 +11,8 @@ Since v4.6.0.
 type SourceFiltersReordered struct {
 	EventBasic
 
-	Filters []struct {
-		// Filter visibility status
-		Enabled bool `json:"enabled"`
-
-		// Filter name
-		Name string `json:"name"`
-
-		// Filter type
-		Type string `json:"type"`
-	} `json:"filters"`
+	// The filters for this object.
+	Filters []typedefs.Filter `json:"filters"`
 
 	// Source name
 	SourceName string `json:"sourceName"`

@@ -4,34 +4,11 @@ package typedefs
 
 // SceneItemTransform represents the complex type for SceneItemTransform.
 type SceneItemTransform struct {
-	Bounds struct {
-		// Alignment of the bounding box.
-		Alignment int `json:"alignment"`
+	// The bounding box of the object (source, scene item, etc).
+	Bounds Bounds `json:"bounds"`
 
-		// Type of bounding box. Can be "OBS_BOUNDS_STRETCH", "OBS_BOUNDS_SCALE_INNER", "OBS_BOUNDS_SCALE_OUTER",
-		// "OBS_BOUNDS_SCALE_TO_WIDTH", "OBS_BOUNDS_SCALE_TO_HEIGHT", "OBS_BOUNDS_MAX_ONLY" or "OBS_BOUNDS_NONE".
-		Type string `json:"type"`
-
-		// Width of the bounding box.
-		X float64 `json:"x"`
-
-		// Height of the bounding box.
-		Y float64 `json:"y"`
-	} `json:"bounds"`
-
-	Crop struct {
-		// The number of pixels cropped off the bottom of the scene item before scaling.
-		Bottom int `json:"bottom"`
-
-		// The number of pixels cropped off the left of the scene item before scaling.
-		Left int `json:"left"`
-
-		// The number of pixels cropped off the right of the scene item before scaling.
-		Right int `json:"right"`
-
-		// The number of pixels cropped off the top of the scene item before scaling.
-		Top int `json:"top"`
-	} `json:"crop"`
+	// The crop specification for the object (source, scene item, etc).
+	Crop Crop `json:"crop"`
 
 	// List of children (if this item is a group)
 	GroupChildren []SceneItemTransform `json:"groupChildren"`
@@ -45,31 +22,14 @@ type SceneItemTransform struct {
 	// Name of the item's parent (if this item belongs to a group)
 	ParentGroupName string `json:"parentGroupName"`
 
-	Position struct {
-		// The point on the scene item that the item is manipulated from.
-		Alignment float64 `json:"alignment"`
-
-		// The x position of the scene item from the left.
-		X float64 `json:"x"`
-
-		// The y position of the scene item from the top.
-		Y float64 `json:"y"`
-	} `json:"position"`
+	// The position of the object (source, scene item, etc).
+	Position Position `json:"position"`
 
 	// The clockwise rotation of the scene item in degrees around the point of alignment.
 	Rotation float64 `json:"rotation"`
 
-	Scale struct {
-		// The scale filter of the source. Can be "OBS_SCALE_DISABLE", "OBS_SCALE_POINT", "OBS_SCALE_BICUBIC",
-		// "OBS_SCALE_BILINEAR", "OBS_SCALE_LANCZOS" or "OBS_SCALE_AREA".
-		Filter string `json:"filter"`
-
-		// The x-scale factor of the scene item.
-		X float64 `json:"x"`
-
-		// The y-scale factor of the scene item.
-		Y float64 `json:"y"`
-	} `json:"scale"`
+	// The scaling specification for the object (source, scene item, etc).
+	Scale Scale `json:"scale"`
 
 	// Base source (without scaling) of the source
 	SourceHeight int `json:"sourceHeight"`

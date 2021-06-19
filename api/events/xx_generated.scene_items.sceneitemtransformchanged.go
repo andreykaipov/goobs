@@ -21,5 +21,5 @@ type SceneItemTransformChanged struct {
 	SceneName string `json:"scene-name"`
 
 	// Scene item transform properties
-	Transform []typedefs.SceneItemTransform `json:"transform"`
+	Transform typedefs.SceneItemTransform `json:"transform"`
 }

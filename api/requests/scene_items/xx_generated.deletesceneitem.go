@@ -2,7 +2,10 @@
 
 package sceneitems
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 DeleteSceneItemParams represents the params body for the "DeleteSceneItem" request.
@@ -12,13 +15,8 @@ Since 4.5.0.
 type DeleteSceneItemParams struct {
 	requests.ParamsBasic
 
-	Item struct {
-		// Scene Item ID.
-		Id int `json:"id"`
-
-		// Scene Item name (prefer `id`, including both is acceptable).
-		Name string `json:"name"`
-	} `json:"item"`
+	// The item specification for this object.
+	Item typedefs.Item `json:"item"`
 
 	// Name of the scene the scene item belongs to. Defaults to the current scene.
 	Scene string `json:"scene"`

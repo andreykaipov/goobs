@@ -26,17 +26,19 @@ Since v4.9.0.
 type GetMediaSourcesListResponse struct {
 	requests.ResponseBasic
 
-	MediaSources []struct {
-		// The current state of media for that source. States: `none`, `playing`, `opening`, `buffering`, `paused`,
-		// `stopped`, `ended`, `error`, `unknown`
-		MediaState string `json:"mediaState"`
+	MediaSources []MediaSource `json:"mediaSources"`
+}
 
-		// Unique source internal type (a.k.a `ffmpeg_source` or `vlc_source`)
-		SourceKind string `json:"sourceKind"`
+type MediaSource struct {
+	// The current state of media for that source. States: `none`, `playing`, `opening`, `buffering`, `paused`,
+	// `stopped`, `ended`, `error`, `unknown`
+	MediaState string `json:"mediaState"`
 
-		// Unique source name
-		SourceName string `json:"sourceName"`
-	} `json:"mediaSources"`
+	// Unique source internal type (a.k.a `ffmpeg_source` or `vlc_source`)
+	SourceKind string `json:"sourceKind"`
+
+	// Unique source name
+	SourceName string `json:"sourceName"`
 }
 
 // GetMediaSourcesList sends the corresponding request to the connected OBS WebSockets server. Note the variadic

@@ -284,14 +284,8 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 		case "String":
 			fieldType = String()
 		case "String | Object":
-			// Field can't be both a string and an object unless we
-			// want to do some nasty interface{} crap. However,
-			// since this combo-type only appears in the param body
-			// of a request, we'll default to a string and call it
-			// a day.
-			switch origin {
-			case "request":
-				fieldType = String()
+			switch fieldName {
+			case "item": // this is ok, it's implicitly an object by the keys following it
 			default:
 				panic(fmt.Errorf("in struct %q, %q can't be both %q", name, field.Name, field.Type))
 			}
@@ -313,50 +307,41 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			fieldType = Bool()
 		case "Boolean":
 			fieldType = Bool()
+		// funkier types
 		case "Object":
 			fieldType = Map(String()).Interface()
-		case "OBSStats":
-			fieldType = Index().Qual(goobs+"/api/typedefs", val)
-		case "SceneItemTransform":
-			fieldType = Index().Qual(goobs+"/api/typedefs", val)
-		case "Output":
-			fieldType = Index().Qual(goobs+"/api/typedefs", val)
 		case "Array<String>":
 			fieldType = Index().String()
 		case "Array<Object>":
 			fieldType = Index().Map(String()).Interface()
-		case "Array<Scene>":
-			fieldType = Index().Map(String()).Interface()
+		// all the possible typedefs
+		case "SceneItem":
+			fallthrough
+		case "SceneItemTransform":
+			fallthrough
+		case "OBSStats":
+			fallthrough
+		case "Output":
+			fallthrough
+		case "ScenesCollection":
+			fallthrough
+		case "Scene":
+			fieldType = Qual(typedefQualifier(origin), val)
+		// arrays of the all the possible typedefs
 		case "Array<SceneItem>":
-			switch origin {
-			case "typedef":
-				fieldType = Index().Id("SceneItem")
-			default:
-				fieldType = Index().Qual(goobs+"/api/typedefs", "SceneItem")
-			}
+			fallthrough
 		case "Array<SceneItemTransform>":
-			switch origin {
-			case "typedef":
-				fieldType = Index().Id("SceneItemTransform")
-			default:
-				fieldType = Index().Qual(goobs+"/api/typedefs", "SceneItemTransform")
-			}
+			fallthrough
+		case "Array<OBSStats>":
+			fallthrough
 		case "Array<Output>":
-			switch origin {
-			case "typedef":
-				fieldType = Index().Id("Output")
-			default:
-				fieldType = Index().Qual(goobs+"/api/typedefs", "Output")
-			}
+			fallthrough
 		case "Array<ScenesCollection>":
-			switch origin {
-			case "typedef":
-				fieldType = Index().Id("ScenesCollection")
-			default:
-				fieldType = Index().Qual(goobs+"/api/typedefs", "ScenesCollection")
-			}
-		// internal types that add embed a manually written struct
-		// within the generated struct
+			fallthrough
+		case "Array<Scene>":
+			typedef := val[6 : len(val)-1]
+			fieldType = Index().Qual(typedefQualifier(origin), typedef)
+		// internal types we use in our generation to embed base structs
 		case "~requests~":
 			fieldType = Qual(goobs+"/api/requests", field.Name)
 			embedded = true
@@ -367,9 +352,9 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, field.Name, field.Type))
 		}
 
-		// TODO remove in 4.9.0
-		if strings.Contains(fieldName, "position") {
-			fieldType = Float64()
+		if key, keyInfo := handleCommonObjects(origin, fieldName); keyInfo != nil {
+			keysInfo[key] = *keyInfo
+			continue
 		}
 
 		keysInfo[fieldName] = keyInfo{
@@ -388,6 +373,49 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 	s.Add(statement)
 
 	return nil
+}
+
+func handleCommonObjects(origin, fieldName string) (string, *keyInfo) {
+	if !strings.Contains(fieldName, ".") {
+		return "", nil
+	}
+
+	// key prefix to manually declared struct in typedefs package
+	lookup := map[string][]string{
+		"bounds.":          {"Bounds", "The bounding box of the object (source, scene item, etc)."},
+		"crop.":            {"Crop", "The crop specification for the object (source, scene item, etc)."},
+		"position.":        {"Position", "The position of the object (source, scene item, etc)."},
+		"scale.":           {"Scale", "The scaling specification for the object (source, scene item, etc)."},
+		"item.":            {"Item", "The item specification for this object."},
+		"font.":            {"Font", "The font specification for this object."},
+		"settings.":        {"Settings", " "},
+		"stream.settings.": {"Settings", " "},
+		"items.*.":         {"Item", "The items for this object."},
+		"filters.*.":       {"Filter", "The filters for this object."},
+	}
+
+	for k, vs := range lookup {
+		if strings.HasPrefix(fieldName, k) {
+			k = strings.TrimSuffix(k, ".")
+			s := Qual(typedefQualifier(origin), vs[0])
+			return k, &keyInfo{Type: s, Comment: vs[1]}
+		}
+	}
+
+	fmt.Printf("  > not handled as a common struct: %s\n", fieldName)
+
+	return "", nil
+}
+
+// If the origin of the generation is from a typedef, we don't actually need
+// a Qualifier. Saves us repeating this switch/case a bunch
+func typedefQualifier(origin string) string {
+	switch origin {
+	case "typedef":
+		return ""
+	default:
+		return goobs + "/api/typedefs"
+	}
 }
 
 func sanitizeText(text string) (string, error) {

@@ -29,22 +29,24 @@ Since v4.9.0.
 type GetSceneItemListResponse struct {
 	requests.ResponseBasic
 
-	SceneItems []struct {
-		// Unique item id of the source item
-		ItemId int `json:"itemId"`
-
-		// ID if the scene item's source. For example `vlc_source` or `image_source`
-		SourceKind string `json:"sourceKind"`
-
-		// Name of the scene item's source
-		SourceName string `json:"sourceName"`
-
-		// Type of the scene item's source. Either `input`, `group`, or `scene`
-		SourceType string `json:"sourceType"`
-	} `json:"sceneItems"`
+	SceneItems []*SceneItem `json:"sceneItems"`
 
 	// Name of the requested (or current) scene
 	SceneName string `json:"sceneName"`
+}
+
+type SceneItem struct {
+	// Unique item id of the source item
+	ItemId int `json:"itemId"`
+
+	// ID if the scene item's source. For example `vlc_source` or `image_source`
+	SourceKind string `json:"sourceKind"`
+
+	// Name of the scene item's source
+	SourceName string `json:"sourceName"`
+
+	// Type of the scene item's source. Either `input`, `group`, or `scene`
+	SourceType string `json:"sourceType"`
 }
 
 // GetSceneItemList sends the corresponding request to the connected OBS WebSockets server.

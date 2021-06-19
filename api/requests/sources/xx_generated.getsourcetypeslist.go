@@ -26,42 +26,46 @@ Since v4.3.0.
 type GetSourceTypesListResponse struct {
 	requests.ResponseBasic
 
-	Types []struct {
-		Caps struct {
-			// True if interaction with this sources of this type is possible
-			CanInteract bool `json:"canInteract"`
+	Types []*Type `json:"types"`
+}
 
-			// True if sources of this type should not be fully duplicated
-			DoNotDuplicate bool `json:"doNotDuplicate"`
+type Caps struct {
+	// True if interaction with this sources of this type is possible
+	CanInteract bool `json:"canInteract"`
 
-			// True if sources of this type may cause a feedback loop if it's audio is monitored and shouldn't be
-			DoNotSelfMonitor bool `json:"doNotSelfMonitor"`
+	// True if sources of this type should not be fully duplicated
+	DoNotDuplicate bool `json:"doNotDuplicate"`
 
-			// True if sources of this type provide audio
-			HasAudio bool `json:"hasAudio"`
+	// True if sources of this type may cause a feedback loop if it's audio is monitored and shouldn't be
+	DoNotSelfMonitor bool `json:"doNotSelfMonitor"`
 
-			// True if sources of this type provide video
-			HasVideo bool `json:"hasVideo"`
+	// True if sources of this type provide audio
+	HasAudio bool `json:"hasAudio"`
 
-			// True if source of this type provide frames asynchronously
-			IsAsync bool `json:"isAsync"`
+	// True if sources of this type provide video
+	HasVideo bool `json:"hasVideo"`
 
-			// True if sources of this type composite one or more sub-sources
-			IsComposite bool `json:"isComposite"`
-		} `json:"caps"`
+	// True if source of this type provide frames asynchronously
+	IsAsync bool `json:"isAsync"`
 
-		// Default settings of this source type
-		DefaultSettings map[string]interface{} `json:"defaultSettings"`
+	// True if sources of this type composite one or more sub-sources
+	IsComposite bool `json:"isComposite"`
+}
 
-		// Display name of the source type
-		DisplayName string `json:"displayName"`
+type Type struct {
+	Caps *Caps `json:"caps"`
 
-		// Type. Value is one of the following: "input", "filter", "transition" or "other"
-		Type string `json:"type"`
+	// Default settings of this source type
+	DefaultSettings map[string]interface{} `json:"defaultSettings"`
 
-		// Non-unique internal source type ID
-		TypeId string `json:"typeId"`
-	} `json:"types"`
+	// Display name of the source type
+	DisplayName string `json:"displayName"`
+
+	// Type. Value is one of the following: "input", "filter", "transition" or "other"
+	Type string `json:"type"`
+
+	// Non-unique internal source type ID
+	TypeId string `json:"typeId"`
 }
 
 // GetSourceTypesList sends the corresponding request to the connected OBS WebSockets server. Note the variadic

@@ -15,12 +15,12 @@ func assertJenStruct(t *testing.T, s *jen.Statement, err error) {
 	buf := new(bytes.Buffer)
 	f := jen.NewFile("testfixtures")
 	f.Add(s)
-	f.Render(buf)
+	assert.NoError(t, f.Render(buf))
 	actual := buf.String()
 	// fmt.Println(actual)
 
 	fixture := strings.Join(strings.Split(t.Name(), "_")[2:], "_")
-	expected, err := ioutil.ReadFile(fmt.Sprintf("testfixtures/dotparser/%s.go", fixture))
+	expected, err := ioutil.ReadFile(fmt.Sprintf("testfixtures/dotparser/%s/expected.go", fixture))
 	if err != nil {
 		panic(err)
 	}
@@ -84,6 +84,16 @@ func Test_parseKeysAsJenStruct_slices(t *testing.T) {
 	assertJenStruct(t, statement, err)
 }
 
+func Test_parseKeysAsJenStruct_slices_qualified(t *testing.T) {
+	// can specify slices explicitly or implicitly
+	statement, err := parseJenKeysAsStruct("QualifiedCrap", map[string]keyInfo{
+		"explicitSlice":   keyInfo{Type: jen.Index().Qual("bytes", "Buffer")},
+		"implicitSlice.*": keyInfo{Type: jen.Qual("bytes", "Buffer")},
+	})
+
+	assertJenStruct(t, statement, err)
+}
+
 func Test_parseKeysAsJenStruct_slices_nested(t *testing.T) {
 	statement, err := parseJenKeysAsStruct("GetSourcesTypesListResponse", map[string]keyInfo{
 		"Ids":                         keyInfo{Type: jen.Index().Map(jen.String()).Interface()},
@@ -107,7 +117,7 @@ func Test_parseKeysAsJenStruct_slices_nested(t *testing.T) {
 }
 
 func Test_parseKeysAsJenStruct_slices_legacy(t *testing.T) {
-	statement, err := parseJenKeysAsStruct("ReorderSceneItemsRequest_Legacy", map[string]keyInfo{
+	statement, err := parseJenKeysAsStruct("ReorderSceneItemsRequestLegacy", map[string]keyInfo{
 		"Items":        keyInfo{Type: jen.Index().Map(jen.String()).Interface()},
 		"Items[].Id":   keyInfo{Type: jen.Int()},
 		"Items[].Name": keyInfo{Type: jen.String()},

@@ -2,7 +2,10 @@
 
 package scenes
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 GetSceneListParams represents the params body for the "GetSceneList" request.
@@ -30,7 +33,7 @@ type GetSceneListResponse struct {
 	CurrentScene string `json:"current-scene"`
 
 	// Ordered list of the current profile's scenes (See [GetCurrentScene](#getcurrentscene) for more information).
-	Scenes []map[string]interface{} `json:"scenes"`
+	Scenes []typedefs.Scene `json:"scenes"`
 }
 
 // GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

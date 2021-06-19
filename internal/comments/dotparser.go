@@ -23,8 +23,8 @@ func parseJenKeysAsMap(lines map[string]keyInfo) (map[string]interface{}, error)
 		typ3 := lines[line].Type
 
 		// prepend $. so the following loop always runs even for parts
-		// with no dots, and replace [] as .* for legacy interpretations
-		// of slices
+		// with no dots, and replace [] as .* to easily treat slices as
+		// maps for now
 		lineMod := "$." + strings.ReplaceAll(line, "[]", ".*")
 
 		parts := strings.Split(lineMod, ".")
@@ -77,63 +77,92 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 		return nil, err
 	}
 
-	addTag := func(tag string) func(g *jen.Statement) {
-		return func(s *jen.Statement) {
-			s.Tag(map[string]string{"json": tag})
-		}
+	// mutually recrusive recursive with traverseStruct
+	var traverse func(data interface{}, g *jen.Group, parent string)
+
+	traverseStruct := func(s *jen.Statement, name string, t map[string]interface{}) {
+		s.Id(name).StructFunc(func(subg *jen.Group) {
+			for _, k := range sortedKeys(t) {
+				v := t[k]
+				traverse(v, subg, k)
+			}
+		}).Line()
 	}
 
-	// returns whether to skip the current group (slice support)
-	var f func(data interface{}, g *jen.Group, parent string)
+	// keep track of any anonymous structs as we'll want to make them
+	// siblings with the original parent struct
+	anonymousStructs := []*jen.Statement{}
 
-	f = func(data interface{}, g *jen.Group, parent string) {
+	traverse = func(data interface{}, g *jen.Group, parent string) {
+		var idType jen.Code
+		id := pascal(parent)
+		tag := strings.TrimSuffix(parent, "[]")
+
 		switch t := data.(type) {
 		case map[string]interface{}:
-			// if there's an *, redo the recursion with a slice
+			// if there's an * in the keys, the parent key we're on
+			// must have been a slice, so use "[]" as the marker,
+			// and redo the recursion
 			for _, k := range sortedKeys(t) {
 				v := t[k]
 				if k == "*" {
-					f(v, g, parent+" []")
+					traverse(v, g, parent+"[]")
 					return
 				}
 			}
 
-			g.Id(pascal(parent)).StructFunc(func(subg *jen.Group) {
-				for _, k := range sortedKeys(t) {
-					v := t[k]
-					f(v, subg, k)
+			idType = jen.Op("*").Id(id) // is a nested anon struct, so use a pointer to it itself as the type
+			idDeplural := id
+
+			if strings.HasSuffix(id, "[]") {
+				id = strings.TrimSuffix(id, "[]")
+				idDeplural = id
+
+				// try to depluralize lol
+				// TODO add more exhaustive rules as necessary
+				// because this isn't really robust
+				if strings.HasSuffix(id, "s") {
+					fmt.Printf("  ! %s is a slice and looks plural, we'll try to depluralize...\n", id)
+					idDeplural = strings.TrimSuffix(id, "s")
 				}
-			}).Do(func(s *jen.Statement) {
-				if parent != name {
-					s.Do(addTag(strings.TrimSuffix(parent, " []")))
-				}
-			})
+
+				idType = jen.Index().Op("*").Id(idDeplural)
+			}
+
+			s := jen.Empty()
+			traverseStruct(s, idDeplural, t)
+			anonymousStructs = append(anonymousStructs, s)
 		case keyInfo:
+			idType = t.Type
+
 			if t.Comment != "" {
 				g.Comment(t.Comment)
 			}
-			g.Do(func(s *jen.Statement) {
-				if t.Embedded {
-					t.NoJSONTag = true
-				} else {
-					s.Id(pascal(parent))
-				}
-				s.Add(t.Type)
-				if t.NoJSONTag {
-					return
-				}
-				s.Do(addTag(parent))
-			})
+			if t.Embedded {
+				id = ""
+				t.NoJSONTag = true
+			}
+			if t.NoJSONTag {
+				tag = ""
+			}
 		default:
 			panic("unhandled case idk")
 		}
 
-		g.Line()
+		g.Id(id).Add(idType).Do(func(s *jen.Statement) {
+			if tag == "" {
+				return
+			}
+			s.Tag(map[string]string{"json": tag})
+		}).Line()
 	}
 
-	return jen.Type().CustomFunc(jen.Options{}, func(g *jen.Group) {
-		f(m, g, name)
-	}), nil
+	s := jen.Type()
+	traverseStruct(s, name, m)
+	for _, q := range anonymousStructs {
+		s.Line().Type().Add(q).Line()
+	}
+	return s, nil
 }
 
 func pascal(text string) string {

@@ -2,7 +2,10 @@
 
 package sceneitems
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 DuplicateSceneItemParams represents the params body for the "DuplicateSceneItem" request.
@@ -15,13 +18,8 @@ type DuplicateSceneItemParams struct {
 	// Name of the scene to copy the item from. Defaults to the current scene.
 	FromScene string `json:"fromScene"`
 
-	Item struct {
-		// Scene Item ID.
-		Id int `json:"id"`
-
-		// Scene Item name (prefer `id`, including both is acceptable).
-		Name string `json:"name"`
-	} `json:"item"`
+	// The item specification for this object.
+	Item typedefs.Item `json:"item"`
 
 	// Name of the scene to create the item in. Defaults to the current scene.
 	ToScene string `json:"toScene"`
@@ -40,13 +38,8 @@ Since v4.5.0.
 type DuplicateSceneItemResponse struct {
 	requests.ResponseBasic
 
-	Item struct {
-		// New item ID
-		Id int `json:"id"`
-
-		// New item name
-		Name string `json:"name"`
-	} `json:"item"`
+	// The item specification for this object.
+	Item typedefs.Item `json:"item"`
 
 	// Name of the scene where the new item was created
 	Scene string `json:"scene"`

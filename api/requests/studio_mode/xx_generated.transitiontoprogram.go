@@ -13,13 +13,15 @@ Since 4.1.0.
 type TransitionToProgramParams struct {
 	requests.ParamsBasic
 
-	WithTransition struct {
-		// Transition duration (in milliseconds).
-		Duration int `json:"duration"`
+	WithTransition *WithTransition `json:"with-transition"`
+}
 
-		// Name of the transition.
-		Name string `json:"name"`
-	} `json:"with-transition"`
+type WithTransition struct {
+	// Transition duration (in milliseconds).
+	Duration int `json:"duration"`
+
+	// Name of the transition.
+	Name string `json:"name"`
 }
 
 // GetSelfName just returns "TransitionToProgram".

@@ -2,7 +2,10 @@
 
 package scenes
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 ReorderSceneItemsParams represents the params body for the "ReorderSceneItems" request.
@@ -12,13 +15,8 @@ Since 4.5.0.
 type ReorderSceneItemsParams struct {
 	requests.ParamsBasic
 
-	Items []struct {
-		// Id of a specific scene item. Unique on a scene by scene basis.
-		Id int `json:"id"`
-
-		// Name of a scene item. Sufficiently unique if no scene items share sources within the scene.
-		Name string `json:"name"`
-	} `json:"items"`
+	// The items for this object.
+	Items []typedefs.Item `json:"items"`
 
 	// Name of the scene to reorder (defaults to current).
 	Scene string `json:"scene"`

@@ -26,16 +26,18 @@ Since v4.3.0.
 type GetSourcesListResponse struct {
 	requests.ResponseBasic
 
-	Sources []struct {
-		// Unique source name
-		Name string `json:"name"`
+	Sources []*Source `json:"sources"`
+}
 
-		// Source type. Value is one of the following: "input", "filter", "transition", "scene" or "unknown"
-		Type string `json:"type"`
+type Source struct {
+	// Unique source name
+	Name string `json:"name"`
 
-		// Non-unique source internal type (a.k.a kind)
-		TypeId string `json:"typeId"`
-	} `json:"sources"`
+	// Source type. Value is one of the following: "input", "filter", "transition", "scene" or "unknown"
+	Type string `json:"type"`
+
+	// Non-unique source internal type (a.k.a kind)
+	TypeId string `json:"typeId"`
 }
 
 // GetSourcesList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

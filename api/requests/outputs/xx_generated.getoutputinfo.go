@@ -33,7 +33,7 @@ type GetOutputInfoResponse struct {
 	requests.ResponseBasic
 
 	// Output info
-	OutputInfo []typedefs.Output `json:"outputInfo"`
+	OutputInfo typedefs.Output `json:"outputInfo"`
 }
 
 // GetOutputInfo sends the corresponding request to the connected OBS WebSockets server.

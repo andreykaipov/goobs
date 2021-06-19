@@ -30,7 +30,7 @@ type GetStatsResponse struct {
 	requests.ResponseBasic
 
 	// [OBS stats](#obsstats)
-	Stats []typedefs.OBSStats `json:"stats"`
+	Stats typedefs.OBSStats `json:"stats"`
 }
 
 // GetStats sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as this

@@ -15,14 +15,16 @@ type ExecuteBatchParams struct {
 	// Stop processing batch requests if one returns a failure.
 	AbortOnFail bool `json:"abortOnFail"`
 
-	Requests []struct {
-		// ID of the individual request. Can be any string and not required to be unique. Defaults to empty string if
-		// not specified.
-		MessageId string `json:"message-id"`
+	Requests []*Request `json:"requests"`
+}
 
-		// Request type. Eg. `GetVersion`.
-		RequestType string `json:"request-type"`
-	} `json:"requests"`
+type Request struct {
+	// ID of the individual request. Can be any string and not required to be unique. Defaults to empty string if not
+	// specified.
+	MessageId string `json:"message-id"`
+
+	// Request type. Eg. `GetVersion`.
+	RequestType string `json:"request-type"`
 }
 
 // GetSelfName just returns "ExecuteBatch".
@@ -38,16 +40,18 @@ Since v4.9.0.
 type ExecuteBatchResponse struct {
 	requests.ResponseBasic
 
-	Results []struct {
-		// Error message accompanying an `error` status.
-		Error string `json:"error"`
+	Results []*Result `json:"results"`
+}
 
-		// ID of the individual request which was originally provided by the client.
-		MessageId string `json:"message-id"`
+type Result struct {
+	// Error message accompanying an `error` status.
+	Error string `json:"error"`
 
-		// Status response as string. Either `ok` or `error`.
-		Status string `json:"status"`
-	} `json:"results"`
+	// ID of the individual request which was originally provided by the client.
+	MessageId string `json:"message-id"`
+
+	// Status response as string. Either `ok` or `error`.
+	Status string `json:"status"`
 }
 
 // ExecuteBatch sends the corresponding request to the connected OBS WebSockets server.

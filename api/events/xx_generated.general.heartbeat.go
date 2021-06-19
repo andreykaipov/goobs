@@ -24,7 +24,7 @@ type Heartbeat struct {
 	Recording bool `json:"recording"`
 
 	// OBS Stats
-	Stats []typedefs.OBSStats `json:"stats"`
+	Stats typedefs.OBSStats `json:"stats"`
 
 	// Current streaming state.
 	Streaming bool `json:"streaming"`

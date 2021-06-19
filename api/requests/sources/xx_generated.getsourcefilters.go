@@ -2,7 +2,10 @@
 
 package sources
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import (
+	requests "github.com/andreykaipov/goobs/api/requests"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 /*
 GetSourceFiltersParams represents the params body for the "GetSourceFilters" request.
@@ -29,19 +32,8 @@ Since v4.5.0.
 type GetSourceFiltersResponse struct {
 	requests.ResponseBasic
 
-	Filters []struct {
-		// Filter status (enabled or not)
-		Enabled bool `json:"enabled"`
-
-		// Filter name
-		Name string `json:"name"`
-
-		// Filter settings
-		Settings map[string]interface{} `json:"settings"`
-
-		// Filter type
-		Type string `json:"type"`
-	} `json:"filters"`
+	// The filters for this object.
+	Filters []typedefs.Filter `json:"filters"`
 }
 
 // GetSourceFilters sends the corresponding request to the connected OBS WebSockets server.

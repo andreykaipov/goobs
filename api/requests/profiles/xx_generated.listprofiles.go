@@ -26,10 +26,12 @@ Since v4.0.0.
 type ListProfilesResponse struct {
 	requests.ResponseBasic
 
-	Profiles []struct {
-		// Filter name
-		ProfileName string `json:"profile-name"`
-	} `json:"profiles"`
+	Profiles []*Profile `json:"profiles"`
+}
+
+type Profile struct {
+	// Filter name
+	ProfileName string `json:"profile-name"`
 }
 
 // ListProfiles sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

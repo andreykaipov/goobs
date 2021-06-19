@@ -111,7 +111,7 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 				}
 			}
 
-			idType = jen.Id(id) // is a nested anon struct, so use itself as the type
+			idType = jen.Op("*").Id(id) // is a nested anon struct, so use a pointer to it itself as the type
 			idDeplural := id
 
 			if strings.HasSuffix(id, "[]") {
@@ -126,7 +126,7 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 					idDeplural = strings.TrimSuffix(id, "s")
 				}
 
-				idType = jen.Index().Id(idDeplural)
+				idType = jen.Index().Op("*").Id(idDeplural)
 			}
 
 			s := jen.Empty()

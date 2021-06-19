@@ -7,7 +7,7 @@ type Ugh struct {
 	// hi
 	B string `json:"b"`
 
-	C C `json:"c"`
+	C *C `json:"c"`
 }
 
 type C struct {

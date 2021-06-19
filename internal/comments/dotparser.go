@@ -71,7 +71,16 @@ func parseJenKeysAsMap(lines map[string]keyInfo) (map[string]interface{}, error)
 	return final, nil
 }
 
-func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement, error) {
+type options struct {
+	OmitEmpty bool
+}
+
+func parseJenKeysAsStruct(name string, lines map[string]keyInfo, o ...options) (*jen.Statement, error) {
+	var opts options
+	if len(o) == 1 {
+		opts = o[0]
+	}
+
 	m, err := parseJenKeysAsMap(lines)
 	if err != nil {
 		return nil, err
@@ -96,7 +105,11 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 	traverse = func(data interface{}, g *jen.Group, parent string) {
 		var idType jen.Code
 		id := pascal(parent)
+
 		tag := strings.TrimSuffix(parent, "[]")
+		if opts.OmitEmpty {
+			tag += ",omitempty"
+		}
 
 		switch t := data.(type) {
 		case map[string]interface{}:

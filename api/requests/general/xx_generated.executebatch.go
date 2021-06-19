@@ -15,7 +15,7 @@ type ExecuteBatchParams struct {
 	// Stop processing batch requests if one returns a failure.
 	AbortOnFail bool `json:"abortOnFail"`
 
-	Requests []Request `json:"requests"`
+	Requests []*Request `json:"requests"`
 }
 
 type Request struct {
@@ -40,7 +40,7 @@ Since v4.9.0.
 type ExecuteBatchResponse struct {
 	requests.ResponseBasic
 
-	Results []Result `json:"results"`
+	Results []*Result `json:"results"`
 }
 
 type Result struct {

@@ -26,7 +26,7 @@ Since v4.3.0.
 type GetSourcesListResponse struct {
 	requests.ResponseBasic
 
-	Sources []Source `json:"sources"`
+	Sources []*Source `json:"sources"`
 }
 
 type Source struct {

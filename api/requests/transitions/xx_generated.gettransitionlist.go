@@ -29,7 +29,7 @@ type GetTransitionListResponse struct {
 	// Name of the currently active transition.
 	CurrentTransition string `json:"current-transition"`
 
-	Transitions []Transition `json:"transitions"`
+	Transitions []*Transition `json:"transitions"`
 }
 
 type Transition struct {

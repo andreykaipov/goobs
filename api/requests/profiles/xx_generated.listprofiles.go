@@ -26,7 +26,7 @@ Since v4.0.0.
 type ListProfilesResponse struct {
 	requests.ResponseBasic
 
-	Profiles []Profile `json:"profiles"`
+	Profiles []*Profile `json:"profiles"`
 }
 
 type Profile struct {

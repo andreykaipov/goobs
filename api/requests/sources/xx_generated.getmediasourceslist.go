@@ -26,7 +26,7 @@ Since v4.9.0.
 type GetMediaSourcesListResponse struct {
 	requests.ResponseBasic
 
-	MediaSources []MediaSource `json:"mediaSources"`
+	MediaSources []*MediaSource `json:"mediaSources"`
 }
 
 type MediaSource struct {

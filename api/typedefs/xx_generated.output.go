@@ -13,7 +13,7 @@ type Output struct {
 	// Number of frames dropped
 	DroppedFrames int `json:"droppedFrames"`
 
-	Flags Flags `json:"flags"`
+	Flags *Flags `json:"flags"`
 
 	// Video output height
 	Height int `json:"height"`

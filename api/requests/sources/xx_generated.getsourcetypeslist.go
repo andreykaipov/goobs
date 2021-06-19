@@ -26,7 +26,7 @@ Since v4.3.0.
 type GetSourceTypesListResponse struct {
 	requests.ResponseBasic
 
-	Types []Type `json:"types"`
+	Types []*Type `json:"types"`
 }
 
 type Caps struct {
@@ -53,7 +53,7 @@ type Caps struct {
 }
 
 type Type struct {
-	Caps Caps `json:"caps"`
+	Caps *Caps `json:"caps"`
 
 	// Default settings of this source type
 	DefaultSettings map[string]interface{} `json:"defaultSettings"`

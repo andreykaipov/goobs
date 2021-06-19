@@ -9,7 +9,7 @@ Since v4.0.0.
 type SceneCollectionListChanged struct {
 	EventBasic
 
-	SceneCollections []SceneCollection `json:"sceneCollections"`
+	SceneCollections []*SceneCollection `json:"sceneCollections"`
 }
 
 type SceneCollection struct {

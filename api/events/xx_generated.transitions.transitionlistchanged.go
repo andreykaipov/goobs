@@ -9,7 +9,7 @@ Since v4.0.0.
 type TransitionListChanged struct {
 	EventBasic
 
-	Transitions []Transition `json:"transitions"`
+	Transitions []*Transition `json:"transitions"`
 }
 
 type Transition struct {

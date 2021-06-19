@@ -12,7 +12,7 @@ type SourceAudioMixersChanged struct {
 	// Raw mixer flags (little-endian, one bit per mixer) as an hexadecimal value
 	HexMixersValue string `json:"hexMixersValue"`
 
-	Mixers []Mixer `json:"mixers"`
+	Mixers []*Mixer `json:"mixers"`
 
 	// Source name
 	SourceName string `json:"sourceName"`

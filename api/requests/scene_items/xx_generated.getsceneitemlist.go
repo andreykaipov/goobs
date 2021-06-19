@@ -29,7 +29,7 @@ Since v4.9.0.
 type GetSceneItemListResponse struct {
 	requests.ResponseBasic
 
-	SceneItems []SceneItem `json:"sceneItems"`
+	SceneItems []*SceneItem `json:"sceneItems"`
 
 	// Name of the requested (or current) scene
 	SceneName string `json:"sceneName"`

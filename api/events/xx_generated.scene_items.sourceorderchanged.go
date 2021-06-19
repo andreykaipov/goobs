@@ -9,7 +9,7 @@ Since v4.0.0.
 type SourceOrderChanged struct {
 	EventBasic
 
-	SceneItems []SceneItem `json:"scene-items"`
+	SceneItems []*SceneItem `json:"scene-items"`
 
 	// Name of the scene where items have been reordered.
 	SceneName string `json:"scene-name"`

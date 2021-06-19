@@ -16,7 +16,7 @@ type TriggerHotkeyBySequenceParams struct {
 	// [here](https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h)
 	KeyId string `json:"keyId"`
 
-	KeyModifiers KeyModifiers `json:"keyModifiers"`
+	KeyModifiers *KeyModifiers `json:"keyModifiers"`
 }
 
 type KeyModifiers struct {

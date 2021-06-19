@@ -16,7 +16,7 @@ Since 4.1.0.
 type StartStreamingParams struct {
 	requests.ParamsBasic
 
-	Stream Stream `json:"stream"`
+	Stream *Stream `json:"stream"`
 }
 
 type Stream struct {

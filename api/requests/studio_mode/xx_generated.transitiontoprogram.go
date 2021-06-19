@@ -13,7 +13,7 @@ Since 4.1.0.
 type TransitionToProgramParams struct {
 	requests.ParamsBasic
 
-	WithTransition WithTransition `json:"with-transition"`
+	WithTransition *WithTransition `json:"with-transition"`
 }
 
 type WithTransition struct {

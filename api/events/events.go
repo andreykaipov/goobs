@@ -16,7 +16,7 @@ type Event interface {
 // EventBasic represents the common fields of any event.
 type EventBasic struct {
 	// The name of the event.
-	UpdateType string `json:"update-type"`
+	UpdateType string `json:"update-type,omitempty"`
 
 	// Time elapsed between now and stream start (only present if OBS Studio
 	// is streaming). Timecodes in format `HH:MM:SS.mmm`.

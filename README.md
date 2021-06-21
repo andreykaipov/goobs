@@ -17,7 +17,7 @@ module after you've initialized your own:
 ❯ go get github.com/andreykaipov/goobs
 ```
 
-The latest release is v0.5.0 for [v4.9.1 of the obs-websocket
+The latest release is v0.6.0 for [v4.9.1 of the obs-websocket
 protocol](https://github.com/Palakis/obs-websocket/blob/4.9.1/docs/generated/protocol.md).
 
 ## usage

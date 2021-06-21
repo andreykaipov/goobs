@@ -5,5 +5,5 @@ package typedefs
 // ScenesCollection represents the complex type for ScenesCollection.
 type ScenesCollection struct {
 	// Name of the scene collection
-	ScName string `json:"sc-name"`
+	ScName string `json:"sc-name,omitempty"`
 }

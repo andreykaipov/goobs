@@ -13,7 +13,7 @@ type SetTransitionDurationParams struct {
 	requests.ParamsBasic
 
 	// Desired duration of the transition (in milliseconds).
-	Duration int `json:"duration"`
+	Duration int `json:"duration,omitempty"`
 }
 
 // GetSelfName just returns "SetTransitionDuration".

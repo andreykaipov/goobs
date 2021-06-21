@@ -14,10 +14,10 @@ type PlayPauseMediaParams struct {
 	requests.ParamsBasic
 
 	// (optional) Whether to pause or play the source. `false` for play, `true` for pause.
-	PlayPause bool `json:"playPause"`
+	PlayPause bool `json:"playPause,omitempty"`
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "PlayPauseMedia".

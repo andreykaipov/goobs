@@ -14,7 +14,7 @@ type SetPreviewSceneParams struct {
 	requests.ParamsBasic
 
 	// The name of the scene to preview.
-	SceneName string `json:"scene-name"`
+	SceneName string `json:"scene-name,omitempty"`
 }
 
 // GetSelfName just returns "SetPreviewScene".

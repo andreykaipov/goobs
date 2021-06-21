@@ -13,13 +13,13 @@ type SetSourceFilterSettingsParams struct {
 	requests.ParamsBasic
 
 	// Name of the filter to reconfigure
-	FilterName string `json:"filterName"`
+	FilterName string `json:"filterName,omitempty"`
 
 	// New settings. These will be merged to the current filter settings.
-	FilterSettings map[string]interface{} `json:"filterSettings"`
+	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
 
 	// Name of the source to which the filter belongs
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "SetSourceFilterSettings".

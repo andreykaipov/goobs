@@ -16,7 +16,7 @@ type GetOutputInfoParams struct {
 	requests.ParamsBasic
 
 	// Output name
-	OutputName string `json:"outputName"`
+	OutputName string `json:"outputName,omitempty"`
 }
 
 // GetSelfName just returns "GetOutputInfo".
@@ -33,7 +33,7 @@ type GetOutputInfoResponse struct {
 	requests.ResponseBasic
 
 	// Output info
-	OutputInfo typedefs.Output `json:"outputInfo"`
+	OutputInfo typedefs.Output `json:"outputInfo,omitempty"`
 }
 
 // GetOutputInfo sends the corresponding request to the connected OBS WebSockets server.

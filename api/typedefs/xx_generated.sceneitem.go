@@ -6,43 +6,43 @@ package typedefs
 type SceneItem struct {
 	// The point on the source that the item is manipulated from. The sum of 1=Left or 2=Right, and 4=Top or 8=Bottom,
 	// or omit to center on that axis.
-	Alignment float64 `json:"alignment"`
+	Alignment float64 `json:"alignment,omitempty"`
 
-	Cx float64 `json:"cx"`
+	Cx float64 `json:"cx,omitempty"`
 
-	Cy float64 `json:"cy"`
+	Cy float64 `json:"cy,omitempty"`
 
 	// List of children (if this item is a group)
-	GroupChildren []SceneItem `json:"groupChildren"`
+	GroupChildren []SceneItem `json:"groupChildren,omitempty"`
 
 	// Scene item ID
-	Id int `json:"id"`
+	Id int `json:"id,omitempty"`
 
 	// Whether or not this Scene Item is locked and can't be moved around
-	Locked bool `json:"locked"`
+	Locked bool `json:"locked,omitempty"`
 
 	// Whether or not this Scene Item is muted.
-	Muted bool `json:"muted"`
+	Muted bool `json:"muted,omitempty"`
 
 	// The name of this Scene Item.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// Name of the item's parent (if this item belongs to a group)
-	ParentGroupName string `json:"parentGroupName"`
+	ParentGroupName string `json:"parentGroupName,omitempty"`
 
 	// Whether or not this Scene Item is set to "visible".
-	Render bool `json:"render"`
+	Render bool `json:"render,omitempty"`
 
-	SourceCx float64 `json:"source_cx"`
+	SourceCx float64 `json:"source_cx,omitempty"`
 
-	SourceCy float64 `json:"source_cy"`
+	SourceCy float64 `json:"source_cy,omitempty"`
 
 	// Source type. Value is one of the following: "input", "filter", "transition", "scene" or "unknown"
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 
-	Volume float64 `json:"volume"`
+	Volume float64 `json:"volume,omitempty"`
 
-	X float64 `json:"x"`
+	X float64 `json:"x,omitempty"`
 
-	Y float64 `json:"y"`
+	Y float64 `json:"y,omitempty"`
 }

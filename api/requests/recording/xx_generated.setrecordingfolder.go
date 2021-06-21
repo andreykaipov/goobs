@@ -17,7 +17,7 @@ type SetRecordingFolderParams struct {
 	requests.ParamsBasic
 
 	// Path of the recording folder.
-	RecFolder string `json:"rec-folder"`
+	RecFolder string `json:"rec-folder,omitempty"`
 }
 
 // GetSelfName just returns "SetRecordingFolder".

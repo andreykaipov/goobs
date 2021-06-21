@@ -15,10 +15,10 @@ type SetSourceNameParams struct {
 	requests.ParamsBasic
 
 	// New source name.
-	NewName string `json:"newName"`
+	NewName string `json:"newName,omitempty"`
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "SetSourceName".

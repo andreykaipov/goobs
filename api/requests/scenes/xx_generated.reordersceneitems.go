@@ -16,10 +16,10 @@ type ReorderSceneItemsParams struct {
 	requests.ParamsBasic
 
 	// The items for this object.
-	Items []*typedefs.Item `json:"items"`
+	Items []*typedefs.Item `json:"items,omitempty"`
 
 	// Name of the scene to reorder (defaults to current).
-	Scene string `json:"scene"`
+	Scene string `json:"scene,omitempty"`
 }
 
 // GetSelfName just returns "ReorderSceneItems".

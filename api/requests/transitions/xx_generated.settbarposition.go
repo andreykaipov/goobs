@@ -15,12 +15,12 @@ type SetTBarPositionParams struct {
 	requests.ParamsBasic
 
 	// T-Bar position. This value must be between 0.0 and 1.0.
-	Position float64 `json:"position"`
+	Position float64 `json:"position,omitempty"`
 
 	// Whether or not the T-Bar gets released automatically after setting its new position (like a user releasing their
 	// mouse button after moving the T-Bar). Call `ReleaseTBar` manually if you set `release` to false. Defaults to
 	// true.
-	Release bool `json:"release"`
+	Release bool `json:"release,omitempty"`
 }
 
 // GetSelfName just returns "SetTBarPosition".

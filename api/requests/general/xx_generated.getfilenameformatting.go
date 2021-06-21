@@ -27,7 +27,7 @@ type GetFilenameFormattingResponse struct {
 	requests.ResponseBasic
 
 	// Current filename formatting string.
-	FilenameFormatting string `json:"filename-formatting"`
+	FilenameFormatting string `json:"filename-formatting,omitempty"`
 }
 
 // GetFilenameFormatting sends the corresponding request to the connected OBS WebSockets server. Note the variadic

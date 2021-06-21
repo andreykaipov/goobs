@@ -16,13 +16,13 @@ type DuplicateSceneItemParams struct {
 	requests.ParamsBasic
 
 	// Name of the scene to copy the item from. Defaults to the current scene.
-	FromScene string `json:"fromScene"`
+	FromScene string `json:"fromScene,omitempty"`
 
 	// The item specification for this object.
-	Item *typedefs.Item `json:"item"`
+	Item *typedefs.Item `json:"item,omitempty"`
 
 	// Name of the scene to create the item in. Defaults to the current scene.
-	ToScene string `json:"toScene"`
+	ToScene string `json:"toScene,omitempty"`
 }
 
 // GetSelfName just returns "DuplicateSceneItem".
@@ -39,10 +39,10 @@ type DuplicateSceneItemResponse struct {
 	requests.ResponseBasic
 
 	// The item specification for this object.
-	Item *typedefs.Item `json:"item"`
+	Item *typedefs.Item `json:"item,omitempty"`
 
 	// Name of the scene where the new item was created
-	Scene string `json:"scene"`
+	Scene string `json:"scene,omitempty"`
 }
 
 // DuplicateSceneItem sends the corresponding request to the connected OBS WebSockets server.

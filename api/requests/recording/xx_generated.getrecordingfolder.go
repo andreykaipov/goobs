@@ -27,7 +27,7 @@ type GetRecordingFolderResponse struct {
 	requests.ResponseBasic
 
 	// Path of the recording folder.
-	RecFolder string `json:"rec-folder"`
+	RecFolder string `json:"rec-folder,omitempty"`
 }
 
 // GetRecordingFolder sends the corresponding request to the connected OBS WebSockets server. Note the variadic

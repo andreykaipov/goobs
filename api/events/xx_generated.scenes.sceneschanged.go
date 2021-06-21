@@ -12,5 +12,5 @@ type ScenesChanged struct {
 	EventBasic
 
 	// Scenes list.
-	Scenes []typedefs.Scene `json:"scenes"`
+	Scenes []typedefs.Scene `json:"scenes,omitempty"`
 }

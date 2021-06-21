@@ -27,10 +27,10 @@ type GetCurrentTransitionResponse struct {
 	requests.ResponseBasic
 
 	// Transition duration (in milliseconds) if supported by the transition.
-	Duration int `json:"duration"`
+	Duration int `json:"duration,omitempty"`
 
 	// Name of the selected transition.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 }
 
 // GetCurrentTransition sends the corresponding request to the connected OBS WebSockets server. Note the variadic

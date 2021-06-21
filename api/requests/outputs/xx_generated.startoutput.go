@@ -15,7 +15,7 @@ type StartOutputParams struct {
 	requests.ParamsBasic
 
 	// Output name
-	OutputName string `json:"outputName"`
+	OutputName string `json:"outputName,omitempty"`
 }
 
 // GetSelfName just returns "StartOutput".

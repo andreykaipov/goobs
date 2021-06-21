@@ -13,7 +13,7 @@ type SetFilenameFormattingParams struct {
 	requests.ParamsBasic
 
 	// Filename formatting string to set.
-	FilenameFormatting string `json:"filename-formatting"`
+	FilenameFormatting string `json:"filename-formatting,omitempty"`
 }
 
 // GetSelfName just returns "SetFilenameFormatting".

@@ -13,13 +13,13 @@ type AddSceneItemParams struct {
 	requests.ParamsBasic
 
 	// Name of the scene to create the scene item in
-	SceneName string `json:"sceneName"`
+	SceneName string `json:"sceneName,omitempty"`
 
 	// Whether to make the sceneitem visible on creation or not. Default `true`
-	SetVisible bool `json:"setVisible"`
+	SetVisible bool `json:"setVisible,omitempty"`
 
 	// Name of the source to be added
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "AddSceneItem".
@@ -36,7 +36,7 @@ type AddSceneItemResponse struct {
 	requests.ResponseBasic
 
 	// Numerical ID of the created scene item
-	ItemId int `json:"itemId"`
+	ItemId int `json:"itemId,omitempty"`
 }
 
 // AddSceneItem sends the corresponding request to the connected OBS WebSockets server.

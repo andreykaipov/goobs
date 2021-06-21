@@ -10,14 +10,14 @@ type SceneItemVisibilityChanged struct {
 	EventBasic
 
 	// Scene item ID
-	ItemId int `json:"item-id"`
+	ItemId int `json:"item-id,omitempty"`
 
 	// Name of the item in the scene.
-	ItemName string `json:"item-name"`
+	ItemName string `json:"item-name,omitempty"`
 
 	// New visibility state of the item.
-	ItemVisible bool `json:"item-visible"`
+	ItemVisible bool `json:"item-visible,omitempty"`
 
 	// Name of the scene.
-	SceneName string `json:"scene-name"`
+	SceneName string `json:"scene-name,omitempty"`
 }

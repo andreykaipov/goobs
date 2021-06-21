@@ -13,10 +13,10 @@ type SetMediaTimeParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 
 	// Milliseconds to set the timestamp to.
-	Timestamp int `json:"timestamp"`
+	Timestamp int `json:"timestamp,omitempty"`
 }
 
 // GetSelfName just returns "SetMediaTime".

@@ -9,10 +9,10 @@ Since v4.0.0.
 type ProfileListChanged struct {
 	EventBasic
 
-	Profiles []*Profile `json:"profiles"`
+	Profiles []*Profile `json:"profiles,omitempty"`
 }
 
 type Profile struct {
 	// Profile name.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 }

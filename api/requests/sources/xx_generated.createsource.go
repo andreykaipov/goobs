@@ -13,19 +13,19 @@ type CreateSourceParams struct {
 	requests.ParamsBasic
 
 	// Scene to add the new source to.
-	SceneName string `json:"sceneName"`
+	SceneName string `json:"sceneName,omitempty"`
 
 	// Set the created SceneItem as visible or not. Defaults to true
-	SetVisible bool `json:"setVisible"`
+	SetVisible bool `json:"setVisible,omitempty"`
 
 	// Source kind, Eg. `vlc_source`.
-	SourceKind string `json:"sourceKind"`
+	SourceKind string `json:"sourceKind,omitempty"`
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 
 	// Source settings data.
-	SourceSettings map[string]interface{} `json:"sourceSettings"`
+	SourceSettings map[string]interface{} `json:"sourceSettings,omitempty"`
 }
 
 // GetSelfName just returns "CreateSource".
@@ -42,7 +42,7 @@ type CreateSourceResponse struct {
 	requests.ResponseBasic
 
 	// ID of the SceneItem in the scene.
-	ItemId int `json:"itemId"`
+	ItemId int `json:"itemId,omitempty"`
 }
 
 // CreateSource sends the corresponding request to the connected OBS WebSockets server.

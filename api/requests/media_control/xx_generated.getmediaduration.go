@@ -14,7 +14,7 @@ type GetMediaDurationParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "GetMediaDuration".
@@ -32,7 +32,7 @@ type GetMediaDurationResponse struct {
 	requests.ResponseBasic
 
 	// The total length of media in milliseconds..
-	MediaDuration int `json:"mediaDuration"`
+	MediaDuration int `json:"mediaDuration,omitempty"`
 }
 
 // GetMediaDuration sends the corresponding request to the connected OBS WebSockets server.

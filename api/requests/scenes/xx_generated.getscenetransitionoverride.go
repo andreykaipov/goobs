@@ -13,7 +13,7 @@ type GetSceneTransitionOverrideParams struct {
 	requests.ParamsBasic
 
 	// Name of the scene to switch to.
-	SceneName string `json:"sceneName"`
+	SceneName string `json:"sceneName,omitempty"`
 }
 
 // GetSelfName just returns "GetSceneTransitionOverride".
@@ -30,10 +30,10 @@ type GetSceneTransitionOverrideResponse struct {
 	requests.ResponseBasic
 
 	// Transition duration. `-1` if no override is set.
-	TransitionDuration int `json:"transitionDuration"`
+	TransitionDuration int `json:"transitionDuration,omitempty"`
 
 	// Name of the current overriding transition. Empty string if no override is set.
-	TransitionName string `json:"transitionName"`
+	TransitionName string `json:"transitionName,omitempty"`
 }
 
 // GetSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets server.

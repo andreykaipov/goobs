@@ -10,8 +10,8 @@ type SourceAudioSyncOffsetChanged struct {
 	EventBasic
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 
 	// Audio sync offset of the source (in nanoseconds)
-	SyncOffset int `json:"syncOffset"`
+	SyncOffset int `json:"syncOffset,omitempty"`
 }

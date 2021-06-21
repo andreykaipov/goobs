@@ -10,14 +10,14 @@ type SceneItemLockChanged struct {
 	EventBasic
 
 	// Scene item ID
-	ItemId int `json:"item-id"`
+	ItemId int `json:"item-id,omitempty"`
 
 	// New locked state of the item.
-	ItemLocked bool `json:"item-locked"`
+	ItemLocked bool `json:"item-locked,omitempty"`
 
 	// Name of the item in the scene.
-	ItemName string `json:"item-name"`
+	ItemName string `json:"item-name,omitempty"`
 
 	// Name of the scene.
-	SceneName string `json:"scene-name"`
+	SceneName string `json:"scene-name,omitempty"`
 }

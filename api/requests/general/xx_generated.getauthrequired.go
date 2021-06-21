@@ -29,11 +29,11 @@ type GetAuthRequiredResponse struct {
 	requests.ResponseBasic
 
 	// Indicates whether authentication is required.
-	AuthRequired bool `json:"authRequired"`
+	AuthRequired bool `json:"authRequired,omitempty"`
 
-	Challenge string `json:"challenge"`
+	Challenge string `json:"challenge,omitempty"`
 
-	Salt string `json:"salt"`
+	Salt string `json:"salt,omitempty"`
 }
 
 // GetAuthRequired sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments

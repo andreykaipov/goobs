@@ -13,14 +13,14 @@ type SetSourceSettingsParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 
 	// Source settings (varies between source types, may require some probing around).
-	SourceSettings map[string]interface{} `json:"sourceSettings"`
+	SourceSettings map[string]interface{} `json:"sourceSettings,omitempty"`
 
 	// Type of the specified source. Useful for type-checking to avoid settings a set of settings incompatible with the
 	// actual source's type.
-	SourceType string `json:"sourceType"`
+	SourceType string `json:"sourceType,omitempty"`
 }
 
 // GetSelfName just returns "SetSourceSettings".
@@ -37,13 +37,13 @@ type SetSourceSettingsResponse struct {
 	requests.ResponseBasic
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 
 	// Updated source settings
-	SourceSettings map[string]interface{} `json:"sourceSettings"`
+	SourceSettings map[string]interface{} `json:"sourceSettings,omitempty"`
 
 	// Type of the specified source
-	SourceType string `json:"sourceType"`
+	SourceType string `json:"sourceType,omitempty"`
 }
 
 // SetSourceSettings sends the corresponding request to the connected OBS WebSockets server.

@@ -13,7 +13,7 @@ type SetCurrentTransitionParams struct {
 	requests.ParamsBasic
 
 	// The name of the transition.
-	TransitionName string `json:"transition-name"`
+	TransitionName string `json:"transition-name,omitempty"`
 }
 
 // GetSelfName just returns "SetCurrentTransition".

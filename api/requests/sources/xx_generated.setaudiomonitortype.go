@@ -13,10 +13,10 @@ type SetAudioMonitorTypeParams struct {
 	requests.ParamsBasic
 
 	// The monitor type to use. Options: `none`, `monitorOnly`, `monitorAndOutput`.
-	MonitorType string `json:"monitorType"`
+	MonitorType string `json:"monitorType,omitempty"`
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "SetAudioMonitorType".

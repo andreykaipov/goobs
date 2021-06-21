@@ -13,7 +13,7 @@ type GetSourceDefaultSettingsParams struct {
 	requests.ParamsBasic
 
 	// Source kind. Also called "source id" in libobs terminology.
-	SourceKind string `json:"sourceKind"`
+	SourceKind string `json:"sourceKind,omitempty"`
 }
 
 // GetSelfName just returns "GetSourceDefaultSettings".
@@ -30,10 +30,10 @@ type GetSourceDefaultSettingsResponse struct {
 	requests.ResponseBasic
 
 	// Settings object for source.
-	DefaultSettings map[string]interface{} `json:"defaultSettings"`
+	DefaultSettings map[string]interface{} `json:"defaultSettings,omitempty"`
 
 	// Source kind. Same value as the `sourceKind` parameter.
-	SourceKind string `json:"sourceKind"`
+	SourceKind string `json:"sourceKind,omitempty"`
 }
 
 // GetSourceDefaultSettings sends the corresponding request to the connected OBS WebSockets server.

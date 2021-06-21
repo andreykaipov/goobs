@@ -13,7 +13,7 @@ type TriggerHotkeyByNameParams struct {
 	requests.ParamsBasic
 
 	// Unique name of the hotkey, as defined when registering the hotkey (e.g. "ReplayBuffer.Save")
-	HotkeyName string `json:"hotkeyName"`
+	HotkeyName string `json:"hotkeyName,omitempty"`
 }
 
 // GetSelfName just returns "TriggerHotkeyByName".

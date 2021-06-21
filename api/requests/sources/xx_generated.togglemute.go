@@ -13,7 +13,7 @@ type ToggleMuteParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 }
 
 // GetSelfName just returns "ToggleMute".

@@ -10,18 +10,18 @@ type SourceAudioMixersChanged struct {
 	EventBasic
 
 	// Raw mixer flags (little-endian, one bit per mixer) as an hexadecimal value
-	HexMixersValue string `json:"hexMixersValue"`
+	HexMixersValue string `json:"hexMixersValue,omitempty"`
 
-	Mixers []*Mixer `json:"mixers"`
+	Mixers []*Mixer `json:"mixers,omitempty"`
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 type Mixer struct {
 	// Routing status
-	Enabled bool `json:"enabled"`
+	Enabled bool `json:"enabled,omitempty"`
 
 	// Mixer number
-	Id int `json:"id"`
+	Id int `json:"id,omitempty"`
 }

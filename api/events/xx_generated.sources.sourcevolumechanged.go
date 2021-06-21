@@ -10,11 +10,11 @@ type SourceVolumeChanged struct {
 	EventBasic
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 
 	// Source volume
-	Volume float64 `json:"volume"`
+	Volume float64 `json:"volume,omitempty"`
 
 	// Source volume in Decibel
-	VolumeDb float64 `json:"volumeDb"`
+	VolumeDb float64 `json:"volumeDb,omitempty"`
 }

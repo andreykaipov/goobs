@@ -27,14 +27,14 @@ type GetTransitionListResponse struct {
 	requests.ResponseBasic
 
 	// Name of the currently active transition.
-	CurrentTransition string `json:"current-transition"`
+	CurrentTransition string `json:"current-transition,omitempty"`
 
-	Transitions []*Transition `json:"transitions"`
+	Transitions []*Transition `json:"transitions,omitempty"`
 }
 
 type Transition struct {
 	// Name of the transition.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 }
 
 // GetTransitionList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments

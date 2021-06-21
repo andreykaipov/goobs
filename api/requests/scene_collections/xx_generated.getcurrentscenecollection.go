@@ -27,7 +27,7 @@ type GetCurrentSceneCollectionResponse struct {
 	requests.ResponseBasic
 
 	// Name of the currently active scene collection.
-	ScName string `json:"sc-name"`
+	ScName string `json:"sc-name,omitempty"`
 }
 
 // GetCurrentSceneCollection sends the corresponding request to the connected OBS WebSockets server. Note the variadic

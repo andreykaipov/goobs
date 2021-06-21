@@ -13,7 +13,7 @@ type AuthenticateParams struct {
 	requests.ParamsBasic
 
 	// Response to the auth challenge (see "Authentication" for more information).
-	Auth string `json:"auth"`
+	Auth string `json:"auth,omitempty"`
 }
 
 // GetSelfName just returns "Authenticate".

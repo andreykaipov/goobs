@@ -10,8 +10,8 @@ type MediaPaused struct {
 	EventBasic
 
 	// The ID type of the source (Eg. `vlc_source` or `ffmpeg_source`)
-	SourceKind string `json:"sourceKind"`
+	SourceKind string `json:"sourceKind,omitempty"`
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }

@@ -10,11 +10,11 @@ type SourceFilterRemoved struct {
 	EventBasic
 
 	// Filter name
-	FilterName string `json:"filterName"`
+	FilterName string `json:"filterName,omitempty"`
 
 	// Filter type
-	FilterType string `json:"filterType"`
+	FilterType string `json:"filterType,omitempty"`
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }

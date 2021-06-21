@@ -30,7 +30,7 @@ type ListSceneCollectionsResponse struct {
 	requests.ResponseBasic
 
 	// Scene collections list
-	SceneCollections []typedefs.ScenesCollection `json:"scene-collections"`
+	SceneCollections []typedefs.ScenesCollection `json:"scene-collections,omitempty"`
 }
 
 // ListSceneCollections sends the corresponding request to the connected OBS WebSockets server. Note the variadic

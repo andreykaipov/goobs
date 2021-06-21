@@ -27,31 +27,31 @@ type GetVideoInfoResponse struct {
 	requests.ResponseBasic
 
 	// Base (canvas) height
-	BaseHeight int `json:"baseHeight"`
+	BaseHeight int `json:"baseHeight,omitempty"`
 
 	// Base (canvas) width
-	BaseWidth int `json:"baseWidth"`
+	BaseWidth int `json:"baseWidth,omitempty"`
 
 	// Color range (full or partial)
-	ColorRange string `json:"colorRange"`
+	ColorRange string `json:"colorRange,omitempty"`
 
 	// Color space for YUV
-	ColorSpace string `json:"colorSpace"`
+	ColorSpace string `json:"colorSpace,omitempty"`
 
 	// Frames rendered per second
-	Fps float64 `json:"fps"`
+	Fps float64 `json:"fps,omitempty"`
 
 	// Output height
-	OutputHeight int `json:"outputHeight"`
+	OutputHeight int `json:"outputHeight,omitempty"`
 
 	// Output width
-	OutputWidth int `json:"outputWidth"`
+	OutputWidth int `json:"outputWidth,omitempty"`
 
 	// Scaling method used if output size differs from base size
-	ScaleType string `json:"scaleType"`
+	ScaleType string `json:"scaleType,omitempty"`
 
 	// Video color format
-	VideoFormat string `json:"videoFormat"`
+	VideoFormat string `json:"videoFormat,omitempty"`
 }
 
 // GetVideoInfo sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

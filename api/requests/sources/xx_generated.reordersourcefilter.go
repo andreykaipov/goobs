@@ -13,13 +13,13 @@ type ReorderSourceFilterParams struct {
 	requests.ParamsBasic
 
 	// Name of the filter to reorder
-	FilterName string `json:"filterName"`
+	FilterName string `json:"filterName,omitempty"`
 
 	// Desired position of the filter in the chain
-	NewIndex int `json:"newIndex"`
+	NewIndex int `json:"newIndex,omitempty"`
 
 	// Name of the source to which the filter belongs
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "ReorderSourceFilter".

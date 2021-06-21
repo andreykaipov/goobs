@@ -13,7 +13,7 @@ type GetAudioActiveParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "GetAudioActive".
@@ -30,7 +30,7 @@ type GetAudioActiveResponse struct {
 	requests.ResponseBasic
 
 	// Audio active status of the source.
-	AudioActive bool `json:"audioActive"`
+	AudioActive bool `json:"audioActive,omitempty"`
 }
 
 // GetAudioActive sends the corresponding request to the connected OBS WebSockets server.

@@ -10,5 +10,5 @@ type SceneCollectionChanged struct {
 	EventBasic
 
 	// Name of the new current scene collection.
-	SceneCollection string `json:"sceneCollection"`
+	SceneCollection string `json:"sceneCollection,omitempty"`
 }

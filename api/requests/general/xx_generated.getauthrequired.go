@@ -29,7 +29,7 @@ type GetAuthRequiredResponse struct {
 	requests.ResponseBasic
 
 	// Indicates whether authentication is required.
-	AuthRequired bool `json:"authRequired,omitempty"`
+	AuthRequired bool `json:"authRequired"`
 
 	Challenge string `json:"challenge,omitempty"`
 

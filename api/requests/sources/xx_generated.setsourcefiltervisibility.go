@@ -13,7 +13,7 @@ type SetSourceFilterVisibilityParams struct {
 	requests.ParamsBasic
 
 	// New filter state
-	FilterEnabled bool `json:"filterEnabled,omitempty"`
+	FilterEnabled bool `json:"filterEnabled"`
 
 	// Source filter name
 	FilterName string `json:"filterName,omitempty"`

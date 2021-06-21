@@ -1,9 +1,9 @@
 package testfixtures
 
 type IDK struct {
-	A *A `json:"A"`
+	A *A `json:"A,omitempty"`
 
-	C *C `json:"C"`
+	C *C `json:"C,omitempty"`
 }
 
 type A struct {

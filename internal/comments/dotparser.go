@@ -13,6 +13,7 @@ type keyInfo struct {
 	Comment   string
 	NoJSONTag bool
 	Embedded  bool
+	OmitEmpty bool
 }
 
 func parseJenKeysAsMap(lines map[string]keyInfo) (map[string]interface{}, error) {
@@ -71,16 +72,7 @@ func parseJenKeysAsMap(lines map[string]keyInfo) (map[string]interface{}, error)
 	return final, nil
 }
 
-type options struct {
-	OmitEmpty bool
-}
-
-func parseJenKeysAsStruct(name string, lines map[string]keyInfo, o ...options) (*jen.Statement, error) {
-	var opts options
-	if len(o) == 1 {
-		opts = o[0]
-	}
-
+func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement, error) {
 	m, err := parseJenKeysAsMap(lines)
 	if err != nil {
 		return nil, err
@@ -105,11 +97,7 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo, o ...options) (
 	traverse = func(data interface{}, g *jen.Group, parent string) {
 		var idType jen.Code
 		id := pascal(parent)
-
 		tag := strings.TrimSuffix(parent, "[]")
-		if opts.OmitEmpty {
-			tag += ",omitempty"
-		}
 
 		switch t := data.(type) {
 		case map[string]interface{}:
@@ -123,6 +111,12 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo, o ...options) (
 					return
 				}
 			}
+
+			// Since the type to our nested struct will always be
+			// a pointer, it'll be omitted during encoding if that
+			// value is ever nil, which seems always like the
+			// preferred behavior. 🤷
+			tag += ",omitempty"
 
 			idType = jen.Op("*").Id(id) // is a nested anon struct, so use a pointer to it itself as the type
 			idDeplural := id
@@ -154,6 +148,9 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo, o ...options) (
 			if t.Embedded {
 				id = ""
 				t.NoJSONTag = true
+			}
+			if t.OmitEmpty {
+				tag += ",omitempty"
 			}
 			if t.NoJSONTag {
 				tag = ""

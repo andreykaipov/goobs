@@ -16,7 +16,7 @@ type SetStreamSettingsParams struct {
 	requests.ParamsBasic
 
 	// Persist the settings to disk.
-	Save bool `json:"save,omitempty"`
+	Save bool `json:"save"`
 
 	//
 	Settings *typedefs.StreamSettings `json:"settings,omitempty"`

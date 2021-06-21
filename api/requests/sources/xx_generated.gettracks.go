@@ -29,17 +29,17 @@ Since v4.9.1.
 type GetTracksResponse struct {
 	requests.ResponseBasic
 
-	Track1 bool `json:"track1,omitempty"`
+	Track1 bool `json:"track1"`
 
-	Track2 bool `json:"track2,omitempty"`
+	Track2 bool `json:"track2"`
 
-	Track3 bool `json:"track3,omitempty"`
+	Track3 bool `json:"track3"`
 
-	Track4 bool `json:"track4,omitempty"`
+	Track4 bool `json:"track4"`
 
-	Track5 bool `json:"track5,omitempty"`
+	Track5 bool `json:"track5"`
 
-	Track6 bool `json:"track6,omitempty"`
+	Track6 bool `json:"track6"`
 }
 
 // GetTracks sends the corresponding request to the connected OBS WebSockets server.

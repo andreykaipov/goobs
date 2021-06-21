@@ -10,7 +10,7 @@ type SourceMuteStateChanged struct {
 	EventBasic
 
 	// Mute status of the source
-	Muted bool `json:"muted,omitempty"`
+	Muted bool `json:"muted"`
 
 	// Source name
 	SourceName string `json:"sourceName,omitempty"`

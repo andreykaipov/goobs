@@ -1,7 +1,7 @@
 package testfixtures
 
 type ReorderSceneItemsRequestLegacy struct {
-	Items []*Item `json:"Items"`
+	Items []*Item `json:"Items,omitempty"`
 }
 
 type Item struct {

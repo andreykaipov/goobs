@@ -66,10 +66,10 @@ func Test_parseKeysAsJenStruct_basic_3(t *testing.T) {
 
 func Test_parseKeysAsJenStruct_basic_4(t *testing.T) {
 	statement, err := parseJenKeysAsStruct("Basic4", map[string]keyInfo{
-		"c.d": keyInfo{Type: jen.Int()},
-		"x.*": keyInfo{Type: jen.Int()},
-		"z":   keyInfo{Type: jen.Qual("bytes", "Buffer"), Embedded: true},
-	}, options{OmitEmpty: true})
+		"c.d": keyInfo{Type: jen.Int(), OmitEmpty: true},
+		"x.*": keyInfo{Type: jen.Int(), OmitEmpty: true},
+		"z":   keyInfo{Type: jen.Qual("bytes", "Buffer"), Embedded: true, OmitEmpty: true}, // Embedded overwrites OmitEmpty
+	})
 
 	assertJenStruct(t, statement, err)
 }

@@ -27,7 +27,7 @@ type GetStudioModeStatusResponse struct {
 	requests.ResponseBasic
 
 	// Indicates if Studio Mode is enabled.
-	StudioMode bool `json:"studio-mode,omitempty"`
+	StudioMode bool `json:"studio-mode"`
 }
 
 // GetStudioModeStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic

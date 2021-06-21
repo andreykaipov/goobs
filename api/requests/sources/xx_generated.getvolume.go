@@ -16,7 +16,7 @@ type GetVolumeParams struct {
 	Source string `json:"source,omitempty"`
 
 	// Output volume in decibels of attenuation instead of amplitude/mul.
-	UseDecibel bool `json:"useDecibel,omitempty"`
+	UseDecibel bool `json:"useDecibel"`
 }
 
 // GetSelfName just returns "GetVolume".
@@ -33,7 +33,7 @@ type GetVolumeResponse struct {
 	requests.ResponseBasic
 
 	// Indicates whether the source is muted.
-	Muted bool `json:"muted,omitempty"`
+	Muted bool `json:"muted"`
 
 	// Source name.
 	Name string `json:"name,omitempty"`

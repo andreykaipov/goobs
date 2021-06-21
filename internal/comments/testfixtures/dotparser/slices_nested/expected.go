@@ -1,7 +1,7 @@
 package testfixtures
 
 type GetSourcesTypesListResponse struct {
-	Ids []*Id `json:"Ids"`
+	Ids []*Id `json:"Ids,omitempty"`
 }
 
 type Extra struct {
@@ -17,7 +17,7 @@ type Caps struct {
 
 	DoNotSelfMonitor bool `json:"DoNotSelfMonitor"`
 
-	Extra []*Extra `json:"Extra"`
+	Extra []*Extra `json:"Extra,omitempty"`
 
 	HasAudio bool `json:"HasAudio"`
 
@@ -29,7 +29,7 @@ type Caps struct {
 }
 
 type Id struct {
-	Caps *Caps `json:"Caps"`
+	Caps *Caps `json:"Caps,omitempty"`
 
 	DefaultSettings map[string]interface{} `json:"DefaultSettings"`
 

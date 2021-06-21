@@ -13,7 +13,7 @@ type ExecuteBatchParams struct {
 	requests.ParamsBasic
 
 	// Stop processing batch requests if one returns a failure.
-	AbortOnFail bool `json:"abortOnFail,omitempty"`
+	AbortOnFail bool `json:"abortOnFail"`
 
 	Requests []*Request `json:"requests,omitempty"`
 }

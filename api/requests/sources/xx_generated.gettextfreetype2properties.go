@@ -42,19 +42,19 @@ type GetTextFreetype2PropertiesResponse struct {
 	CustomWidth int `json:"custom_width,omitempty"`
 
 	// Drop shadow.
-	DropShadow bool `json:"drop_shadow,omitempty"`
+	DropShadow bool `json:"drop_shadow"`
 
 	// The font specification for this object.
 	Font *typedefs.Font `json:"font,omitempty"`
 
 	// Read text from the specified file.
-	FromFile bool `json:"from_file,omitempty"`
+	FromFile bool `json:"from_file"`
 
 	// Chat log.
-	LogMode bool `json:"log_mode,omitempty"`
+	LogMode bool `json:"log_mode"`
 
 	// Outline.
-	Outline bool `json:"outline,omitempty"`
+	Outline bool `json:"outline"`
 
 	// Source name
 	Source string `json:"source,omitempty"`
@@ -66,7 +66,7 @@ type GetTextFreetype2PropertiesResponse struct {
 	TextFile string `json:"text_file,omitempty"`
 
 	// Word wrap.
-	WordWrap bool `json:"word_wrap,omitempty"`
+	WordWrap bool `json:"word_wrap"`
 }
 
 // GetTextFreetype2Properties sends the corresponding request to the connected OBS WebSockets server.

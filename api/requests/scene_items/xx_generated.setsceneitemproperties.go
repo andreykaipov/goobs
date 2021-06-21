@@ -26,7 +26,7 @@ type SetSceneItemPropertiesParams struct {
 	Item *typedefs.Item `json:"item,omitempty"`
 
 	// The new locked status of the source. 'true' keeps it in its current position, 'false' allows movement.
-	Locked bool `json:"locked,omitempty"`
+	Locked bool `json:"locked"`
 
 	// The position of the object (source, scene item, etc).
 	Position *typedefs.Position `json:"position,omitempty"`
@@ -41,7 +41,7 @@ type SetSceneItemPropertiesParams struct {
 	SceneName string `json:"scene-name,omitempty"`
 
 	// The new visibility of the source. 'true' shows source, 'false' hides source.
-	Visible bool `json:"visible,omitempty"`
+	Visible bool `json:"visible"`
 }
 
 // GetSelfName just returns "SetSceneItemProperties".

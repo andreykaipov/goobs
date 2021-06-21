@@ -13,7 +13,7 @@ type SetMuteParams struct {
 	requests.ParamsBasic
 
 	// Desired mute status.
-	Mute bool `json:"mute,omitempty"`
+	Mute bool `json:"mute"`
 
 	// Source name.
 	Source string `json:"source,omitempty"`

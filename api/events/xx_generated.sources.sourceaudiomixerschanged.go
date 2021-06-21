@@ -20,7 +20,7 @@ type SourceAudioMixersChanged struct {
 
 type Mixer struct {
 	// Routing status
-	Enabled bool `json:"enabled,omitempty"`
+	Enabled bool `json:"enabled"`
 
 	// Mixer number
 	Id int `json:"id,omitempty"`

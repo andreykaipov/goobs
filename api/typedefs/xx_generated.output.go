@@ -5,7 +5,7 @@ package typedefs
 // Output represents the complex type for Output.
 type Output struct {
 	// Output status (active or not)
-	Active bool `json:"active,omitempty"`
+	Active bool `json:"active"`
 
 	// Output congestion
 	Congestion float64 `json:"congestion,omitempty"`
@@ -22,7 +22,7 @@ type Output struct {
 	Name string `json:"name,omitempty"`
 
 	// Output reconnection status (reconnecting or not)
-	Reconnecting bool `json:"reconnecting,omitempty"`
+	Reconnecting bool `json:"reconnecting"`
 
 	// Output settings
 	Settings map[string]interface{} `json:"settings,omitempty"`
@@ -42,20 +42,20 @@ type Output struct {
 
 type Flags struct {
 	// Output uses audio
-	Audio bool `json:"audio,omitempty"`
+	Audio bool `json:"audio"`
 
 	// Output is encoded
-	Encoded bool `json:"encoded,omitempty"`
+	Encoded bool `json:"encoded"`
 
 	// Output uses several audio tracks
-	MultiTrack bool `json:"multiTrack,omitempty"`
+	MultiTrack bool `json:"multiTrack"`
 
 	// Raw flags value
 	RawValue int `json:"rawValue,omitempty"`
 
 	// Output uses a service
-	Service bool `json:"service,omitempty"`
+	Service bool `json:"service"`
 
 	// Output uses video
-	Video bool `json:"video,omitempty"`
+	Video bool `json:"video"`
 }

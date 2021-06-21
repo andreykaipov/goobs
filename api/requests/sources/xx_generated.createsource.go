@@ -16,7 +16,7 @@ type CreateSourceParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 
 	// Set the created SceneItem as visible or not. Defaults to true
-	SetVisible bool `json:"setVisible,omitempty"`
+	SetVisible bool `json:"setVisible"`
 
 	// Source kind, Eg. `vlc_source`.
 	SourceKind string `json:"sourceKind,omitempty"`

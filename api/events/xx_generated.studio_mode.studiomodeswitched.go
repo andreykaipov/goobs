@@ -10,5 +10,5 @@ type StudioModeSwitched struct {
 	EventBasic
 
 	// The new enabled state of Studio Mode.
-	NewState bool `json:"new-state,omitempty"`
+	NewState bool `json:"new-state"`
 }

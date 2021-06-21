@@ -33,7 +33,7 @@ type GetSourceFilterInfoResponse struct {
 	requests.ResponseBasic
 
 	// Filter status (enabled or not)
-	Enabled bool `json:"enabled,omitempty"`
+	Enabled bool `json:"enabled"`
 
 	// Filter name
 	Name string `json:"name,omitempty"`

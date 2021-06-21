@@ -27,10 +27,10 @@ type GetRecordingStatusResponse struct {
 	requests.ResponseBasic
 
 	// Current recording status.
-	IsRecording bool `json:"isRecording,omitempty"`
+	IsRecording bool `json:"isRecording"`
 
 	// Whether the recording is paused or not.
-	IsRecordingPaused bool `json:"isRecordingPaused,omitempty"`
+	IsRecordingPaused bool `json:"isRecordingPaused"`
 
 	// Time elapsed since recording started (only present if currently recording).
 	RecordTimecode string `json:"recordTimecode,omitempty"`

@@ -25,7 +25,7 @@ type SetTextGDIPlusPropertiesParams struct {
 	BkOpacity int `json:"bk_opacity,omitempty"`
 
 	// Chat log.
-	Chatlog bool `json:"chatlog,omitempty"`
+	Chatlog bool `json:"chatlog"`
 
 	// Chat log lines.
 	ChatlogLines int `json:"chatlog_lines,omitempty"`
@@ -34,7 +34,7 @@ type SetTextGDIPlusPropertiesParams struct {
 	Color int `json:"color,omitempty"`
 
 	// Extents wrap.
-	Extents bool `json:"extents,omitempty"`
+	Extents bool `json:"extents"`
 
 	// Extents cx.
 	ExtentsCx int `json:"extents_cx,omitempty"`
@@ -49,7 +49,7 @@ type SetTextGDIPlusPropertiesParams struct {
 	Font *typedefs.Font `json:"font,omitempty"`
 
 	// Gradient enabled.
-	Gradient bool `json:"gradient,omitempty"`
+	Gradient bool `json:"gradient"`
 
 	// Gradient color.
 	GradientColor int `json:"gradient_color,omitempty"`
@@ -61,7 +61,7 @@ type SetTextGDIPlusPropertiesParams struct {
 	GradientOpacity int `json:"gradient_opacity,omitempty"`
 
 	// Outline.
-	Outline bool `json:"outline,omitempty"`
+	Outline bool `json:"outline"`
 
 	// Outline color.
 	OutlineColor int `json:"outline_color,omitempty"`
@@ -73,10 +73,10 @@ type SetTextGDIPlusPropertiesParams struct {
 	OutlineSize int `json:"outline_size,omitempty"`
 
 	// Read text from the specified file.
-	ReadFromFile bool `json:"read_from_file,omitempty"`
+	ReadFromFile bool `json:"read_from_file"`
 
 	// Visibility of the scene item.
-	Render bool `json:"render,omitempty"`
+	Render bool `json:"render"`
 
 	// Name of the source.
 	Source string `json:"source,omitempty"`
@@ -88,7 +88,7 @@ type SetTextGDIPlusPropertiesParams struct {
 	Valign string `json:"valign,omitempty"`
 
 	// Vertical text enabled.
-	Vertical bool `json:"vertical,omitempty"`
+	Vertical bool `json:"vertical"`
 }
 
 // GetSelfName just returns "SetTextGDIPlusProperties".

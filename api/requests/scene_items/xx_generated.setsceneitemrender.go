@@ -16,7 +16,7 @@ type SetSceneItemRenderParams struct {
 	Item int `json:"item,omitempty"`
 
 	// true = shown ; false = hidden
-	Render bool `json:"render,omitempty"`
+	Render bool `json:"render"`
 
 	// Name of the scene the scene item belongs to. Defaults to the currently active scene.
 	SceneName string `json:"scene-name,omitempty"`

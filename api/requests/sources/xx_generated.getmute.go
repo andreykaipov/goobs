@@ -30,7 +30,7 @@ type GetMuteResponse struct {
 	requests.ResponseBasic
 
 	// Mute status of the source.
-	Muted bool `json:"muted,omitempty"`
+	Muted bool `json:"muted"`
 
 	// Source name.
 	Name string `json:"name,omitempty"`

@@ -13,15 +13,15 @@ type SetVolumeParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 
 	// Interperet `volume` data as decibels instead of amplitude/mul.
-	UseDecibel bool `json:"useDecibel"`
+	UseDecibel bool `json:"useDecibel,omitempty"`
 
 	// Desired volume. Must be between `0.0` and `20.0` for mul, and under 26.0 for dB. OBS will interpret dB values
 	// under -100.0 as Inf. Note: The OBS volume sliders only reach a maximum of 1.0mul/0.0dB, however OBS actually
 	// supports larger values.
-	Volume float64 `json:"volume"`
+	Volume float64 `json:"volume,omitempty"`
 }
 
 // GetSelfName just returns "SetVolume".

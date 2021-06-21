@@ -13,7 +13,7 @@ type SendCaptionsParams struct {
 	requests.ParamsBasic
 
 	// Captions text
-	Text string `json:"text"`
+	Text string `json:"text,omitempty"`
 }
 
 // GetSelfName just returns "SendCaptions".

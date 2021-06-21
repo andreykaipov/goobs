@@ -56,19 +56,20 @@ func Test_parseKeysAsJenStruct_basic_2(t *testing.T) {
 
 func Test_parseKeysAsJenStruct_basic_3(t *testing.T) {
 	statement, err := parseJenKeysAsStruct("Ugh", map[string]keyInfo{
-		"a": keyInfo{
-			Type:    jen.String(),
-			Comment: "hello",
-		},
-		"b": keyInfo{
-			Type:    jen.String(),
-			Comment: "hi",
-		},
-		"c.d": keyInfo{
-			Type:    jen.Int(),
-			Comment: "bye",
-		},
+		"a":   keyInfo{Type: jen.String(), Comment: "hello"},
+		"b":   keyInfo{Type: jen.String(), Comment: "hi"},
+		"c.d": keyInfo{Type: jen.Int(), Comment: "bye"},
 	})
+
+	assertJenStruct(t, statement, err)
+}
+
+func Test_parseKeysAsJenStruct_basic_4(t *testing.T) {
+	statement, err := parseJenKeysAsStruct("Basic4", map[string]keyInfo{
+		"c.d": keyInfo{Type: jen.Int()},
+		"x.*": keyInfo{Type: jen.Int()},
+		"z":   keyInfo{Type: jen.Qual("bytes", "Buffer"), Embedded: true},
+	}, options{OmitEmpty: true})
 
 	assertJenStruct(t, statement, err)
 }

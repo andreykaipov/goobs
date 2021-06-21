@@ -13,16 +13,16 @@ type AddFilterToSourceParams struct {
 	requests.ParamsBasic
 
 	// Name of the new filter
-	FilterName string `json:"filterName"`
+	FilterName string `json:"filterName,omitempty"`
 
 	// Filter settings
-	FilterSettings map[string]interface{} `json:"filterSettings"`
+	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
 
 	// Filter type
-	FilterType string `json:"filterType"`
+	FilterType string `json:"filterType,omitempty"`
 
 	// Name of the source on which the filter is added
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "AddFilterToSource".

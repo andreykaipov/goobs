@@ -13,7 +13,7 @@ type SleepParams struct {
 	requests.ParamsBasic
 
 	// Delay in milliseconds to wait before continuing.
-	SleepMillis int `json:"sleepMillis"`
+	SleepMillis int `json:"sleepMillis,omitempty"`
 }
 
 // GetSelfName just returns "Sleep".

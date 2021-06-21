@@ -13,10 +13,10 @@ type GetVolumeParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 
 	// Output volume in decibels of attenuation instead of amplitude/mul.
-	UseDecibel bool `json:"useDecibel"`
+	UseDecibel bool `json:"useDecibel,omitempty"`
 }
 
 // GetSelfName just returns "GetVolume".
@@ -33,13 +33,13 @@ type GetVolumeResponse struct {
 	requests.ResponseBasic
 
 	// Indicates whether the source is muted.
-	Muted bool `json:"muted"`
+	Muted bool `json:"muted,omitempty"`
 
 	// Source name.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// Volume of the source. Between `0.0` and `20.0` if using mul, under `26.0` if using dB.
-	Volume float64 `json:"volume"`
+	Volume float64 `json:"volume,omitempty"`
 }
 
 // GetVolume sends the corresponding request to the connected OBS WebSockets server.

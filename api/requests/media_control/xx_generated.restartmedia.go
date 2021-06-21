@@ -13,7 +13,7 @@ type RestartMediaParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "RestartMedia".

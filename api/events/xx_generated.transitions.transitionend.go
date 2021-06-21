@@ -10,14 +10,14 @@ type TransitionEnd struct {
 	EventBasic
 
 	// Transition duration (in milliseconds).
-	Duration int `json:"duration"`
+	Duration int `json:"duration,omitempty"`
 
 	// Transition name.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// Destination scene of the transition
-	ToScene string `json:"to-scene"`
+	ToScene string `json:"to-scene,omitempty"`
 
 	// Transition type.
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 }

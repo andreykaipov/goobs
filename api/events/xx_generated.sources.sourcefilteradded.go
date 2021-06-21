@@ -10,14 +10,14 @@ type SourceFilterAdded struct {
 	EventBasic
 
 	// Filter name
-	FilterName string `json:"filterName"`
+	FilterName string `json:"filterName,omitempty"`
 
 	// Filter settings
-	FilterSettings map[string]interface{} `json:"filterSettings"`
+	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
 
 	// Filter type
-	FilterType string `json:"filterType"`
+	FilterType string `json:"filterType,omitempty"`
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }

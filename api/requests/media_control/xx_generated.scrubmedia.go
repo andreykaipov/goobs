@@ -14,10 +14,10 @@ type ScrubMediaParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 
 	// Millisecond offset (positive or negative) to offset the current media position.
-	TimeOffset int `json:"timeOffset"`
+	TimeOffset int `json:"timeOffset,omitempty"`
 }
 
 // GetSelfName just returns "ScrubMedia".

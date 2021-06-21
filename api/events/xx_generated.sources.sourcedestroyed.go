@@ -10,11 +10,11 @@ type SourceDestroyed struct {
 	EventBasic
 
 	// Source kind.
-	SourceKind string `json:"sourceKind"`
+	SourceKind string `json:"sourceKind,omitempty"`
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 
 	// Source type. Can be "input", "scene", "transition" or "filter".
-	SourceType string `json:"sourceType"`
+	SourceType string `json:"sourceType,omitempty"`
 }

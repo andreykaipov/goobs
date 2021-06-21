@@ -12,8 +12,8 @@ type SwitchScenes struct {
 	EventBasic
 
 	// The new scene.
-	SceneName string `json:"scene-name"`
+	SceneName string `json:"scene-name,omitempty"`
 
 	// List of scene items in the new scene. Same specification as [`GetCurrentScene`](#getcurrentscene).
-	Sources []typedefs.SceneItem `json:"sources"`
+	Sources []typedefs.SceneItem `json:"sources,omitempty"`
 }

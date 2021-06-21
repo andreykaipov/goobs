@@ -13,7 +13,7 @@ type GetMediaStateParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "GetMediaState".
@@ -31,7 +31,7 @@ type GetMediaStateResponse struct {
 
 	// The media state of the provided source. States: `none`, `playing`, `opening`, `buffering`, `paused`, `stopped`,
 	// `ended`, `error`, `unknown`
-	MediaState string `json:"mediaState"`
+	MediaState string `json:"mediaState,omitempty"`
 }
 
 // GetMediaState sends the corresponding request to the connected OBS WebSockets server.

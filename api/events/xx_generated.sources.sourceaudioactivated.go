@@ -10,5 +10,5 @@ type SourceAudioActivated struct {
 	EventBasic
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }

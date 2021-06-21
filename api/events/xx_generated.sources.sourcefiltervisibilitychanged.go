@@ -10,11 +10,11 @@ type SourceFilterVisibilityChanged struct {
 	EventBasic
 
 	// New filter state
-	FilterEnabled bool `json:"filterEnabled"`
+	FilterEnabled bool `json:"filterEnabled,omitempty"`
 
 	// Filter name
-	FilterName string `json:"filterName"`
+	FilterName string `json:"filterName,omitempty"`
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }

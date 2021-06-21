@@ -30,10 +30,10 @@ type GetCurrentSceneResponse struct {
 	requests.ResponseBasic
 
 	// Name of the currently active scene.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// Ordered list of the current scene's source items.
-	Sources []typedefs.SceneItem `json:"sources"`
+	Sources []typedefs.SceneItem `json:"sources,omitempty"`
 }
 
 // GetCurrentScene sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments

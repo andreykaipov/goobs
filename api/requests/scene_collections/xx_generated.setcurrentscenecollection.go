@@ -13,7 +13,7 @@ type SetCurrentSceneCollectionParams struct {
 	requests.ParamsBasic
 
 	// Name of the desired scene collection.
-	ScName string `json:"sc-name"`
+	ScName string `json:"sc-name,omitempty"`
 }
 
 // GetSelfName just returns "SetCurrentSceneCollection".

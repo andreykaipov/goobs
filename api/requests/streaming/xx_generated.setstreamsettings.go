@@ -16,13 +16,13 @@ type SetStreamSettingsParams struct {
 	requests.ParamsBasic
 
 	// Persist the settings to disk.
-	Save bool `json:"save"`
+	Save bool `json:"save,omitempty"`
 
 	//
-	Settings *typedefs.StreamSettings `json:"settings"`
+	Settings *typedefs.StreamSettings `json:"settings,omitempty"`
 
 	// The type of streaming service configuration, usually `rtmp_custom` or `rtmp_common`.
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 }
 
 // GetSelfName just returns "SetStreamSettings".

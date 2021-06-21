@@ -13,10 +13,10 @@ type GetSourceFilterInfoParams struct {
 	requests.ParamsBasic
 
 	// Source filter name
-	FilterName string `json:"filterName"`
+	FilterName string `json:"filterName,omitempty"`
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "GetSourceFilterInfo".
@@ -33,16 +33,16 @@ type GetSourceFilterInfoResponse struct {
 	requests.ResponseBasic
 
 	// Filter status (enabled or not)
-	Enabled bool `json:"enabled"`
+	Enabled bool `json:"enabled,omitempty"`
 
 	// Filter name
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// Filter settings
-	Settings map[string]interface{} `json:"settings"`
+	Settings map[string]interface{} `json:"settings,omitempty"`
 
 	// Filter type
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 }
 
 // GetSourceFilterInfo sends the corresponding request to the connected OBS WebSockets server.

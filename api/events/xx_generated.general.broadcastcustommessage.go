@@ -10,8 +10,8 @@ type BroadcastCustomMessage struct {
 	EventBasic
 
 	// User-defined data
-	Data map[string]interface{} `json:"data"`
+	Data map[string]interface{} `json:"data,omitempty"`
 
 	// Identifier provided by the sender
-	Realm string `json:"realm"`
+	Realm string `json:"realm,omitempty"`
 }

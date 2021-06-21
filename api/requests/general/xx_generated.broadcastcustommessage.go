@@ -13,10 +13,10 @@ type BroadcastCustomMessageParams struct {
 	requests.ParamsBasic
 
 	// User-defined data
-	Data map[string]interface{} `json:"data"`
+	Data map[string]interface{} `json:"data,omitempty"`
 
 	// Identifier to be choosen by the client
-	Realm string `json:"realm"`
+	Realm string `json:"realm,omitempty"`
 }
 
 // GetSelfName just returns "BroadcastCustomMessage".

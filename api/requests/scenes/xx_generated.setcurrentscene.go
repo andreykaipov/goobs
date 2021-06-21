@@ -13,7 +13,7 @@ type SetCurrentSceneParams struct {
 	requests.ParamsBasic
 
 	// Name of the scene to switch to.
-	SceneName string `json:"scene-name"`
+	SceneName string `json:"scene-name,omitempty"`
 }
 
 // GetSelfName just returns "SetCurrentScene".

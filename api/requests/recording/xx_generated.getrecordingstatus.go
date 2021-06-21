@@ -27,16 +27,16 @@ type GetRecordingStatusResponse struct {
 	requests.ResponseBasic
 
 	// Current recording status.
-	IsRecording bool `json:"isRecording"`
+	IsRecording bool `json:"isRecording,omitempty"`
 
 	// Whether the recording is paused or not.
-	IsRecordingPaused bool `json:"isRecordingPaused"`
+	IsRecordingPaused bool `json:"isRecordingPaused,omitempty"`
 
 	// Time elapsed since recording started (only present if currently recording).
-	RecordTimecode string `json:"recordTimecode"`
+	RecordTimecode string `json:"recordTimecode,omitempty"`
 
 	// Absolute path to the recording file (only present if currently recording).
-	RecordingFilename string `json:"recordingFilename"`
+	RecordingFilename string `json:"recordingFilename,omitempty"`
 }
 
 // GetRecordingStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic

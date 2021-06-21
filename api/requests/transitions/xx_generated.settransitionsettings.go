@@ -13,10 +13,10 @@ type SetTransitionSettingsParams struct {
 	requests.ParamsBasic
 
 	// Transition name
-	TransitionName string `json:"transitionName"`
+	TransitionName string `json:"transitionName,omitempty"`
 
 	// Transition settings (they can be partial)
-	TransitionSettings map[string]interface{} `json:"transitionSettings"`
+	TransitionSettings map[string]interface{} `json:"transitionSettings,omitempty"`
 }
 
 // GetSelfName just returns "SetTransitionSettings".
@@ -33,7 +33,7 @@ type SetTransitionSettingsResponse struct {
 	requests.ResponseBasic
 
 	// Updated transition settings
-	TransitionSettings map[string]interface{} `json:"transitionSettings"`
+	TransitionSettings map[string]interface{} `json:"transitionSettings,omitempty"`
 }
 
 // SetTransitionSettings sends the corresponding request to the connected OBS WebSockets server.

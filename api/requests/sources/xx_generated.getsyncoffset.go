@@ -13,7 +13,7 @@ type GetSyncOffsetParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 }
 
 // GetSelfName just returns "GetSyncOffset".
@@ -30,10 +30,10 @@ type GetSyncOffsetResponse struct {
 	requests.ResponseBasic
 
 	// Source name.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// The audio sync offset (in nanoseconds).
-	Offset int `json:"offset"`
+	Offset int `json:"offset,omitempty"`
 }
 
 // GetSyncOffset sends the corresponding request to the connected OBS WebSockets server.

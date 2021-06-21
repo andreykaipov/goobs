@@ -13,7 +13,7 @@ type GetTracksParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "GetTracks".
@@ -29,17 +29,17 @@ Since v4.9.1.
 type GetTracksResponse struct {
 	requests.ResponseBasic
 
-	Track1 bool `json:"track1"`
+	Track1 bool `json:"track1,omitempty"`
 
-	Track2 bool `json:"track2"`
+	Track2 bool `json:"track2,omitempty"`
 
-	Track3 bool `json:"track3"`
+	Track3 bool `json:"track3,omitempty"`
 
-	Track4 bool `json:"track4"`
+	Track4 bool `json:"track4,omitempty"`
 
-	Track5 bool `json:"track5"`
+	Track5 bool `json:"track5,omitempty"`
 
-	Track6 bool `json:"track6"`
+	Track6 bool `json:"track6,omitempty"`
 }
 
 // GetTracks sends the corresponding request to the connected OBS WebSockets server.

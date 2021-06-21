@@ -17,10 +17,10 @@ type GetSceneItemPropertiesParams struct {
 	requests.ParamsBasic
 
 	// The item specification for this object.
-	Item *typedefs.Item `json:"item"`
+	Item *typedefs.Item `json:"item,omitempty"`
 
 	// Name of the scene the scene item belongs to. Defaults to the current scene.
-	SceneName string `json:"scene-name"`
+	SceneName string `json:"scene-name,omitempty"`
 }
 
 // GetSelfName just returns "GetSceneItemProperties".
@@ -38,52 +38,52 @@ type GetSceneItemPropertiesResponse struct {
 	requests.ResponseBasic
 
 	// The bounding box of the object (source, scene item, etc).
-	Bounds *typedefs.Bounds `json:"bounds"`
+	Bounds *typedefs.Bounds `json:"bounds,omitempty"`
 
 	// The crop specification for the object (source, scene item, etc).
-	Crop *typedefs.Crop `json:"crop"`
+	Crop *typedefs.Crop `json:"crop,omitempty"`
 
 	// List of children (if this item is a group)
-	GroupChildren []typedefs.SceneItemTransform `json:"groupChildren"`
+	GroupChildren []typedefs.SceneItemTransform `json:"groupChildren,omitempty"`
 
 	// Scene item height (base source height multiplied by the vertical scaling factor)
-	Height float64 `json:"height"`
+	Height float64 `json:"height,omitempty"`
 
 	// Scene Item ID.
-	ItemId int `json:"itemId"`
+	ItemId int `json:"itemId,omitempty"`
 
 	// If the source's transform is locked.
-	Locked bool `json:"locked"`
+	Locked bool `json:"locked,omitempty"`
 
 	// If the source is muted.
-	Muted bool `json:"muted"`
+	Muted bool `json:"muted,omitempty"`
 
 	// Scene Item name.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// Name of the item's parent (if this item belongs to a group)
-	ParentGroupName string `json:"parentGroupName"`
+	ParentGroupName string `json:"parentGroupName,omitempty"`
 
 	// The position of the object (source, scene item, etc).
-	Position *typedefs.Position `json:"position"`
+	Position *typedefs.Position `json:"position,omitempty"`
 
 	// The clockwise rotation of the item in degrees around the point of alignment.
-	Rotation float64 `json:"rotation"`
+	Rotation float64 `json:"rotation,omitempty"`
 
 	// The scaling specification for the object (source, scene item, etc).
-	Scale *typedefs.Scale `json:"scale"`
+	Scale *typedefs.Scale `json:"scale,omitempty"`
 
 	// Base source (without scaling) of the source
-	SourceHeight int `json:"sourceHeight"`
+	SourceHeight int `json:"sourceHeight,omitempty"`
 
 	// Base width (without scaling) of the source
-	SourceWidth int `json:"sourceWidth"`
+	SourceWidth int `json:"sourceWidth,omitempty"`
 
 	// If the source is visible.
-	Visible bool `json:"visible"`
+	Visible bool `json:"visible,omitempty"`
 
 	// Scene item width (base source width multiplied by the horizontal scaling factor)
-	Width float64 `json:"width"`
+	Width float64 `json:"width,omitempty"`
 }
 
 // GetSceneItemProperties sends the corresponding request to the connected OBS WebSockets server.

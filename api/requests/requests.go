@@ -15,8 +15,8 @@ type Params interface {
 
 // ParamsBasic represents common parameters for any request.
 type ParamsBasic struct {
-	RequestType string `json:"request-type"`
-	MessageID   string `json:"message-id"`
+	RequestType string `json:"request-type,omitempty"`
+	MessageID   string `json:"message-id,omitempty"`
 }
 
 // GetRequestType does what it says.
@@ -50,9 +50,9 @@ type Response interface {
 
 // ResponseBasic represents common fields on any returned response.
 type ResponseBasic struct {
-	MessageID string `json:"message-id"`
-	Status    string `json:"status"`
-	Error     string `json:"error"`
+	MessageID string `json:"message-id,omitempty"`
+	Status    string `json:"status,omitempty"`
+	Error     string `json:"error,omitempty"`
 }
 
 // GetMessageID does what it says.

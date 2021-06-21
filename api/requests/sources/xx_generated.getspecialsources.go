@@ -27,19 +27,19 @@ type GetSpecialSourcesResponse struct {
 	requests.ResponseBasic
 
 	// Name of the first Desktop Audio capture source.
-	Desktop1 string `json:"desktop-1"`
+	Desktop1 string `json:"desktop-1,omitempty"`
 
 	// Name of the second Desktop Audio capture source.
-	Desktop2 string `json:"desktop-2"`
+	Desktop2 string `json:"desktop-2,omitempty"`
 
 	// Name of the first Mic/Aux input source.
-	Mic1 string `json:"mic-1"`
+	Mic1 string `json:"mic-1,omitempty"`
 
 	// Name of the second Mic/Aux input source.
-	Mic2 string `json:"mic-2"`
+	Mic2 string `json:"mic-2,omitempty"`
 
 	// NAme of the third Mic/Aux input source.
-	Mic3 string `json:"mic-3"`
+	Mic3 string `json:"mic-3,omitempty"`
 }
 
 // GetSpecialSources sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments

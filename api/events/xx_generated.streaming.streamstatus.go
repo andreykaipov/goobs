@@ -10,59 +10,59 @@ type StreamStatus struct {
 	EventBasic
 
 	// Average frame time (in milliseconds)
-	AverageFrameTime float64 `json:"average-frame-time"`
+	AverageFrameTime float64 `json:"average-frame-time,omitempty"`
 
 	// Amount of data per second (in bytes) transmitted by the stream encoder.
-	BytesPerSec int `json:"bytes-per-sec"`
+	BytesPerSec int `json:"bytes-per-sec,omitempty"`
 
 	// Current CPU usage (percentage)
-	CpuUsage float64 `json:"cpu-usage"`
+	CpuUsage float64 `json:"cpu-usage,omitempty"`
 
 	// Current framerate.
-	Fps float64 `json:"fps"`
+	Fps float64 `json:"fps,omitempty"`
 
 	// Free recording disk space (in megabytes)
-	FreeDiskSpace float64 `json:"free-disk-space"`
+	FreeDiskSpace float64 `json:"free-disk-space,omitempty"`
 
 	// Amount of data per second (in kilobits) transmitted by the stream encoder.
-	KbitsPerSec int `json:"kbits-per-sec"`
+	KbitsPerSec int `json:"kbits-per-sec,omitempty"`
 
 	// Current RAM usage (in megabytes)
-	MemoryUsage float64 `json:"memory-usage"`
+	MemoryUsage float64 `json:"memory-usage,omitempty"`
 
 	// Number of frames dropped by the encoder since the stream started.
-	NumDroppedFrames int `json:"num-dropped-frames"`
+	NumDroppedFrames int `json:"num-dropped-frames,omitempty"`
 
 	// Total number of frames transmitted since the stream started.
-	NumTotalFrames int `json:"num-total-frames"`
+	NumTotalFrames int `json:"num-total-frames,omitempty"`
 
 	// Number of frames skipped due to encoding lag
-	OutputSkippedFrames int `json:"output-skipped-frames"`
+	OutputSkippedFrames int `json:"output-skipped-frames,omitempty"`
 
 	// Number of frames outputted
-	OutputTotalFrames int `json:"output-total-frames"`
+	OutputTotalFrames int `json:"output-total-frames,omitempty"`
 
 	// Always false (retrocompatibility).
-	PreviewOnly bool `json:"preview-only"`
+	PreviewOnly bool `json:"preview-only,omitempty"`
 
 	// Current recording state.
-	Recording bool `json:"recording"`
+	Recording bool `json:"recording,omitempty"`
 
 	// Number of frames missed due to rendering lag
-	RenderMissedFrames int `json:"render-missed-frames"`
+	RenderMissedFrames int `json:"render-missed-frames,omitempty"`
 
 	// Number of frames rendered
-	RenderTotalFrames int `json:"render-total-frames"`
+	RenderTotalFrames int `json:"render-total-frames,omitempty"`
 
 	// Replay Buffer status
-	ReplayBufferActive bool `json:"replay-buffer-active"`
+	ReplayBufferActive bool `json:"replay-buffer-active,omitempty"`
 
 	// Percentage of dropped frames.
-	Strain float64 `json:"strain"`
+	Strain float64 `json:"strain,omitempty"`
 
 	// Current streaming state.
-	Streaming bool `json:"streaming"`
+	Streaming bool `json:"streaming,omitempty"`
 
 	// Total time (in seconds) since the stream started.
-	TotalStreamTime int `json:"total-stream-time"`
+	TotalStreamTime int `json:"total-stream-time,omitempty"`
 }

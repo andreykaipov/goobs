@@ -13,13 +13,13 @@ type MoveSourceFilterParams struct {
 	requests.ParamsBasic
 
 	// Name of the filter to reorder
-	FilterName string `json:"filterName"`
+	FilterName string `json:"filterName,omitempty"`
 
 	// How to move the filter around in the source's filter chain. Either "up", "down", "top" or "bottom".
-	MovementType string `json:"movementType"`
+	MovementType string `json:"movementType,omitempty"`
 
 	// Name of the source to which the filter belongs
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "MoveSourceFilter".

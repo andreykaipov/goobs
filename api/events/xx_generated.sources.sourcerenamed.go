@@ -10,11 +10,11 @@ type SourceRenamed struct {
 	EventBasic
 
 	// New source name
-	NewName string `json:"newName"`
+	NewName string `json:"newName,omitempty"`
 
 	// Previous source name
-	PreviousName string `json:"previousName"`
+	PreviousName string `json:"previousName,omitempty"`
 
 	// Type of source (input, scene, filter, transition)
-	SourceType string `json:"sourceType"`
+	SourceType string `json:"sourceType,omitempty"`
 }

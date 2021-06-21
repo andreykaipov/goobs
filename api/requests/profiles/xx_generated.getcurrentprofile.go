@@ -27,7 +27,7 @@ type GetCurrentProfileResponse struct {
 	requests.ResponseBasic
 
 	// Name of the currently active profile.
-	ProfileName string `json:"profile-name"`
+	ProfileName string `json:"profile-name,omitempty"`
 }
 
 // GetCurrentProfile sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments

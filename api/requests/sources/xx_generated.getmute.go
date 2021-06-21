@@ -13,7 +13,7 @@ type GetMuteParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 }
 
 // GetSelfName just returns "GetMute".
@@ -30,10 +30,10 @@ type GetMuteResponse struct {
 	requests.ResponseBasic
 
 	// Mute status of the source.
-	Muted bool `json:"muted"`
+	Muted bool `json:"muted,omitempty"`
 
 	// Source name.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 }
 
 // GetMute sends the corresponding request to the connected OBS WebSockets server.

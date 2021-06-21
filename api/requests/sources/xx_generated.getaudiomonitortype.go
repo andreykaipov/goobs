@@ -13,7 +13,7 @@ type GetAudioMonitorTypeParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "GetAudioMonitorType".
@@ -30,7 +30,7 @@ type GetAudioMonitorTypeResponse struct {
 	requests.ResponseBasic
 
 	// The monitor type in use. Options: `none`, `monitorOnly`, `monitorAndOutput`.
-	MonitorType string `json:"monitorType"`
+	MonitorType string `json:"monitorType,omitempty"`
 }
 
 // GetAudioMonitorType sends the corresponding request to the connected OBS WebSockets server.

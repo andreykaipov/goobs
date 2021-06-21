@@ -13,10 +13,10 @@ type RemoveFilterFromSourceParams struct {
 	requests.ParamsBasic
 
 	// Name of the filter to remove
-	FilterName string `json:"filterName"`
+	FilterName string `json:"filterName,omitempty"`
 
 	// Name of the source from which the specified filter is removed
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }
 
 // GetSelfName just returns "RemoveFilterFromSource".

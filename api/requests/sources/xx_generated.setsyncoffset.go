@@ -13,10 +13,10 @@ type SetSyncOffsetParams struct {
 	requests.ParamsBasic
 
 	// The desired audio sync offset (in nanoseconds).
-	Offset int `json:"offset"`
+	Offset int `json:"offset,omitempty"`
 
 	// Source name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 }
 
 // GetSelfName just returns "SetSyncOffset".

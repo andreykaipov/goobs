@@ -10,5 +10,5 @@ type SwitchTransition struct {
 	EventBasic
 
 	// The name of the new active transition.
-	TransitionName string `json:"transition-name"`
+	TransitionName string `json:"transition-name,omitempty"`
 }

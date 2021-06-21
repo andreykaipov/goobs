@@ -30,7 +30,7 @@ type ListOutputsResponse struct {
 	requests.ResponseBasic
 
 	// Outputs list
-	Outputs []typedefs.Output `json:"outputs"`
+	Outputs []typedefs.Output `json:"outputs,omitempty"`
 }
 
 // ListOutputs sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

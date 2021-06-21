@@ -14,23 +14,23 @@ type TriggerHotkeyBySequenceParams struct {
 
 	// Main key identifier (e.g. `OBS_KEY_A` for key "A"). Available identifiers
 	// [here](https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h)
-	KeyId string `json:"keyId"`
+	KeyId string `json:"keyId,omitempty"`
 
-	KeyModifiers *KeyModifiers `json:"keyModifiers"`
+	KeyModifiers *KeyModifiers `json:"keyModifiers,omitempty"`
 }
 
 type KeyModifiers struct {
 	// Trigger Alt Key
-	Alt bool `json:"alt"`
+	Alt bool `json:"alt,omitempty"`
 
 	// Trigger Command Key (Mac)
-	Command bool `json:"command"`
+	Command bool `json:"command,omitempty"`
 
 	// Trigger Control (Ctrl) Key
-	Control bool `json:"control"`
+	Control bool `json:"control,omitempty"`
 
 	// Trigger Shift Key
-	Shift bool `json:"shift"`
+	Shift bool `json:"shift,omitempty"`
 }
 
 // GetSelfName just returns "TriggerHotkeyBySequence".

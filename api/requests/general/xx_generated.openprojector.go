@@ -14,16 +14,16 @@ type OpenProjectorParams struct {
 
 	// Size and position of the projector window (only if monitor is -1). Encoded in Base64 using [Qt's geometry
 	// encoding](https://doc.qt.io/qt-5/qwidget.html#saveGeometry). Corresponds to OBS's saved projectors.
-	Geometry string `json:"geometry"`
+	Geometry string `json:"geometry,omitempty"`
 
 	// Monitor to open the projector on. If -1 or omitted, opens a window.
-	Monitor int `json:"monitor"`
+	Monitor int `json:"monitor,omitempty"`
 
 	// Name of the source or scene to be displayed (ignored for other projector types).
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
 	// Type of projector: `Preview` (default), `Source`, `Scene`, `StudioProgram`, or `Multiview` (case insensitive).
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 }
 
 // GetSelfName just returns "OpenProjector".

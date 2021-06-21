@@ -12,8 +12,8 @@ type SourceFiltersReordered struct {
 	EventBasic
 
 	// The filters for this object.
-	Filters []*typedefs.Filter `json:"filters"`
+	Filters []*typedefs.Filter `json:"filters,omitempty"`
 
 	// Source name
-	SourceName string `json:"sourceName"`
+	SourceName string `json:"sourceName,omitempty"`
 }

@@ -30,10 +30,10 @@ type GetSceneListResponse struct {
 	requests.ResponseBasic
 
 	// Name of the currently active scene.
-	CurrentScene string `json:"current-scene"`
+	CurrentScene string `json:"current-scene,omitempty"`
 
 	// Ordered list of the current profile's scenes (See [GetCurrentScene](#getcurrentscene) for more information).
-	Scenes []typedefs.Scene `json:"scenes"`
+	Scenes []typedefs.Scene `json:"scenes,omitempty"`
 }
 
 // GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

@@ -13,7 +13,7 @@ type SetCurrentProfileParams struct {
 	requests.ParamsBasic
 
 	// Name of the desired profile.
-	ProfileName string `json:"profile-name"`
+	ProfileName string `json:"profile-name,omitempty"`
 }
 
 // GetSelfName just returns "SetCurrentProfile".

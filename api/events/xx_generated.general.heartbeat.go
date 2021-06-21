@@ -12,38 +12,38 @@ type Heartbeat struct {
 	EventBasic
 
 	// Current active profile.
-	CurrentProfile string `json:"current-profile"`
+	CurrentProfile string `json:"current-profile,omitempty"`
 
 	// Current active scene.
-	CurrentScene string `json:"current-scene"`
+	CurrentScene string `json:"current-scene,omitempty"`
 
 	// Toggles between every JSON message as an "I am alive" indicator.
-	Pulse bool `json:"pulse"`
+	Pulse bool `json:"pulse,omitempty"`
 
 	// Current recording state.
-	Recording bool `json:"recording"`
+	Recording bool `json:"recording,omitempty"`
 
 	// OBS Stats
-	Stats typedefs.OBSStats `json:"stats"`
+	Stats typedefs.OBSStats `json:"stats,omitempty"`
 
 	// Current streaming state.
-	Streaming bool `json:"streaming"`
+	Streaming bool `json:"streaming,omitempty"`
 
 	// Total bytes recorded since the recording started.
-	TotalRecordBytes int `json:"total-record-bytes"`
+	TotalRecordBytes int `json:"total-record-bytes,omitempty"`
 
 	// Total frames recorded since the recording started.
-	TotalRecordFrames int `json:"total-record-frames"`
+	TotalRecordFrames int `json:"total-record-frames,omitempty"`
 
 	// Total time (in seconds) since recording started.
-	TotalRecordTime int `json:"total-record-time"`
+	TotalRecordTime int `json:"total-record-time,omitempty"`
 
 	// Total bytes sent since the stream started.
-	TotalStreamBytes int `json:"total-stream-bytes"`
+	TotalStreamBytes int `json:"total-stream-bytes,omitempty"`
 
 	// Total frames streamed since the stream started.
-	TotalStreamFrames int `json:"total-stream-frames"`
+	TotalStreamFrames int `json:"total-stream-frames,omitempty"`
 
 	// Total time (in seconds) since the stream started.
-	TotalStreamTime int `json:"total-stream-time"`
+	TotalStreamTime int `json:"total-stream-time,omitempty"`
 }

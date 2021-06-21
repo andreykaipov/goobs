@@ -13,7 +13,7 @@ type RemoveSceneTransitionOverrideParams struct {
 	requests.ParamsBasic
 
 	// Name of the scene to switch to.
-	SceneName string `json:"sceneName"`
+	SceneName string `json:"sceneName,omitempty"`
 }
 
 // GetSelfName just returns "RemoveSceneTransitionOverride".

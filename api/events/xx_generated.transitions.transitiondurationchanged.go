@@ -10,5 +10,5 @@ type TransitionDurationChanged struct {
 	EventBasic
 
 	// New transition duration.
-	NewDuration int `json:"new-duration"`
+	NewDuration int `json:"new-duration,omitempty"`
 }

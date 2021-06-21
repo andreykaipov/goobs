@@ -16,40 +16,40 @@ type SetTextFreetype2PropertiesParams struct {
 	requests.ParamsBasic
 
 	// Gradient top color.
-	Color1 int `json:"color1"`
+	Color1 int `json:"color1,omitempty"`
 
 	// Gradient bottom color.
-	Color2 int `json:"color2"`
+	Color2 int `json:"color2,omitempty"`
 
 	// Custom width (0 to disable).
-	CustomWidth int `json:"custom_width"`
+	CustomWidth int `json:"custom_width,omitempty"`
 
 	// Drop shadow.
-	DropShadow bool `json:"drop_shadow"`
+	DropShadow bool `json:"drop_shadow,omitempty"`
 
 	// The font specification for this object.
-	Font *typedefs.Font `json:"font"`
+	Font *typedefs.Font `json:"font,omitempty"`
 
 	// Read text from the specified file.
-	FromFile bool `json:"from_file"`
+	FromFile bool `json:"from_file,omitempty"`
 
 	// Chat log.
-	LogMode bool `json:"log_mode"`
+	LogMode bool `json:"log_mode,omitempty"`
 
 	// Outline.
-	Outline bool `json:"outline"`
+	Outline bool `json:"outline,omitempty"`
 
 	// Source name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 
 	// Text content to be displayed.
-	Text string `json:"text"`
+	Text string `json:"text,omitempty"`
 
 	// File path.
-	TextFile string `json:"text_file"`
+	TextFile string `json:"text_file,omitempty"`
 
 	// Word wrap.
-	WordWrap bool `json:"word_wrap"`
+	WordWrap bool `json:"word_wrap,omitempty"`
 }
 
 // GetSelfName just returns "SetTextFreetype2Properties".

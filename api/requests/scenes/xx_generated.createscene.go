@@ -13,7 +13,7 @@ type CreateSceneParams struct {
 	requests.ParamsBasic
 
 	// Name of the scene to create.
-	SceneName string `json:"sceneName"`
+	SceneName string `json:"sceneName,omitempty"`
 }
 
 // GetSelfName just returns "CreateScene".

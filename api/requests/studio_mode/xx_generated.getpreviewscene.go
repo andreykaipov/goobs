@@ -32,9 +32,9 @@ type GetPreviewSceneResponse struct {
 	requests.ResponseBasic
 
 	// The name of the active preview scene.
-	Name string `json:"name"`
+	Name string `json:"name,omitempty"`
 
-	Sources []typedefs.SceneItem `json:"sources"`
+	Sources []typedefs.SceneItem `json:"sources,omitempty"`
 }
 
 // GetPreviewScene sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments

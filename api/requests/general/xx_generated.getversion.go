@@ -27,20 +27,20 @@ type GetVersionResponse struct {
 	requests.ResponseBasic
 
 	// List of available request types, formatted as a comma-separated list string (e.g. : "Method1,Method2,Method3").
-	AvailableRequests string `json:"available-requests"`
+	AvailableRequests string `json:"available-requests,omitempty"`
 
 	// OBS Studio program version.
-	ObsStudioVersion string `json:"obs-studio-version"`
+	ObsStudioVersion string `json:"obs-studio-version,omitempty"`
 
 	// obs-websocket plugin version.
-	ObsWebsocketVersion string `json:"obs-websocket-version"`
+	ObsWebsocketVersion string `json:"obs-websocket-version,omitempty"`
 
 	// List of supported formats for features that use image export (like the TakeSourceScreenshot request type)
 	// formatted as a comma-separated list string
-	SupportedImageExportFormats string `json:"supported-image-export-formats"`
+	SupportedImageExportFormats string `json:"supported-image-export-formats,omitempty"`
 
 	// OBSRemote compatible API version. Fixed to 1.1 for retrocompatibility.
-	Version float64 `json:"version"`
+	Version float64 `json:"version,omitempty"`
 }
 
 // GetVersion sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

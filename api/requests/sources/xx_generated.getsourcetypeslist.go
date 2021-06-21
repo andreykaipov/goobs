@@ -26,46 +26,46 @@ Since v4.3.0.
 type GetSourceTypesListResponse struct {
 	requests.ResponseBasic
 
-	Types []*Type `json:"types"`
+	Types []*Type `json:"types,omitempty"`
 }
 
 type Caps struct {
 	// True if interaction with this sources of this type is possible
-	CanInteract bool `json:"canInteract"`
+	CanInteract bool `json:"canInteract,omitempty"`
 
 	// True if sources of this type should not be fully duplicated
-	DoNotDuplicate bool `json:"doNotDuplicate"`
+	DoNotDuplicate bool `json:"doNotDuplicate,omitempty"`
 
 	// True if sources of this type may cause a feedback loop if it's audio is monitored and shouldn't be
-	DoNotSelfMonitor bool `json:"doNotSelfMonitor"`
+	DoNotSelfMonitor bool `json:"doNotSelfMonitor,omitempty"`
 
 	// True if sources of this type provide audio
-	HasAudio bool `json:"hasAudio"`
+	HasAudio bool `json:"hasAudio,omitempty"`
 
 	// True if sources of this type provide video
-	HasVideo bool `json:"hasVideo"`
+	HasVideo bool `json:"hasVideo,omitempty"`
 
 	// True if source of this type provide frames asynchronously
-	IsAsync bool `json:"isAsync"`
+	IsAsync bool `json:"isAsync,omitempty"`
 
 	// True if sources of this type composite one or more sub-sources
-	IsComposite bool `json:"isComposite"`
+	IsComposite bool `json:"isComposite,omitempty"`
 }
 
 type Type struct {
-	Caps *Caps `json:"caps"`
+	Caps *Caps `json:"caps,omitempty"`
 
 	// Default settings of this source type
-	DefaultSettings map[string]interface{} `json:"defaultSettings"`
+	DefaultSettings map[string]interface{} `json:"defaultSettings,omitempty"`
 
 	// Display name of the source type
-	DisplayName string `json:"displayName"`
+	DisplayName string `json:"displayName,omitempty"`
 
 	// Type. Value is one of the following: "input", "filter", "transition" or "other"
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 
 	// Non-unique internal source type ID
-	TypeId string `json:"typeId"`
+	TypeId string `json:"typeId,omitempty"`
 }
 
 // GetSourceTypesList sends the corresponding request to the connected OBS WebSockets server. Note the variadic

@@ -27,7 +27,7 @@ type GetTransitionDurationResponse struct {
 	requests.ResponseBasic
 
 	// Duration of the current transition (in milliseconds).
-	TransitionDuration int `json:"transition-duration"`
+	TransitionDuration int `json:"transition-duration,omitempty"`
 }
 
 // GetTransitionDuration sends the corresponding request to the connected OBS WebSockets server. Note the variadic

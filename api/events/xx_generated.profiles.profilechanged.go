@@ -10,5 +10,5 @@ type ProfileChanged struct {
 	EventBasic
 
 	// Name of the new current profile.
-	Profile string `json:"profile"`
+	Profile string `json:"profile,omitempty"`
 }

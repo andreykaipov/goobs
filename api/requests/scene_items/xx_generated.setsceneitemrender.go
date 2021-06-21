@@ -13,16 +13,16 @@ type SetSceneItemRenderParams struct {
 	requests.ParamsBasic
 
 	// Scene Item id
-	Item int `json:"item"`
+	Item int `json:"item,omitempty"`
 
 	// true = shown ; false = hidden
-	Render bool `json:"render"`
+	Render bool `json:"render,omitempty"`
 
 	// Name of the scene the scene item belongs to. Defaults to the currently active scene.
-	SceneName string `json:"scene-name"`
+	SceneName string `json:"scene-name,omitempty"`
 
 	// Scene Item name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 }
 
 // GetSelfName just returns "SetSceneItemRender".

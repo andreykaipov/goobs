@@ -365,7 +365,7 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 		}
 	}
 
-	statement, err := parseJenKeysAsStruct(name, keysInfo)
+	statement, err := parseJenKeysAsStruct(name, keysInfo, options{OmitEmpty: true})
 	if err != nil {
 		return fmt.Errorf("Failed parsing dotted key: %s", err)
 	}

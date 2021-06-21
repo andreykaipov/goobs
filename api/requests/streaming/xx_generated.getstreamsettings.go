@@ -30,10 +30,10 @@ type GetStreamSettingsResponse struct {
 	requests.ResponseBasic
 
 	//
-	Settings *typedefs.StreamSettings `json:"settings"`
+	Settings *typedefs.StreamSettings `json:"settings,omitempty"`
 
 	// The type of streaming service configuration. Possible values: 'rtmp_custom' or 'rtmp_common'.
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 }
 
 // GetStreamSettings sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments

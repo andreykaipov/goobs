@@ -16,21 +16,21 @@ Since 4.1.0.
 type StartStreamingParams struct {
 	requests.ParamsBasic
 
-	Stream *Stream `json:"stream"`
+	Stream *Stream `json:"stream,omitempty"`
 }
 
 type Stream struct {
 	// Adds the given object parameters as encoded query string parameters to the 'key' of the RTMP stream. Used to pass
 	// data to the RTMP service about the streaming. May be any String, Numeric, or Boolean field.
-	Metadata map[string]interface{} `json:"metadata"`
+	Metadata map[string]interface{} `json:"metadata,omitempty"`
 
 	//
-	Settings *typedefs.StreamSettings `json:"settings"`
+	Settings *typedefs.StreamSettings `json:"settings,omitempty"`
 
 	// If specified ensures the type of stream matches the given type (usually 'rtmp_custom' or 'rtmp_common'). If the
 	// currently configured stream type does not match the given stream type, all settings must be specified in the
 	// `settings` object or an error will occur when starting the stream.
-	Type string `json:"type"`
+	Type string `json:"type,omitempty"`
 }
 
 // GetSelfName just returns "StartStreaming".

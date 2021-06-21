@@ -16,7 +16,7 @@ type GetTextGDIPlusPropertiesParams struct {
 	requests.ParamsBasic
 
 	// Source name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 }
 
 // GetSelfName just returns "GetTextGDIPlusProperties".
@@ -33,76 +33,76 @@ type GetTextGDIPlusPropertiesResponse struct {
 	requests.ResponseBasic
 
 	// Text Alignment ("left", "center", "right").
-	Align string `json:"align"`
+	Align string `json:"align,omitempty"`
 
 	// Background color.
-	BkColor int `json:"bk_color"`
+	BkColor int `json:"bk_color,omitempty"`
 
 	// Background opacity (0-100).
-	BkOpacity int `json:"bk_opacity"`
+	BkOpacity int `json:"bk_opacity,omitempty"`
 
 	// Chat log.
-	Chatlog bool `json:"chatlog"`
+	Chatlog bool `json:"chatlog,omitempty"`
 
 	// Chat log lines.
-	ChatlogLines int `json:"chatlog_lines"`
+	ChatlogLines int `json:"chatlog_lines,omitempty"`
 
 	// Text color.
-	Color int `json:"color"`
+	Color int `json:"color,omitempty"`
 
 	// Extents wrap.
-	Extents bool `json:"extents"`
+	Extents bool `json:"extents,omitempty"`
 
 	// Extents cx.
-	ExtentsCx int `json:"extents_cx"`
+	ExtentsCx int `json:"extents_cx,omitempty"`
 
 	// Extents cy.
-	ExtentsCy int `json:"extents_cy"`
+	ExtentsCy int `json:"extents_cy,omitempty"`
 
 	// File path name.
-	File string `json:"file"`
+	File string `json:"file,omitempty"`
 
 	// The font specification for this object.
-	Font *typedefs.Font `json:"font"`
+	Font *typedefs.Font `json:"font,omitempty"`
 
 	// Gradient enabled.
-	Gradient bool `json:"gradient"`
+	Gradient bool `json:"gradient,omitempty"`
 
 	// Gradient color.
-	GradientColor int `json:"gradient_color"`
+	GradientColor int `json:"gradient_color,omitempty"`
 
 	// Gradient direction.
-	GradientDir float64 `json:"gradient_dir"`
+	GradientDir float64 `json:"gradient_dir,omitempty"`
 
 	// Gradient opacity (0-100).
-	GradientOpacity int `json:"gradient_opacity"`
+	GradientOpacity int `json:"gradient_opacity,omitempty"`
 
 	// Outline.
-	Outline bool `json:"outline"`
+	Outline bool `json:"outline,omitempty"`
 
 	// Outline color.
-	OutlineColor int `json:"outline_color"`
+	OutlineColor int `json:"outline_color,omitempty"`
 
 	// Outline opacity (0-100).
-	OutlineOpacity int `json:"outline_opacity"`
+	OutlineOpacity int `json:"outline_opacity,omitempty"`
 
 	// Outline size.
-	OutlineSize int `json:"outline_size"`
+	OutlineSize int `json:"outline_size,omitempty"`
 
 	// Read text from the specified file.
-	ReadFromFile bool `json:"read_from_file"`
+	ReadFromFile bool `json:"read_from_file,omitempty"`
 
 	// Source name.
-	Source string `json:"source"`
+	Source string `json:"source,omitempty"`
 
 	// Text content to be displayed.
-	Text string `json:"text"`
+	Text string `json:"text,omitempty"`
 
 	// Text vertical alignment ("top", "center", "bottom").
-	Valign string `json:"valign"`
+	Valign string `json:"valign,omitempty"`
 
 	// Vertical text enabled.
-	Vertical bool `json:"vertical"`
+	Vertical bool `json:"vertical,omitempty"`
 }
 
 // GetTextGDIPlusProperties sends the corresponding request to the connected OBS WebSockets server.

@@ -1,7 +1,7 @@
 package testfixtures
 
 type GetSourcesListRequest struct {
-	Sources []*Source `json:"Sources"`
+	Sources []*Source `json:"Sources,omitempty"`
 }
 
 type Source struct {

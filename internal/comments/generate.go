@@ -276,6 +276,7 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 
 		noJSONTag := false
 		embedded := false
+		omitEmpty := true
 
 		var fieldType *Statement
 		switch val := noOptional.ReplaceAllString(field.Type, ""); val {
@@ -302,11 +303,12 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			// used for both Ints & Floats, so we'll use Float
 			fieldType = Float64()
 		case "bool":
-			fieldType = Bool()
+			fallthrough
 		case "boolean":
-			fieldType = Bool()
+			fallthrough
 		case "Boolean":
 			fieldType = Bool()
+			omitEmpty = false
 		// funkier types
 		case "Object":
 			fieldType = Map(String()).Interface()
@@ -362,10 +364,11 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			Comment:   field.Description,
 			NoJSONTag: noJSONTag,
 			Embedded:  embedded,
+			OmitEmpty: omitEmpty,
 		}
 	}
 
-	statement, err := parseJenKeysAsStruct(name, keysInfo, options{OmitEmpty: true})
+	statement, err := parseJenKeysAsStruct(name, keysInfo)
 	if err != nil {
 		return fmt.Errorf("Failed parsing dotted key: %s", err)
 	}
@@ -422,7 +425,7 @@ func handleCommonObjects(origin, fieldName, structName string) (string, *keyInfo
 		if strings.HasPrefix(fieldName, k) {
 			k = strings.TrimSuffix(k, ".")
 			s := Op("*").Qual(typedefQualifier(origin), info.Refer)
-			return k, &keyInfo{Type: s, Comment: info.Comment}
+			return k, &keyInfo{Type: s, Comment: info.Comment, OmitEmpty: true}
 		}
 	}
 

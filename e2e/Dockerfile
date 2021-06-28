@@ -41,4 +41,3 @@ ENTRYPOINT ["/tini", "--"]
 
 RUN apk add -U xvfb-run mesa-dri-gallium
 CMD ["xvfb-run", "-s", "-screen 0 800x600x24", "./obs"]
-#HEALTHCHECK --interval=2s --retries=3 CMD nc -vz localhost 4444

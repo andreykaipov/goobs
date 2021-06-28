@@ -31,6 +31,14 @@ COPY --from=build /lib/libblkid.so.1 /lib/libblkid.so.1
 COPY --from=build /usr/lib /usr/lib
 COPY basic.ini /root/.config/obs-studio/basic/profiles/Untitled/basic.ini
 WORKDIR /opt/obs/bin/64bit/
+
+# --init doesn't seem to work within a GH actions service container, so we add
+# the init system ourselves to essentially always run with --init
+ENV tini_version v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${tini_version}/tini-static /tini
+RUN chmod +x /tini
+ENTRYPOINT ["/tini", "--"]
+
 RUN apk add -U xvfb-run mesa-dri-gallium
 CMD ["xvfb-run", "-s", "-screen 0 800x600x24", "./obs"]
 #HEALTHCHECK --interval=2s --retries=3 CMD nc -vz localhost 4444

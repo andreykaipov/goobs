@@ -1,7 +1,8 @@
 # goobs
 
-[![Go
-Reference](https://pkg.go.dev/badge/github.com/andreykaipov/goobs.svg)](https://pkg.go.dev/github.com/andreykaipov/goobs)
+[![Go Reference](https://pkg.go.dev/badge/github.com/andreykaipov/goobs.svg)](https://pkg.go.dev/github.com/andreykaipov/goobs)
+[![Go Report Card](https://goreportcard.com/badge/github.com/andreykaipov/goobs)](https://goreportcard.com/report/github.com/andreykaipov/goobs)
+[![GitHub Actions](https://github.com/andreykaipov/goobs/actions/workflows/ci.yml/badge.svg)](https://github.com/andreykaipov/goobs/actions/workflows/ci.yml)
 
 It's a Go client for
 [Palakis/obs-websocket](https://github.com/Palakis/obs-websocket), allowing us
@@ -22,12 +23,10 @@ protocol](https://github.com/Palakis/obs-websocket/blob/4.9.1/docs/generated/pro
 
 ## usage
 
-Usage is best demonstrated via a (hopefully self-explanatory) example. Here's
-[examples/sources/main.go](examples/sources/main.go), showing off how we can
-asynchronously listen for events, or send/receive synchronous
-requests/responses, and how the two interact.
-
-For brevity, error checks in a few places are omitted:
+Usage is best demonstrated through example! Here's
+[examples/sources/main.go](examples/sources/main.go), showing off both the
+eventing and requests API. For brevity, error checks in a few places are
+omitted:
 
 ```go
 package main
@@ -81,7 +80,6 @@ And the corresponding output:
 
 ```console
 ❯ go run examples/sources/main.go
-2021/06/14 02:22:18 connecting to ws://172.28.208.1:4444
 Setting random volumes for each source...
 Volume changed for "Chat"                   : 0.272767
 Volume changed for "Window Capture"         : 0.791386
@@ -95,21 +93,15 @@ Chat is muted? false
 Chat is muted? true
 ```
 
+For further examples, it might help browsing through
+[`e2e/e2e_test.go`](./e2e/e2e_test.go), or through
+[muesli/obs-cli](https://github.com/muesli/obs-cli) which consumes this library.
+
 ## development
 
-This client is generated from the mess inside `./internal/comments`, reading the
-[comments.json](https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/comments.json)
-file found in [Palakis/obs-websocket](https://github.com/Palakis/obs-websocket).
+The client library code is generated from the mess inside `./internal/comments`
+by reading the generated [obs-websocket protocol
+documentation](https://github.com/Palakis/obs-websocket/blob/4.9.1/docs/generated/comments.json).
 
-Apart from `internal`, the only other hand-written code are the following files:
-
-```console
-❯ find *.go api/ -not -name '*_generated.*.go' -name '*.go'
-client.go
-api/requests/client.go
-api/requests/requests.go
-api/events/events.go
-```
-
-Iteration involves changing the generative code, running `make generate`, and
-making sure the examples still work.
+Iteration typically involves changing the generative code, running `make
+generate`, and a `make test`.

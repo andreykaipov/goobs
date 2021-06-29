@@ -1,8 +1,18 @@
 # goobs
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/andreykaipov/goobs.svg)](https://pkg.go.dev/github.com/andreykaipov/goobs)
-[![Go Report Card](https://goreportcard.com/badge/github.com/andreykaipov/goobs)](https://goreportcard.com/report/github.com/andreykaipov/goobs)
-[![GitHub Actions](https://github.com/andreykaipov/goobs/actions/workflows/ci.yml/badge.svg)](https://github.com/andreykaipov/goobs/actions/workflows/ci.yml)
+[![Protocol Version][protocol-img]][protocol-url]
+[![Documentation][doc-img]][doc-url]
+[![Build Status][build-img]][build-url]
+[![Go Report][goreport-img]][goreport-url]
+
+[protocol-img]: https://img.shields.io/badge/obs--websocket-v4.9.1-blue?logo=obs-studio&style=flat-square
+[protocol-url]: https://github.com/Palakis/obs-websocket/blob/4.9.1/docs/generated/protocol.md
+[doc-img]: https://img.shields.io/badge/pkg.go.dev-reference-blue?logo=go&logoColor=white&style=flat-square
+[doc-url]: https://pkg.go.dev/github.com/andreykaipov/goobs
+[build-img]: https://img.shields.io/github/workflow/status/andreykaipov/goobs/test?logo=github&style=flat-square
+[build-url]: https://github.com/andreykaipov/goobs/actions/workflows/ci.yml
+[goreport-img]: https://goreportcard.com/badge/github.com/andreykaipov/goobs?logo=go&logoColor=white&style=flat-square
+[goreport-url]: https://goreportcard.com/report/github.com/andreykaipov/goobs
 
 It's a Go client for
 [Palakis/obs-websocket](https://github.com/Palakis/obs-websocket), allowing us
@@ -17,9 +27,6 @@ module after you've initialized your own:
 ❯ go mod init blah
 ❯ go get github.com/andreykaipov/goobs
 ```
-
-The latest release is v0.6.0 for [v4.9.1 of the obs-websocket
-protocol](https://github.com/Palakis/obs-websocket/blob/4.9.1/docs/generated/protocol.md).
 
 ## usage
 

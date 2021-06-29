@@ -1,0 +1,44 @@
+name: test
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with: {go-version: ^1}
+    - run: make unit
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with: {go-version: ^1}
+    - run: make e2e
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-go@v2
+      with: {go-version: ^1}
+    - run: make generate
+    - name: Check if there's any changes
+      if: success()
+      run: |
+        modified="$(git ls-files --modified)"
+        untracked="$(git ls-files --exclude-standard --others)"
+        if [ -n "$modified" ] || [ -n "$untracked" ]; then
+            echo "Modified:"
+            echo "$modified"
+            echo
+            echo "Untracked:"
+            echo "$untracked"
+            exit 1
+        fi
+        exit 0

@@ -10,7 +10,7 @@ unit:
 .PHONY: e2e
 e2e:
 	@echo Setting up headless OBS for e2e...
-	@docker stop goobs-e2e 2>/dev/null || true
+	@docker stop goobs-e2e >/dev/null 2>&1 || true
 	@docker run --rm --detach --name goobs-e2e -p 4545:4444 ghcr.io/andreykaipov/goobs/e2e >/dev/null
 	@sleep 1 # lol
 	go test -v -coverpkg ./... -coverprofile cover.out -v ./e2e/...

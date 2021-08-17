@@ -4,7 +4,7 @@ package profiles
 
 import requests "github.com/andreykaipov/goobs/api/requests"
 
-// Client represents a client for 'profiles' requests
+// Client represents a client for 'profiles' requests.
 type Client struct {
 	*requests.Client
 }

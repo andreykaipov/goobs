@@ -4,7 +4,7 @@ package studiomode
 
 import requests "github.com/andreykaipov/goobs/api/requests"
 
-// Client represents a client for 'studio mode' requests
+// Client represents a client for 'studio mode' requests.
 type Client struct {
 	*requests.Client
 }

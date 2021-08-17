@@ -31,7 +31,7 @@ module after you've initialized your own:
 ## usage
 
 Usage is best demonstrated through example! Here's
-[examples/sources/main.go](examples/sources/main.go), showing off both the
+[examples/sources/main.go](examples/sources/main.go), showcasing both the
 eventing and requests API. For brevity, error checks in a few places are
 omitted:
 
@@ -41,7 +41,11 @@ package main
 import ...
 
 func main() {
-	client, err := goobs.New(os.Getenv("WSL_HOST")+":4444", goobs.WithPassword("hello"))
+	client, err := goobs.New(
+		os.Getenv("WSL_HOST")+":4444",
+		goobs.WithPassword("hello"),                   // optional
+		goobs.WithDebug(os.Getenv("OBS_DEBUG") != ""), // optional
+	)
 	if err != nil {
 		panic(err)
 	}
@@ -69,6 +73,11 @@ func main() {
 		}); err != nil {
 			panic(err)
 		}
+	}
+
+	if len(list.Sources) == 0 {
+		fmt.Println("No sources!")
+		os.Exit(0)
 	}
 
 	fmt.Println("Test toggling the mute status of the first source...")
@@ -99,6 +108,9 @@ Chat is muted? false
 2021/06/14 02:22:18 Unhandled event: "SourceMuteStateChanged"
 Chat is muted? true
 ```
+
+We can also run this example with `OBS_DEBUG` set to a non-empty string. If we
+do, our client will log all of the raw sent requests and received responses.
 
 For further examples, it might help browsing through
 [`e2e/e2e_test.go`](./e2e/e2e_test.go), or through

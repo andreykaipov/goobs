@@ -5,7 +5,9 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/url"
+	"os"
 
 	"github.com/andreykaipov/goobs/api/events"
 	"github.com/andreykaipov/goobs/api/requests"
@@ -15,26 +17,13 @@ import (
 
 // Client represents a client to an OBS websockets server.
 type Client struct {
-	// IncomingEvents is used to read events from OBS. For example,
-	//
-	// ```go
-	// for event := range client.IncomingEvents {
-	// 	switch e := event.(type) {
-	// 	case *events.SomeEventA:
-	// 		...
-	// 	case *events.SomeEventB:
-	// 		...
-	// 	default:
-	// 	}
-	// }
-	// ```
 	IncomingEvents chan events.Event
-
 	*requests.Client
-	subclients
 
+	subclients
 	host     string
 	password string
+	debug    *bool
 }
 
 // Option represents a functional option of a Client.
@@ -45,6 +34,32 @@ func WithPassword(x string) Option {
 	return func(o *Client) {
 		o.password = x
 	}
+}
+
+// WithDebug enables debug logging via a default logger.
+func WithDebug(x bool) Option {
+	return func(o *Client) {
+		o.debug = &x
+	}
+}
+
+// WithLogger sets the logger to use for debug logging. Providing a logger
+// implicitly turns debug logging on, unless debug logging is explicitly
+// disabled.
+func WithLogger(x requests.Logger) Option {
+	return func(o *Client) {
+		o.Log = x
+	}
+}
+
+type discard struct{}
+
+func (o *discard) Printf(format string, v ...interface{}) {}
+
+type coloredStderr struct{}
+
+func (o *coloredStderr) Write(p []byte) (n int, err error) {
+	return os.Stderr.WriteString(fmt.Sprintf("\033[36m%s\033[0m", p))
 }
 
 /*
@@ -59,6 +74,16 @@ func New(host string, opts ...Option) (*Client, error) {
 
 	for _, opt := range opts {
 		opt(c)
+	}
+
+	if c.Log == nil && c.debug == nil {
+		c.Log = &discard{}
+	}
+	if c.Log == nil && *c.debug {
+		c.Log = log.New(&coloredStderr{}, "goobs/debug: ", log.Lshortfile|log.LstdFlags)
+	}
+	if c.debug != nil && !*c.debug {
+		c.Log = &discard{}
 	}
 
 	if err := c.connect(); err != nil {
@@ -81,7 +106,8 @@ func New(host string, opts ...Option) (*Client, error) {
 func (c *Client) connect() (err error) {
 	u := url.URL{Scheme: "ws", Host: c.host}
 
-	// log.Printf("connecting to %s", u.String())
+	c.Log.Printf("Connecting to %s", u.String())
+
 	if c.Conn, _, err = websocket.DefaultDialer.Dial(u.String(), nil); err != nil {
 		return err
 	}

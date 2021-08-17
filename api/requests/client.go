@@ -1,6 +1,7 @@
 package requests
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 
@@ -8,18 +9,28 @@ import (
 	uuid "github.com/nu7hatch/gouuid"
 )
 
-// Client represents a client to an OBS websockets server, used for requests.
+// Logger is a interface compatible with both the stdlib's logger and some
+// third-party loggers.
+type Logger interface {
+	Printf(string, ...interface{})
+}
+
+// Client represents a requests client to the OBS websocket server. Its
+// intention is to provide a means of communication between the top-level client
+// and the category-level clients, so while its fields are exported, they should
+// be of no interest to consumers of this library.
 type Client struct {
-	// Conn is the backing websocket connection to the OBS websockets
-	// server. It's exported to pass the underlying connection to each
-	// category subclient. You shouldn't worry about this.
+	// The backing websocket connection to the OBS websocket server.
 	Conn *websocket.Conn
 
+	// Raw JSON message responses from the websocker server.
 	IncomingResponses chan json.RawMessage
+
+	Log Logger
 }
 
 /*
-Disconnect sends a message to the OBS websockets server to close the client's
+Disconnect sends a message to the OBS websocket server to close the client's
 open connection. You don't really have to do this as any connections should
 close when your program terminates or interrupts. But here's a function anyways.
 */
@@ -63,11 +74,27 @@ func (c *Client) SendRequest(params Params, response Response) error {
 		params.SetMessageID(id.String())
 	}
 
-	if err := c.Conn.WriteJSON(params); err != nil {
+	paramsMarshalled, err := json.Marshal(params)
+	if err != nil {
+		return fmt.Errorf("Couldn't marshal params: %s", err)
+	}
+
+	c.Log.Printf("Sent request: %s", paramsMarshalled)
+
+	if err := c.Conn.WriteMessage(websocket.TextMessage, paramsMarshalled); err != nil {
 		return err
 	}
 
 	msg := <-c.IncomingResponses
+
+	// OBS websocket seems to return already pretty-printed JSON in its
+	// responses, so we compact the response to print it on just one line.
+	// It's pretty wasteful if debug logging is not enabled since it'll just
+	// be discarded, but eh it's not too big of a deal...
+	buffer := &bytes.Buffer{}
+	_ = json.Compact(buffer, msg)
+	c.Log.Printf("Raw response: %s", buffer)
+
 	if err := json.Unmarshal(msg, response); err != nil {
 		return fmt.Errorf("Couldn't unmarshal message into an unknown event: %s", err)
 	}

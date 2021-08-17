@@ -13,7 +13,11 @@ import (
 )
 
 func main() {
-	client, err := goobs.New(os.Getenv("WSL_HOST")+":4444", goobs.WithPassword("hello"))
+	client, err := goobs.New(
+		os.Getenv("WSL_HOST")+":4444",
+		goobs.WithPassword("hello"),                   // optional
+		goobs.WithDebug(os.Getenv("OBS_DEBUG") != ""), // optional
+	)
 	if err != nil {
 		panic(err)
 	}
@@ -41,6 +45,11 @@ func main() {
 		}); err != nil {
 			panic(err)
 		}
+	}
+
+	if len(list.Sources) == 0 {
+		fmt.Println("No sources!")
+		os.Exit(0)
 	}
 
 	fmt.Println("Test toggling the mute status of the first source...")

@@ -9,8 +9,19 @@ import (
 	"github.com/andreykaipov/goobs/api/events"
 )
 
+type logger struct{}
+
+func (l *logger) Printf(f string, v ...interface{}) {
+	fmt.Fprintf(os.Stderr, "\033[1;33m"+f+"\033[0m\n", v...)
+}
+
 func main() {
-	client, err := goobs.New(os.Getenv("WSL_HOST")+":4444", goobs.WithPassword("hello"))
+	client, err := goobs.New(
+		os.Getenv("WSL_HOST")+":4444",
+		goobs.WithPassword("hello"),                   // optional
+		goobs.WithDebug(os.Getenv("OBS_DEBUG") != ""), // optional
+		goobs.WithLogger(&logger{}),                   // optional
+	)
 	if err != nil {
 		panic(err)
 	}

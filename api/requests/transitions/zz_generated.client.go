@@ -4,7 +4,7 @@ package transitions
 
 import requests "github.com/andreykaipov/goobs/api/requests"
 
-// Client represents a client for 'transitions' requests
+// Client represents a client for 'transitions' requests.
 type Client struct {
 	*requests.Client
 }

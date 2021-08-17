@@ -4,7 +4,7 @@ package replaybuffer
 
 import requests "github.com/andreykaipov/goobs/api/requests"
 
-// Client represents a client for 'replay buffer' requests
+// Client represents a client for 'replay buffer' requests.
 type Client struct {
 	*requests.Client
 }

@@ -4,7 +4,7 @@ package scenes
 
 import requests "github.com/andreykaipov/goobs/api/requests"
 
-// Client represents a client for 'scenes' requests
+// Client represents a client for 'scenes' requests.
 type Client struct {
 	*requests.Client
 }

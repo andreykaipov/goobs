@@ -37,7 +37,7 @@ func generateRequests(data *Comments) {
 		// Generate the category-level client
 		client := NewFile(categoryClaustrophic)
 		client.HeaderComment("This file has been automatically generated. Don't edit it.")
-		client.Commentf("Client represents a client for '%s' requests", category)
+		client.Commentf("Client represents a client for '%s' requests.", category)
 		client.Add(
 			Type().Id("Client").Struct(
 				Op("*").Qual(goobs+"/api/requests", "Client"),

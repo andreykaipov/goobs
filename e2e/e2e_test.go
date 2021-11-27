@@ -1,6 +1,7 @@
 package e2e
 
 import (
+	"net/http"
 	"testing"
 
 	"github.com/andreykaipov/goobs"
@@ -17,7 +18,13 @@ func check(err error) {
 }
 
 func Test_goobs_e2e(t *testing.T) {
-	client, err := goobs.New("localhost:4545", goobs.WithPassword("hello"))
+	client, err := goobs.New(
+		"localhost:4545",
+		goobs.WithPassword("hello"),
+		goobs.WithRequestHeader(http.Header{
+			"User-Agent": []string{"goobs-e2e/0.0.0"},
+		}),
+	)
 	assert.NoError(t, err)
 
 	sceneName := "goobs test scene"

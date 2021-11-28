@@ -245,7 +245,7 @@ func (c *Client) handleRawMessages(messages chan json.RawMessage, errors chan er
 			continue
 		}
 
-		panic("idk what kinda message this is lol")
+		errors <- fmt.Errorf("Client/server version mismatch? Unrecognized message: %s", raw)
 	}
 }
 

@@ -21,9 +21,7 @@ var version = "0.8.0-dev"
 
 // Client represents a client to an OBS websockets server.
 type Client struct {
-	IncomingEvents chan events.Event
 	*requests.Client
-
 	subclients
 	host          string
 	password      string
@@ -236,6 +234,12 @@ func (c *Client) handleConnection(messages chan json.RawMessage, errors chan err
 	}
 }
 
+// Handles messages from the server. They might be response bodies associated
+// with requests, or they can be events we can subscribe to via the
+// `client.IncomingEvents` channel. Or they can be something totally else, in
+// which case we expose the errors as more events! Despite also handling
+// incoming responses, we refer to this loop as the "eventing loop" elsewhere in
+// the comments.
 func (c *Client) handleRawMessages(messages chan json.RawMessage, errors chan error) {
 	for raw := range messages {
 		// Parse into a generic map to figure out if it's an event or

@@ -9,7 +9,7 @@ type Params interface {
 	SetMessageID(string)
 
 	// The name of the actual request, i.e. "Abc" for "AbcParams". Used to
-	// set the RequestType.
+	// set the RequestType, so it's essentially an alias for GetRequestType.
 	GetSelfName() string
 }
 

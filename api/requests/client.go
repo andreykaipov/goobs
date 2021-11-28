@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/andreykaipov/goobs/api/events"
 	"github.com/gorilla/websocket"
 	uuid "github.com/nu7hatch/gouuid"
 )
@@ -27,7 +28,10 @@ type Client struct {
 	// The time we're willing to wait to receive a response from the server.
 	ResponseTimeout time.Duration
 
-	// Raw JSON message responses from the websocker server.
+	// Events broadcast by the server when actions happen within OBS.
+	IncomingEvents chan events.Event
+
+	// Raw JSON message responses from the websocket server.
 	IncomingResponses chan json.RawMessage
 
 	Log Logger
@@ -39,6 +43,9 @@ open connection. You don't really have to do this as any connections should
 close when your program terminates or interrupts. But here's a function anyways.
 */
 func (c *Client) Disconnect() error {
+	close(c.IncomingResponses)
+	close(c.IncomingEvents)
+
 	return c.Conn.WriteMessage(
 		websocket.CloseMessage,
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""),

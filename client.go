@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log"
+	"net/http"
 	"net/url"
 	"os"
 
@@ -15,15 +16,19 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var version = "0.8.0-dev"
+
 // Client represents a client to an OBS websockets server.
 type Client struct {
 	IncomingEvents chan events.Event
 	*requests.Client
 
 	subclients
-	host     string
-	password string
-	debug    *bool
+	host          string
+	password      string
+	debug         *bool
+	dialer        *websocket.Dialer
+	requestHeader http.Header
 }
 
 // Option represents a functional option of a Client.
@@ -49,6 +54,26 @@ func WithDebug(x bool) Option {
 func WithLogger(x requests.Logger) Option {
 	return func(o *Client) {
 		o.Log = x
+	}
+}
+
+// WithDialer sets the underlying Gorilla WebSocket Dialer (see
+// https://pkg.go.dev/github.com/gorilla/websocket#Dialer), should one want to
+// customize things like the handshake timeout or TLS configuration. If this is
+// not set, it'll use the provided DefaultDialer (see
+// https://pkg.go.dev/github.com/gorilla/websocket#pkg-variables).
+func WithDialer(x *websocket.Dialer) Option {
+	return func(o *Client) {
+		o.dialer = x
+	}
+}
+
+// WithRequestHeader sets custom headers our client can send when trying to
+// connect to the WebSockets server, allowing us specify the origin,
+// subprotocols, or the user agent.
+func WithRequestHeader(x http.Header) Option {
+	return func(o *Client) {
+		o.requestHeader = x
 	}
 }
 
@@ -86,6 +111,15 @@ func New(host string, opts ...Option) (*Client, error) {
 		c.Log = &discard{}
 	}
 
+	if c.dialer == nil {
+		c.dialer = websocket.DefaultDialer
+	}
+	if c.requestHeader == nil {
+		c.requestHeader = http.Header{
+			"User-Agent": []string{"goobs/" + version},
+		}
+	}
+
 	if err := c.connect(); err != nil {
 		return nil, err
 	}
@@ -108,7 +142,7 @@ func (c *Client) connect() (err error) {
 
 	c.Log.Printf("Connecting to %s", u.String())
 
-	if c.Conn, _, err = websocket.DefaultDialer.Dial(u.String(), nil); err != nil {
+	if c.Conn, _, err = c.dialer.Dial(u.String(), c.requestHeader); err != nil {
 		return err
 	}
 

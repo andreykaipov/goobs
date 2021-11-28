@@ -142,8 +142,8 @@ func New(host string, opts ...Option) (*Client, error) {
 	c.IncomingResponses = make(chan json.RawMessage, 100)
 	go c.handleMessages()
 
-	if err := c.authenticate(); err != nil {
-		return nil, err
+	if err := c.wrappedAuthentication(); err != nil {
+		return nil, fmt.Errorf("Failed auth: %s", err)
 	}
 
 	return c, nil
@@ -161,12 +161,37 @@ func (c *Client) connect() (err error) {
 	return nil
 }
 
+// Handling authentication errors is a tad tricky. Because the auth request we
+// send depends on the eventing loop too, we need a way to return any errors
+// that might come up when parsing the auth response, while also handling
+// expected auth errors like bad creds.
+func (c *Client) wrappedAuthentication() error {
+	go func() {
+		if err := c.authenticate(); err != nil {
+			c.IncomingEvents <- events.WrapError(err)
+		}
+		c.IncomingEvents <- nil
+	}()
+
+	switch e := (<-c.IncomingEvents).(type) {
+	case *events.Error:
+		// this error can be from the above `authenticate()`, or from
+		// any errors that might've come up during the eventing loop
+		return e.Err
+	case nil:
+		return nil
+	default:
+		// only events as of now should be errors or our above nil
+		return fmt.Errorf("Surely impossible? How did the server send actual events before authentication?")
+	}
+}
+
 // Pretty much the pseudo-code from
 // https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#authentication
 func (c *Client) authenticate() error {
 	authReqResp, err := c.General.GetAuthRequired()
 	if err != nil {
-		return fmt.Errorf("Failed getting auth: %s", err)
+		return fmt.Errorf("Failed getting auth required: %s", err)
 	}
 
 	if !authReqResp.AuthRequired {
@@ -179,13 +204,9 @@ func (c *Client) authenticate() error {
 	authHash := sha256.Sum256([]byte(secret + authReqResp.Challenge))
 	authSecret := base64.StdEncoding.EncodeToString(authHash[:])
 
-	if _, err := c.General.Authenticate(&general.AuthenticateParams{
-		Auth: authSecret,
-	}); err != nil {
-		return fmt.Errorf("Failed authenticating: %s", err)
-	}
+	_, err = c.General.Authenticate(&general.AuthenticateParams{Auth: authSecret})
 
-	return nil
+	return err
 }
 
 func (c *Client) handleMessages() {

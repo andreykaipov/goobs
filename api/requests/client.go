@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/gorilla/websocket"
 	uuid "github.com/nu7hatch/gouuid"
@@ -22,6 +23,9 @@ type Logger interface {
 type Client struct {
 	// The backing websocket connection to the OBS websocket server.
 	Conn *websocket.Conn
+
+	// The time we're willing to wait to receive a response from the server.
+	ResponseTimeout time.Duration
 
 	// Raw JSON message responses from the websocker server.
 	IncomingResponses chan json.RawMessage
@@ -85,7 +89,12 @@ func (c *Client) SendRequest(params Params, response Response) error {
 		return err
 	}
 
-	msg := <-c.IncomingResponses
+	var msg json.RawMessage
+	select {
+	case msg = <-c.IncomingResponses:
+	case <-time.After(c.ResponseTimeout * time.Millisecond):
+		return fmt.Errorf("Timed out receiving response from server for request %q", params.GetRequestType())
+	}
 
 	// OBS websocket seems to return already pretty-printed JSON in its
 	// responses, so we compact the response to print it on just one line.

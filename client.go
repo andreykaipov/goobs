@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"time"
 
 	"github.com/andreykaipov/goobs/api/events"
 	"github.com/andreykaipov/goobs/api/requests"
@@ -77,6 +78,15 @@ func WithRequestHeader(x http.Header) Option {
 	}
 }
 
+// WithResponseTimeout sets the time we're willing to wait to receive a response
+// from the server for any request, before responding with an error. It's in
+// milliseconds. The default timeout is 10 seconds.
+func WithResponseTimeout(x time.Duration) Option {
+	return func(o *Client) {
+		o.ResponseTimeout = time.Duration(x)
+	}
+}
+
 type discard struct{}
 
 func (o *discard) Printf(format string, v ...interface{}) {}
@@ -93,8 +103,10 @@ It also opens up a connection, so be sure to check the error.
 */
 func New(host string, opts ...Option) (*Client, error) {
 	c := &Client{
-		Client: &requests.Client{},
-		host:   host,
+		Client: &requests.Client{
+			ResponseTimeout: 10000,
+		},
+		host: host,
 	}
 
 	for _, opt := range opts {

@@ -199,7 +199,7 @@ func (c *Client) handleMessages() {
 // Expose eventing errors as... more events
 func (c *Client) handleErrors(errors chan error) {
 	for err := range errors {
-		c.IncomingEvents <- events.WrapError(err)
+		c.writeEvent(events.WrapError(err))
 	}
 }
 
@@ -225,7 +225,7 @@ func (c *Client) handleRawMessages(messages chan json.RawMessage, errors chan er
 			continue
 		}
 
-		// Responses are parsed when the request is sent
+		// Responses are parsed in the embedded Client's `SendRequest`
 		if _, ok := checked["message-id"]; ok {
 			c.IncomingResponses <- raw
 			continue
@@ -241,14 +241,30 @@ func (c *Client) handleRawMessages(messages chan json.RawMessage, errors chan er
 				continue
 			}
 
-			select {
-			case c.IncomingEvents <- event:
-			default:
-			}
-
+			c.writeEvent(event)
 			continue
 		}
 
 		panic("idk what kinda message this is lol")
+	}
+}
+
+// Since our events channel is buffered and might not necessarily be used, we
+// purge old events and write latest ones so that whenever somebody might want
+// to use it, they'll have the latest events available to them.
+func (c *Client) writeEvent(event events.Event) {
+	select {
+	case c.IncomingEvents <- event:
+	default:
+		if len(c.IncomingEvents) == cap(c.IncomingEvents) {
+			// incoming events was full (but might not be by now),
+			// so safely read off the oldest, and write the latest
+			select {
+			case _ = <-c.IncomingEvents:
+			default:
+			}
+
+			c.IncomingEvents <- event
+		}
 	}
 }

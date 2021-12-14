@@ -70,14 +70,14 @@ func Test_goobs_e2e(t *testing.T) {
 			SourceName: sourceName,
 			SourceKind: "text_ft2_source_v2",
 			SceneName:  sceneName,
-			SetVisible: false,
+			SetVisible: &[]bool{false}[0],
 		})
 		assert.NoError(t, err)
 		_, err = client.Sources.CreateSource(&sources.CreateSourceParams{
 			SourceName: sourceName,
 			SourceKind: "text_ft2_source_v2",
 			SceneName:  sceneName,
-			SetVisible: false,
+			SetVisible: &[]bool{false}[0],
 		})
 		assert.Error(t, err)
 

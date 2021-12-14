@@ -20,7 +20,7 @@ type SetTBarPositionParams struct {
 	// Whether or not the T-Bar gets released automatically after setting its new position (like a user releasing their
 	// mouse button after moving the T-Bar). Call `ReleaseTBar` manually if you set `release` to false. Defaults to
 	// true.
-	Release bool `json:"release"`
+	Release *bool `json:"release,omitempty"`
 }
 
 // GetSelfName just returns "SetTBarPosition".

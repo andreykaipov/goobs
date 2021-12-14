@@ -13,7 +13,7 @@ type SetTracksParams struct {
 	requests.ParamsBasic
 
 	// Whether audio track is active or not.
-	Active bool `json:"active"`
+	Active *bool `json:"active,omitempty"`
 
 	// Source name.
 	SourceName string `json:"sourceName,omitempty"`

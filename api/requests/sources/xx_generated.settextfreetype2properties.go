@@ -25,19 +25,19 @@ type SetTextFreetype2PropertiesParams struct {
 	CustomWidth int `json:"custom_width,omitempty"`
 
 	// Drop shadow.
-	DropShadow bool `json:"drop_shadow"`
+	DropShadow *bool `json:"drop_shadow,omitempty"`
 
 	// The font specification for this object.
 	Font *typedefs.Font `json:"font,omitempty"`
 
 	// Read text from the specified file.
-	FromFile bool `json:"from_file"`
+	FromFile *bool `json:"from_file,omitempty"`
 
 	// Chat log.
-	LogMode bool `json:"log_mode"`
+	LogMode *bool `json:"log_mode,omitempty"`
 
 	// Outline.
-	Outline bool `json:"outline"`
+	Outline *bool `json:"outline,omitempty"`
 
 	// Source name.
 	Source string `json:"source,omitempty"`
@@ -49,7 +49,7 @@ type SetTextFreetype2PropertiesParams struct {
 	TextFile string `json:"text_file,omitempty"`
 
 	// Word wrap.
-	WordWrap bool `json:"word_wrap"`
+	WordWrap *bool `json:"word_wrap,omitempty"`
 }
 
 // GetSelfName just returns "SetTextFreetype2Properties".

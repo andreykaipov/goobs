@@ -30,7 +30,7 @@ type GetAudioActiveResponse struct {
 	requests.ResponseBasic
 
 	// Audio active status of the source.
-	AudioActive bool `json:"audioActive"`
+	AudioActive *bool `json:"audioActive,omitempty"`
 }
 
 // GetAudioActive sends the corresponding request to the connected OBS WebSockets server.

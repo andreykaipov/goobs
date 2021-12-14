@@ -16,7 +16,7 @@ type AddSceneItemParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 
 	// Whether to make the sceneitem visible on creation or not. Default `true`
-	SetVisible bool `json:"setVisible"`
+	SetVisible *bool `json:"setVisible,omitempty"`
 
 	// Name of the source to be added
 	SourceName string `json:"sourceName,omitempty"`

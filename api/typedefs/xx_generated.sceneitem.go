@@ -19,10 +19,10 @@ type SceneItem struct {
 	Id int `json:"id,omitempty"`
 
 	// Whether or not this Scene Item is locked and can't be moved around
-	Locked bool `json:"locked"`
+	Locked *bool `json:"locked,omitempty"`
 
 	// Whether or not this Scene Item is muted.
-	Muted bool `json:"muted"`
+	Muted *bool `json:"muted,omitempty"`
 
 	// The name of this Scene Item.
 	Name string `json:"name,omitempty"`
@@ -31,7 +31,7 @@ type SceneItem struct {
 	ParentGroupName string `json:"parentGroupName,omitempty"`
 
 	// Whether or not this Scene Item is set to "visible".
-	Render bool `json:"render"`
+	Render *bool `json:"render,omitempty"`
 
 	SourceCx float64 `json:"source_cx,omitempty"`
 

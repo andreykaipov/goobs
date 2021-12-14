@@ -15,7 +15,7 @@ type StopOutputParams struct {
 	requests.ParamsBasic
 
 	// Force stop (default: false)
-	Force bool `json:"force"`
+	Force *bool `json:"force,omitempty"`
 
 	// Output name
 	OutputName string `json:"outputName,omitempty"`

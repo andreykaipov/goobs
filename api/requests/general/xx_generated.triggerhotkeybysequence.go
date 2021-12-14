@@ -21,16 +21,16 @@ type TriggerHotkeyBySequenceParams struct {
 
 type KeyModifiers struct {
 	// Trigger Alt Key
-	Alt bool `json:"alt"`
+	Alt *bool `json:"alt,omitempty"`
 
 	// Trigger Command Key (Mac)
-	Command bool `json:"command"`
+	Command *bool `json:"command,omitempty"`
 
 	// Trigger Control (Ctrl) Key
-	Control bool `json:"control"`
+	Control *bool `json:"control,omitempty"`
 
 	// Trigger Shift Key
-	Shift bool `json:"shift"`
+	Shift *bool `json:"shift,omitempty"`
 }
 
 // GetSelfName just returns "TriggerHotkeyBySequence".

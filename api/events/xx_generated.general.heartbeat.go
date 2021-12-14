@@ -18,16 +18,16 @@ type Heartbeat struct {
 	CurrentScene string `json:"current-scene,omitempty"`
 
 	// Toggles between every JSON message as an "I am alive" indicator.
-	Pulse bool `json:"pulse"`
+	Pulse *bool `json:"pulse,omitempty"`
 
 	// Current recording state.
-	Recording bool `json:"recording"`
+	Recording *bool `json:"recording,omitempty"`
 
 	// OBS Stats
 	Stats typedefs.OBSStats `json:"stats,omitempty"`
 
 	// Current streaming state.
-	Streaming bool `json:"streaming"`
+	Streaming *bool `json:"streaming,omitempty"`
 
 	// Total bytes recorded since the recording started.
 	TotalRecordBytes int `json:"total-record-bytes,omitempty"`

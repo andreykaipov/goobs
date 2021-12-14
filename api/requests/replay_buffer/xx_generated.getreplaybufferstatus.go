@@ -27,7 +27,7 @@ type GetReplayBufferStatusResponse struct {
 	requests.ResponseBasic
 
 	// Current recording status.
-	IsReplayBufferActive bool `json:"isReplayBufferActive"`
+	IsReplayBufferActive *bool `json:"isReplayBufferActive,omitempty"`
 }
 
 // GetReplayBufferStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic

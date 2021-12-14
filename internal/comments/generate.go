@@ -276,7 +276,6 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 
 		noJSONTag := false
 		embedded := false
-		omitEmpty := true
 
 		var fieldType *Statement
 		switch val := noOptional.ReplaceAllString(field.Type, ""); val {
@@ -307,8 +306,7 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 		case "boolean":
 			fallthrough
 		case "Boolean":
-			fieldType = Bool()
-			omitEmpty = false
+			fieldType = Op("*").Bool()
 		// funkier types
 		case "Object":
 			fieldType = Map(String()).Interface()
@@ -364,7 +362,7 @@ func generateStructFromParams(origin string, s *Statement, name string, params [
 			Comment:   field.Description,
 			NoJSONTag: noJSONTag,
 			Embedded:  embedded,
-			OmitEmpty: omitEmpty,
+			OmitEmpty: true,
 		}
 	}
 

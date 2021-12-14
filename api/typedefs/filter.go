@@ -3,7 +3,7 @@ package typedefs
 // Filter specifies a filter.
 type Filter struct {
 	// Filter status (enabled or not)
-	Enabled bool `json:"enabled"`
+	Enabled *bool `json:"enabled,omitempty"`
 
 	// Filter name
 	Name string `json:"name,omitempty"`

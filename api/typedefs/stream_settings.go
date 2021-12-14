@@ -14,7 +14,7 @@ type StreamSettings struct {
 
 	// Indicates whether authentication should be used when connecting to
 	// the streaming server.
-	UseAuth bool `json:"use_auth"`
+	UseAuth *bool `json:"use_auth,omitempty"`
 
 	// The username to use when accessing the streaming server. Only
 	// relevant if `use_auth` is `true`.

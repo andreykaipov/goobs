@@ -33,7 +33,7 @@ type GetVolumeResponse struct {
 	requests.ResponseBasic
 
 	// Indicates whether the source is muted.
-	Muted *bool `json:"muted,omitempty"`
+	Muted bool `json:"muted,omitempty"`
 
 	// Source name.
 	Name string `json:"name,omitempty"`

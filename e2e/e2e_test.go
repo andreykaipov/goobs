@@ -24,6 +24,7 @@ func Test_goobs_e2e(t *testing.T) {
 		goobs.WithRequestHeader(http.Header{
 			"User-Agent": []string{"goobs-e2e/0.0.0"},
 		}),
+		goobs.WithDebug(true),
 	)
 	assert.NoError(t, err)
 
@@ -91,11 +92,13 @@ func Test_goobs_e2e(t *testing.T) {
 			assert.NoError(t, err)
 			assert.Nil(t, resp1.Font)
 			assert.Empty(t, resp1.Text)
+			assert.False(t, resp1.DropShadow)
 
 			resp2, err := client.Sources.SetTextFreetype2Properties(&sources.SetTextFreetype2PropertiesParams{
-				Source: sourceName,
-				Text:   "dicky long neck",
-				Color1: 123,
+				Source:     sourceName,
+				Text:       "dicky long neck",
+				Color1:     123,
+				DropShadow: func(b bool) *bool { return &b }(true),
 				Font: &typedefs.Font{
 					Face: "Arial",
 					Size: 11,
@@ -107,9 +110,23 @@ func Test_goobs_e2e(t *testing.T) {
 			resp3, err := client.Sources.GetTextFreetype2Properties(&sources.GetTextFreetype2PropertiesParams{Source: sourceName})
 			assert.NoError(t, err)
 			assert.Equal(t, resp3.Text, "dicky long neck")
+			assert.True(t, resp3.DropShadow)
+
 			// TODO file a bug upstream
 			// seems like Font is not returned in the response
 			// assert.NotNil(t, resp3.Font)
+
+			// set it again, but omit the params to make sure it
+			// won't set the current values back to their empty
+			// values
+			resp4, err := client.Sources.SetTextFreetype2Properties(&sources.SetTextFreetype2PropertiesParams{Source: sourceName})
+			assert.NotNil(t, resp4)
+			assert.NoError(t, err)
+
+			resp5, err := client.Sources.GetTextFreetype2Properties(&sources.GetTextFreetype2PropertiesParams{Source: sourceName})
+			assert.NoError(t, err)
+			assert.Equal(t, resp5.Text, "dicky long neck")
+			assert.True(t, resp3.DropShadow)
 		})
 	})
 }

@@ -192,7 +192,7 @@ func (c *Client) authenticate() error {
 		return fmt.Errorf("Failed getting auth required: %s", err)
 	}
 
-	if !*authReqResp.AuthRequired {
+	if !authReqResp.AuthRequired {
 		return nil
 	}
 

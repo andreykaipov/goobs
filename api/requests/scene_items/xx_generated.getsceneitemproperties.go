@@ -53,10 +53,10 @@ type GetSceneItemPropertiesResponse struct {
 	ItemId int `json:"itemId,omitempty"`
 
 	// If the source's transform is locked.
-	Locked *bool `json:"locked,omitempty"`
+	Locked bool `json:"locked,omitempty"`
 
 	// If the source is muted.
-	Muted *bool `json:"muted,omitempty"`
+	Muted bool `json:"muted,omitempty"`
 
 	// Scene Item name.
 	Name string `json:"name,omitempty"`
@@ -80,7 +80,7 @@ type GetSceneItemPropertiesResponse struct {
 	SourceWidth int `json:"sourceWidth,omitempty"`
 
 	// If the source is visible.
-	Visible *bool `json:"visible,omitempty"`
+	Visible bool `json:"visible,omitempty"`
 
 	// Scene item width (base source width multiplied by the horizontal scaling factor)
 	Width float64 `json:"width,omitempty"`

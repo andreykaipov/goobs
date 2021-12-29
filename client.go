@@ -17,7 +17,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var version = "0.8.0-dev"
+var version = "0.8.0"
 
 // Client represents a client to an OBS websockets server.
 type Client struct {

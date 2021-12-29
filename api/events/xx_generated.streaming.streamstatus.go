@@ -43,10 +43,10 @@ type StreamStatus struct {
 	OutputTotalFrames int `json:"output-total-frames,omitempty"`
 
 	// Always false (retrocompatibility).
-	PreviewOnly *bool `json:"preview-only,omitempty"`
+	PreviewOnly bool `json:"preview-only,omitempty"`
 
 	// Current recording state.
-	Recording *bool `json:"recording,omitempty"`
+	Recording bool `json:"recording,omitempty"`
 
 	// Number of frames missed due to rendering lag
 	RenderMissedFrames int `json:"render-missed-frames,omitempty"`
@@ -55,13 +55,13 @@ type StreamStatus struct {
 	RenderTotalFrames int `json:"render-total-frames,omitempty"`
 
 	// Replay Buffer status
-	ReplayBufferActive *bool `json:"replay-buffer-active,omitempty"`
+	ReplayBufferActive bool `json:"replay-buffer-active,omitempty"`
 
 	// Percentage of dropped frames.
 	Strain float64 `json:"strain,omitempty"`
 
 	// Current streaming state.
-	Streaming *bool `json:"streaming,omitempty"`
+	Streaming bool `json:"streaming,omitempty"`
 
 	// Total time (in seconds) since the stream started.
 	TotalStreamTime int `json:"total-stream-time,omitempty"`

@@ -27,7 +27,7 @@ type GetVirtualCamStatusResponse struct {
 	requests.ResponseBasic
 
 	// Current virtual camera status.
-	IsVirtualCam *bool `json:"isVirtualCam,omitempty"`
+	IsVirtualCam bool `json:"isVirtualCam,omitempty"`
 
 	// Time elapsed since virtual cam started (only present if virtual cam currently active).
 	VirtualCamTimecode string `json:"virtualCamTimecode,omitempty"`

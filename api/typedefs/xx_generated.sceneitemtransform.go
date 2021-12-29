@@ -17,7 +17,7 @@ type SceneItemTransform struct {
 	Height float64 `json:"height,omitempty"`
 
 	// If the scene item is locked in position.
-	Locked *bool `json:"locked,omitempty"`
+	Locked bool `json:"locked,omitempty"`
 
 	// Name of the item's parent (if this item belongs to a group)
 	ParentGroupName string `json:"parentGroupName,omitempty"`
@@ -38,7 +38,7 @@ type SceneItemTransform struct {
 	SourceWidth int `json:"sourceWidth,omitempty"`
 
 	// If the scene item is visible.
-	Visible *bool `json:"visible,omitempty"`
+	Visible bool `json:"visible,omitempty"`
 
 	// Scene item width (base source width multiplied by the horizontal scaling factor)
 	Width float64 `json:"width,omitempty"`

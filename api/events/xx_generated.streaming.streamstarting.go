@@ -10,5 +10,5 @@ type StreamStarting struct {
 	EventBasic
 
 	// Always false (retrocompatibility).
-	PreviewOnly *bool `json:"preview-only,omitempty"`
+	PreviewOnly bool `json:"preview-only,omitempty"`
 }

@@ -16,7 +16,7 @@ type SceneItemVisibilityChanged struct {
 	ItemName string `json:"item-name,omitempty"`
 
 	// New visibility state of the item.
-	ItemVisible *bool `json:"item-visible,omitempty"`
+	ItemVisible bool `json:"item-visible,omitempty"`
 
 	// Name of the scene.
 	SceneName string `json:"scene-name,omitempty"`

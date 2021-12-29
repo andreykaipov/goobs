@@ -27,25 +27,25 @@ type GetStreamingStatusResponse struct {
 	requests.ResponseBasic
 
 	// Always false. Retrocompatibility with OBSRemote.
-	PreviewOnly *bool `json:"preview-only,omitempty"`
+	PreviewOnly bool `json:"preview-only,omitempty"`
 
 	// Time elapsed since recording started (only present if currently recording).
 	RecTimecode string `json:"rec-timecode,omitempty"`
 
 	// Current recording status.
-	Recording *bool `json:"recording,omitempty"`
+	Recording bool `json:"recording,omitempty"`
 
 	// If recording is paused.
-	RecordingPaused *bool `json:"recording-paused,omitempty"`
+	RecordingPaused bool `json:"recording-paused,omitempty"`
 
 	// Time elapsed since streaming started (only present if currently streaming).
 	StreamTimecode string `json:"stream-timecode,omitempty"`
 
 	// Current streaming status.
-	Streaming *bool `json:"streaming,omitempty"`
+	Streaming bool `json:"streaming,omitempty"`
 
 	// Current virtual cam status.
-	Virtualcam *bool `json:"virtualcam,omitempty"`
+	Virtualcam bool `json:"virtualcam,omitempty"`
 
 	// Time elapsed since virtual cam started (only present if virtual cam currently active).
 	VirtualcamTimecode string `json:"virtualcam-timecode,omitempty"`

@@ -42,7 +42,7 @@ type GetTextGDIPlusPropertiesResponse struct {
 	BkOpacity int `json:"bk_opacity,omitempty"`
 
 	// Chat log.
-	Chatlog *bool `json:"chatlog,omitempty"`
+	Chatlog bool `json:"chatlog,omitempty"`
 
 	// Chat log lines.
 	ChatlogLines int `json:"chatlog_lines,omitempty"`
@@ -51,7 +51,7 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Color int `json:"color,omitempty"`
 
 	// Extents wrap.
-	Extents *bool `json:"extents,omitempty"`
+	Extents bool `json:"extents,omitempty"`
 
 	// Extents cx.
 	ExtentsCx int `json:"extents_cx,omitempty"`
@@ -66,7 +66,7 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Font *typedefs.Font `json:"font,omitempty"`
 
 	// Gradient enabled.
-	Gradient *bool `json:"gradient,omitempty"`
+	Gradient bool `json:"gradient,omitempty"`
 
 	// Gradient color.
 	GradientColor int `json:"gradient_color,omitempty"`
@@ -78,7 +78,7 @@ type GetTextGDIPlusPropertiesResponse struct {
 	GradientOpacity int `json:"gradient_opacity,omitempty"`
 
 	// Outline.
-	Outline *bool `json:"outline,omitempty"`
+	Outline bool `json:"outline,omitempty"`
 
 	// Outline color.
 	OutlineColor int `json:"outline_color,omitempty"`
@@ -90,7 +90,7 @@ type GetTextGDIPlusPropertiesResponse struct {
 	OutlineSize int `json:"outline_size,omitempty"`
 
 	// Read text from the specified file.
-	ReadFromFile *bool `json:"read_from_file,omitempty"`
+	ReadFromFile bool `json:"read_from_file,omitempty"`
 
 	// Source name.
 	Source string `json:"source,omitempty"`
@@ -102,7 +102,7 @@ type GetTextGDIPlusPropertiesResponse struct {
 	Valign string `json:"valign,omitempty"`
 
 	// Vertical text enabled.
-	Vertical *bool `json:"vertical,omitempty"`
+	Vertical bool `json:"vertical,omitempty"`
 }
 
 // GetTextGDIPlusProperties sends the corresponding request to the connected OBS WebSockets server.

@@ -30,7 +30,7 @@ type GetSourceActiveResponse struct {
 	requests.ResponseBasic
 
 	// Source active status of the source.
-	SourceActive *bool `json:"sourceActive,omitempty"`
+	SourceActive bool `json:"sourceActive,omitempty"`
 }
 
 // GetSourceActive sends the corresponding request to the connected OBS WebSockets server.

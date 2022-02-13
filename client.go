@@ -226,8 +226,14 @@ func (c *Client) handleConnection(messages chan json.RawMessage, errors chan err
 	for {
 		msg := json.RawMessage{}
 		if err := c.Conn.ReadJSON(&msg); err != nil {
-			errors <- fmt.Errorf("Couldn't read JSON from websocket connection: %s", err)
-			continue
+			switch err.(type) {
+			case *websocket.CloseError:
+				errors <- fmt.Errorf("Websocket connection closed: %s", err)
+				return
+			default:
+				errors <- fmt.Errorf("Couldn't read JSON from websocket connection: %s", err)
+				continue
+			}
 		}
 
 		messages <- msg

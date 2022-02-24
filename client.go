@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"github.com/andreykaipov/goobs/api/events"
+	"github.com/andreykaipov/goobs/api/opcodes"
 	"github.com/andreykaipov/goobs/api/requests"
 	general "github.com/andreykaipov/goobs/api/requests/general"
 	"github.com/gorilla/websocket"
@@ -134,17 +135,38 @@ func New(host string, opts ...Option) (*Client, error) {
 		return nil, err
 	}
 
-	setClients(c)
+	// setClients(c)
 
-	c.IncomingEvents = make(chan events.Event, 100)
-	c.IncomingResponses = make(chan json.RawMessage, 100)
-	go c.handleMessages()
-
-	if err := c.wrappedAuthentication(); err != nil {
-		return nil, fmt.Errorf("Failed auth: %s", err)
-	}
+	// c.IncomingEvents = make(chan events.Event, 100)
+	// c.IncomingResponses = make(chan json.RawMessage, 100)
+	// go c.handleMessages()
+	//
+	//	if err := c.wrappedAuthentication(); err != nil {
+	//		return nil, fmt.Errorf("Failed auth: %s", err)
+	//	}
 
 	return c, nil
+}
+
+func (c *Client) read() (json.RawMessage, *opcodes.Message, error) {
+	unchecked := json.RawMessage{}
+
+	if err := c.Conn.ReadJSON(&unchecked); err != nil {
+		switch err.(type) {
+		case *websocket.CloseError:
+			return nil, nil, fmt.Errorf("Websocket connection closed: %s", err)
+		default:
+			return nil, nil, fmt.Errorf("Couldn't read JSON from websocket connection: %s", err)
+		}
+	}
+
+	checked := &opcodes.Message{}
+
+	if err := json.Unmarshal(unchecked, &checked); err != nil {
+		return nil, nil, fmt.Errorf("Couldn't unmarshal message: %s", err)
+	}
+
+	return unchecked, checked, nil
 }
 
 func (c *Client) connect() (err error) {
@@ -155,6 +177,77 @@ func (c *Client) connect() (err error) {
 	if c.Conn, _, err = c.dialer.Dial(u.String(), c.requestHeader); err != nil {
 		return err
 	}
+
+	go func() {
+		for {
+			raw, msg, err := c.read()
+			if err != nil {
+				panic(err)
+			}
+
+			fmt.Println(string(raw))
+
+			// process whatever opcodes we might get from the server
+			//
+			switch msg.Op {
+			case 0:
+				opcode := &opcodes.Hello{}
+				if err := json.Unmarshal(msg.D, opcode); err != nil {
+					panic(fmt.Errorf("Couldn't unmarshal message: %s", err))
+				}
+
+				c.Log.Printf("Got Hello; authenticating...")
+
+				// we always try to auth; servers with auth
+				// disabled will just ignore it if anything
+				hash := sha256.Sum256([]byte(c.password + opcode.Authentication.Salt))
+				secret := base64.StdEncoding.EncodeToString(hash[:])
+				authHash := sha256.Sum256([]byte(secret + opcode.Authentication.Challenge))
+				authSecret := base64.StdEncoding.EncodeToString(authHash[:])
+
+				identify := opcodes.Wrap(&opcodes.Identify{
+					RPCVersion:     opcode.RPCVersion,
+					Authentication: authSecret,
+				})
+				if err := c.Conn.WriteMessage(websocket.TextMessage, identify); err != nil {
+					panic(err)
+				}
+			case 2:
+				opcode := &opcodes.Identified{}
+				if err := json.Unmarshal(msg.D, opcode); err != nil {
+					panic(fmt.Errorf("Couldn't unmarshal message: %s", err))
+				}
+
+				c.Log.Printf("Now connected; negotiated RPC version: %d", opcode.NegotiatedRPCVersion)
+			case 5:
+				// event
+			case 7:
+				// response to a request
+			case 9:
+				// response to a batch of requests
+				// no clue what this is
+			default:
+				panic(fmt.Errorf("unhandled opcode %d", msg.Op))
+			}
+		}
+	}()
+
+	// Parse into a generic map to figure out the opcode.
+	// Then act accordingly.
+	//	if err := json.Unmarshal(msg, &checked); err != nil {
+	//		panic(fmt.Errorf("Couldn't unmarshal message: %s", err))
+	//	}
+
+	//fmt.Printf("%#v\n", checked)
+
+	//	// Responses are parsed in the embedded Client's `SendRequest`
+	//	if _, ok := checked["message-id"]; ok {
+	//		c.IncomingResponses <- raw
+	//		continue
+	//	}
+
+	//	messages <- msg
+	//	}()
 
 	return nil
 }

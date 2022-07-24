@@ -1,4 +1,4 @@
-name: e2e-image
+name: obs-image
 
 # Don't want to build and push this image for PRs; only pushes to master
 
@@ -6,8 +6,7 @@ on:
   push:
     branches: [master]
     paths:
-    - e2e/Dockerfile
-    - e2e/basic.ini
+    - docker/*
 
 # Build our image caching the layers
 # https://github.com/docker/build-push-action/blob/master/docs/advanced/cache.md#github-cache
@@ -22,7 +21,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ hashFiles('e2e/Dockerfile') }}
+        key: ${{ runner.os }}-buildx-${{ hashFiles('docker/Dockerfile') }}
         restore-keys: |
           ${{ runner.os }}-buildx-
           ${{ runner.os }}-
@@ -33,9 +32,9 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - uses: docker/build-push-action@v2
       with:
-        context: e2e/
+        context: docker/
         push: true
-        tags: ghcr.io/${{ github.repository }}/e2e:latest
+        tags: ghcr.io/${{ github.repository }}:latest
         cache-from: type=local,src=/tmp/.buildx-cache
         cache-to: type=local,dest=/tmp/.buildx-cache-new
     # Temp fix

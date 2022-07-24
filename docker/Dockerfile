@@ -68,3 +68,5 @@ COPY scenes.json /root/.config/obs-studio/basic/scenes/docker.json
 ENV LD_LIBRARY_PATH /opt/obs/lib
 COPY cmd.sh /opt/cmd.sh
 CMD ["sh", "/opt/cmd.sh"]
+
+EXPOSE 1234/tcp 5900/tcp

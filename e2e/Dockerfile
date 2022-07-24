@@ -61,7 +61,7 @@ COPY --from=build /opt /opt
 COPY --from=build /lib/libmount.so.1 /lib/libmount.so.1
 COPY --from=build /lib/libblkid.so.1 /lib/libblkid.so.1
 COPY --from=build /usr/lib /usr/lib
-#COPY basic.ini /root/.config/obs-studio/basic/profiles/Untitled/basic.ini
+COPY global.ini /root/.config/obs-studio/global.ini
 
 ENV LD_LIBRARY_PATH /opt/obs/lib
 CMD ["xvfb-run", "-s", "-screen 0 800x600x24", "/opt/obs/bin/obs"]

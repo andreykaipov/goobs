@@ -149,13 +149,14 @@ func New(host string, opts ...Option) (*Client, error) {
 		c.eventSubscriptions = &all
 	}
 
+	c.IncomingEvents = make(chan events.Event, 100)
+
 	if err := c.connect(); err != nil {
 		return nil, err
 	}
 
 	// setClients(c)
 
-	// c.IncomingEvents = make(chan events.Event, 100)
 	// c.IncomingResponses = make(chan json.RawMessage, 100)
 	// go c.handleMessages()
 	//
@@ -172,13 +173,13 @@ func (c *Client) read() (json.RawMessage, *opcodes.Message, error) {
 	if err := c.Conn.ReadJSON(&unchecked); err != nil {
 		switch err.(type) {
 		case *websocket.CloseError:
-			return nil, nil, fmt.Errorf("Websocket connection closed: %s", err)
+			return nil, nil, fmt.Errorf("[%[1]T] Websocket connection closed: %[1]w", err)
 		default:
-			return nil, nil, fmt.Errorf("Couldn't read JSON from websocket connection: %s", err)
+			return nil, nil, fmt.Errorf("[%[1]T] Couldn't read JSON from websocket connection: %[1]w", err)
 		}
 	}
 
-	checked := &opcodes.Message{}
+	checked := &opcodes.Message{} // checked will be marshalled
 
 	if err := json.Unmarshal(unchecked, &checked); err != nil {
 		return nil, nil, fmt.Errorf("Couldn't unmarshal message: %s", err)
@@ -198,12 +199,10 @@ func (c *Client) connect() (err error) {
 
 	go func() {
 		for {
-			raw, msg, err := c.read()
+			_, msg, err := c.read()
 			if err != nil {
 				panic(err)
 			}
-
-			fmt.Println(string(raw))
 
 			// process whatever opcodes we might get from the server
 			//
@@ -229,7 +228,7 @@ func (c *Client) connect() (err error) {
 					EventSubscriptions: *c.eventSubscriptions,
 				})
 				if err := c.Conn.WriteMessage(websocket.TextMessage, identify); err != nil {
-					panic(err)
+					panic(fmt.Errorf("Couldn't write message: %w", err))
 				}
 			case 2:
 				opcode := &opcodes.Identified{}
@@ -239,12 +238,18 @@ func (c *Client) connect() (err error) {
 
 				c.Log.Printf("Now connected; negotiated RPC version: %d", opcode.NegotiatedRPCVersion)
 			case 5:
-				// event
+				c.Log.Printf("event: %s", msg)
+
+				event, err := events.Parse(msg.D)
+				if err != nil {
+					panic(fmt.Errorf("Couldn't parse raw event: %s", err))
+				}
+
+				c.writeEvent(event)
 			case 7:
-				// response to a request
+				c.Log.Printf("response: %#v", msg)
 			case 9:
-				// response to a batch of requests
-				// no clue what this is
+				c.Log.Printf("batch response: %#v", msg)
 			default:
 				panic(fmt.Errorf("unhandled opcode %d", msg.Op))
 			}

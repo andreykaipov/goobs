@@ -38,12 +38,8 @@ func main() {
 		panic(err)
 	}
 
-	//	fmt.Println("Requests")
-	//	generateRequests(data)
-
-	fmt.Println("Events")
+	generateRequests(data.Requests)
 	generateEvents(data.Events)
-
 	generateEventSubscriptions(data.Enums)
 }
 

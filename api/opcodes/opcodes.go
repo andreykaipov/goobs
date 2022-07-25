@@ -69,14 +69,19 @@ type RequestResponse struct {
 // opcode 8
 // opcode 9
 
+// Wrap takes one of the above opcode structs and wrap it within a *Message, so
+// that we don't have to specify the appropriate opcode number for each opcode
+// struct. It then returns the marshalled message.
+//
 // should be pretty safe ignoring our marshalling errors since the only things
-// we're marshalling have all either likely already been unmarshalled (server
-// sends, we process, we send back), or everything we send is well-defined.
+// we're wrapping (and thus marshalling) have all either likely already been
+// unmarshalled (server sends, we process, we send back), or everything we send
+// is already well-defined.
 //
 // Twice-encoding the data might look a bit of a red flag, but it's actually
 // not a problem at all because the wrapping Message's D field uses
-// json.RawMessage instead of just raw []bytes. The former is idempotent with
-// respect to marshalling! I didn't believe it either!
+// json.RawMessage instead of just raw []bytes. The former type is idempotent
+// with respect to marshalling! I didn't believe it either!
 //
 func Wrap(data interface{}) json.RawMessage {
 	op := -1
@@ -96,8 +101,12 @@ func Wrap(data interface{}) json.RawMessage {
 func marshal(v interface{}) []byte {
 	b, err := json.Marshal(v)
 	if err != nil {
-		panic(err)
+		b = []byte(fmt.Sprintf("%s", v))
 	}
 
 	return b
+}
+
+func (o *Message) String() string {
+	return string(marshal(o))
 }

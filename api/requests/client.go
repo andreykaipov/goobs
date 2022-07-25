@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/andreykaipov/goobs/api/events"
+	"github.com/andreykaipov/goobs/apiv5/events"
 	"github.com/gorilla/websocket"
 	uuid "github.com/nu7hatch/gouuid"
 )

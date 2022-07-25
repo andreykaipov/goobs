@@ -11,10 +11,11 @@ import (
 	"os"
 	"time"
 
-	"github.com/andreykaipov/goobs/api/events"
 	"github.com/andreykaipov/goobs/api/opcodes"
 	"github.com/andreykaipov/goobs/api/requests"
 	general "github.com/andreykaipov/goobs/api/requests/general"
+	"github.com/andreykaipov/goobs/apiv5/events"
+	"github.com/andreykaipov/goobs/apiv5/events/subscriptions"
 	"github.com/gorilla/websocket"
 )
 
@@ -24,11 +25,12 @@ var version = "0.9.0-dev"
 type Client struct {
 	*requests.Client
 	subclients
-	host          string
-	password      string
-	debug         *bool
-	dialer        *websocket.Dialer
-	requestHeader http.Header
+	host               string
+	password           string
+	debug              *bool
+	dialer             *websocket.Dialer
+	requestHeader      http.Header
+	eventSubscriptions *int
 }
 
 // Option represents a functional option of a Client.
@@ -45,6 +47,17 @@ func WithPassword(x string) Option {
 func WithDebug(x bool) Option {
 	return func(o *Client) {
 		o.debug = &x
+	}
+}
+
+// WithEventSubscriptions specifies the events we'd like to susbcribe to via
+// `c.IncomingEvents`. The value is a bitmask of any of the subscription values
+// specified in api/events/subscriptions. By default, all event categories are
+// subscribed, except for events marked as high volume. High volume events must
+// be explicitly subscribed to.
+func WithEventSubscriptions(x int) Option {
+	return func(o *Client) {
+		o.eventSubscriptions = &x
 	}
 }
 
@@ -131,6 +144,11 @@ func New(host string, opts ...Option) (*Client, error) {
 		}
 	}
 
+	if c.eventSubscriptions == nil {
+		all := subscriptions.All
+		c.eventSubscriptions = &all
+	}
+
 	if err := c.connect(); err != nil {
 		return nil, err
 	}
@@ -206,8 +224,9 @@ func (c *Client) connect() (err error) {
 				authSecret := base64.StdEncoding.EncodeToString(authHash[:])
 
 				identify := opcodes.Wrap(&opcodes.Identify{
-					RPCVersion:     opcode.RPCVersion,
-					Authentication: authSecret,
+					RPCVersion:         opcode.RPCVersion,
+					Authentication:     authSecret,
+					EventSubscriptions: *c.eventSubscriptions,
 				})
 				if err := c.Conn.WriteMessage(websocket.TextMessage, identify); err != nil {
 					panic(err)

@@ -2,27 +2,25 @@
 
 package sceneitems
 
-import (
-	requests "github.com/andreykaipov/goobs/api/requests"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 DuplicateSceneItemParams represents the params body for the "DuplicateSceneItem" request.
-Duplicates a scene item.
-Since 4.5.0.
+Duplicates a scene item, copying all transform and crop info.
+
+Scenes only
 */
 type DuplicateSceneItemParams struct {
 	requests.ParamsBasic
 
-	// Name of the scene to copy the item from. Defaults to the current scene.
-	FromScene string `json:"fromScene,omitempty"`
+	// Name of the scene to create the duplicated item in
+	DestinationSceneName string `json:"destinationSceneName,omitempty"`
 
-	// The item specification for this object.
-	Item *typedefs.Item `json:"item,omitempty"`
+	// Numeric ID of the scene item
+	SceneItemId float64 `json:"sceneItemId,omitempty"`
 
-	// Name of the scene to create the item in. Defaults to the current scene.
-	ToScene string `json:"toScene,omitempty"`
+	// Name of the scene the item is in
+	SceneName string `json:"sceneName,omitempty"`
 }
 
 // GetSelfName just returns "DuplicateSceneItem".
@@ -32,17 +30,15 @@ func (o *DuplicateSceneItemParams) GetSelfName() string {
 
 /*
 DuplicateSceneItemResponse represents the response body for the "DuplicateSceneItem" request.
-Duplicates a scene item.
-Since v4.5.0.
+Duplicates a scene item, copying all transform and crop info.
+
+Scenes only
 */
 type DuplicateSceneItemResponse struct {
 	requests.ResponseBasic
 
-	// The item specification for this object.
-	Item *typedefs.Item `json:"item,omitempty"`
-
-	// Name of the scene where the new item was created
-	Scene string `json:"scene,omitempty"`
+	// Numeric ID of the duplicated scene item
+	SceneItemId float64 `json:"sceneItemId,omitempty"`
 }
 
 // DuplicateSceneItem sends the corresponding request to the connected OBS WebSockets server.

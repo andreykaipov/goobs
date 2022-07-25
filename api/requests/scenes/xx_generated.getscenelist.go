@@ -2,15 +2,11 @@
 
 package scenes
 
-import (
-	requests "github.com/andreykaipov/goobs/api/requests"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetSceneListParams represents the params body for the "GetSceneList" request.
-Get a list of scenes in the currently active profile.
-Since 0.3.
+Gets an array of all scenes in OBS.
 */
 type GetSceneListParams struct {
 	requests.ParamsBasic
@@ -23,17 +19,19 @@ func (o *GetSceneListParams) GetSelfName() string {
 
 /*
 GetSceneListResponse represents the response body for the "GetSceneList" request.
-Get a list of scenes in the currently active profile.
-Since v0.3.
+Gets an array of all scenes in OBS.
 */
 type GetSceneListResponse struct {
 	requests.ResponseBasic
 
-	// Name of the currently active scene.
-	CurrentScene string `json:"current-scene,omitempty"`
+	// Current preview scene. `null` if not in studio mode
+	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`
 
-	// Ordered list of the current profile's scenes (See [GetCurrentScene](#getcurrentscene) for more information).
-	Scenes []typedefs.Scene `json:"scenes,omitempty"`
+	// Current program scene
+	CurrentProgramSceneName string `json:"currentProgramSceneName,omitempty"`
+
+	// Array of scenes
+	Scenes []interface{} `json:"scenes,omitempty"`
 }
 
 // GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

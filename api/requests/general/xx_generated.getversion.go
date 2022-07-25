@@ -6,8 +6,7 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetVersionParams represents the params body for the "GetVersion" request.
-Returns the latest version of the plugin and the API.
-Since 0.3.
+Gets data about the current plugin and RPC version.
 */
 type GetVersionParams struct {
 	requests.ParamsBasic
@@ -20,27 +19,31 @@ func (o *GetVersionParams) GetSelfName() string {
 
 /*
 GetVersionResponse represents the response body for the "GetVersion" request.
-Returns the latest version of the plugin and the API.
-Since v0.3.
+Gets data about the current plugin and RPC version.
 */
 type GetVersionResponse struct {
 	requests.ResponseBasic
 
-	// List of available request types, formatted as a comma-separated list string (e.g. : "Method1,Method2,Method3").
-	AvailableRequests string `json:"available-requests,omitempty"`
+	// Array of available RPC requests for the currently negotiated RPC version
+	AvailableRequests []string `json:"availableRequests,omitempty"`
 
-	// OBS Studio program version.
-	ObsStudioVersion string `json:"obs-studio-version,omitempty"`
+	// Current OBS Studio version
+	ObsVersion string `json:"obsVersion,omitempty"`
 
-	// obs-websocket plugin version.
-	ObsWebsocketVersion string `json:"obs-websocket-version,omitempty"`
+	// Current obs-websocket version
+	ObsWebSocketVersion string `json:"obsWebSocketVersion,omitempty"`
 
-	// List of supported formats for features that use image export (like the TakeSourceScreenshot request type)
-	// formatted as a comma-separated list string
-	SupportedImageExportFormats string `json:"supported-image-export-formats,omitempty"`
+	// Name of the platform. Usually `windows`, `macos`, or `ubuntu` (linux flavor). Not guaranteed to be any of those
+	Platform string `json:"platform,omitempty"`
 
-	// OBSRemote compatible API version. Fixed to 1.1 for retrocompatibility.
-	Version float64 `json:"version,omitempty"`
+	// Description of the platform, like `Windows 10 (10.0)`
+	PlatformDescription string `json:"platformDescription,omitempty"`
+
+	// Current latest obs-websocket RPC version
+	RpcVersion float64 `json:"rpcVersion,omitempty"`
+
+	// Image formats available in `GetSourceScreenshot` and `SaveSourceScreenshot` requests.
+	SupportedImageFormats []string `json:"supportedImageFormats,omitempty"`
 }
 
 // GetVersion sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

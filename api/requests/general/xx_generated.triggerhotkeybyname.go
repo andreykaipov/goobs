@@ -6,13 +6,12 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 TriggerHotkeyByNameParams represents the params body for the "TriggerHotkeyByName" request.
-Executes hotkey routine, identified by hotkey unique name
-Since 4.9.0.
+Triggers a hotkey using its name. See `GetHotkeyList`
 */
 type TriggerHotkeyByNameParams struct {
 	requests.ParamsBasic
 
-	// Unique name of the hotkey, as defined when registering the hotkey (e.g. "ReplayBuffer.Save")
+	// Name of the hotkey to trigger
 	HotkeyName string `json:"hotkeyName,omitempty"`
 }
 
@@ -23,8 +22,7 @@ func (o *TriggerHotkeyByNameParams) GetSelfName() string {
 
 /*
 TriggerHotkeyByNameResponse represents the response body for the "TriggerHotkeyByName" request.
-Executes hotkey routine, identified by hotkey unique name
-Since v4.9.0.
+Triggers a hotkey using its name. See `GetHotkeyList`
 */
 type TriggerHotkeyByNameResponse struct {
 	requests.ResponseBasic

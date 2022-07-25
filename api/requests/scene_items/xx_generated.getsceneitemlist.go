@@ -6,13 +6,14 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetSceneItemListParams represents the params body for the "GetSceneItemList" request.
-Get a list of all scene items in a scene.
-Since 4.9.0.
+Gets a list of all scene items in a scene.
+
+Scenes only
 */
 type GetSceneItemListParams struct {
 	requests.ParamsBasic
 
-	// Name of the scene to get the list of scene items from. Defaults to the current scene if not specified.
+	// Name of the scene to get the items of
 	SceneName string `json:"sceneName,omitempty"`
 }
 
@@ -23,30 +24,15 @@ func (o *GetSceneItemListParams) GetSelfName() string {
 
 /*
 GetSceneItemListResponse represents the response body for the "GetSceneItemList" request.
-Get a list of all scene items in a scene.
-Since v4.9.0.
+Gets a list of all scene items in a scene.
+
+Scenes only
 */
 type GetSceneItemListResponse struct {
 	requests.ResponseBasic
 
-	SceneItems []*SceneItem `json:"sceneItems,omitempty"`
-
-	// Name of the requested (or current) scene
-	SceneName string `json:"sceneName,omitempty"`
-}
-
-type SceneItem struct {
-	// Unique item id of the source item
-	ItemId int `json:"itemId,omitempty"`
-
-	// ID if the scene item's source. For example `vlc_source` or `image_source`
-	SourceKind string `json:"sourceKind,omitempty"`
-
-	// Name of the scene item's source
-	SourceName string `json:"sourceName,omitempty"`
-
-	// Type of the scene item's source. Either `input`, `group`, or `scene`
-	SourceType string `json:"sourceType,omitempty"`
+	// Array of scene items in the scene
+	SceneItems []interface{} `json:"sceneItems,omitempty"`
 }
 
 // GetSceneItemList sends the corresponding request to the connected OBS WebSockets server.

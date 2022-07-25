@@ -6,13 +6,12 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 CreateSceneParams represents the params body for the "CreateScene" request.
-Create a new scene scene.
-Since 4.9.0.
+Creates a new scene in OBS.
 */
 type CreateSceneParams struct {
 	requests.ParamsBasic
 
-	// Name of the scene to create.
+	// Name for the new scene
 	SceneName string `json:"sceneName,omitempty"`
 }
 
@@ -23,8 +22,7 @@ func (o *CreateSceneParams) GetSelfName() string {
 
 /*
 CreateSceneResponse represents the response body for the "CreateScene" request.
-Create a new scene scene.
-Since v4.9.0.
+Creates a new scene in OBS.
 */
 type CreateSceneResponse struct {
 	requests.ResponseBasic

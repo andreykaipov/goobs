@@ -6,14 +6,16 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SleepParams represents the params body for the "Sleep" request.
-Waits for the specified duration. Designed to be used in `ExecuteBatch` operations.
-Since 4.9.1.
+Sleeps for a time duration or number of frames. Only available in request batches with types `SERIAL_REALTIME` or `SERIAL_FRAME`.
 */
 type SleepParams struct {
 	requests.ParamsBasic
 
-	// Delay in milliseconds to wait before continuing.
-	SleepMillis int `json:"sleepMillis,omitempty"`
+	// Number of frames to sleep for (if `SERIAL_FRAME` mode)
+	SleepFrames float64 `json:"sleepFrames,omitempty"`
+
+	// Number of milliseconds to sleep for (if `SERIAL_REALTIME` mode)
+	SleepMillis float64 `json:"sleepMillis,omitempty"`
 }
 
 // GetSelfName just returns "Sleep".
@@ -23,8 +25,7 @@ func (o *SleepParams) GetSelfName() string {
 
 /*
 SleepResponse represents the response body for the "Sleep" request.
-Waits for the specified duration. Designed to be used in `ExecuteBatch` operations.
-Since v4.9.1.
+Sleeps for a time duration or number of frames. Only available in request batches with types `SERIAL_REALTIME` or `SERIAL_FRAME`.
 */
 type SleepResponse struct {
 	requests.ResponseBasic

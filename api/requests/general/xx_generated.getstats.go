@@ -2,15 +2,11 @@
 
 package general
 
-import (
-	requests "github.com/andreykaipov/goobs/api/requests"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetStatsParams represents the params body for the "GetStats" request.
-Get OBS stats (almost the same info as provided in OBS' stats window)
-Since 4.6.0.
+Gets statistics about OBS, obs-websocket, and the current session.
 */
 type GetStatsParams struct {
 	requests.ParamsBasic
@@ -23,14 +19,43 @@ func (o *GetStatsParams) GetSelfName() string {
 
 /*
 GetStatsResponse represents the response body for the "GetStats" request.
-Get OBS stats (almost the same info as provided in OBS' stats window)
-Since v4.6.0.
+Gets statistics about OBS, obs-websocket, and the current session.
 */
 type GetStatsResponse struct {
 	requests.ResponseBasic
 
-	// [OBS stats](#obsstats)
-	Stats typedefs.OBSStats `json:"stats,omitempty"`
+	// Current FPS being rendered
+	ActiveFps float64 `json:"activeFps,omitempty"`
+
+	// Available disk space on the device being used for recording storage
+	AvailableDiskSpace float64 `json:"availableDiskSpace,omitempty"`
+
+	// Average time in milliseconds that OBS is taking to render a frame
+	AverageFrameRenderTime float64 `json:"averageFrameRenderTime,omitempty"`
+
+	// Current CPU usage in percent
+	CpuUsage float64 `json:"cpuUsage,omitempty"`
+
+	// Amount of memory in MB currently being used by OBS
+	MemoryUsage float64 `json:"memoryUsage,omitempty"`
+
+	// Number of frames skipped by OBS in the output thread
+	OutputSkippedFrames float64 `json:"outputSkippedFrames,omitempty"`
+
+	// Total number of frames outputted by the output thread
+	OutputTotalFrames float64 `json:"outputTotalFrames,omitempty"`
+
+	// Number of frames skipped by OBS in the render thread
+	RenderSkippedFrames float64 `json:"renderSkippedFrames,omitempty"`
+
+	// Total number of frames outputted by the render thread
+	RenderTotalFrames float64 `json:"renderTotalFrames,omitempty"`
+
+	// Total number of messages received by obs-websocket from the client
+	WebSocketSessionIncomingMessages float64 `json:"webSocketSessionIncomingMessages,omitempty"`
+
+	// Total number of messages sent by obs-websocket to the client
+	WebSocketSessionOutgoingMessages float64 `json:"webSocketSessionOutgoingMessages,omitempty"`
 }
 
 // GetStats sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as this

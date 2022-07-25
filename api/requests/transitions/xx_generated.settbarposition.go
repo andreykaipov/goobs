@@ -6,21 +6,18 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 SetTBarPositionParams represents the params body for the "SetTBarPosition" request.
-Set the manual position of the T-Bar (in Studio Mode) to the specified value. Will return an error if OBS is not in studio mode or if the current transition doesn't support T-Bar control.
+Sets the position of the TBar.
 
-If your code needs to perform multiple successive T-Bar moves (e.g. : in an animation, or in response to a user moving a T-Bar control in your User Interface), set `release` to false and call `ReleaseTBar` later once the animation/interaction is over.
-Since 4.9.0.
+**Very important note**: This will be deprecated and replaced in a future version of obs-websocket.
 */
 type SetTBarPositionParams struct {
 	requests.ParamsBasic
 
-	// T-Bar position. This value must be between 0.0 and 1.0.
+	// New position
 	Position float64 `json:"position,omitempty"`
 
-	// Whether or not the T-Bar gets released automatically after setting its new position (like a user releasing their
-	// mouse button after moving the T-Bar). Call `ReleaseTBar` manually if you set `release` to false. Defaults to
-	// true.
-	Release *bool `json:"release,omitempty"`
+	// Whether to release the TBar. Only set `false` if you know that you will be sending another position update
+	Release bool `json:"release,omitempty"`
 }
 
 // GetSelfName just returns "SetTBarPosition".
@@ -30,10 +27,9 @@ func (o *SetTBarPositionParams) GetSelfName() string {
 
 /*
 SetTBarPositionResponse represents the response body for the "SetTBarPosition" request.
-Set the manual position of the T-Bar (in Studio Mode) to the specified value. Will return an error if OBS is not in studio mode or if the current transition doesn't support T-Bar control.
+Sets the position of the TBar.
 
-If your code needs to perform multiple successive T-Bar moves (e.g. : in an animation, or in response to a user moving a T-Bar control in your User Interface), set `release` to false and call `ReleaseTBar` later once the animation/interaction is over.
-Since v4.9.0.
+**Very important note**: This will be deprecated and replaced in a future version of obs-websocket.
 */
 type SetTBarPositionResponse struct {
 	requests.ResponseBasic

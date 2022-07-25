@@ -6,13 +6,14 @@ import requests "github.com/andreykaipov/goobs/api/requests"
 
 /*
 GetSourceActiveParams represents the params body for the "GetSourceActive" request.
-Get the source's active status of a specified source (if it is showing in the final mix).
-Since 4.9.1.
+Gets the active and show state of a source.
+
+**Compatible with inputs and scenes.**
 */
 type GetSourceActiveParams struct {
 	requests.ParamsBasic
 
-	// Source name.
+	// Name of the source to get the active state of
 	SourceName string `json:"sourceName,omitempty"`
 }
 
@@ -23,14 +24,18 @@ func (o *GetSourceActiveParams) GetSelfName() string {
 
 /*
 GetSourceActiveResponse represents the response body for the "GetSourceActive" request.
-Get the source's active status of a specified source (if it is showing in the final mix).
-Since v4.9.1.
+Gets the active and show state of a source.
+
+**Compatible with inputs and scenes.**
 */
 type GetSourceActiveResponse struct {
 	requests.ResponseBasic
 
-	// Source active status of the source.
-	SourceActive bool `json:"sourceActive,omitempty"`
+	// Whether the source is showing in Program
+	VideoActive bool `json:"videoActive,omitempty"`
+
+	// Whether the source is showing in the UI (Preview, Projector, Properties)
+	VideoShowing bool `json:"videoShowing,omitempty"`
 }
 
 // GetSourceActive sends the corresponding request to the connected OBS WebSockets server.

@@ -110,6 +110,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	reqf.ValueName = "ParamsBasic"
 	reqf.ValueType = "~requests~" // internal type
 	reqf.ValueDescription = ""
+	reqf.ValueOptional = true // treat this field as an optional one for further below
 	request.RequestFields = append(request.RequestFields, reqf)
 
 	if err = generateStructFromParams("request", s, structName, request.RequestFields); err != nil {
@@ -139,7 +140,16 @@ func generateRequest(request *Request) (s *Statement, err error) {
 
 	// generate the request function
 
-	hasRequiredArgs := len(request.RequestFields) > 1
+	allOptional := true
+	for _, f := range request.RequestFields {
+		allOptional = allOptional && f.ValueOptional
+	}
+
+	// request will have at least 1 field because of ~requests~ internal
+	// type, so we should use variadic args if we have exactly that 1 field,
+	// and all of the other fields above were optional
+	varargs := len(request.RequestFields) == 1 || allOptional
+	hasRequiredArgs := !varargs
 
 	s.Commentf("%s sends the corresponding request to the connected OBS WebSockets server.", name).Do(func(z *Statement) {
 		if hasRequiredArgs {

@@ -25,7 +25,9 @@ func generateRequests(requests []*Request) {
 		categories[request.Category] = append(categories[request.Category], request)
 	}
 
-	for category, requests := range categories {
+	for _, category := range sortedKeys(categories) {
+		requests := categories[category]
+
 		categorySnake := strings.ReplaceAll(category, " ", "_")
 		categoryPascal := strings.ReplaceAll(strings.Title(category), " ", "")
 		categoryClaustrophic := strings.ReplaceAll(category, " ", "")

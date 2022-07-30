@@ -4,17 +4,12 @@ package events
 
 /*
 SceneItemSelected represents the event body for the "SceneItemSelected" event.
-Since v4.6.0.
+Since v5.0.0.
 */
 type SceneItemSelected struct {
-	EventBasic
+	// Numeric ID of the scene item
+	SceneItemId float64 `json:"sceneItemId,omitempty"`
 
-	// Name of the item in the scene.
-	ItemId int `json:"item-id,omitempty"`
-
-	// Name of the item in the scene.
-	ItemName string `json:"item-name,omitempty"`
-
-	// Name of the scene.
-	SceneName string `json:"scene-name,omitempty"`
+	// Name of the scene the item is in
+	SceneName string `json:"sceneName,omitempty"`
 }

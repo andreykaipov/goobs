@@ -4,17 +4,15 @@ package events
 
 /*
 SceneItemRemoved represents the event body for the "SceneItemRemoved" event.
-Since v4.0.0.
+Since v5.0.0.
 */
 type SceneItemRemoved struct {
-	EventBasic
+	// Numeric ID of the scene item
+	SceneItemId float64 `json:"sceneItemId,omitempty"`
 
-	// Scene item ID
-	ItemId int `json:"item-id,omitempty"`
+	// Name of the scene the item was removed from
+	SceneName string `json:"sceneName,omitempty"`
 
-	// Name of the item removed from the scene.
-	ItemName string `json:"item-name,omitempty"`
-
-	// Name of the scene.
-	SceneName string `json:"scene-name,omitempty"`
+	// Name of the underlying source (input/scene)
+	SourceName string `json:"sourceName,omitempty"`
 }

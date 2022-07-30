@@ -47,8 +47,13 @@ type SetVideoSettingsResponse struct {
 	requests.ResponseBasic
 }
 
-// SetVideoSettings sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) SetVideoSettings(params *SetVideoSettingsParams) (*SetVideoSettingsResponse, error) {
+// SetVideoSettings sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) SetVideoSettings(paramss ...*SetVideoSettingsParams) (*SetVideoSettingsResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*SetVideoSettingsParams{{}}
+	}
+	params := paramss[0]
 	data := &SetVideoSettingsResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

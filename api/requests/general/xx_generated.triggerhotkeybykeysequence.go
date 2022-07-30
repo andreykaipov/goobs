@@ -44,10 +44,15 @@ type TriggerHotkeyByKeySequenceResponse struct {
 	requests.ResponseBasic
 }
 
-// TriggerHotkeyByKeySequence sends the corresponding request to the connected OBS WebSockets server.
+// TriggerHotkeyByKeySequence sends the corresponding request to the connected OBS WebSockets server. Note the variadic
+// arguments as this request doesn't require any parameters.
 func (c *Client) TriggerHotkeyByKeySequence(
-	params *TriggerHotkeyByKeySequenceParams,
+	paramss ...*TriggerHotkeyByKeySequenceParams,
 ) (*TriggerHotkeyByKeySequenceResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*TriggerHotkeyByKeySequenceParams{{}}
+	}
+	params := paramss[0]
 	data := &TriggerHotkeyByKeySequenceResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

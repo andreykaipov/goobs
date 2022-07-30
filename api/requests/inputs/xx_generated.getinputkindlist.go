@@ -31,8 +31,13 @@ type GetInputKindListResponse struct {
 	InputKinds []string `json:"inputKinds,omitempty"`
 }
 
-// GetInputKindList sends the corresponding request to the connected OBS WebSockets server.
-func (c *Client) GetInputKindList(params *GetInputKindListParams) (*GetInputKindListResponse, error) {
+// GetInputKindList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
+// as this request doesn't require any parameters.
+func (c *Client) GetInputKindList(paramss ...*GetInputKindListParams) (*GetInputKindListResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetInputKindListParams{{}}
+	}
+	params := paramss[0]
 	data := &GetInputKindListResponse{}
 	if err := c.SendRequest(params, data); err != nil {
 		return nil, err

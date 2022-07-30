@@ -13,7 +13,6 @@ import (
 
 	"github.com/andreykaipov/goobs/api/opcodes"
 	"github.com/andreykaipov/goobs/api/requests"
-	general "github.com/andreykaipov/goobs/api/requests/general"
 	"github.com/andreykaipov/goobs/apiv5/events"
 	"github.com/andreykaipov/goobs/apiv5/events/subscriptions"
 	"github.com/gorilla/websocket"
@@ -155,9 +154,9 @@ func New(host string, opts ...Option) (*Client, error) {
 		return nil, err
 	}
 
-	// setClients(c)
+	setClients(c)
 
-	// c.IncomingResponses = make(chan json.RawMessage, 100)
+	c.IncomingResponses = make(chan json.RawMessage, 100)
 	// go c.handleMessages()
 	//
 	//	if err := c.wrappedAuthentication(); err != nil {
@@ -247,7 +246,7 @@ func (c *Client) connect() (err error) {
 
 				c.writeEvent(event)
 			case 7:
-				c.Log.Printf("response: %#v", msg)
+				c.IncomingResponses <- msg.D
 			case 9:
 				c.Log.Printf("batch response: %#v", msg)
 			default:
@@ -256,26 +255,10 @@ func (c *Client) connect() (err error) {
 		}
 	}()
 
-	// Parse into a generic map to figure out the opcode.
-	// Then act accordingly.
-	//	if err := json.Unmarshal(msg, &checked); err != nil {
-	//		panic(fmt.Errorf("Couldn't unmarshal message: %s", err))
-	//	}
-
-	//fmt.Printf("%#v\n", checked)
-
-	//	// Responses are parsed in the embedded Client's `SendRequest`
-	//	if _, ok := checked["message-id"]; ok {
-	//		c.IncomingResponses <- raw
-	//		continue
-	//	}
-
-	//	messages <- msg
-	//	}()
-
 	return nil
 }
 
+/*
 // Handling authentication errors is a tad tricky. Because the auth request we
 // send depends on the eventing loop too, we need a way to return any errors
 // that might come up when parsing the auth response, while also handling
@@ -323,6 +306,7 @@ func (c *Client) authenticate() error {
 
 	return err
 }
+*/
 
 func (c *Client) handleMessages() {
 	messages := make(chan json.RawMessage)

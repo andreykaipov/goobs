@@ -55,7 +55,7 @@ type Event struct {
 type Request struct {
 	RequestType string      `json:"requestType"`
 	RequestID   string      `json:"requestId"`
-	RequestData interface{} `json:"requestData"`
+	RequestData interface{} `json:"requestData,omitempty"`
 }
 
 // opcode 7 (server -> client)
@@ -87,10 +87,10 @@ func Wrap(data interface{}) json.RawMessage {
 	op := -1
 
 	switch data.(type) {
-	case Identify:
-		op = 1
 	case *Identify:
 		op = 1
+	case *Request:
+		op = 6
 	default:
 		panic(fmt.Errorf("I don't know what to do with this data: %#v", data))
 	}

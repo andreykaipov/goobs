@@ -3,52 +3,52 @@
 package goobs
 
 import (
+	config "github.com/andreykaipov/goobs/api/requests/config"
+	filters "github.com/andreykaipov/goobs/api/requests/filters"
 	general "github.com/andreykaipov/goobs/api/requests/general"
-	mediacontrol "github.com/andreykaipov/goobs/api/requests/media_control"
+	inputs "github.com/andreykaipov/goobs/api/requests/inputs"
+	mediainputs "github.com/andreykaipov/goobs/api/requests/media_inputs"
 	outputs "github.com/andreykaipov/goobs/api/requests/outputs"
-	profiles "github.com/andreykaipov/goobs/api/requests/profiles"
-	recording "github.com/andreykaipov/goobs/api/requests/recording"
-	replaybuffer "github.com/andreykaipov/goobs/api/requests/replay_buffer"
-	scenecollections "github.com/andreykaipov/goobs/api/requests/scene_collections"
+	rconfig "github.com/andreykaipov/goobs/api/requests/rconfig"
+	record "github.com/andreykaipov/goobs/api/requests/record"
 	sceneitems "github.com/andreykaipov/goobs/api/requests/scene_items"
 	scenes "github.com/andreykaipov/goobs/api/requests/scenes"
 	sources "github.com/andreykaipov/goobs/api/requests/sources"
-	streaming "github.com/andreykaipov/goobs/api/requests/streaming"
-	studiomode "github.com/andreykaipov/goobs/api/requests/studio_mode"
+	stream "github.com/andreykaipov/goobs/api/requests/stream"
 	transitions "github.com/andreykaipov/goobs/api/requests/transitions"
-	virtualcam "github.com/andreykaipov/goobs/api/requests/virtual_cam"
+	ui "github.com/andreykaipov/goobs/api/requests/ui"
 )
 
 type subclients struct {
-	General          *general.Client
-	MediaControl     *mediacontrol.Client
-	Outputs          *outputs.Client
-	Profiles         *profiles.Client
-	Recording        *recording.Client
-	ReplayBuffer     *replaybuffer.Client
-	SceneCollections *scenecollections.Client
-	SceneItems       *sceneitems.Client
-	Scenes           *scenes.Client
-	Sources          *sources.Client
-	Streaming        *streaming.Client
-	StudioMode       *studiomode.Client
-	Transitions      *transitions.Client
-	VirtualCam       *virtualcam.Client
+	Config      *config.Client
+	Filters     *filters.Client
+	General     *general.Client
+	Inputs      *inputs.Client
+	MediaInputs *mediainputs.Client
+	Outputs     *outputs.Client
+	Rconfig     *rconfig.Client
+	Record      *record.Client
+	SceneItems  *sceneitems.Client
+	Scenes      *scenes.Client
+	Sources     *sources.Client
+	Stream      *stream.Client
+	Transitions *transitions.Client
+	Ui          *ui.Client
 }
 
 func setClients(c *Client) {
+	c.Config = &config.Client{Client: c.Client}
+	c.Filters = &filters.Client{Client: c.Client}
 	c.General = &general.Client{Client: c.Client}
-	c.MediaControl = &mediacontrol.Client{Client: c.Client}
+	c.Inputs = &inputs.Client{Client: c.Client}
+	c.MediaInputs = &mediainputs.Client{Client: c.Client}
 	c.Outputs = &outputs.Client{Client: c.Client}
-	c.Profiles = &profiles.Client{Client: c.Client}
-	c.Recording = &recording.Client{Client: c.Client}
-	c.ReplayBuffer = &replaybuffer.Client{Client: c.Client}
-	c.SceneCollections = &scenecollections.Client{Client: c.Client}
+	c.Rconfig = &rconfig.Client{Client: c.Client}
+	c.Record = &record.Client{Client: c.Client}
 	c.SceneItems = &sceneitems.Client{Client: c.Client}
 	c.Scenes = &scenes.Client{Client: c.Client}
 	c.Sources = &sources.Client{Client: c.Client}
-	c.Streaming = &streaming.Client{Client: c.Client}
-	c.StudioMode = &studiomode.Client{Client: c.Client}
+	c.Stream = &stream.Client{Client: c.Client}
 	c.Transitions = &transitions.Client{Client: c.Client}
-	c.VirtualCam = &virtualcam.Client{Client: c.Client}
+	c.Ui = &ui.Client{Client: c.Client}
 }

@@ -2,24 +2,17 @@
 
 package events
 
-import typedefs "github.com/andreykaipov/goobs/api/typedefs"
-
 /*
 SceneItemTransformChanged represents the event body for the "SceneItemTransformChanged" event.
-Since v4.6.0.
+Since v5.0.0.
 */
 type SceneItemTransformChanged struct {
-	EventBasic
+	// Numeric ID of the scene item
+	SceneItemId float64 `json:"sceneItemId,omitempty"`
 
-	// Scene item ID
-	ItemId int `json:"item-id,omitempty"`
+	// New transform/crop info of the scene item
+	SceneItemTransform interface{} `json:"sceneItemTransform,omitempty"`
 
-	// Name of the item in the scene.
-	ItemName string `json:"item-name,omitempty"`
-
-	// Name of the scene.
-	SceneName string `json:"scene-name,omitempty"`
-
-	// Scene item transform properties
-	Transform typedefs.SceneItemTransform `json:"transform,omitempty"`
+	// The name of the scene the item is in
+	SceneName string `json:"sceneName,omitempty"`
 }

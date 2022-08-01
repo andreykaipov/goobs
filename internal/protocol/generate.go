@@ -26,7 +26,7 @@ func generateRequests(requests []*Request) {
 	}
 
 	for _, category := range sortedKeys(categories) {
-		requests := categories[category]
+		requestsInCategory := categories[category]
 
 		categorySnake := strings.ReplaceAll(category, " ", "_")
 		categoryPascal := strings.ReplaceAll(strings.Title(category), " ", "")
@@ -47,7 +47,7 @@ func generateRequests(requests []*Request) {
 		client.Commentf("Client represents a client for '%s' requests.", category)
 		client.Add(
 			Type().Id("Client").Struct(
-				Op("*").Qual(goobs+"/api/requests", "Client"),
+				Op("*").Qual(goobs+"/api", "Client"),
 			),
 		)
 
@@ -61,7 +61,7 @@ func generateRequests(requests []*Request) {
 		}
 
 		// Generate the requests for the category
-		for _, request := range requests {
+		for _, request := range requestsInCategory {
 			name := request.RequestType
 
 			if request.Deprecated {
@@ -84,15 +84,38 @@ func generateRequests(requests []*Request) {
 		}
 	}
 
+	var f *File
+
 	// Write utils for the top-level client
-	f := NewFile("goobs")
+	f = NewFile("goobs")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 	f.Add(Type().Id("subclients").Struct(topClientFields...))
 	f.Add(Func().Id("setClients").Params(Id("c").Op("*").Id("Client")).Block(topClientSetters...))
-
 	if err := f.Save(fmt.Sprintf("%s/zz_generated.client.go", root)); err != nil {
 		panic(err)
 	}
+
+	// GetRequestResponseForType to get the Go type of responses from their names
+	f = NewFile("goobs")
+	f.HeaderComment("This file has been automatically generated. Don't edit it.")
+	f.Add(
+		Func().Id("GetRequestResponseForType").Params(Id("name").String()).Interface().Block(
+			Switch(Id("name")).BlockFunc(func(g *Group) {
+				for _, category := range sortedKeys(categories) {
+					categorySnake := strings.ReplaceAll(category, " ", "_")
+					for _, request := range categories[category] {
+						g.Case(Lit(request.RequestType))
+						g.Return(Op("&").Qual(goobs+"/api/requests/"+categorySnake, request.RequestType+"Response").Values())
+					}
+				}
+				g.Default().Return(Nil())
+			}),
+		),
+	)
+	if err := f.Save(fmt.Sprintf("%s/zz_generated.requests.go", root)); err != nil {
+		panic(err)
+	}
+
 }
 
 func generateRequest(request *Request) (s *Statement, err error) {
@@ -108,33 +131,13 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = name + "Params"
 	s.Commentf("%s represents the params body for the %q request.\n%s\n", structName, name, request.Description).Line()
 
-	reqf := &RequestField{}
-	reqf.ValueName = "ParamsBasic"
-	reqf.ValueType = "~requests~" // internal type
-	reqf.ValueDescription = ""
-	reqf.ValueOptional = true // treat this field as an optional one for further below
-	request.RequestFields = append(request.RequestFields, reqf)
-
 	if err = generateStructFromParams("request", s, structName, request.RequestFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", name, category)
 	}
 
-	s.Add(
-		Commentf("GetSelfName just returns %q.", name).Line(),
-		Func().Params(Id("o").Op("*").Id(structName)).Id("GetSelfName").Params().String().Block(
-			Return(Lit(name)),
-		).Line(),
-	)
-
 	// Returns
 	structName = name + "Response"
 	s.Commentf("%s represents the response body for the %q request.\n%s\n", structName, name, request.Description).Line()
-
-	respf := &ResponseField{}
-	respf.ValueName = "ResponseBasic"
-	respf.ValueType = "~requests~" // internal type
-	respf.ValueDescription = ""
-	request.ResponseFields = append(request.ResponseFields, respf)
 
 	if err = generateStructFromParams("response", s, structName, request.ResponseFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", name, category)
@@ -147,10 +150,9 @@ func generateRequest(request *Request) (s *Statement, err error) {
 		allOptional = allOptional && f.ValueOptional
 	}
 
-	// request will have at least 1 field because of ~requests~ internal
-	// type, so we should use variadic args if we have exactly that 1 field,
-	// and all of the other fields above were optional
-	varargs := len(request.RequestFields) == 1 || allOptional
+	// we should use variadic args if we have no RequestFields in our
+	// params, or if all of the other fields above were optional
+	varargs := len(request.RequestFields) == 0 || allOptional
 	hasRequiredArgs := !varargs
 
 	s.Commentf("%s sends the corresponding request to the connected OBS WebSockets server.", name).Do(func(z *Statement) {
@@ -177,16 +179,14 @@ func generateRequest(request *Request) (s *Statement, err error) {
 			z.Line()
 			z.Id("params").Op(":=").Id("paramss").Index(Lit(0))
 		}),
-		Id("data").Op(":=").Op("&").Id(name+"Response").Values(),
-		If(
-			Id("err").Op(":=").Id("c").Dot("SendRequest").Call(
-				Id("params"), Id("data"),
-			),
-			Id("err").Op("!=").Nil(),
-		).Block(
+		List(Id("resp"), Id("err")).Op(":=").Id("c").Dot("SendRequest").Call(
+			Lit(name),
+			Id("params"),
+		),
+		If(Id("err").Op("!=").Nil()).Block(
 			Return().List(Nil(), Id("err")),
 		),
-		Return().List(Id("data"), Nil()),
+		Return().List(Id("resp").Assert(Op("*").Id(name+"Response")), Nil()),
 	)
 
 	return s, nil
@@ -220,20 +220,21 @@ func generateEvents(events []*Event) {
 		}
 	}
 
-	f := NewFile("events")
+	// GetEventForType to get the Go type of responses from their names
+	f := NewFile("goobs")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 	f.Add(
-		Func().Id("GetEventForType").Params(Id("name").String()).Id("Event").Block(
+		Func().Id("GetEventForType").Params(Id("name").String()).Interface().Block(
 			Switch(Id("name")).BlockFunc(func(g *Group) {
 				for _, e := range events {
 					g.Case(Lit(e.EventType))
-					g.Return(Op("&").Id(e.EventType).Values())
+					g.Return(Op("&").Qual(goobs+"/api/events", e.EventType).Values())
 				}
 				g.Default().Return(Nil())
 			}),
 		),
 	)
-	if err := f.Save(fmt.Sprintf("%s/zz_generated.events.go", dir)); err != nil {
+	if err := f.Save(fmt.Sprintf("%s/zz_generated.events.go", root)); err != nil {
 		panic(err)
 	}
 }
@@ -243,13 +244,6 @@ func generateEvent(event *Event) (s *Statement, err error) {
 
 	s = Line()
 	s.Commentf("%s represents the event body for the %q event.\nSince v%s.", event.EventType, event.EventType, event.InitialVersion).Line()
-
-	//	df := &DataField{}
-	//	df.ValueName = "EventBasic"
-	//	df.ValueType = "~events~" // internal type
-	//	df.ValueDescription = ""
-	//
-	//	event.DataFields = append(event.DataFields, df)
 
 	if err = generateStructFromParams("event", s, event.EventType, event.DataFields); err != nil {
 		return nil, fmt.Errorf("Failed generating event %q in category %q", event.EventType, event.Category)
@@ -351,12 +345,6 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 			fieldType = Bool()
 		case "Any":
 			fieldType = Interface()
-		case "~requests~":
-			fieldType = Qual(goobs+"/api/requests", fvn)
-			embedded = true
-		case "~events~":
-			fieldType = Id(fvn)
-			embedded = true
 		default:
 			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, fvn, fvt))
 		}

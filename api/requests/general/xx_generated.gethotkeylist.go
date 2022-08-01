@@ -2,28 +2,17 @@
 
 package general
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetHotkeyListParams represents the params body for the "GetHotkeyList" request.
 Gets an array of all hotkey names in OBS
 */
-type GetHotkeyListParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetHotkeyList".
-func (o *GetHotkeyListParams) GetSelfName() string {
-	return "GetHotkeyList"
-}
+type GetHotkeyListParams struct{}
 
 /*
 GetHotkeyListResponse represents the response body for the "GetHotkeyList" request.
 Gets an array of all hotkey names in OBS
 */
 type GetHotkeyListResponse struct {
-	requests.ResponseBasic
-
 	// Array of hotkey names
 	Hotkeys []string `json:"hotkeys,omitempty"`
 }
@@ -35,9 +24,9 @@ func (c *Client) GetHotkeyList(paramss ...*GetHotkeyListParams) (*GetHotkeyListR
 		paramss = []*GetHotkeyListParams{{}}
 	}
 	params := paramss[0]
-	data := &GetHotkeyListResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetHotkeyList", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetHotkeyListResponse), nil
 }

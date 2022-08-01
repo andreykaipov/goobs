@@ -2,15 +2,11 @@
 
 package filters
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 SetSourceFilterSettingsParams represents the params body for the "SetSourceFilterSettings" request.
 Sets the settings of a source filter.
 */
 type SetSourceFilterSettingsParams struct {
-	requests.ParamsBasic
-
 	// Name of the filter to set the settings of
 	FilterName string `json:"filterName,omitempty"`
 
@@ -25,26 +21,19 @@ type SetSourceFilterSettingsParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-// GetSelfName just returns "SetSourceFilterSettings".
-func (o *SetSourceFilterSettingsParams) GetSelfName() string {
-	return "SetSourceFilterSettings"
-}
-
 /*
 SetSourceFilterSettingsResponse represents the response body for the "SetSourceFilterSettings" request.
 Sets the settings of a source filter.
 */
-type SetSourceFilterSettingsResponse struct {
-	requests.ResponseBasic
-}
+type SetSourceFilterSettingsResponse struct{}
 
 // SetSourceFilterSettings sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetSourceFilterSettings(
 	params *SetSourceFilterSettingsParams,
 ) (*SetSourceFilterSettingsResponse, error) {
-	data := &SetSourceFilterSettingsResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("SetSourceFilterSettings", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*SetSourceFilterSettingsResponse), nil
 }

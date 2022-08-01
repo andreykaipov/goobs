@@ -2,15 +2,11 @@
 
 package filters
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 CreateSourceFilterParams represents the params body for the "CreateSourceFilter" request.
 Creates a new filter, adding it to the specified source.
 */
 type CreateSourceFilterParams struct {
-	requests.ParamsBasic
-
 	// The kind of filter to be created
 	FilterKind string `json:"filterKind,omitempty"`
 
@@ -24,24 +20,17 @@ type CreateSourceFilterParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-// GetSelfName just returns "CreateSourceFilter".
-func (o *CreateSourceFilterParams) GetSelfName() string {
-	return "CreateSourceFilter"
-}
-
 /*
 CreateSourceFilterResponse represents the response body for the "CreateSourceFilter" request.
 Creates a new filter, adding it to the specified source.
 */
-type CreateSourceFilterResponse struct {
-	requests.ResponseBasic
-}
+type CreateSourceFilterResponse struct{}
 
 // CreateSourceFilter sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) CreateSourceFilter(params *CreateSourceFilterParams) (*CreateSourceFilterResponse, error) {
-	data := &CreateSourceFilterResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("CreateSourceFilter", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*CreateSourceFilterResponse), nil
 }

@@ -2,28 +2,17 @@
 
 package config
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetProfileListParams represents the params body for the "GetProfileList" request.
 Gets an array of all profiles
 */
-type GetProfileListParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetProfileList".
-func (o *GetProfileListParams) GetSelfName() string {
-	return "GetProfileList"
-}
+type GetProfileListParams struct{}
 
 /*
 GetProfileListResponse represents the response body for the "GetProfileList" request.
 Gets an array of all profiles
 */
 type GetProfileListResponse struct {
-	requests.ResponseBasic
-
 	// The name of the current profile
 	CurrentProfileName string `json:"currentProfileName,omitempty"`
 
@@ -38,9 +27,9 @@ func (c *Client) GetProfileList(paramss ...*GetProfileListParams) (*GetProfileLi
 		paramss = []*GetProfileListParams{{}}
 	}
 	params := paramss[0]
-	data := &GetProfileListResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetProfileList", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetProfileListResponse), nil
 }

@@ -2,28 +2,17 @@
 
 package transitions
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 TriggerStudioModeTransitionParams represents the params body for the "TriggerStudioModeTransition" request.
 Triggers the current scene transition. Same functionality as the `Transition` button in studio mode.
 */
-type TriggerStudioModeTransitionParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "TriggerStudioModeTransition".
-func (o *TriggerStudioModeTransitionParams) GetSelfName() string {
-	return "TriggerStudioModeTransition"
-}
+type TriggerStudioModeTransitionParams struct{}
 
 /*
 TriggerStudioModeTransitionResponse represents the response body for the "TriggerStudioModeTransition" request.
 Triggers the current scene transition. Same functionality as the `Transition` button in studio mode.
 */
-type TriggerStudioModeTransitionResponse struct {
-	requests.ResponseBasic
-}
+type TriggerStudioModeTransitionResponse struct{}
 
 // TriggerStudioModeTransition sends the corresponding request to the connected OBS WebSockets server. Note the variadic
 // arguments as this request doesn't require any parameters.
@@ -34,9 +23,9 @@ func (c *Client) TriggerStudioModeTransition(
 		paramss = []*TriggerStudioModeTransitionParams{{}}
 	}
 	params := paramss[0]
-	data := &TriggerStudioModeTransitionResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("TriggerStudioModeTransition", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*TriggerStudioModeTransitionResponse), nil
 }

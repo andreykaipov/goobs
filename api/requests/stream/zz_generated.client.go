@@ -2,9 +2,9 @@
 
 package stream
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import api "github.com/andreykaipov/goobs/api"
 
 // Client represents a client for 'stream' requests.
 type Client struct {
-	*requests.Client
+	*api.Client
 }

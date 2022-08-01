@@ -2,28 +2,17 @@
 
 package outputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetReplayBufferStatusParams represents the params body for the "GetReplayBufferStatus" request.
 Gets the status of the replay buffer output.
 */
-type GetReplayBufferStatusParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetReplayBufferStatus".
-func (o *GetReplayBufferStatusParams) GetSelfName() string {
-	return "GetReplayBufferStatus"
-}
+type GetReplayBufferStatusParams struct{}
 
 /*
 GetReplayBufferStatusResponse represents the response body for the "GetReplayBufferStatus" request.
 Gets the status of the replay buffer output.
 */
 type GetReplayBufferStatusResponse struct {
-	requests.ResponseBasic
-
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 }
@@ -37,9 +26,9 @@ func (c *Client) GetReplayBufferStatus(
 		paramss = []*GetReplayBufferStatusParams{{}}
 	}
 	params := paramss[0]
-	data := &GetReplayBufferStatusResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetReplayBufferStatus", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetReplayBufferStatusResponse), nil
 }

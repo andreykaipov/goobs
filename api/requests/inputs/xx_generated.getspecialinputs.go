@@ -2,28 +2,17 @@
 
 package inputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetSpecialInputsParams represents the params body for the "GetSpecialInputs" request.
 Gets the names of all special inputs.
 */
-type GetSpecialInputsParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetSpecialInputs".
-func (o *GetSpecialInputsParams) GetSelfName() string {
-	return "GetSpecialInputs"
-}
+type GetSpecialInputsParams struct{}
 
 /*
 GetSpecialInputsResponse represents the response body for the "GetSpecialInputs" request.
 Gets the names of all special inputs.
 */
 type GetSpecialInputsResponse struct {
-	requests.ResponseBasic
-
 	// Name of the Desktop Audio input
 	Desktop1 string `json:"desktop1,omitempty"`
 
@@ -50,9 +39,9 @@ func (c *Client) GetSpecialInputs(paramss ...*GetSpecialInputsParams) (*GetSpeci
 		paramss = []*GetSpecialInputsParams{{}}
 	}
 	params := paramss[0]
-	data := &GetSpecialInputsResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetSpecialInputs", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetSpecialInputsResponse), nil
 }

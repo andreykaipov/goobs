@@ -2,8 +2,6 @@
 
 package config
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 CreateSceneCollectionParams represents the params body for the "CreateSceneCollection" request.
 Creates a new scene collection, switching to it in the process.
@@ -11,15 +9,8 @@ Creates a new scene collection, switching to it in the process.
 Note: This will block until the collection has finished changing.
 */
 type CreateSceneCollectionParams struct {
-	requests.ParamsBasic
-
 	// Name for the new scene collection
 	SceneCollectionName string `json:"sceneCollectionName,omitempty"`
-}
-
-// GetSelfName just returns "CreateSceneCollection".
-func (o *CreateSceneCollectionParams) GetSelfName() string {
-	return "CreateSceneCollection"
 }
 
 /*
@@ -28,15 +19,13 @@ Creates a new scene collection, switching to it in the process.
 
 Note: This will block until the collection has finished changing.
 */
-type CreateSceneCollectionResponse struct {
-	requests.ResponseBasic
-}
+type CreateSceneCollectionResponse struct{}
 
 // CreateSceneCollection sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) CreateSceneCollection(params *CreateSceneCollectionParams) (*CreateSceneCollectionResponse, error) {
-	data := &CreateSceneCollectionResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("CreateSceneCollection", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*CreateSceneCollectionResponse), nil
 }

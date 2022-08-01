@@ -2,8 +2,6 @@
 
 package mediainputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetMediaInputStatusParams represents the params body for the "GetMediaInputStatus" request.
 Gets the status of a media input.
@@ -20,15 +18,8 @@ Media States:
 - `OBS_MEDIA_STATE_ERROR`
 */
 type GetMediaInputStatusParams struct {
-	requests.ParamsBasic
-
 	// Name of the media input
 	InputName string `json:"inputName,omitempty"`
-}
-
-// GetSelfName just returns "GetMediaInputStatus".
-func (o *GetMediaInputStatusParams) GetSelfName() string {
-	return "GetMediaInputStatus"
 }
 
 /*
@@ -47,8 +38,6 @@ Media States:
 - `OBS_MEDIA_STATE_ERROR`
 */
 type GetMediaInputStatusResponse struct {
-	requests.ResponseBasic
-
 	// Position of the cursor in milliseconds. `null` if not playing
 	MediaCursor float64 `json:"mediaCursor,omitempty"`
 
@@ -61,9 +50,9 @@ type GetMediaInputStatusResponse struct {
 
 // GetMediaInputStatus sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetMediaInputStatus(params *GetMediaInputStatusParams) (*GetMediaInputStatusResponse, error) {
-	data := &GetMediaInputStatusResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetMediaInputStatus", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetMediaInputStatusResponse), nil
 }

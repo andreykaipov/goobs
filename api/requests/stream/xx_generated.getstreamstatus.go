@@ -2,28 +2,17 @@
 
 package stream
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetStreamStatusParams represents the params body for the "GetStreamStatus" request.
 Gets the status of the stream output.
 */
-type GetStreamStatusParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetStreamStatus".
-func (o *GetStreamStatusParams) GetSelfName() string {
-	return "GetStreamStatus"
-}
+type GetStreamStatusParams struct{}
 
 /*
 GetStreamStatusResponse represents the response body for the "GetStreamStatus" request.
 Gets the status of the stream output.
 */
 type GetStreamStatusResponse struct {
-	requests.ResponseBasic
-
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 
@@ -53,9 +42,9 @@ func (c *Client) GetStreamStatus(paramss ...*GetStreamStatusParams) (*GetStreamS
 		paramss = []*GetStreamStatusParams{{}}
 	}
 	params := paramss[0]
-	data := &GetStreamStatusResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetStreamStatus", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetStreamStatusResponse), nil
 }

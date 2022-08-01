@@ -2,28 +2,17 @@
 
 package record
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetRecordStatusParams represents the params body for the "GetRecordStatus" request.
 Gets the status of the record output.
 */
-type GetRecordStatusParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetRecordStatus".
-func (o *GetRecordStatusParams) GetSelfName() string {
-	return "GetRecordStatus"
-}
+type GetRecordStatusParams struct{}
 
 /*
 GetRecordStatusResponse represents the response body for the "GetRecordStatus" request.
 Gets the status of the record output.
 */
 type GetRecordStatusResponse struct {
-	requests.ResponseBasic
-
 	// Whether the output is paused
 	OuputPaused bool `json:"ouputPaused,omitempty"`
 
@@ -47,9 +36,9 @@ func (c *Client) GetRecordStatus(paramss ...*GetRecordStatusParams) (*GetRecordS
 		paramss = []*GetRecordStatusParams{{}}
 	}
 	params := paramss[0]
-	data := &GetRecordStatusResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetRecordStatus", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetRecordStatusResponse), nil
 }

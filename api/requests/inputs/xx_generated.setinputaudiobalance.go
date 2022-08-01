@@ -2,15 +2,11 @@
 
 package inputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 SetInputAudioBalanceParams represents the params body for the "SetInputAudioBalance" request.
 Sets the audio balance of an input.
 */
 type SetInputAudioBalanceParams struct {
-	requests.ParamsBasic
-
 	// New audio balance value
 	InputAudioBalance float64 `json:"inputAudioBalance,omitempty"`
 
@@ -18,24 +14,17 @@ type SetInputAudioBalanceParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
-// GetSelfName just returns "SetInputAudioBalance".
-func (o *SetInputAudioBalanceParams) GetSelfName() string {
-	return "SetInputAudioBalance"
-}
-
 /*
 SetInputAudioBalanceResponse represents the response body for the "SetInputAudioBalance" request.
 Sets the audio balance of an input.
 */
-type SetInputAudioBalanceResponse struct {
-	requests.ResponseBasic
-}
+type SetInputAudioBalanceResponse struct{}
 
 // SetInputAudioBalance sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetInputAudioBalance(params *SetInputAudioBalanceParams) (*SetInputAudioBalanceResponse, error) {
-	data := &SetInputAudioBalanceResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("SetInputAudioBalance", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*SetInputAudioBalanceResponse), nil
 }

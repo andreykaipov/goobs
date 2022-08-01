@@ -2,28 +2,17 @@
 
 package outputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetLastReplayBufferReplayParams represents the params body for the "GetLastReplayBufferReplay" request.
 Gets the filename of the last replay buffer save file.
 */
-type GetLastReplayBufferReplayParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetLastReplayBufferReplay".
-func (o *GetLastReplayBufferReplayParams) GetSelfName() string {
-	return "GetLastReplayBufferReplay"
-}
+type GetLastReplayBufferReplayParams struct{}
 
 /*
 GetLastReplayBufferReplayResponse represents the response body for the "GetLastReplayBufferReplay" request.
 Gets the filename of the last replay buffer save file.
 */
 type GetLastReplayBufferReplayResponse struct {
-	requests.ResponseBasic
-
 	// File path
 	SavedReplayPath string `json:"savedReplayPath,omitempty"`
 }
@@ -37,9 +26,9 @@ func (c *Client) GetLastReplayBufferReplay(
 		paramss = []*GetLastReplayBufferReplayParams{{}}
 	}
 	params := paramss[0]
-	data := &GetLastReplayBufferReplayResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetLastReplayBufferReplay", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetLastReplayBufferReplayResponse), nil
 }

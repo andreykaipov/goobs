@@ -2,28 +2,17 @@
 
 package record
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 PauseRecordParams represents the params body for the "PauseRecord" request.
 Pauses the record output.
 */
-type PauseRecordParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "PauseRecord".
-func (o *PauseRecordParams) GetSelfName() string {
-	return "PauseRecord"
-}
+type PauseRecordParams struct{}
 
 /*
 PauseRecordResponse represents the response body for the "PauseRecord" request.
 Pauses the record output.
 */
-type PauseRecordResponse struct {
-	requests.ResponseBasic
-}
+type PauseRecordResponse struct{}
 
 // PauseRecord sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
 // this request doesn't require any parameters.
@@ -32,9 +21,9 @@ func (c *Client) PauseRecord(paramss ...*PauseRecordParams) (*PauseRecordRespons
 		paramss = []*PauseRecordParams{{}}
 	}
 	params := paramss[0]
-	data := &PauseRecordResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("PauseRecord", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*PauseRecordResponse), nil
 }

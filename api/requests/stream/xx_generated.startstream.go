@@ -2,28 +2,17 @@
 
 package stream
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 StartStreamParams represents the params body for the "StartStream" request.
 Starts the stream output.
 */
-type StartStreamParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "StartStream".
-func (o *StartStreamParams) GetSelfName() string {
-	return "StartStream"
-}
+type StartStreamParams struct{}
 
 /*
 StartStreamResponse represents the response body for the "StartStream" request.
 Starts the stream output.
 */
-type StartStreamResponse struct {
-	requests.ResponseBasic
-}
+type StartStreamResponse struct{}
 
 // StartStream sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
 // this request doesn't require any parameters.
@@ -32,9 +21,9 @@ func (c *Client) StartStream(paramss ...*StartStreamParams) (*StartStreamRespons
 		paramss = []*StartStreamParams{{}}
 	}
 	params := paramss[0]
-	data := &StartStreamResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("StartStream", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*StartStreamResponse), nil
 }

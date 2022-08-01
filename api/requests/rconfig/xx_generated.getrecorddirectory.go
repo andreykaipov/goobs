@@ -2,28 +2,17 @@
 
 package rconfig
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetRecordDirectoryParams represents the params body for the "GetRecordDirectory" request.
 Gets the current directory that the record output is set to.
 */
-type GetRecordDirectoryParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetRecordDirectory".
-func (o *GetRecordDirectoryParams) GetSelfName() string {
-	return "GetRecordDirectory"
-}
+type GetRecordDirectoryParams struct{}
 
 /*
 GetRecordDirectoryResponse represents the response body for the "GetRecordDirectory" request.
 Gets the current directory that the record output is set to.
 */
 type GetRecordDirectoryResponse struct {
-	requests.ResponseBasic
-
 	// Output directory
 	RecordDirectory string `json:"recordDirectory,omitempty"`
 }
@@ -35,9 +24,9 @@ func (c *Client) GetRecordDirectory(paramss ...*GetRecordDirectoryParams) (*GetR
 		paramss = []*GetRecordDirectoryParams{{}}
 	}
 	params := paramss[0]
-	data := &GetRecordDirectoryResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetRecordDirectory", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetRecordDirectoryResponse), nil
 }

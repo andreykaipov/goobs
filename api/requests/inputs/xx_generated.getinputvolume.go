@@ -2,22 +2,13 @@
 
 package inputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetInputVolumeParams represents the params body for the "GetInputVolume" request.
 Gets the current volume setting of an input.
 */
 type GetInputVolumeParams struct {
-	requests.ParamsBasic
-
 	// Name of the input to get the volume of
 	InputName string `json:"inputName,omitempty"`
-}
-
-// GetSelfName just returns "GetInputVolume".
-func (o *GetInputVolumeParams) GetSelfName() string {
-	return "GetInputVolume"
 }
 
 /*
@@ -25,8 +16,6 @@ GetInputVolumeResponse represents the response body for the "GetInputVolume" req
 Gets the current volume setting of an input.
 */
 type GetInputVolumeResponse struct {
-	requests.ResponseBasic
-
 	// Volume setting in dB
 	InputVolumeDb float64 `json:"inputVolumeDb,omitempty"`
 
@@ -36,9 +25,9 @@ type GetInputVolumeResponse struct {
 
 // GetInputVolume sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetInputVolume(params *GetInputVolumeParams) (*GetInputVolumeResponse, error) {
-	data := &GetInputVolumeResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetInputVolume", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetInputVolumeResponse), nil
 }

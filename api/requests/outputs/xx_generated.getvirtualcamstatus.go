@@ -2,28 +2,17 @@
 
 package outputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetVirtualCamStatusParams represents the params body for the "GetVirtualCamStatus" request.
 Gets the status of the virtualcam output.
 */
-type GetVirtualCamStatusParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetVirtualCamStatus".
-func (o *GetVirtualCamStatusParams) GetSelfName() string {
-	return "GetVirtualCamStatus"
-}
+type GetVirtualCamStatusParams struct{}
 
 /*
 GetVirtualCamStatusResponse represents the response body for the "GetVirtualCamStatus" request.
 Gets the status of the virtualcam output.
 */
 type GetVirtualCamStatusResponse struct {
-	requests.ResponseBasic
-
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 }
@@ -35,9 +24,9 @@ func (c *Client) GetVirtualCamStatus(paramss ...*GetVirtualCamStatusParams) (*Ge
 		paramss = []*GetVirtualCamStatusParams{{}}
 	}
 	params := paramss[0]
-	data := &GetVirtualCamStatusResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetVirtualCamStatus", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetVirtualCamStatusResponse), nil
 }

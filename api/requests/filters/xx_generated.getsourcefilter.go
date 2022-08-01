@@ -2,15 +2,11 @@
 
 package filters
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetSourceFilterParams represents the params body for the "GetSourceFilter" request.
 Gets the info for a specific source filter.
 */
 type GetSourceFilterParams struct {
-	requests.ParamsBasic
-
 	// Name of the filter
 	FilterName string `json:"filterName,omitempty"`
 
@@ -18,18 +14,11 @@ type GetSourceFilterParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-// GetSelfName just returns "GetSourceFilter".
-func (o *GetSourceFilterParams) GetSelfName() string {
-	return "GetSourceFilter"
-}
-
 /*
 GetSourceFilterResponse represents the response body for the "GetSourceFilter" request.
 Gets the info for a specific source filter.
 */
 type GetSourceFilterResponse struct {
-	requests.ResponseBasic
-
 	// Whether the filter is enabled
 	FilterEnabled bool `json:"filterEnabled,omitempty"`
 
@@ -45,9 +34,9 @@ type GetSourceFilterResponse struct {
 
 // GetSourceFilter sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetSourceFilter(params *GetSourceFilterParams) (*GetSourceFilterResponse, error) {
-	data := &GetSourceFilterResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetSourceFilter", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetSourceFilterResponse), nil
 }

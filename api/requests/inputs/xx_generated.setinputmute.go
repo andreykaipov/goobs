@@ -2,15 +2,11 @@
 
 package inputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 SetInputMuteParams represents the params body for the "SetInputMute" request.
 Sets the audio mute state of an input.
 */
 type SetInputMuteParams struct {
-	requests.ParamsBasic
-
 	// Whether to mute the input or not
 	InputMuted bool `json:"inputMuted,omitempty"`
 
@@ -18,24 +14,17 @@ type SetInputMuteParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
-// GetSelfName just returns "SetInputMute".
-func (o *SetInputMuteParams) GetSelfName() string {
-	return "SetInputMute"
-}
-
 /*
 SetInputMuteResponse represents the response body for the "SetInputMute" request.
 Sets the audio mute state of an input.
 */
-type SetInputMuteResponse struct {
-	requests.ResponseBasic
-}
+type SetInputMuteResponse struct{}
 
 // SetInputMute sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetInputMute(params *SetInputMuteParams) (*SetInputMuteResponse, error) {
-	data := &SetInputMuteResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("SetInputMute", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*SetInputMuteResponse), nil
 }

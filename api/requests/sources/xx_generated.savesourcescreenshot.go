@@ -2,8 +2,6 @@
 
 package sources
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 SaveSourceScreenshotParams represents the params body for the "SaveSourceScreenshot" request.
 Saves a screenshot of a source to the filesystem.
@@ -14,8 +12,6 @@ If `imageWidth` and `imageHeight` are not specified, the compressed image will u
 **Compatible with inputs and scenes.**
 */
 type SaveSourceScreenshotParams struct {
-	requests.ParamsBasic
-
 	// Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use "default" (whatever that
 	// means, idk)
 	ImageCompressionQuality float64 `json:"imageCompressionQuality,omitempty"`
@@ -36,11 +32,6 @@ type SaveSourceScreenshotParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-// GetSelfName just returns "SaveSourceScreenshot".
-func (o *SaveSourceScreenshotParams) GetSelfName() string {
-	return "SaveSourceScreenshot"
-}
-
 /*
 SaveSourceScreenshotResponse represents the response body for the "SaveSourceScreenshot" request.
 Saves a screenshot of a source to the filesystem.
@@ -51,17 +42,15 @@ If `imageWidth` and `imageHeight` are not specified, the compressed image will u
 **Compatible with inputs and scenes.**
 */
 type SaveSourceScreenshotResponse struct {
-	requests.ResponseBasic
-
 	// Base64-encoded screenshot
 	ImageData string `json:"imageData,omitempty"`
 }
 
 // SaveSourceScreenshot sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SaveSourceScreenshot(params *SaveSourceScreenshotParams) (*SaveSourceScreenshotResponse, error) {
-	data := &SaveSourceScreenshotResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("SaveSourceScreenshot", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*SaveSourceScreenshotResponse), nil
 }

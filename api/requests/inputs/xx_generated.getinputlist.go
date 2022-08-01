@@ -2,22 +2,13 @@
 
 package inputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetInputListParams represents the params body for the "GetInputList" request.
 Gets an array of all inputs in OBS.
 */
 type GetInputListParams struct {
-	requests.ParamsBasic
-
 	// Restrict the array to only inputs of the specified kind
 	InputKind string `json:"inputKind,omitempty"`
-}
-
-// GetSelfName just returns "GetInputList".
-func (o *GetInputListParams) GetSelfName() string {
-	return "GetInputList"
 }
 
 /*
@@ -25,8 +16,6 @@ GetInputListResponse represents the response body for the "GetInputList" request
 Gets an array of all inputs in OBS.
 */
 type GetInputListResponse struct {
-	requests.ResponseBasic
-
 	// Array of inputs
 	Inputs []interface{} `json:"inputs,omitempty"`
 }
@@ -38,9 +27,9 @@ func (c *Client) GetInputList(paramss ...*GetInputListParams) (*GetInputListResp
 		paramss = []*GetInputListParams{{}}
 	}
 	params := paramss[0]
-	data := &GetInputListResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetInputList", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetInputListResponse), nil
 }

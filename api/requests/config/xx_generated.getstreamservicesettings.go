@@ -2,28 +2,17 @@
 
 package config
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetStreamServiceSettingsParams represents the params body for the "GetStreamServiceSettings" request.
 Gets the current stream service settings (stream destination).
 */
-type GetStreamServiceSettingsParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetStreamServiceSettings".
-func (o *GetStreamServiceSettingsParams) GetSelfName() string {
-	return "GetStreamServiceSettings"
-}
+type GetStreamServiceSettingsParams struct{}
 
 /*
 GetStreamServiceSettingsResponse represents the response body for the "GetStreamServiceSettings" request.
 Gets the current stream service settings (stream destination).
 */
 type GetStreamServiceSettingsResponse struct {
-	requests.ResponseBasic
-
 	// Stream service settings
 	StreamServiceSettings interface{} `json:"streamServiceSettings,omitempty"`
 
@@ -40,9 +29,9 @@ func (c *Client) GetStreamServiceSettings(
 		paramss = []*GetStreamServiceSettingsParams{{}}
 	}
 	params := paramss[0]
-	data := &GetStreamServiceSettingsResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetStreamServiceSettings", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetStreamServiceSettingsResponse), nil
 }

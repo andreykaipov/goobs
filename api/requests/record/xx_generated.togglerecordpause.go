@@ -2,28 +2,17 @@
 
 package record
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 ToggleRecordPauseParams represents the params body for the "ToggleRecordPause" request.
 Toggles pause on the record output.
 */
-type ToggleRecordPauseParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "ToggleRecordPause".
-func (o *ToggleRecordPauseParams) GetSelfName() string {
-	return "ToggleRecordPause"
-}
+type ToggleRecordPauseParams struct{}
 
 /*
 ToggleRecordPauseResponse represents the response body for the "ToggleRecordPause" request.
 Toggles pause on the record output.
 */
-type ToggleRecordPauseResponse struct {
-	requests.ResponseBasic
-}
+type ToggleRecordPauseResponse struct{}
 
 // ToggleRecordPause sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
 // as this request doesn't require any parameters.
@@ -32,9 +21,9 @@ func (c *Client) ToggleRecordPause(paramss ...*ToggleRecordPauseParams) (*Toggle
 		paramss = []*ToggleRecordPauseParams{{}}
 	}
 	params := paramss[0]
-	data := &ToggleRecordPauseResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("ToggleRecordPause", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*ToggleRecordPauseResponse), nil
 }

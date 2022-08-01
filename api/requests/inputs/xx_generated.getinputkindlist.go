@@ -2,22 +2,13 @@
 
 package inputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetInputKindListParams represents the params body for the "GetInputKindList" request.
 Gets an array of all available input kinds in OBS.
 */
 type GetInputKindListParams struct {
-	requests.ParamsBasic
-
 	// True == Return all kinds as unversioned, False == Return with version suffixes (if available)
 	Unversioned bool `json:"unversioned,omitempty"`
-}
-
-// GetSelfName just returns "GetInputKindList".
-func (o *GetInputKindListParams) GetSelfName() string {
-	return "GetInputKindList"
 }
 
 /*
@@ -25,8 +16,6 @@ GetInputKindListResponse represents the response body for the "GetInputKindList"
 Gets an array of all available input kinds in OBS.
 */
 type GetInputKindListResponse struct {
-	requests.ResponseBasic
-
 	// Array of input kinds
 	InputKinds []string `json:"inputKinds,omitempty"`
 }
@@ -38,9 +27,9 @@ func (c *Client) GetInputKindList(paramss ...*GetInputKindListParams) (*GetInput
 		paramss = []*GetInputKindListParams{{}}
 	}
 	params := paramss[0]
-	data := &GetInputKindListResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetInputKindList", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetInputKindListResponse), nil
 }

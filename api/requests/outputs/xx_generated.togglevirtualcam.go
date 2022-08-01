@@ -2,28 +2,17 @@
 
 package outputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 ToggleVirtualCamParams represents the params body for the "ToggleVirtualCam" request.
 Toggles the state of the virtualcam output.
 */
-type ToggleVirtualCamParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "ToggleVirtualCam".
-func (o *ToggleVirtualCamParams) GetSelfName() string {
-	return "ToggleVirtualCam"
-}
+type ToggleVirtualCamParams struct{}
 
 /*
 ToggleVirtualCamResponse represents the response body for the "ToggleVirtualCam" request.
 Toggles the state of the virtualcam output.
 */
 type ToggleVirtualCamResponse struct {
-	requests.ResponseBasic
-
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 }
@@ -35,9 +24,9 @@ func (c *Client) ToggleVirtualCam(paramss ...*ToggleVirtualCamParams) (*ToggleVi
 		paramss = []*ToggleVirtualCamParams{{}}
 	}
 	params := paramss[0]
-	data := &ToggleVirtualCamResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("ToggleVirtualCam", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*ToggleVirtualCamResponse), nil
 }

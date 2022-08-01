@@ -2,28 +2,17 @@
 
 package record
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 StopRecordParams represents the params body for the "StopRecord" request.
 Stops the record output.
 */
-type StopRecordParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "StopRecord".
-func (o *StopRecordParams) GetSelfName() string {
-	return "StopRecord"
-}
+type StopRecordParams struct{}
 
 /*
 StopRecordResponse represents the response body for the "StopRecord" request.
 Stops the record output.
 */
-type StopRecordResponse struct {
-	requests.ResponseBasic
-}
+type StopRecordResponse struct{}
 
 // StopRecord sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
 // this request doesn't require any parameters.
@@ -32,9 +21,9 @@ func (c *Client) StopRecord(paramss ...*StopRecordParams) (*StopRecordResponse, 
 		paramss = []*StopRecordParams{{}}
 	}
 	params := paramss[0]
-	data := &StopRecordResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("StopRecord", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*StopRecordResponse), nil
 }

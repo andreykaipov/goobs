@@ -9,12 +9,6 @@ import (
 	uuid "github.com/nu7hatch/gouuid"
 )
 
-// Logger is a interface compatible with both the stdlib's logger and some
-// third-party loggers.
-type Logger interface {
-	Printf(string, ...interface{})
-}
-
 type ResponsePair struct {
 	*opcodes.RequestResponse
 	ResponseType interface{}
@@ -62,14 +56,14 @@ type Client struct {
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#request-opcode-6
 //
 func (c *Client) SendRequest(name string, params interface{}) (interface{}, error) {
-	c.Log.Printf("Sending %s Request", name)
-
 	uid, err := uuid.NewV4()
 	if err != nil {
 		return nil, err
 	}
 
 	id := uid.String()
+
+	c.Log.Printf("[INFO] Sending %s Request with ID %s", name, id)
 
 	c.Opcodes <- &opcodes.Request{
 		RequestType: name,

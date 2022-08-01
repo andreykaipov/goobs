@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/andreykaipov/goobs/api"
@@ -17,6 +18,7 @@ import (
 	"github.com/andreykaipov/goobs/api/opcodes"
 	"github.com/buger/jsonparser"
 	"github.com/gorilla/websocket"
+	"github.com/hashicorp/logutils"
 )
 
 var version = "0.9.0-dev"
@@ -49,13 +51,6 @@ func WithPassword(x string) Option {
 	}
 }
 
-// WithDebug enables debug logging via a default logger.
-func WithDebug(x bool) Option {
-	return func(o *Client) {
-		o.debug = &x
-	}
-}
-
 // WithEventSubscriptions specifies the events we'd like to susbcribe to via
 // `c.IncomingEvents`. The value is a bitmask of any of the subscription values
 // specified in api/events/subscriptions. By default, all event categories are
@@ -67,9 +62,8 @@ func WithEventSubscriptions(x int) Option {
 	}
 }
 
-// WithLogger sets the logger to use for debug logging. Providing a logger
-// implicitly turns debug logging on, unless debug logging is explicitly
-// disabled.
+// WithLogger sets the logger this library will use. See the logger.Logger
+// interface. Should be compatible with most third-party loggers.
 func WithLogger(x api.Logger) Option {
 	return func(o *Client) {
 		o.Log = x
@@ -120,16 +114,6 @@ func (c *Client) Disconnect() error {
 	)
 }
 
-type discard struct{}
-
-func (o *discard) Printf(format string, v ...interface{}) {}
-
-type coloredStderr struct{}
-
-func (o *coloredStderr) Write(p []byte) (n int, err error) {
-	return os.Stderr.WriteString(fmt.Sprintf("\033[36m%s\033[0m", p))
-}
-
 /*
 New creates and configures a client to interact with the OBS websockets server.
 It also opens up a connection, so be sure to check the error.
@@ -138,22 +122,23 @@ func New(host string, opts ...Option) (*Client, error) {
 	c := &Client{
 		Client: &api.Client{
 			ResponseTimeout: 10000,
+			Log: log.New(
+				&logutils.LevelFilter{
+					Levels:   []logutils.LogLevel{"TRACE", "DEBUG", "INFO", "WARN", "ERROR", ""},
+					MinLevel: logutils.LogLevel(strings.ToUpper(os.Getenv("GOOBS_LOG"))),
+					Writer: api.LoggerWithWrite(func(p []byte) (int, error) {
+						return os.Stderr.WriteString(fmt.Sprintf("\033[36m%s\033[0m", p))
+					}),
+				},
+				"",
+				log.Ltime|log.Lshortfile,
+			),
 		},
 		host: host,
 	}
 
 	for _, opt := range opts {
 		opt(c)
-	}
-
-	if c.Log == nil && c.debug == nil {
-		c.Log = &discard{}
-	}
-	if c.Log == nil && *c.debug {
-		c.Log = log.New(&coloredStderr{}, "goobs/debug: ", log.Lshortfile|log.LstdFlags)
-	}
-	if c.debug != nil && !*c.debug {
-		c.Log = &discard{}
 	}
 
 	if c.dialer == nil {
@@ -187,7 +172,7 @@ func New(host string, opts ...Option) (*Client, error) {
 func (c *Client) connect() (err error) {
 	u := url.URL{Scheme: "ws", Host: c.host}
 
-	c.Log.Printf("Connecting to %s", u.String())
+	c.Log.Printf("[INFO] Connecting to %s", u.String())
 
 	if c.conn, _, err = c.dialer.Dial(u.String(), c.requestHeader); err != nil {
 		return err
@@ -227,7 +212,7 @@ func (c *Client) handleRawServerMessages() {
 			}
 		}
 
-		c.Log.Printf("Raw server message: %s", raw)
+		c.Log.Printf("[DEBUG] Raw server message: %s", raw)
 
 		op, err := jsonparser.GetInt(raw, "op")
 		if err != nil {
@@ -265,7 +250,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 		switch val := op.(type) {
 
 		case *opcodes.Hello:
-			c.Log.Printf("Hello; authenticating...")
+			c.Log.Printf("[INFO] Hello; authenticating...")
 
 			// we always try to auth; servers with auth
 			// disabled will just ignore it if anything
@@ -283,7 +268,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			}()
 
 		case *opcodes.Identify:
-			c.Log.Printf("Identify;")
+			c.Log.Printf("[INFO] Identify;")
 
 			msg := opcodes.Wrap(val).Bytes()
 			if err := c.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
@@ -291,14 +276,14 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			}
 
 		case *opcodes.Identified:
-			c.Log.Printf("Identified; negotiated RPC version: %d", val.NegotiatedRPCVersion)
+			c.Log.Printf("[INFO] Identified; negotiated RPC version: %d", val.NegotiatedRPCVersion)
 			auth <- nil
 
 		case *opcodes.Reidentify:
 			// can't imagine we need this
 
 		case *opcodes.Event:
-			c.Log.Printf("Got %s Event", val.EventType)
+			c.Log.Printf("[INFO] Got %s Event", val.EventType)
 
 			event := GetEventForType(val.EventType)
 
@@ -314,7 +299,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			c.writeEvent(event)
 
 		case *opcodes.Request:
-			c.Log.Printf("Got %s Request with ID %s", val.RequestType, val.RequestID)
+			c.Log.Printf("[DEBUG] Got %s Request with ID %s", val.RequestType, val.RequestID)
 
 			msg := opcodes.Wrap(val).Bytes()
 			if err := c.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
@@ -322,7 +307,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			}
 
 		case *opcodes.RequestResponse:
-			c.Log.Printf("Got %s Response with ID %s (%d)", val.RequestType, val.RequestID, val.RequestStatus.Code)
+			c.Log.Printf("[INFO] Got %s Response for ID %s (%d)", val.RequestType, val.RequestID, val.RequestStatus.Code)
 
 			c.IncomingResponses <- &api.ResponsePair{
 				RequestResponse: val,

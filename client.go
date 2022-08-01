@@ -11,10 +11,11 @@ import (
 	"os"
 	"time"
 
+	"github.com/andreykaipov/goobs/api"
+	events "github.com/andreykaipov/goobs/api/events"
+	"github.com/andreykaipov/goobs/api/events/subscriptions"
 	"github.com/andreykaipov/goobs/api/opcodes"
-	"github.com/andreykaipov/goobs/api/requests"
-	"github.com/andreykaipov/goobs/apiv5/events"
-	"github.com/andreykaipov/goobs/apiv5/events/subscriptions"
+	"github.com/buger/jsonparser"
 	"github.com/gorilla/websocket"
 )
 
@@ -22,7 +23,11 @@ var version = "0.9.0-dev"
 
 // Client represents a client to an OBS websockets server.
 type Client struct {
-	*requests.Client
+	*api.Client
+
+	// The backing websocket connection to the OBS websocket server.
+	conn *websocket.Conn
+
 	subclients
 	host               string
 	password           string
@@ -30,6 +35,8 @@ type Client struct {
 	dialer             *websocket.Dialer
 	requestHeader      http.Header
 	eventSubscriptions *int
+
+	errors chan error
 }
 
 // Option represents a functional option of a Client.
@@ -63,7 +70,7 @@ func WithEventSubscriptions(x int) Option {
 // WithLogger sets the logger to use for debug logging. Providing a logger
 // implicitly turns debug logging on, unless debug logging is explicitly
 // disabled.
-func WithLogger(x requests.Logger) Option {
+func WithLogger(x api.Logger) Option {
 	return func(o *Client) {
 		o.Log = x
 	}
@@ -98,6 +105,21 @@ func WithResponseTimeout(x time.Duration) Option {
 	}
 }
 
+/*
+Disconnect sends a message to the OBS websocket server to close the client's
+open connection. You don't really have to do this as any connections should
+close when your program terminates or interrupts. But here's a function anyways.
+*/
+func (c *Client) Disconnect() error {
+	close(c.IncomingResponses)
+	close(c.IncomingEvents)
+
+	return c.conn.WriteMessage(
+		websocket.CloseMessage,
+		websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""),
+	)
+}
+
 type discard struct{}
 
 func (o *discard) Printf(format string, v ...interface{}) {}
@@ -114,7 +136,7 @@ It also opens up a connection, so be sure to check the error.
 */
 func New(host string, opts ...Option) (*Client, error) {
 	c := &Client{
-		Client: &requests.Client{
+		Client: &api.Client{
 			ResponseTimeout: 10000,
 		},
 		host: host,
@@ -148,7 +170,10 @@ func New(host string, opts ...Option) (*Client, error) {
 		c.eventSubscriptions = &all
 	}
 
-	c.IncomingEvents = make(chan events.Event, 100)
+	c.IncomingEvents = make(chan interface{}, 100)
+	c.IncomingResponses = make(chan *api.ResponsePair)
+	c.Opcodes = make(chan opcodes.Opcode)
+	c.errors = make(chan error)
 
 	if err := c.connect(); err != nil {
 		return nil, err
@@ -156,35 +181,7 @@ func New(host string, opts ...Option) (*Client, error) {
 
 	setClients(c)
 
-	c.IncomingResponses = make(chan json.RawMessage, 100)
-	// go c.handleMessages()
-	//
-	//	if err := c.wrappedAuthentication(); err != nil {
-	//		return nil, fmt.Errorf("Failed auth: %s", err)
-	//	}
-
 	return c, nil
-}
-
-func (c *Client) read() (json.RawMessage, *opcodes.Message, error) {
-	unchecked := json.RawMessage{}
-
-	if err := c.Conn.ReadJSON(&unchecked); err != nil {
-		switch err.(type) {
-		case *websocket.CloseError:
-			return nil, nil, fmt.Errorf("[%[1]T] Websocket connection closed: %[1]w", err)
-		default:
-			return nil, nil, fmt.Errorf("[%[1]T] Couldn't read JSON from websocket connection: %[1]w", err)
-		}
-	}
-
-	checked := &opcodes.Message{} // checked will be marshalled
-
-	if err := json.Unmarshal(unchecked, &checked); err != nil {
-		return nil, nil, fmt.Errorf("Couldn't unmarshal message: %s", err)
-	}
-
-	return unchecked, checked, nil
 }
 
 func (c *Client) connect() (err error) {
@@ -192,199 +189,156 @@ func (c *Client) connect() (err error) {
 
 	c.Log.Printf("Connecting to %s", u.String())
 
-	if c.Conn, _, err = c.dialer.Dial(u.String(), c.requestHeader); err != nil {
+	if c.conn, _, err = c.dialer.Dial(u.String(), c.requestHeader); err != nil {
 		return err
 	}
 
-	go func() {
-		for {
-			_, msg, err := c.read()
-			if err != nil {
-				panic(err)
-			}
+	authComplete := make(chan error)
 
-			// process whatever opcodes we might get from the server
-			//
-			switch msg.Op {
-			case 0:
-				opcode := &opcodes.Hello{}
-				if err := json.Unmarshal(msg.D, opcode); err != nil {
-					panic(fmt.Errorf("Couldn't unmarshal message: %s", err))
-				}
+	go c.handleErrors()
+	go c.handleRawServerMessages()
+	go c.handleOpcodes(authComplete)
 
-				c.Log.Printf("Got Hello; authenticating...")
-
-				// we always try to auth; servers with auth
-				// disabled will just ignore it if anything
-				hash := sha256.Sum256([]byte(c.password + opcode.Authentication.Salt))
-				secret := base64.StdEncoding.EncodeToString(hash[:])
-				authHash := sha256.Sum256([]byte(secret + opcode.Authentication.Challenge))
-				authSecret := base64.StdEncoding.EncodeToString(authHash[:])
-
-				identify := opcodes.Wrap(&opcodes.Identify{
-					RPCVersion:         opcode.RPCVersion,
-					Authentication:     authSecret,
-					EventSubscriptions: *c.eventSubscriptions,
-				})
-				if err := c.Conn.WriteMessage(websocket.TextMessage, identify); err != nil {
-					panic(fmt.Errorf("Couldn't write message: %w", err))
-				}
-			case 2:
-				opcode := &opcodes.Identified{}
-				if err := json.Unmarshal(msg.D, opcode); err != nil {
-					panic(fmt.Errorf("Couldn't unmarshal message: %s", err))
-				}
-
-				c.Log.Printf("Now connected; negotiated RPC version: %d", opcode.NegotiatedRPCVersion)
-			case 5:
-				c.Log.Printf("event: %s", msg)
-
-				event, err := events.Parse(msg.D)
-				if err != nil {
-					panic(fmt.Errorf("Couldn't parse raw event: %s", err))
-				}
-
-				c.writeEvent(event)
-			case 7:
-				c.IncomingResponses <- msg.D
-			case 9:
-				c.Log.Printf("batch response: %#v", msg)
-			default:
-				panic(fmt.Errorf("unhandled opcode %d", msg.Op))
-			}
-		}
-	}()
-
-	return nil
-}
-
-/*
-// Handling authentication errors is a tad tricky. Because the auth request we
-// send depends on the eventing loop too, we need a way to return any errors
-// that might come up when parsing the auth response, while also handling
-// expected auth errors like bad creds.
-func (c *Client) wrappedAuthentication() error {
-	go func() {
-		if err := c.authenticate(); err != nil {
-			c.IncomingEvents <- events.WrapError(err)
-		}
-		c.IncomingEvents <- nil
-	}()
-
-	switch e := (<-c.IncomingEvents).(type) {
-	case *events.Error:
-		// this error can be from the above `authenticate()`, or from
-		// any errors that might've come up during the eventing loop
-		return e.Err
-	case nil:
-		return nil
-	default:
-		// only events as of now should be errors or our above nil
-		return fmt.Errorf("Surely impossible? How did the server send actual events before authentication?")
+	select {
+	case a := <-authComplete:
+		return a
+	case <-time.After(c.ResponseTimeout * time.Millisecond):
+		return fmt.Errorf("timed out authenticating: %dms", c.ResponseTimeout)
 	}
 }
 
-// Pretty much the pseudo-code from
-// https://github.com/Palakis/obs-websocket/blob/4.x-current/docs/generated/protocol.md#authentication
-func (c *Client) authenticate() error {
-	authReqResp, err := c.General.GetAuthRequired()
-	if err != nil {
-		return fmt.Errorf("Failed getting auth required: %s", err)
-	}
-
-	if !authReqResp.AuthRequired {
-		return nil
-	}
-
-	hash := sha256.Sum256([]byte(c.password + authReqResp.Salt))
-	secret := base64.StdEncoding.EncodeToString(hash[:])
-
-	authHash := sha256.Sum256([]byte(secret + authReqResp.Challenge))
-	authSecret := base64.StdEncoding.EncodeToString(authHash[:])
-
-	_, err = c.General.Authenticate(&general.AuthenticateParams{Auth: authSecret})
-
-	return err
-}
-*/
-
-func (c *Client) handleMessages() {
-	messages := make(chan json.RawMessage)
-	errors := make(chan error)
-	go c.handleErrors(errors)
-	go c.handleConnection(messages, errors)
-	c.handleRawMessages(messages, errors)
-}
-
-// Expose eventing errors as... more events
-func (c *Client) handleErrors(errors chan error) {
-	for err := range errors {
+// expose errors as events 🤷
+func (c *Client) handleErrors() {
+	for err := range c.errors {
 		c.writeEvent(events.WrapError(err))
 	}
 }
 
-func (c *Client) handleConnection(messages chan json.RawMessage, errors chan error) {
+// translates raw server messages into opcodes
+func (c *Client) handleRawServerMessages() {
 	for {
-		msg := json.RawMessage{}
-		if err := c.Conn.ReadJSON(&msg); err != nil {
+		raw := json.RawMessage{}
+		if err := c.conn.ReadJSON(&raw); err != nil {
 			switch err.(type) {
 			case *websocket.CloseError:
-				errors <- fmt.Errorf("Websocket connection closed: %s", err)
-				return
+				c.errors <- fmt.Errorf("[%[1]T] Websocket connection closed: %[1]w", err)
 			default:
-				errors <- fmt.Errorf("Couldn't read JSON from websocket connection: %s", err)
-				continue
+				c.errors <- fmt.Errorf("[%[1]T] Couldn't read JSON from websocket connection: %[1]w", err)
 			}
 		}
 
-		messages <- msg
+		c.Log.Printf("Raw server message: %s", raw)
+
+		op, err := jsonparser.GetInt(raw, "op")
+		if err != nil {
+			c.errors <- fmt.Errorf("opcode missing on message `%s`: %w", raw, err)
+		}
+
+		known := opcodes.GetOpcodeForOp(int(op))
+		if known == nil {
+			c.errors <- fmt.Errorf("no Go type for op %q", op)
+		}
+
+		data, _, _, err := jsonparser.Get(raw, "d")
+		if err != nil {
+			c.errors <- fmt.Errorf("data missing on message `%s`: %w", raw, err)
+		}
+
+		if err := json.Unmarshal(data, known); err != nil {
+			c.errors <- fmt.Errorf(
+				"Couldn't unmarshal `%s` into an opcode of %q: %s",
+				data,
+				op,
+				err,
+			)
+		}
+
+		c.Opcodes <- known
 	}
 }
 
-// Handles messages from the server. They might be response bodies associated
-// with requests, or they can be events we can subscribe to via the
-// `client.IncomingEvents` channel. Or they can be something totally else, in
-// which case we expose the errors as more events! Despite also handling
-// incoming responses, we refer to this loop as the "eventing loop" elsewhere in
-// the comments.
-func (c *Client) handleRawMessages(messages chan json.RawMessage, errors chan error) {
-	for raw := range messages {
-		// Parse into a generic map to figure out if it's an event or
-		// a response to a request first. Then act accordingly.
-		checked := map[string]interface{}{}
-		if err := json.Unmarshal(raw, &checked); err != nil {
-			errors <- fmt.Errorf("Couldn't unmarshal message: %s", err)
-			continue
-		}
+// here's the meat of the operation
+// handles both server and client opcodes
+//
+func (c *Client) handleOpcodes(auth chan<- error) {
+	for op := range c.Opcodes {
+		switch val := op.(type) {
 
-		// Responses are parsed in the embedded Client's `SendRequest`
-		if _, ok := checked["message-id"]; ok {
-			c.IncomingResponses <- raw
-			continue
-		}
+		case *opcodes.Hello:
+			c.Log.Printf("Hello; authenticating...")
 
-		// Events are parsed immediately. Kinda wasteful to do since
-		// they might not ever be read, but it's not the end of the
-		// world. Could always add an explicit option to enable events!
-		if _, ok := checked["update-type"]; ok {
-			event, err := events.Parse(raw)
-			if err != nil {
-				errors <- fmt.Errorf("Couldn't parse raw event: %s", err)
-				continue
+			// we always try to auth; servers with auth
+			// disabled will just ignore it if anything
+			hash := sha256.Sum256([]byte(c.password + val.Authentication.Salt))
+			secret := base64.StdEncoding.EncodeToString(hash[:])
+			authHash := sha256.Sum256([]byte(secret + val.Authentication.Challenge))
+			authSecret := base64.StdEncoding.EncodeToString(authHash[:])
+
+			go func() {
+				c.Opcodes <- &opcodes.Identify{
+					RPCVersion:         val.RPCVersion,
+					Authentication:     authSecret,
+					EventSubscriptions: *c.eventSubscriptions,
+				}
+			}()
+
+		case *opcodes.Identify:
+			c.Log.Printf("Identify;")
+
+			msg := opcodes.Wrap(val).Bytes()
+			if err := c.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
+				auth <- fmt.Errorf("sending Identify to server `%s`: %w", msg, err)
+			}
+
+		case *opcodes.Identified:
+			c.Log.Printf("Identified; negotiated RPC version: %d", val.NegotiatedRPCVersion)
+			auth <- nil
+
+		case *opcodes.Reidentify:
+			// can't imagine we need this
+
+		case *opcodes.Event:
+			c.Log.Printf("Got %s Event", val.EventType)
+
+			event := GetEventForType(val.EventType)
+
+			if err := json.Unmarshal(val.EventData, event); err != nil {
+				c.errors <- fmt.Errorf(
+					"Couldn't unmarshal %s into an event type of %q: %s",
+					val.EventData,
+					val.EventType,
+					err,
+				)
 			}
 
 			c.writeEvent(event)
-			continue
-		}
 
-		errors <- fmt.Errorf("Client/server version mismatch? Unrecognized message: %s", raw)
+		case *opcodes.Request:
+			c.Log.Printf("Got %s Request with ID %s", val.RequestType, val.RequestID)
+
+			msg := opcodes.Wrap(val).Bytes()
+			if err := c.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
+				c.errors <- fmt.Errorf("sending Request to server `%s`: %w", msg, err)
+			}
+
+		case *opcodes.RequestResponse:
+			c.Log.Printf("Got %s Response with ID %s (%d)", val.RequestType, val.RequestID, val.RequestStatus.Code)
+
+			c.IncomingResponses <- &api.ResponsePair{
+				RequestResponse: val,
+				ResponseType:    GetRequestResponseForType(val.RequestType),
+			}
+
+		default:
+			c.errors <- fmt.Errorf("unhandled opcode %T", op)
+		}
 	}
 }
 
 // Since our events channel is buffered and might not necessarily be used, we
 // purge old events and write latest ones so that whenever somebody might want
 // to use it, they'll have the latest events available to them.
-func (c *Client) writeEvent(event events.Event) {
+func (c *Client) writeEvent(event interface{}) {
 	select {
 	case c.IncomingEvents <- event:
 	default:

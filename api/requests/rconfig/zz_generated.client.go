@@ -2,9 +2,9 @@
 
 package rconfig
 
-import requests "github.com/andreykaipov/goobs/api/requests"
+import api "github.com/andreykaipov/goobs/api"
 
 // Client represents a client for 'rconfig' requests.
 type Client struct {
-	*requests.Client
+	*api.Client
 }

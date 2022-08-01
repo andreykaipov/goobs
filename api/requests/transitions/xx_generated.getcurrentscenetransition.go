@@ -2,28 +2,17 @@
 
 package transitions
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetCurrentSceneTransitionParams represents the params body for the "GetCurrentSceneTransition" request.
 Gets information about the current scene transition.
 */
-type GetCurrentSceneTransitionParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetCurrentSceneTransition".
-func (o *GetCurrentSceneTransitionParams) GetSelfName() string {
-	return "GetCurrentSceneTransition"
-}
+type GetCurrentSceneTransitionParams struct{}
 
 /*
 GetCurrentSceneTransitionResponse represents the response body for the "GetCurrentSceneTransition" request.
 Gets information about the current scene transition.
 */
 type GetCurrentSceneTransitionResponse struct {
-	requests.ResponseBasic
-
 	// Whether the transition supports being configured
 	TransitionConfigurable bool `json:"transitionConfigurable,omitempty"`
 
@@ -52,9 +41,9 @@ func (c *Client) GetCurrentSceneTransition(
 		paramss = []*GetCurrentSceneTransitionParams{{}}
 	}
 	params := paramss[0]
-	data := &GetCurrentSceneTransitionResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetCurrentSceneTransition", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetCurrentSceneTransitionResponse), nil
 }

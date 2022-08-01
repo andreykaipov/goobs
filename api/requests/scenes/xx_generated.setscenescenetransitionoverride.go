@@ -2,15 +2,11 @@
 
 package scenes
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 SetSceneSceneTransitionOverrideParams represents the params body for the "SetSceneSceneTransitionOverride" request.
 Gets the scene transition overridden for a scene.
 */
 type SetSceneSceneTransitionOverrideParams struct {
-	requests.ParamsBasic
-
 	// Name of the scene
 	SceneName string `json:"sceneName,omitempty"`
 
@@ -21,26 +17,19 @@ type SetSceneSceneTransitionOverrideParams struct {
 	TransitionName string `json:"transitionName,omitempty"`
 }
 
-// GetSelfName just returns "SetSceneSceneTransitionOverride".
-func (o *SetSceneSceneTransitionOverrideParams) GetSelfName() string {
-	return "SetSceneSceneTransitionOverride"
-}
-
 /*
 SetSceneSceneTransitionOverrideResponse represents the response body for the "SetSceneSceneTransitionOverride" request.
 Gets the scene transition overridden for a scene.
 */
-type SetSceneSceneTransitionOverrideResponse struct {
-	requests.ResponseBasic
-}
+type SetSceneSceneTransitionOverrideResponse struct{}
 
 // SetSceneSceneTransitionOverride sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetSceneSceneTransitionOverride(
 	params *SetSceneSceneTransitionOverrideParams,
 ) (*SetSceneSceneTransitionOverrideResponse, error) {
-	data := &SetSceneSceneTransitionOverrideResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("SetSceneSceneTransitionOverride", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*SetSceneSceneTransitionOverrideResponse), nil
 }

@@ -2,15 +2,11 @@
 
 package inputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 SetInputNameParams represents the params body for the "SetInputName" request.
 Sets the name of an input (rename).
 */
 type SetInputNameParams struct {
-	requests.ParamsBasic
-
 	// Current input name
 	InputName string `json:"inputName,omitempty"`
 
@@ -18,24 +14,17 @@ type SetInputNameParams struct {
 	NewInputName string `json:"newInputName,omitempty"`
 }
 
-// GetSelfName just returns "SetInputName".
-func (o *SetInputNameParams) GetSelfName() string {
-	return "SetInputName"
-}
-
 /*
 SetInputNameResponse represents the response body for the "SetInputName" request.
 Sets the name of an input (rename).
 */
-type SetInputNameResponse struct {
-	requests.ResponseBasic
-}
+type SetInputNameResponse struct{}
 
 // SetInputName sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetInputName(params *SetInputNameParams) (*SetInputNameResponse, error) {
-	data := &SetInputNameResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("SetInputName", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*SetInputNameResponse), nil
 }

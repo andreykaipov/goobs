@@ -2,28 +2,17 @@
 
 package ui
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetMonitorListParams represents the params body for the "GetMonitorList" request.
 Gets a list of connected monitors and information about them.
 */
-type GetMonitorListParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetMonitorList".
-func (o *GetMonitorListParams) GetSelfName() string {
-	return "GetMonitorList"
-}
+type GetMonitorListParams struct{}
 
 /*
 GetMonitorListResponse represents the response body for the "GetMonitorList" request.
 Gets a list of connected monitors and information about them.
 */
 type GetMonitorListResponse struct {
-	requests.ResponseBasic
-
 	// a list of detected monitors with some information
 	Monitors []interface{} `json:"monitors,omitempty"`
 }
@@ -35,9 +24,9 @@ func (c *Client) GetMonitorList(paramss ...*GetMonitorListParams) (*GetMonitorLi
 		paramss = []*GetMonitorListParams{{}}
 	}
 	params := paramss[0]
-	data := &GetMonitorListResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetMonitorList", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetMonitorListResponse), nil
 }

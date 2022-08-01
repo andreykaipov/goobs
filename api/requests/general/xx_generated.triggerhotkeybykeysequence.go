@@ -2,15 +2,11 @@
 
 package general
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 TriggerHotkeyByKeySequenceParams represents the params body for the "TriggerHotkeyByKeySequence" request.
 Triggers a hotkey using a sequence of keys.
 */
 type TriggerHotkeyByKeySequenceParams struct {
-	requests.ParamsBasic
-
 	// The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h
 	KeyId string `json:"keyId,omitempty"`
 
@@ -31,18 +27,11 @@ type KeyModifiers struct {
 	Shift bool `json:"shift,omitempty"`
 }
 
-// GetSelfName just returns "TriggerHotkeyByKeySequence".
-func (o *TriggerHotkeyByKeySequenceParams) GetSelfName() string {
-	return "TriggerHotkeyByKeySequence"
-}
-
 /*
 TriggerHotkeyByKeySequenceResponse represents the response body for the "TriggerHotkeyByKeySequence" request.
 Triggers a hotkey using a sequence of keys.
 */
-type TriggerHotkeyByKeySequenceResponse struct {
-	requests.ResponseBasic
-}
+type TriggerHotkeyByKeySequenceResponse struct{}
 
 // TriggerHotkeyByKeySequence sends the corresponding request to the connected OBS WebSockets server. Note the variadic
 // arguments as this request doesn't require any parameters.
@@ -53,9 +42,9 @@ func (c *Client) TriggerHotkeyByKeySequence(
 		paramss = []*TriggerHotkeyByKeySequenceParams{{}}
 	}
 	params := paramss[0]
-	data := &TriggerHotkeyByKeySequenceResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("TriggerHotkeyByKeySequence", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*TriggerHotkeyByKeySequenceResponse), nil
 }

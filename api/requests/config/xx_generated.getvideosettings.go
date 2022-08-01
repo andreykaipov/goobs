@@ -2,22 +2,13 @@
 
 package config
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetVideoSettingsParams represents the params body for the "GetVideoSettings" request.
 Gets the current video settings.
 
 Note: To get the true FPS value, divide the FPS numerator by the FPS denominator. Example: `60000/1001`
 */
-type GetVideoSettingsParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetVideoSettings".
-func (o *GetVideoSettingsParams) GetSelfName() string {
-	return "GetVideoSettings"
-}
+type GetVideoSettingsParams struct{}
 
 /*
 GetVideoSettingsResponse represents the response body for the "GetVideoSettings" request.
@@ -26,8 +17,6 @@ Gets the current video settings.
 Note: To get the true FPS value, divide the FPS numerator by the FPS denominator. Example: `60000/1001`
 */
 type GetVideoSettingsResponse struct {
-	requests.ResponseBasic
-
 	// Height of the base (canvas) resolution in pixels
 	BaseHeight float64 `json:"baseHeight,omitempty"`
 
@@ -54,9 +43,9 @@ func (c *Client) GetVideoSettings(paramss ...*GetVideoSettingsParams) (*GetVideo
 		paramss = []*GetVideoSettingsParams{{}}
 	}
 	params := paramss[0]
-	data := &GetVideoSettingsResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetVideoSettings", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetVideoSettingsResponse), nil
 }

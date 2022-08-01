@@ -2,28 +2,17 @@
 
 package general
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetVersionParams represents the params body for the "GetVersion" request.
 Gets data about the current plugin and RPC version.
 */
-type GetVersionParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetVersion".
-func (o *GetVersionParams) GetSelfName() string {
-	return "GetVersion"
-}
+type GetVersionParams struct{}
 
 /*
 GetVersionResponse represents the response body for the "GetVersion" request.
 Gets data about the current plugin and RPC version.
 */
 type GetVersionResponse struct {
-	requests.ResponseBasic
-
 	// Array of available RPC requests for the currently negotiated RPC version
 	AvailableRequests []string `json:"availableRequests,omitempty"`
 
@@ -53,9 +42,9 @@ func (c *Client) GetVersion(paramss ...*GetVersionParams) (*GetVersionResponse, 
 		paramss = []*GetVersionParams{{}}
 	}
 	params := paramss[0]
-	data := &GetVersionResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetVersion", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetVersionResponse), nil
 }

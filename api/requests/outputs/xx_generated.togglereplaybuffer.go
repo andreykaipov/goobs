@@ -2,28 +2,17 @@
 
 package outputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 ToggleReplayBufferParams represents the params body for the "ToggleReplayBuffer" request.
 Toggles the state of the replay buffer output.
 */
-type ToggleReplayBufferParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "ToggleReplayBuffer".
-func (o *ToggleReplayBufferParams) GetSelfName() string {
-	return "ToggleReplayBuffer"
-}
+type ToggleReplayBufferParams struct{}
 
 /*
 ToggleReplayBufferResponse represents the response body for the "ToggleReplayBuffer" request.
 Toggles the state of the replay buffer output.
 */
 type ToggleReplayBufferResponse struct {
-	requests.ResponseBasic
-
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 }
@@ -35,9 +24,9 @@ func (c *Client) ToggleReplayBuffer(paramss ...*ToggleReplayBufferParams) (*Togg
 		paramss = []*ToggleReplayBufferParams{{}}
 	}
 	params := paramss[0]
-	data := &ToggleReplayBufferResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("ToggleReplayBuffer", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*ToggleReplayBufferResponse), nil
 }

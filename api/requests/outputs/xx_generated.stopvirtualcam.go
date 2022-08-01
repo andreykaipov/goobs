@@ -2,28 +2,17 @@
 
 package outputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 StopVirtualCamParams represents the params body for the "StopVirtualCam" request.
 Stops the virtualcam output.
 */
-type StopVirtualCamParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "StopVirtualCam".
-func (o *StopVirtualCamParams) GetSelfName() string {
-	return "StopVirtualCam"
-}
+type StopVirtualCamParams struct{}
 
 /*
 StopVirtualCamResponse represents the response body for the "StopVirtualCam" request.
 Stops the virtualcam output.
 */
-type StopVirtualCamResponse struct {
-	requests.ResponseBasic
-}
+type StopVirtualCamResponse struct{}
 
 // StopVirtualCam sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
 // this request doesn't require any parameters.
@@ -32,9 +21,9 @@ func (c *Client) StopVirtualCam(paramss ...*StopVirtualCamParams) (*StopVirtualC
 		paramss = []*StopVirtualCamParams{{}}
 	}
 	params := paramss[0]
-	data := &StopVirtualCamResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("StopVirtualCam", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*StopVirtualCamResponse), nil
 }

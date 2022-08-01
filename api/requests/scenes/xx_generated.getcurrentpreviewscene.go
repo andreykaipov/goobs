@@ -2,22 +2,13 @@
 
 package scenes
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetCurrentPreviewSceneParams represents the params body for the "GetCurrentPreviewScene" request.
 Gets the current preview scene.
 
 Only available when studio mode is enabled.
 */
-type GetCurrentPreviewSceneParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetCurrentPreviewScene".
-func (o *GetCurrentPreviewSceneParams) GetSelfName() string {
-	return "GetCurrentPreviewScene"
-}
+type GetCurrentPreviewSceneParams struct{}
 
 /*
 GetCurrentPreviewSceneResponse represents the response body for the "GetCurrentPreviewScene" request.
@@ -26,8 +17,6 @@ Gets the current preview scene.
 Only available when studio mode is enabled.
 */
 type GetCurrentPreviewSceneResponse struct {
-	requests.ResponseBasic
-
 	// Current preview scene
 	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`
 }
@@ -41,9 +30,9 @@ func (c *Client) GetCurrentPreviewScene(
 		paramss = []*GetCurrentPreviewSceneParams{{}}
 	}
 	params := paramss[0]
-	data := &GetCurrentPreviewSceneResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetCurrentPreviewScene", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetCurrentPreviewSceneResponse), nil
 }

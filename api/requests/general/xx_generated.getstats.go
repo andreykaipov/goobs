@@ -2,28 +2,17 @@
 
 package general
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetStatsParams represents the params body for the "GetStats" request.
 Gets statistics about OBS, obs-websocket, and the current session.
 */
-type GetStatsParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetStats".
-func (o *GetStatsParams) GetSelfName() string {
-	return "GetStats"
-}
+type GetStatsParams struct{}
 
 /*
 GetStatsResponse represents the response body for the "GetStats" request.
 Gets statistics about OBS, obs-websocket, and the current session.
 */
 type GetStatsResponse struct {
-	requests.ResponseBasic
-
 	// Current FPS being rendered
 	ActiveFps float64 `json:"activeFps,omitempty"`
 
@@ -65,9 +54,9 @@ func (c *Client) GetStats(paramss ...*GetStatsParams) (*GetStatsResponse, error)
 		paramss = []*GetStatsParams{{}}
 	}
 	params := paramss[0]
-	data := &GetStatsResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetStats", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetStatsResponse), nil
 }

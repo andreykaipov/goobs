@@ -2,37 +2,26 @@
 
 package general
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 TriggerHotkeyByNameParams represents the params body for the "TriggerHotkeyByName" request.
 Triggers a hotkey using its name. See `GetHotkeyList`
 */
 type TriggerHotkeyByNameParams struct {
-	requests.ParamsBasic
-
 	// Name of the hotkey to trigger
 	HotkeyName string `json:"hotkeyName,omitempty"`
-}
-
-// GetSelfName just returns "TriggerHotkeyByName".
-func (o *TriggerHotkeyByNameParams) GetSelfName() string {
-	return "TriggerHotkeyByName"
 }
 
 /*
 TriggerHotkeyByNameResponse represents the response body for the "TriggerHotkeyByName" request.
 Triggers a hotkey using its name. See `GetHotkeyList`
 */
-type TriggerHotkeyByNameResponse struct {
-	requests.ResponseBasic
-}
+type TriggerHotkeyByNameResponse struct{}
 
 // TriggerHotkeyByName sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) TriggerHotkeyByName(params *TriggerHotkeyByNameParams) (*TriggerHotkeyByNameResponse, error) {
-	data := &TriggerHotkeyByNameResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("TriggerHotkeyByName", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*TriggerHotkeyByNameResponse), nil
 }

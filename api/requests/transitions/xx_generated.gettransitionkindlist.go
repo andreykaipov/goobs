@@ -2,22 +2,13 @@
 
 package transitions
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetTransitionKindListParams represents the params body for the "GetTransitionKindList" request.
 Gets an array of all available transition kinds.
 
 Similar to `GetInputKindList`
 */
-type GetTransitionKindListParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetTransitionKindList".
-func (o *GetTransitionKindListParams) GetSelfName() string {
-	return "GetTransitionKindList"
-}
+type GetTransitionKindListParams struct{}
 
 /*
 GetTransitionKindListResponse represents the response body for the "GetTransitionKindList" request.
@@ -26,8 +17,6 @@ Gets an array of all available transition kinds.
 Similar to `GetInputKindList`
 */
 type GetTransitionKindListResponse struct {
-	requests.ResponseBasic
-
 	// Array of transition kinds
 	TransitionKinds []string `json:"transitionKinds,omitempty"`
 }
@@ -41,9 +30,9 @@ func (c *Client) GetTransitionKindList(
 		paramss = []*GetTransitionKindListParams{{}}
 	}
 	params := paramss[0]
-	data := &GetTransitionKindListResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetTransitionKindList", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetTransitionKindListResponse), nil
 }

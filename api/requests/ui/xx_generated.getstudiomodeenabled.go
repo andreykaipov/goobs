@@ -2,28 +2,17 @@
 
 package ui
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetStudioModeEnabledParams represents the params body for the "GetStudioModeEnabled" request.
 Gets whether studio is enabled.
 */
-type GetStudioModeEnabledParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetStudioModeEnabled".
-func (o *GetStudioModeEnabledParams) GetSelfName() string {
-	return "GetStudioModeEnabled"
-}
+type GetStudioModeEnabledParams struct{}
 
 /*
 GetStudioModeEnabledResponse represents the response body for the "GetStudioModeEnabled" request.
 Gets whether studio is enabled.
 */
 type GetStudioModeEnabledResponse struct {
-	requests.ResponseBasic
-
 	// Whether studio mode is enabled
 	StudioModeEnabled bool `json:"studioModeEnabled,omitempty"`
 }
@@ -35,9 +24,9 @@ func (c *Client) GetStudioModeEnabled(paramss ...*GetStudioModeEnabledParams) (*
 		paramss = []*GetStudioModeEnabledParams{{}}
 	}
 	params := paramss[0]
-	data := &GetStudioModeEnabledResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetStudioModeEnabled", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetStudioModeEnabledResponse), nil
 }

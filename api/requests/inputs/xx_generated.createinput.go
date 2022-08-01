@@ -2,15 +2,11 @@
 
 package inputs
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 CreateInputParams represents the params body for the "CreateInput" request.
 Creates a new input, adding it as a scene item to the specified scene.
 */
 type CreateInputParams struct {
-	requests.ParamsBasic
-
 	// The kind of input to be created
 	InputKind string `json:"inputKind,omitempty"`
 
@@ -27,27 +23,20 @@ type CreateInputParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-// GetSelfName just returns "CreateInput".
-func (o *CreateInputParams) GetSelfName() string {
-	return "CreateInput"
-}
-
 /*
 CreateInputResponse represents the response body for the "CreateInput" request.
 Creates a new input, adding it as a scene item to the specified scene.
 */
 type CreateInputResponse struct {
-	requests.ResponseBasic
-
 	// ID of the newly created scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
 }
 
 // CreateInput sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) CreateInput(params *CreateInputParams) (*CreateInputResponse, error) {
-	data := &CreateInputResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("CreateInput", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*CreateInputResponse), nil
 }

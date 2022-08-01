@@ -2,28 +2,17 @@
 
 package scenes
 
-import requests "github.com/andreykaipov/goobs/api/requests"
-
 /*
 GetSceneListParams represents the params body for the "GetSceneList" request.
 Gets an array of all scenes in OBS.
 */
-type GetSceneListParams struct {
-	requests.ParamsBasic
-}
-
-// GetSelfName just returns "GetSceneList".
-func (o *GetSceneListParams) GetSelfName() string {
-	return "GetSceneList"
-}
+type GetSceneListParams struct{}
 
 /*
 GetSceneListResponse represents the response body for the "GetSceneList" request.
 Gets an array of all scenes in OBS.
 */
 type GetSceneListResponse struct {
-	requests.ResponseBasic
-
 	// Current preview scene. `null` if not in studio mode
 	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`
 
@@ -41,9 +30,9 @@ func (c *Client) GetSceneList(paramss ...*GetSceneListParams) (*GetSceneListResp
 		paramss = []*GetSceneListParams{{}}
 	}
 	params := paramss[0]
-	data := &GetSceneListResponse{}
-	if err := c.SendRequest(params, data); err != nil {
+	resp, err := c.SendRequest("GetSceneList", params)
+	if err != nil {
 		return nil, err
 	}
-	return data, nil
+	return resp.(*GetSceneListResponse), nil
 }

@@ -1,0 +1,116 @@
+// This file has been automatically generated. Don't edit it.
+
+package goobs
+
+import events "github.com/andreykaipov/goobs/api/events"
+
+func GetEventForType(name string) interface{} {
+	switch name {
+	case "CurrentSceneCollectionChanging":
+		return &events.CurrentSceneCollectionChanging{}
+	case "CurrentSceneCollectionChanged":
+		return &events.CurrentSceneCollectionChanged{}
+	case "SceneCollectionListChanged":
+		return &events.SceneCollectionListChanged{}
+	case "CurrentProfileChanging":
+		return &events.CurrentProfileChanging{}
+	case "CurrentProfileChanged":
+		return &events.CurrentProfileChanged{}
+	case "ProfileListChanged":
+		return &events.ProfileListChanged{}
+	case "SourceFilterListReindexed":
+		return &events.SourceFilterListReindexed{}
+	case "SourceFilterCreated":
+		return &events.SourceFilterCreated{}
+	case "SourceFilterRemoved":
+		return &events.SourceFilterRemoved{}
+	case "SourceFilterNameChanged":
+		return &events.SourceFilterNameChanged{}
+	case "SourceFilterEnableStateChanged":
+		return &events.SourceFilterEnableStateChanged{}
+	case "ExitStarted":
+		return &events.ExitStarted{}
+	case "InputCreated":
+		return &events.InputCreated{}
+	case "InputRemoved":
+		return &events.InputRemoved{}
+	case "InputNameChanged":
+		return &events.InputNameChanged{}
+	case "InputActiveStateChanged":
+		return &events.InputActiveStateChanged{}
+	case "InputShowStateChanged":
+		return &events.InputShowStateChanged{}
+	case "InputMuteStateChanged":
+		return &events.InputMuteStateChanged{}
+	case "InputVolumeChanged":
+		return &events.InputVolumeChanged{}
+	case "InputAudioBalanceChanged":
+		return &events.InputAudioBalanceChanged{}
+	case "InputAudioSyncOffsetChanged":
+		return &events.InputAudioSyncOffsetChanged{}
+	case "InputAudioTracksChanged":
+		return &events.InputAudioTracksChanged{}
+	case "InputAudioMonitorTypeChanged":
+		return &events.InputAudioMonitorTypeChanged{}
+	case "InputVolumeMeters":
+		return &events.InputVolumeMeters{}
+	case "MediaInputPlaybackStarted":
+		return &events.MediaInputPlaybackStarted{}
+	case "MediaInputPlaybackEnded":
+		return &events.MediaInputPlaybackEnded{}
+	case "MediaInputActionTriggered":
+		return &events.MediaInputActionTriggered{}
+	case "StreamStateChanged":
+		return &events.StreamStateChanged{}
+	case "RecordStateChanged":
+		return &events.RecordStateChanged{}
+	case "ReplayBufferStateChanged":
+		return &events.ReplayBufferStateChanged{}
+	case "VirtualcamStateChanged":
+		return &events.VirtualcamStateChanged{}
+	case "ReplayBufferSaved":
+		return &events.ReplayBufferSaved{}
+	case "SceneItemCreated":
+		return &events.SceneItemCreated{}
+	case "SceneItemRemoved":
+		return &events.SceneItemRemoved{}
+	case "SceneItemListReindexed":
+		return &events.SceneItemListReindexed{}
+	case "SceneItemEnableStateChanged":
+		return &events.SceneItemEnableStateChanged{}
+	case "SceneItemLockStateChanged":
+		return &events.SceneItemLockStateChanged{}
+	case "SceneItemSelected":
+		return &events.SceneItemSelected{}
+	case "SceneItemTransformChanged":
+		return &events.SceneItemTransformChanged{}
+	case "SceneCreated":
+		return &events.SceneCreated{}
+	case "SceneRemoved":
+		return &events.SceneRemoved{}
+	case "SceneNameChanged":
+		return &events.SceneNameChanged{}
+	case "CurrentProgramSceneChanged":
+		return &events.CurrentProgramSceneChanged{}
+	case "CurrentPreviewSceneChanged":
+		return &events.CurrentPreviewSceneChanged{}
+	case "SceneListChanged":
+		return &events.SceneListChanged{}
+	case "CurrentSceneTransitionChanged":
+		return &events.CurrentSceneTransitionChanged{}
+	case "CurrentSceneTransitionDurationChanged":
+		return &events.CurrentSceneTransitionDurationChanged{}
+	case "SceneTransitionStarted":
+		return &events.SceneTransitionStarted{}
+	case "SceneTransitionEnded":
+		return &events.SceneTransitionEnded{}
+	case "SceneTransitionVideoEnded":
+		return &events.SceneTransitionVideoEnded{}
+	case "StudioModeStateChanged":
+		return &events.StudioModeStateChanged{}
+	case "VendorEvent":
+		return &events.VendorEvent{}
+	default:
+		return nil
+	}
+}

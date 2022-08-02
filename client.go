@@ -258,20 +258,20 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			// can't imagine we need this
 
 		case *opcodes.Event:
-			c.Log.Printf("[INFO] Got %s Event", val.EventType)
-			c.Log.Printf("[DEBUG] Event Data: %s", val.EventData)
+			c.Log.Printf("[INFO] Got %s Event", val.Type)
+			c.Log.Printf("[DEBUG] Event Data: %s", val.Data)
 
-			event := GetEventForType(val.EventType)
+			event := GetEventForType(val.Type)
 
 			var data json.RawMessage
-			if data = val.EventData; data == nil {
+			if data = val.Data; data == nil {
 				data = []byte("{}")
 			}
 
 			if err := json.Unmarshal(data, event); err != nil {
 				c.errors <- fmt.Errorf(
 					"unmarshalling `%s` into type %T: %s",
-					val.EventData,
+					val.Data,
 					event,
 					err,
 				)
@@ -280,7 +280,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			c.writeEvent(event)
 
 		case *opcodes.Request:
-			c.Log.Printf("[DEBUG] Got %s Request with ID %s", val.RequestType, val.RequestID)
+			c.Log.Printf("[DEBUG] Got %s Request with ID %s", val.Type, val.ID)
 
 			msg := opcodes.Wrap(val).Bytes()
 			if err := c.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
@@ -288,11 +288,11 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			}
 
 		case *opcodes.RequestResponse:
-			c.Log.Printf("[INFO] Got %s Response for ID %s (%d)", val.RequestType, val.RequestID, val.RequestStatus.Code)
+			c.Log.Printf("[INFO] Got %s Response for ID %s (%d)", val.Type, val.ID, val.Status.Code)
 
 			c.IncomingResponses <- &api.ResponsePair{
 				RequestResponse: val,
-				ResponseType:    GetRequestResponseForType(val.RequestType),
+				ResponseType:    GetRequestResponseForType(val.Type),
 			}
 
 		default:

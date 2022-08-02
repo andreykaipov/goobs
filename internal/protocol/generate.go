@@ -252,44 +252,98 @@ func generateEvent(event *Event) (s *Statement, err error) {
 	return s, nil
 }
 
-func generateEventSubscriptions(enums []*Enum) {
+type enumFilter func(e *Enum) bool
+
+func generateEventSubscriptions(enums []*Enum, filter enumFilter) {
 	dir := fmt.Sprintf("%s/api/events/subscriptions", root)
 	if err := os.MkdirAll(dir, 0777); err != nil {
 		panic(err)
 	}
 
+	s := Line()
+
 	for _, e := range enums {
-		if e.EnumType != "EventSubscription" {
+		if !filter(e) {
 			continue
 		}
 
 		f := NewFile("subscriptions")
 		f.HeaderComment("This file has been automatically generated. Don't edit it.")
+		f.Add(s)
 
-		for _, subscription := range e.EnumIdentifiers {
-			val := ""
-			switch value := subscription.EnumValue.(type) {
-			case string:
-				val = value
-			default:
-				val = fmt.Sprintf("%v", value)
+		s.Const().DefsFunc(func(g *Group) {
+			for _, x := range e.EnumIdentifiers {
+				id := x.EnumIdentifier
+				fmt.Printf("EventSubscription %s\n", id)
+
+				val := ""
+				switch value := x.EnumValue.(type) {
+				case string:
+					val = value
+				default:
+					val = fmt.Sprintf("%v", value)
+				}
+
+				g.Comment(x.Description)
+				g.Id(id).Op("=").Id(val)
+				g.Line()
 			}
-
-			id := subscription.EnumIdentifier
-			description := subscription.Description
-
-			fmt.Printf("EventSubscription %s\n", id)
-
-			f.Add(
-				Comment(description),
-				Line(),
-				Const().Id(id).Op("=").Id(val),
-			)
-		}
+		})
 
 		if err := f.Save(fmt.Sprintf("%s/xx_generated.subscriptions.go", dir)); err != nil {
 			panic(err)
 		}
+
+		return
+	}
+}
+
+func generateRequestStatuses(enums []*Enum, filter enumFilter) {
+	dir := fmt.Sprintf("%s/api/requests", root)
+	if err := os.MkdirAll(dir, 0777); err != nil {
+		panic(err)
+	}
+
+	s := Line()
+
+	for _, e := range enums {
+		if !filter(e) {
+			continue
+		}
+
+		f := NewFile("requests")
+		f.HeaderComment("This file has been automatically generated. Don't edit it.")
+
+		s.Func().Id("GetStatusForCode").Params(Id("code").Int()).String().Block(
+			Switch(Id("code")).BlockFunc(func(g *Group) {
+				for _, x := range e.EnumIdentifiers {
+					id := x.EnumIdentifier
+					fmt.Printf("RequestStatus %s\n", id)
+
+					val := -69
+					switch value := x.EnumValue.(type) {
+					// json decoder will parse all numbers as floats
+					case float64:
+						val = int(value)
+					default:
+						panic(fmt.Errorf("enum %s has value %#[2]v not an int %[2]T", id, value))
+					}
+
+					g.Case(Lit(val))
+					g.Comment(x.Description)
+					g.Return(Lit(id))
+				}
+				g.Default().Return(Lit("EvenMoreUnknown"))
+			}),
+		)
+
+		f.Add(s)
+
+		if err := f.Save(fmt.Sprintf("%s/xx_generated.request_status.go", dir)); err != nil {
+			panic(err)
+		}
+
+		return
 	}
 }
 

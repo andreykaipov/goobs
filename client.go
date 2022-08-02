@@ -13,7 +13,6 @@ import (
 	"time"
 
 	"github.com/andreykaipov/goobs/api"
-	events "github.com/andreykaipov/goobs/api/events"
 	"github.com/andreykaipov/goobs/api/events/subscriptions"
 	"github.com/andreykaipov/goobs/api/opcodes"
 	"github.com/buger/jsonparser"
@@ -26,19 +25,14 @@ var version = "0.9.0-dev"
 // Client represents a client to an OBS websockets server.
 type Client struct {
 	*api.Client
-
-	// The backing websocket connection to the OBS websocket server.
-	conn *websocket.Conn
-
 	subclients
+	conn               *websocket.Conn
 	host               string
 	password           string
-	debug              *bool
 	dialer             *websocket.Dialer
 	requestHeader      http.Header
-	eventSubscriptions *int
-
-	errors chan error
+	eventSubscriptions int
+	errors             chan error
 }
 
 // Option represents a functional option of a Client.
@@ -46,9 +40,7 @@ type Option func(*Client)
 
 // WithPassword sets the password of a client.
 func WithPassword(x string) Option {
-	return func(o *Client) {
-		o.password = x
-	}
+	return func(o *Client) { o.password = x }
 }
 
 // WithEventSubscriptions specifies the events we'd like to susbcribe to via
@@ -57,17 +49,13 @@ func WithPassword(x string) Option {
 // subscribed, except for events marked as high volume. High volume events must
 // be explicitly subscribed to.
 func WithEventSubscriptions(x int) Option {
-	return func(o *Client) {
-		o.eventSubscriptions = &x
-	}
+	return func(o *Client) { o.eventSubscriptions = x }
 }
 
 // WithLogger sets the logger this library will use. See the logger.Logger
 // interface. Should be compatible with most third-party loggers.
 func WithLogger(x api.Logger) Option {
-	return func(o *Client) {
-		o.Log = x
-	}
+	return func(o *Client) { o.Log = x }
 }
 
 // WithDialer sets the underlying Gorilla WebSocket Dialer (see
@@ -76,27 +64,21 @@ func WithLogger(x api.Logger) Option {
 // not set, it'll use the provided DefaultDialer (see
 // https://pkg.go.dev/github.com/gorilla/websocket#pkg-variables).
 func WithDialer(x *websocket.Dialer) Option {
-	return func(o *Client) {
-		o.dialer = x
-	}
+	return func(o *Client) { o.dialer = x }
 }
 
 // WithRequestHeader sets custom headers our client can send when trying to
 // connect to the WebSockets server, allowing us specify the origin,
 // subprotocols, or the user agent.
 func WithRequestHeader(x http.Header) Option {
-	return func(o *Client) {
-		o.requestHeader = x
-	}
+	return func(o *Client) { o.requestHeader = x }
 }
 
 // WithResponseTimeout sets the time we're willing to wait to receive a response
 // from the server for any request, before responding with an error. It's in
 // milliseconds. The default timeout is 10 seconds.
 func WithResponseTimeout(x time.Duration) Option {
-	return func(o *Client) {
-		o.ResponseTimeout = time.Duration(x)
-	}
+	return func(o *Client) { o.ResponseTimeout = time.Duration(x) }
 }
 
 /*
@@ -120,8 +102,16 @@ It also opens up a connection, so be sure to check the error.
 */
 func New(host string, opts ...Option) (*Client, error) {
 	c := &Client{
+		host:               host,
+		dialer:             websocket.DefaultDialer,
+		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + version}},
+		eventSubscriptions: subscriptions.All,
+		errors:             make(chan error),
 		Client: &api.Client{
-			ResponseTimeout: 10000,
+			IncomingEvents:    make(chan interface{}, 100),
+			IncomingResponses: make(chan *api.ResponsePair),
+			Opcodes:           make(chan opcodes.Opcode),
+			ResponseTimeout:   10000,
 			Log: log.New(
 				&logutils.LevelFilter{
 					Levels:   []logutils.LogLevel{"TRACE", "DEBUG", "INFO", "WARN", "ERROR", ""},
@@ -134,31 +124,11 @@ func New(host string, opts ...Option) (*Client, error) {
 				log.Ltime|log.Lshortfile,
 			),
 		},
-		host: host,
 	}
 
 	for _, opt := range opts {
 		opt(c)
 	}
-
-	if c.dialer == nil {
-		c.dialer = websocket.DefaultDialer
-	}
-	if c.requestHeader == nil {
-		c.requestHeader = http.Header{
-			"User-Agent": []string{"goobs/" + version},
-		}
-	}
-
-	if c.eventSubscriptions == nil {
-		all := subscriptions.All
-		c.eventSubscriptions = &all
-	}
-
-	c.IncomingEvents = make(chan interface{}, 100)
-	c.IncomingResponses = make(chan *api.ResponsePair)
-	c.Opcodes = make(chan opcodes.Opcode)
-	c.errors = make(chan error)
 
 	if err := c.connect(); err != nil {
 		return nil, err
@@ -195,7 +165,8 @@ func (c *Client) connect() (err error) {
 // expose errors as events 🤷
 func (c *Client) handleErrors() {
 	for err := range c.errors {
-		c.writeEvent(events.WrapError(err))
+		c.Log.Printf("[ERROR] %s", err)
+		c.writeEvent(err)
 	}
 }
 
@@ -204,11 +175,15 @@ func (c *Client) handleRawServerMessages() {
 	for {
 		raw := json.RawMessage{}
 		if err := c.conn.ReadJSON(&raw); err != nil {
-			switch err.(type) {
+			switch t := err.(type) {
 			case *websocket.CloseError:
-				c.errors <- fmt.Errorf("[%[1]T] Websocket connection closed: %[1]w", err)
+				// see https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#websocketclosecode
+				// for values the close error might have
+				c.errors <- fmt.Errorf("reading raw message: %w", t)
+				return
 			default:
-				c.errors <- fmt.Errorf("[%[1]T] Couldn't read JSON from websocket connection: %[1]w", err)
+				c.errors <- fmt.Errorf("reading raw message from websocket connection: %w", t)
+				continue
 			}
 		}
 
@@ -263,7 +238,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 				c.Opcodes <- &opcodes.Identify{
 					RPCVersion:         val.RPCVersion,
 					Authentication:     authSecret,
-					EventSubscriptions: *c.eventSubscriptions,
+					EventSubscriptions: c.eventSubscriptions,
 				}
 			}()
 

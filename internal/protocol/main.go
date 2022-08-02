@@ -40,7 +40,8 @@ func main() {
 
 	generateRequests(data.Requests)
 	generateEvents(data.Events)
-	generateEventSubscriptions(data.Enums)
+	generateEventSubscriptions(data.Enums, func(e *Enum) bool { return e.EnumType == "EventSubscription" })
+	generateRequestStatuses(data.Enums, func(e *Enum) bool { return e.EnumType == "RequestStatus" })
 }
 
 func run(cmd string) (string, error) {

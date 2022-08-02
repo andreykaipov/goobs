@@ -188,7 +188,7 @@ func (c *Client) connect() (err error) {
 	case a := <-authComplete:
 		return a
 	case <-time.After(c.ResponseTimeout * time.Millisecond):
-		return fmt.Errorf("timed out authenticating: %dms", c.ResponseTimeout)
+		return fmt.Errorf("timeout waiting for authentication: %dms", c.ResponseTimeout)
 	}
 }
 
@@ -216,24 +216,24 @@ func (c *Client) handleRawServerMessages() {
 
 		op, err := jsonparser.GetInt(raw, "op")
 		if err != nil {
-			c.errors <- fmt.Errorf("opcode missing on message `%s`: %w", raw, err)
+			c.errors <- fmt.Errorf("op missing on message `%s`: %w", raw, err)
 		}
 
 		known := opcodes.GetOpcodeForOp(int(op))
 		if known == nil {
-			c.errors <- fmt.Errorf("no Go type for op %q", op)
+			c.errors <- fmt.Errorf("no Go type for op %d", op)
 		}
 
 		data, _, _, err := jsonparser.Get(raw, "d")
 		if err != nil {
-			c.errors <- fmt.Errorf("data missing on message `%s`: %w", raw, err)
+			c.errors <- fmt.Errorf("d missing on message `%s`: %w", raw, err)
 		}
 
 		if err := json.Unmarshal(data, known); err != nil {
 			c.errors <- fmt.Errorf(
-				"Couldn't unmarshal `%s` into an opcode of %q: %s",
+				"unmarshalling `%s` into type %T: %s",
 				data,
-				op,
+				known,
 				err,
 			)
 		}
@@ -284,14 +284,20 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 
 		case *opcodes.Event:
 			c.Log.Printf("[INFO] Got %s Event", val.EventType)
+			c.Log.Printf("[DEBUG] Event Data: %s", val.EventData)
 
 			event := GetEventForType(val.EventType)
 
-			if err := json.Unmarshal(val.EventData, event); err != nil {
+			var data json.RawMessage
+			if data = val.EventData; data == nil {
+				data = []byte("{}")
+			}
+
+			if err := json.Unmarshal(data, event); err != nil {
 				c.errors <- fmt.Errorf(
-					"Couldn't unmarshal %s into an event type of %q: %s",
+					"unmarshalling `%s` into type %T: %s",
 					val.EventData,
-					val.EventType,
+					event,
 					err,
 				)
 			}

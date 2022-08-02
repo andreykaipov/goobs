@@ -23,16 +23,10 @@ type Client struct {
 	// The time we're willing to wait to receive a response from the server.
 	ResponseTimeout time.Duration
 
-	// Events broadcast by the server when actions happen within OBS.
-	IncomingEvents chan interface{}
-
-	// Raw JSON message responses from the websocket server.
+	IncomingEvents    chan interface{}
 	IncomingResponses chan *ResponsePair
-
-	// Raw JSON message responses from the websocket server.
-	Opcodes chan opcodes.Opcode
-
-	Log Logger
+	Opcodes           chan opcodes.Opcode
+	Log               Logger
 }
 
 // SendRequest abstracts the logic every subclient uses to send a request and

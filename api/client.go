@@ -61,9 +61,9 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 	c.Log.Printf("[INFO] Sending %s Request with ID %s", name, id)
 
 	c.Opcodes <- &opcodes.Request{
-		RequestType: name,
-		RequestID:   id,
-		RequestData: params,
+		Type: name,
+		ID:   id,
+		Data: params,
 	}
 
 	var pair *ResponsePair
@@ -80,16 +80,16 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 	// this is good to check. however, I'm pretty sure a mismatch like this
 	// could only happen in a concurrent context... and I'm pretty sure
 	// gorilla/websocket would panic before then, so... 🤷
-	if response.RequestID != id {
+	if response.ID != id {
 		return nil, fmt.Errorf(
 			"request %s: mismatched ID: expected response with ID %s, but got %s",
 			name,
 			id,
-			response.RequestID,
+			response.ID,
 		)
 	}
 
-	status := response.RequestStatus
+	status := response.Status
 
 	if code := status.Code; code != 100 {
 		return nil, fmt.Errorf(
@@ -101,7 +101,7 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 		)
 	}
 
-	data := response.ResponseData
+	data := response.Data
 
 	if err := json.Unmarshal(data, responseType); err != nil {
 		return nil, fmt.Errorf(

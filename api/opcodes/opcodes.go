@@ -103,26 +103,26 @@ type Reidentify struct {
 // server -> client
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#event-opcode-5
 type Event struct {
-	EventType   string          `json:"eventType"`
-	EventIntent int             `json:"eventIntent"`
-	EventData   json.RawMessage `json:"eventData"`
+	Type   string          `json:"eventType"`
+	Intent int             `json:"eventIntent"`
+	Data   json.RawMessage `json:"eventData"`
 }
 
 // client -> server
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#request-opcode-6
 type Request struct {
-	RequestType string      `json:"requestType"`
-	RequestID   string      `json:"requestId"`
-	RequestData interface{} `json:"requestData,omitempty"`
+	Type string      `json:"requestType"`
+	ID   string      `json:"requestId"`
+	Data interface{} `json:"requestData,omitempty"`
 }
 
 // server -> client
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#requestresponse-opcode-7
 type RequestResponse struct {
-	RequestType   string                `json:"requestType"`
-	RequestID     string                `json:"requestId"`
-	RequestStatus RequestResponseStatus `json:"requestStatus"`
-	ResponseData  json.RawMessage       `json:"responseData,omitempty"`
+	Type   string                `json:"requestType"`
+	ID     string                `json:"requestId"`
+	Status RequestResponseStatus `json:"requestStatus"`
+	Data   json.RawMessage       `json:"responseData,omitempty"`
 }
 type RequestResponseStatus struct {
 	Code    int    `json:"code"`

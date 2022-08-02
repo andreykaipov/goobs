@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/andreykaipov/goobs/api/opcodes"
+	"github.com/andreykaipov/goobs/api/requests"
 	uuid "github.com/nu7hatch/gouuid"
 )
 
@@ -75,7 +76,7 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 	select {
 	case pair = <-c.IncomingResponses:
 	case <-time.After(c.ResponseTimeout * time.Millisecond):
-		return nil, fmt.Errorf("Timed out receiving response from server for request %q", name)
+		return nil, fmt.Errorf("request %s: timeout waiting for response from server", name)
 	}
 
 	response := pair.RequestResponse
@@ -87,7 +88,7 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 	// gorilla/websocket would panic before then, so... 🤷
 	if response.RequestID != id {
 		return nil, fmt.Errorf(
-			"Sent request %s, with message ID %s, but next response in channel has message ID %s",
+			"request %s: mismatched ID: expected response with ID %s, but got %s",
 			name,
 			id,
 			response.RequestID,
@@ -96,10 +97,12 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 
 	status := response.RequestStatus
 
-	if status.Code != 100 {
+	if code := status.Code; code != 100 {
 		return nil, fmt.Errorf(
-			"Got error from OBS executing request %q: %s",
+			"request %s: %s (%d): %s",
 			name,
+			requests.GetStatusForCode(code),
+			code,
 			status.Comment,
 		)
 	}
@@ -108,7 +111,8 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 
 	if err := json.Unmarshal(data, responseType); err != nil {
 		return nil, fmt.Errorf(
-			"Couldn't unmarshal `%s` into an request response type of %q: %s",
+			"request %s: unmarshalling `%s` into type %T: %s",
+			name,
 			data,
 			responseType,
 			err,

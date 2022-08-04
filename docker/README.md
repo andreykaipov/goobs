@@ -20,7 +20,7 @@ or for any other reason you'd like to log into it. The VNC server is bound to
 The most basic usage:
 
 ```console
-❯ docker run --rm -it -p 1234:1234 ghcr.io/andreykaipov/goobs
+❯ docker run --rm -it -p 4444:1234 ghcr.io/andreykaipov/goobs
 ```
 
 Enable VNC:
@@ -38,3 +38,6 @@ Optionally include a password:
 Use some sort of VNC client (e.g. noVNC, RealVNC) to connect to it:
 
 ![Screenshot of a VNC client connected to the headless OBS Docker instance](vnc-example2.png)
+
+
+❯ docker run --rm -it --name obs -p 4444:1234 -e vnc=1 -p 5900:5900 "$(docker build -q docker)"

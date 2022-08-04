@@ -63,6 +63,7 @@ COPY --from=build /lib/libblkid.so.1 /lib/libblkid.so.1
 COPY --from=build /usr/lib /usr/lib
 COPY global.ini /root/.config/obs-studio/global.ini
 COPY basic.ini /root/.config/obs-studio/basic/profiles/docker/basic.ini
+COPY service.json /root/.config/obs-studio/basic/profiles/docker/service.json
 COPY scenes.json /root/.config/obs-studio/basic/scenes/docker.json
 
 ENV LD_LIBRARY_PATH /opt/obs/lib

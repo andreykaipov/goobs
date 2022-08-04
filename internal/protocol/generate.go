@@ -396,7 +396,12 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 		case "Object":
 			fieldType = Interface()
 		case "Boolean":
-			fieldType = Bool()
+			switch origin {
+			case "request":
+				fieldType = Op("*").Bool()
+			default:
+				fieldType = Bool()
+			}
 		case "Any":
 			fieldType = Interface()
 		default:

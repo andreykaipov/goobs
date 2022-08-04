@@ -10,7 +10,7 @@ Scenes and Groups
 */
 type SetSceneItemEnabledParams struct {
 	// New enable state of the scene item
-	SceneItemEnabled bool `json:"sceneItemEnabled,omitempty"`
+	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
 
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`

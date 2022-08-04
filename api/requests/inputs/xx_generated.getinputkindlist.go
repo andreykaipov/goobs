@@ -8,7 +8,7 @@ Gets an array of all available input kinds in OBS.
 */
 type GetInputKindListParams struct {
 	// True == Return all kinds as unversioned, False == Return with version suffixes (if available)
-	Unversioned bool `json:"unversioned,omitempty"`
+	Unversioned *bool `json:"unversioned,omitempty"`
 }
 
 /*

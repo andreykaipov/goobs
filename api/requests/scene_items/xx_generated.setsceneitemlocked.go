@@ -13,7 +13,7 @@ type SetSceneItemLockedParams struct {
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
 
 	// New lock state of the scene item
-	SceneItemLocked bool `json:"sceneItemLocked,omitempty"`
+	SceneItemLocked *bool `json:"sceneItemLocked,omitempty"`
 
 	// Name of the scene the item is in
 	SceneName string `json:"sceneName,omitempty"`

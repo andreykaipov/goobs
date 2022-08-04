@@ -10,7 +10,7 @@ Scenes only
 */
 type CreateSceneItemParams struct {
 	// Enable state to apply to the scene item on creation
-	SceneItemEnabled bool `json:"sceneItemEnabled,omitempty"`
+	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
 
 	// Name of the scene to create the new item in
 	SceneName string `json:"sceneName,omitempty"`

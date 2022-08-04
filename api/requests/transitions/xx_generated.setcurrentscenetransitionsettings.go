@@ -8,7 +8,7 @@ Sets the settings of the current scene transition.
 */
 type SetCurrentSceneTransitionSettingsParams struct {
 	// Whether to overlay over the current settings or replace them
-	Overlay bool `json:"overlay,omitempty"`
+	Overlay *bool `json:"overlay,omitempty"`
 
 	// Settings object to apply to the transition. Can be `{}`
 	TransitionSettings interface{} `json:"transitionSettings,omitempty"`

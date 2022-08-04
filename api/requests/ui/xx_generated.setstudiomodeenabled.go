@@ -8,7 +8,7 @@ Enables or disables studio mode
 */
 type SetStudioModeEnabledParams struct {
 	// True == Enabled, False == Disabled
-	StudioModeEnabled bool `json:"studioModeEnabled,omitempty"`
+	StudioModeEnabled *bool `json:"studioModeEnabled,omitempty"`
 }
 
 /*

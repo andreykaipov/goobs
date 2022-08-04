@@ -3,6 +3,8 @@ package opcodes
 import (
 	"encoding/json"
 	"fmt"
+
+	"github.com/buger/jsonparser"
 )
 
 type Message struct {
@@ -51,6 +53,35 @@ func GetOpcodeForOp(code int) Opcode {
 	}
 
 	return nil
+}
+
+func ParseRawMessage(raw json.RawMessage) (Opcode, error) {
+	op, err := jsonparser.GetInt(raw, "op")
+	if err != nil {
+		// should be impossible because of 4006
+		return nil, fmt.Errorf("op missing on message `%s`: %w", raw, err)
+	}
+
+	known := GetOpcodeForOp(int(op))
+	if known == nil {
+		return nil, fmt.Errorf("no Go type for op %d", op)
+	}
+
+	data, _, _, err := jsonparser.Get(raw, "d")
+	if err != nil {
+		return nil, fmt.Errorf("d missing on message `%s`: %w", raw, err)
+	}
+
+	if err := json.Unmarshal(data, known); err != nil {
+		return nil, fmt.Errorf(
+			"unmarshalling `%s` into type %T: %s",
+			data,
+			known,
+			err,
+		)
+	}
+
+	return known, nil
 }
 
 // Should be safe ignoring any marshalling errors, since the only things we're

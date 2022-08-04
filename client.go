@@ -15,7 +15,6 @@ import (
 	"github.com/andreykaipov/goobs/api"
 	"github.com/andreykaipov/goobs/api/events/subscriptions"
 	"github.com/andreykaipov/goobs/api/opcodes"
-	"github.com/buger/jsonparser"
 	"github.com/gorilla/websocket"
 	"github.com/hashicorp/logutils"
 )
@@ -189,31 +188,12 @@ func (c *Client) handleRawServerMessages() {
 
 		c.Log.Printf("[DEBUG] Raw server message: %s", raw)
 
-		op, err := jsonparser.GetInt(raw, "op")
+		opcode, err := opcodes.ParseRawMessage(raw)
 		if err != nil {
-			c.errors <- fmt.Errorf("op missing on message `%s`: %w", raw, err)
+			c.errors <- fmt.Errorf("parse raw message: %w", err)
 		}
 
-		known := opcodes.GetOpcodeForOp(int(op))
-		if known == nil {
-			c.errors <- fmt.Errorf("no Go type for op %d", op)
-		}
-
-		data, _, _, err := jsonparser.Get(raw, "d")
-		if err != nil {
-			c.errors <- fmt.Errorf("d missing on message `%s`: %w", raw, err)
-		}
-
-		if err := json.Unmarshal(data, known); err != nil {
-			c.errors <- fmt.Errorf(
-				"unmarshalling `%s` into type %T: %s",
-				data,
-				known,
-				err,
-			)
-		}
-
-		c.Opcodes <- known
+		c.Opcodes <- opcode
 	}
 }
 

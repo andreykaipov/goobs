@@ -1,0 +1,11 @@
+{
+  "settings": {
+    "bwtest": false,
+    "key": "blah",
+    "password": "blah",
+    "server": "blah",
+    "use_auth": true,
+    "username": "blah"
+  },
+  "type": "rtmp_custom"
+}

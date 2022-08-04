@@ -34,21 +34,20 @@ type Client struct {
 //
 // To get the response for a sent request, we can just read the next response
 // from our channel. This works fine in a single-threaded context, and the
-// message IDs of both the sent request and response should match.
+// message IDs of both the sent request and response should match. In
+// a concurrent context, this isn't necessarily true, but since
+// gorilla/websocket doesn't handle concurrency (it'll panic; see
+// https://github.com/gorilla/websocket/issues/119), who cares?
 //
-// In a concurrent context, this isn't necessarily true, but since
-// gorilla/websocket doesn't handle concurrency anyways, who cares? We could
-// technically add a mutex in between sending our request and reading from the
-// channel, but ehh...
+// Technically a request ID and response ID mismatch could happen if the server
+// processes requests in a different order it received them (e.g. we should 1,
+// then 2; but it processes 2, and then 1), then yeah... there'll be an error.
+// We could add a mutex wrapping sending our request and reading from the
+// channel, but I personally haven't experienced this yet, so
 //
-// Interestingly, it does seem thread-safe if I use a totally different
-// connection, in that connection A won't get a response from OBS for a request
-// from connection B. So, message IDs must be unique per client? More
-// interestingly, events appear to be broadcast to every client, maybe because
-// they have no associated message ID?
-//
-//
-// https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#request-opcode-6
+// It should be noted multiple connections to the server are totally fine.
+// Phrased differently, mesasge IDs are unique per client. Moreover, events will
+// be broadcast to every client.
 //
 func (c *Client) SendRequest(name string, params interface{}) (interface{}, error) {
 	uid, err := uuid.NewV4()
@@ -76,10 +75,9 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 	response := pair.RequestResponse
 	responseType := pair.ResponseType
 
-	// request ID on response should be a mirror of what the client sent, so
-	// this is good to check. however, I'm pretty sure a mismatch like this
-	// could only happen in a concurrent context... and I'm pretty sure
-	// gorilla/websocket would panic before then, so... 🤷
+	// i'm being overly cautious here making sure the request ID on the
+	// response mirrors what the client sent in the request. see the
+	// function header comment regarding concurrency concerns.
 	if response.ID != id {
 		return nil, fmt.Errorf(
 			"request %s: mismatched ID: expected response with ID %s, but got %s",

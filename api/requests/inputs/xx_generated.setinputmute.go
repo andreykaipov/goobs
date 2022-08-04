@@ -8,7 +8,7 @@ Sets the audio mute state of an input.
 */
 type SetInputMuteParams struct {
 	// Whether to mute the input or not
-	InputMuted bool `json:"inputMuted,omitempty"`
+	InputMuted *bool `json:"inputMuted,omitempty"`
 
 	// Name of the input to set the mute state of
 	InputName string `json:"inputName,omitempty"`

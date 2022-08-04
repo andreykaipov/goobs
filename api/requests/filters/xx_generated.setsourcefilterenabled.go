@@ -8,7 +8,7 @@ Sets the enable state of a source filter.
 */
 type SetSourceFilterEnabledParams struct {
 	// New enable state of the filter
-	FilterEnabled bool `json:"filterEnabled,omitempty"`
+	FilterEnabled *bool `json:"filterEnabled,omitempty"`
 
 	// Name of the filter
 	FilterName string `json:"filterName,omitempty"`

@@ -13,7 +13,7 @@ type SetTBarPositionParams struct {
 	Position float64 `json:"position,omitempty"`
 
 	// Whether to release the TBar. Only set `false` if you know that you will be sending another position update
-	Release bool `json:"release,omitempty"`
+	Release *bool `json:"release,omitempty"`
 }
 
 /*

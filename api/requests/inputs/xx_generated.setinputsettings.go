@@ -15,7 +15,7 @@ type SetInputSettingsParams struct {
 
 	// True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply
 	// settings.
-	Overlay bool `json:"overlay,omitempty"`
+	Overlay *bool `json:"overlay,omitempty"`
 }
 
 /*

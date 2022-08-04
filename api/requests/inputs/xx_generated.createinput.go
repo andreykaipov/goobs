@@ -17,7 +17,7 @@ type CreateInputParams struct {
 	InputSettings interface{} `json:"inputSettings,omitempty"`
 
 	// Whether to set the created scene item to enabled or disabled
-	SceneItemEnabled bool `json:"sceneItemEnabled,omitempty"`
+	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
 
 	// Name of the scene to add the input to as a scene item
 	SceneName string `json:"sceneName,omitempty"`

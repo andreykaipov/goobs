@@ -15,16 +15,16 @@ type TriggerHotkeyByKeySequenceParams struct {
 
 type KeyModifiers struct {
 	// Press ALT
-	Alt bool `json:"alt,omitempty"`
+	Alt *bool `json:"alt,omitempty"`
 
 	// Press CMD (Mac)
-	Command bool `json:"command,omitempty"`
+	Command *bool `json:"command,omitempty"`
 
 	// Press CTRL
-	Control bool `json:"control,omitempty"`
+	Control *bool `json:"control,omitempty"`
 
 	// Press Shift
-	Shift bool `json:"shift,omitempty"`
+	Shift *bool `json:"shift,omitempty"`
 }
 
 /*

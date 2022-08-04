@@ -15,7 +15,7 @@ type SetSourceFilterSettingsParams struct {
 
 	// True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply
 	// settings.
-	Overlay bool `json:"overlay,omitempty"`
+	Overlay *bool `json:"overlay,omitempty"`
 
 	// Name of the source the filter is on
 	SourceName string `json:"sourceName,omitempty"`

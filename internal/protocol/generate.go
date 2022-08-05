@@ -131,7 +131,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = name + "Params"
 	s.Commentf("%s represents the params body for the %q request.\n%s\n", structName, name, request.Description).Line()
 
-	if err = generateStructFromParams("request", s, structName, request.RequestFields); err != nil {
+	if err := generateStructFromParams("request", s, structName, request.RequestFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", name, category)
 	}
 
@@ -139,7 +139,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = name + "Response"
 	s.Commentf("%s represents the response body for the %q request.\n%s\n", structName, name, request.Description).Line()
 
-	if err = generateStructFromParams("response", s, structName, request.ResponseFields); err != nil {
+	if err := generateStructFromParams("response", s, structName, request.ResponseFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", name, category)
 	}
 
@@ -245,7 +245,7 @@ func generateEvent(event *Event) (s *Statement, err error) {
 	s = Line()
 	s.Commentf("%s represents the event body for the %q event.\nSince v%s.", event.EventType, event.EventType, event.InitialVersion).Line()
 
-	if err = generateStructFromParams("event", s, event.EventType, event.DataFields); err != nil {
+	if err := generateStructFromParams("event", s, event.EventType, event.DataFields); err != nil {
 		return nil, fmt.Errorf("Failed generating event %q in category %q", event.EventType, event.Category)
 	}
 
@@ -378,11 +378,6 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 		fvd := f.GetValueDescription()
 		embedded := false
 
-		//fieldName, err := sanitizeText(field.Name)
-		//if err != nil {
-		//	return fmt.Errorf("Failed sanitizing field %#v", field)
-		//}
-
 		var fieldType *Statement
 		switch fvt {
 		case "String":
@@ -391,10 +386,6 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 			fieldType = Index().String()
 		case "Number":
 			fieldType = Float64()
-		case "Array<Object>":
-			fieldType = Index().Interface()
-		case "Object":
-			fieldType = Interface()
 		case "Boolean":
 			switch origin {
 			case "request":
@@ -404,8 +395,34 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 			}
 		case "Any":
 			fieldType = Interface()
+		case "Object":
+			switch fvn {
+			case "inputSettings":
+				fallthrough
+			case "defaultInputSettings":
+				fallthrough
+			case "filterSettings":
+				fallthrough
+			case "defaultFilterSettings":
+				fallthrough
+			case "transitionSettings":
+				fieldType = Map(String()).Interface()
+			default:
+				fieldType = Interface()
+			}
+		case "Array<Object>":
+			switch fvn {
+			default:
+				fieldType = Index().Interface()
+			}
 		default:
 			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, fvn, fvt))
+		}
+
+		if key, keyInfo := handleCommonObjects(origin, fvn, name); keyInfo != nil {
+			fmt.Printf("  > %-25s handled as (or part of) common struct %s\n", fvn, key)
+			keysInfo[key] = *keyInfo
+			continue
 		}
 
 		keysInfo[fvn] = keyInfo{
@@ -417,7 +434,6 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 		}
 	}
 
-	//fmt.Printf("%#v\n", keysInfo)
 	statement, err := parseJenKeysAsStruct(name, keysInfo)
 	if err != nil {
 		return fmt.Errorf("Failed parsing dotted key: %s", err)
@@ -426,4 +442,76 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 	s.Add(statement)
 
 	return nil
+}
+
+func handleCommonObjects(origin, fieldName, structName string) (string, *keyInfo) {
+	type nestedInfo struct {
+		Refer   string
+		Comment string
+		OnlyFor []string // additional requirement to allow us to use different types for the same key prefix
+	}
+
+	// key prefix to manually declared struct in typedefs package
+	lookup := map[string]nestedInfo{
+		"keyModifiers.":         {"KeyModifiers", "Key modifiers to apply", nil},
+		"streamServiceSettings": {"StreamServiceSettings", " ", nil},
+		"inputAudioTracks":      {"InputAudioTracks", "", nil},
+		"sceneItemTransform":    {"SceneItemTransform", "Scene item transform info", nil},
+		"monitors":              {"[]Monitor", "List of detected monitors", nil},
+		"scenes":                {"[]Scene", "", nil},
+		"sceneItems":            {"[]SceneItem", "", nil},
+		"inputs":                {"[]Input", "", nil},
+		"filters":               {"[]Filter", "", nil},
+		"transitions":           {"[]Transition", "", nil},
+		"propertyItems":         {"[]PropertyItem", "", nil},
+		// "settings.":             {"StreamSettings", " ", []string{"GetStreamSettings", "SetStreamSettings"}},
+		// "stream.settings.":      {"StreamSettings", " ", []string{}},
+	}
+
+	valid := func(i nestedInfo) bool {
+		if len(i.OnlyFor) == 0 {
+			return true
+		}
+
+		for _, v := range i.OnlyFor {
+			if strings.HasPrefix(structName, v) {
+				return true
+			}
+		}
+
+		return false
+	}
+
+	for k, info := range lookup {
+		if !valid(info) {
+			continue
+		}
+
+		if strings.HasPrefix(fieldName, k) {
+			k = strings.TrimSuffix(k, ".")
+
+			s := Null()
+			if strings.HasPrefix(info.Refer, "[]") {
+				s = Index()
+				info.Refer = strings.TrimPrefix(info.Refer, "[]")
+			}
+
+			s = s.Op("*").Qual(typedefQualifier(origin), info.Refer)
+
+			return k, &keyInfo{Type: s, Comment: info.Comment, OmitEmpty: true}
+		}
+	}
+
+	return "", nil
+}
+
+// If the origin of the generation is from a typedef, we don't actually need
+// a Qualifier. Saves us repeating this switch/case a bunch
+func typedefQualifier(origin string) string {
+	switch origin {
+	case "typedef":
+		return ""
+	default:
+		return goobs + "/api/typedefs"
+	}
 }

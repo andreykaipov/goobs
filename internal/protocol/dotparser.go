@@ -16,6 +16,7 @@ type keyInfo struct {
 	NoJSONTag bool
 	Embedded  bool
 	OmitEmpty bool
+	Field     Field
 }
 
 func parseJenKeysAsMap(lines map[string]keyInfo) (map[string]interface{}, error) {

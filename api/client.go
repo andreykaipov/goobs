@@ -99,7 +99,13 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 		)
 	}
 
+	// some requests don't have any response fields, and if so they will
+	// return nothing, not even `{}`, so we add that ourselves so the
+	// unmarshalling doesn't fail
 	data := response.Data
+	if data == nil {
+		data = []byte("{}")
+	}
 
 	if err := json.Unmarshal(data, responseType); err != nil {
 		return nil, fmt.Errorf(

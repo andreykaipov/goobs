@@ -86,12 +86,11 @@ open connection. You don't really have to do this as any connections should
 close when your program terminates or interrupts. But here's a function anyways.
 */
 func (c *Client) Disconnect() error {
-	close(c.IncomingResponses)
-	close(c.IncomingEvents)
+	c.Log.Printf("[DEBUG] Sending disconnect message")
 
 	return c.conn.WriteMessage(
 		websocket.CloseMessage,
-		websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""),
+		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Bye"),
 	)
 }
 
@@ -178,7 +177,15 @@ func (c *Client) handleRawServerMessages() {
 			case *websocket.CloseError:
 				// see https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#websocketclosecode
 				// for values the close error might have
-				c.errors <- fmt.Errorf("reading raw message: %w", t)
+				switch t.Code {
+				case websocket.CloseNormalClosure:
+					c.Log.Printf("[DEBUG] Closing connection and channels: %s", t.Text)
+					close(c.IncomingResponses)
+					close(c.IncomingEvents)
+					close(c.Opcodes)
+				default:
+					c.errors <- fmt.Errorf("reading raw message: %w", t)
+				}
 				return
 			default:
 				c.errors <- fmt.Errorf("reading raw message from websocket connection: %w", t)

@@ -35,9 +35,19 @@ Optionally include a password:
 ❯ docker run --rm -it -e vnc=1 -e vnc_password=delicious -p 5900:5900 ghcr.io/andreykaipov/goobs
 ```
 
-Use some sort of VNC client (e.g. noVNC, RealVNC) to connect to it:
+Use some sort of VNC client (e.g. noVNC, VNC Viewer) to connect to it:
 
-![Screenshot of a VNC client connected to the headless OBS Docker instance](vnc-example2.png)
+![Screenshot of a VNC client connected to the headless OBS Docker instance](vnc-example.png)
 
+## configs
 
+We can update the bundled scene and profile configs in this image by syncing the
+configs to our local via `./sync.sh`, after modifying them from OBS itself while
+we are VNC'd in.
+
+A quick way to verify they were bundled correctly is by rerunning the rebuilt
+image. Since copying the configs are last in our layers, this is rather quick:
+
+```console
 ❯ docker run --rm -it --name obs -p 4444:1234 -e vnc=1 -p 5900:5900 "$(docker build -q docker)"
+```

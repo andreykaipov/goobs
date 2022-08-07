@@ -14,7 +14,7 @@ type CreateSourceFilterParams struct {
 	FilterName string `json:"filterName,omitempty"`
 
 	// Settings object to initialize the filter with
-	FilterSettings interface{} `json:"filterSettings,omitempty"`
+	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
 
 	// Name of the source to add the filter to
 	SourceName string `json:"sourceName,omitempty"`

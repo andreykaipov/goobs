@@ -2,6 +2,8 @@
 
 package filters
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetSourceFilterListParams represents the params body for the "GetSourceFilterList" request.
 Gets an array of all of a source's filters.
@@ -16,8 +18,7 @@ GetSourceFilterListResponse represents the response body for the "GetSourceFilte
 Gets an array of all of a source's filters.
 */
 type GetSourceFilterListResponse struct {
-	// Array of filters
-	Filters []interface{} `json:"filters,omitempty"`
+	Filters []*typedefs.Filter `json:"filters,omitempty"`
 }
 
 // GetSourceFilterList sends the corresponding request to the connected OBS WebSockets server.

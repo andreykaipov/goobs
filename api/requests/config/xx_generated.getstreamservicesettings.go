@@ -2,6 +2,8 @@
 
 package config
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetStreamServiceSettingsParams represents the params body for the "GetStreamServiceSettings" request.
 Gets the current stream service settings (stream destination).
@@ -13,8 +15,8 @@ GetStreamServiceSettingsResponse represents the response body for the "GetStream
 Gets the current stream service settings (stream destination).
 */
 type GetStreamServiceSettingsResponse struct {
-	// Stream service settings
-	StreamServiceSettings interface{} `json:"streamServiceSettings,omitempty"`
+	//
+	StreamServiceSettings *typedefs.StreamServiceSettings `json:"streamServiceSettings,omitempty"`
 
 	// Stream service type, like `rtmp_custom` or `rtmp_common`
 	StreamServiceType string `json:"streamServiceType,omitempty"`

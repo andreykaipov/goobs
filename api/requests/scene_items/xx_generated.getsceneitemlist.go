@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetSceneItemListParams represents the params body for the "GetSceneItemList" request.
 Gets a list of all scene items in a scene.
@@ -20,8 +22,7 @@ Gets a list of all scene items in a scene.
 Scenes only
 */
 type GetSceneItemListResponse struct {
-	// Array of scene items in the scene
-	SceneItems []interface{} `json:"sceneItems,omitempty"`
+	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
 }
 
 // GetSceneItemList sends the corresponding request to the connected OBS WebSockets server.

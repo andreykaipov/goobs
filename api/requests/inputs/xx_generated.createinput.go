@@ -14,7 +14,7 @@ type CreateInputParams struct {
 	InputName string `json:"inputName,omitempty"`
 
 	// Settings object to initialize the input with
-	InputSettings interface{} `json:"inputSettings,omitempty"`
+	InputSettings map[string]interface{} `json:"inputSettings,omitempty"`
 
 	// Whether to set the created scene item to enabled or disabled
 	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`

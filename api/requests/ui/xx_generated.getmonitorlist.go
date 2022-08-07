@@ -2,6 +2,8 @@
 
 package ui
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetMonitorListParams represents the params body for the "GetMonitorList" request.
 Gets a list of connected monitors and information about them.
@@ -13,8 +15,8 @@ GetMonitorListResponse represents the response body for the "GetMonitorList" req
 Gets a list of connected monitors and information about them.
 */
 type GetMonitorListResponse struct {
-	// a list of detected monitors with some information
-	Monitors []interface{} `json:"monitors,omitempty"`
+	// List of detected monitors
+	Monitors []*typedefs.Monitor `json:"monitors,omitempty"`
 }
 
 // GetMonitorList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

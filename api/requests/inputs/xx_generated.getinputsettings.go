@@ -24,7 +24,7 @@ type GetInputSettingsResponse struct {
 	InputKind string `json:"inputKind,omitempty"`
 
 	// Object of settings for the input
-	InputSettings interface{} `json:"inputSettings,omitempty"`
+	InputSettings map[string]interface{} `json:"inputSettings,omitempty"`
 }
 
 // GetInputSettings sends the corresponding request to the connected OBS WebSockets server.

@@ -2,11 +2,12 @@
 
 package events
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 InputVolumeMeters represents the event body for the "InputVolumeMeters" event.
 Since v5.0.0.
 */
 type InputVolumeMeters struct {
-	// Array of active inputs with their associated volume levels
-	Inputs []interface{} `json:"inputs,omitempty"`
+	Inputs []*typedefs.Input `json:"inputs,omitempty"`
 }

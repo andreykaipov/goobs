@@ -17,7 +17,7 @@ Gets the default settings for an input kind.
 */
 type GetInputDefaultSettingsResponse struct {
 	// Object of default settings for the input kind
-	DefaultInputSettings interface{} `json:"defaultInputSettings,omitempty"`
+	DefaultInputSettings map[string]interface{} `json:"defaultInputSettings,omitempty"`
 }
 
 // GetInputDefaultSettings sends the corresponding request to the connected OBS WebSockets server.

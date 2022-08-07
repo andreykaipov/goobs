@@ -2,6 +2,8 @@
 
 package transitions
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetSceneTransitionListParams represents the params body for the "GetSceneTransitionList" request.
 Gets an array of all scene transitions in OBS.
@@ -19,8 +21,7 @@ type GetSceneTransitionListResponse struct {
 	// Name of the current scene transition. Can be null
 	CurrentSceneTransitionName string `json:"currentSceneTransitionName,omitempty"`
 
-	// Array of transitions
-	Transitions []interface{} `json:"transitions,omitempty"`
+	Transitions []*typedefs.Transition `json:"transitions,omitempty"`
 }
 
 // GetSceneTransitionList sends the corresponding request to the connected OBS WebSockets server. Note the variadic

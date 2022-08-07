@@ -29,7 +29,7 @@ type GetCurrentSceneTransitionResponse struct {
 	TransitionName string `json:"transitionName,omitempty"`
 
 	// Object of settings for the transition. `null` if transition is not configurable
-	TransitionSettings interface{} `json:"transitionSettings,omitempty"`
+	TransitionSettings map[string]interface{} `json:"transitionSettings,omitempty"`
 }
 
 // GetCurrentSceneTransition sends the corresponding request to the connected OBS WebSockets server. Note the variadic

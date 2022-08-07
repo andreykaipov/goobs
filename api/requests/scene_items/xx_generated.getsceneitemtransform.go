@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetSceneItemTransformParams represents the params body for the "GetSceneItemTransform" request.
 Gets the transform and crop info of a scene item.
@@ -23,8 +25,8 @@ Gets the transform and crop info of a scene item.
 Scenes and Groups
 */
 type GetSceneItemTransformResponse struct {
-	// Object containing scene item transform info
-	SceneItemTransform interface{} `json:"sceneItemTransform,omitempty"`
+	// Scene item transform info
+	SceneItemTransform *typedefs.SceneItemTransform `json:"sceneItemTransform,omitempty"`
 }
 
 // GetSceneItemTransform sends the corresponding request to the connected OBS WebSockets server.

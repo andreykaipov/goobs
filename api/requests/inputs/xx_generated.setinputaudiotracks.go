@@ -2,13 +2,14 @@
 
 package inputs
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 SetInputAudioTracksParams represents the params body for the "SetInputAudioTracks" request.
 Sets the enable state of audio tracks of an input.
 */
 type SetInputAudioTracksParams struct {
-	// Track settings to apply
-	InputAudioTracks interface{} `json:"inputAudioTracks,omitempty"`
+	InputAudioTracks *typedefs.InputAudioTracks `json:"inputAudioTracks,omitempty"`
 
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

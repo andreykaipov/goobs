@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetGroupItemListParams represents the params body for the "GetGroupItemList" request.
 Basically GetSceneItemList, but for groups.
@@ -24,8 +26,7 @@ Using groups at all in OBS is discouraged, as they are very broken under the hoo
 Groups only
 */
 type GetGroupItemListResponse struct {
-	// Array of scene items in the group
-	SceneItems []interface{} `json:"sceneItems,omitempty"`
+	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
 }
 
 // GetGroupItemList sends the corresponding request to the connected OBS WebSockets server.

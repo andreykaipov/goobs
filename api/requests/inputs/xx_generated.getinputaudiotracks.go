@@ -2,6 +2,8 @@
 
 package inputs
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetInputAudioTracksParams represents the params body for the "GetInputAudioTracks" request.
 Gets the enable state of all audio tracks of an input.
@@ -16,8 +18,7 @@ GetInputAudioTracksResponse represents the response body for the "GetInputAudioT
 Gets the enable state of all audio tracks of an input.
 */
 type GetInputAudioTracksResponse struct {
-	// Object of audio tracks and associated enable states
-	InputAudioTracks interface{} `json:"inputAudioTracks,omitempty"`
+	InputAudioTracks *typedefs.InputAudioTracks `json:"inputAudioTracks,omitempty"`
 }
 
 // GetInputAudioTracks sends the corresponding request to the connected OBS WebSockets server.

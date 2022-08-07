@@ -8,7 +8,7 @@ Since v5.0.0.
 */
 type SourceFilterCreated struct {
 	// The default settings for the filter
-	DefaultFilterSettings interface{} `json:"defaultFilterSettings,omitempty"`
+	DefaultFilterSettings map[string]interface{} `json:"defaultFilterSettings,omitempty"`
 
 	// Index position of the filter
 	FilterIndex float64 `json:"filterIndex,omitempty"`
@@ -20,7 +20,7 @@ type SourceFilterCreated struct {
 	FilterName string `json:"filterName,omitempty"`
 
 	// The settings configured to the filter when it was created
-	FilterSettings interface{} `json:"filterSettings,omitempty"`
+	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
 
 	// Name of the source the filter was added to
 	SourceName string `json:"sourceName,omitempty"`

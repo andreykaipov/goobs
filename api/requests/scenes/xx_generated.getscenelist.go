@@ -2,6 +2,8 @@
 
 package scenes
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetSceneListParams represents the params body for the "GetSceneList" request.
 Gets an array of all scenes in OBS.
@@ -19,8 +21,7 @@ type GetSceneListResponse struct {
 	// Current program scene
 	CurrentProgramSceneName string `json:"currentProgramSceneName,omitempty"`
 
-	// Array of scenes
-	Scenes []interface{} `json:"scenes,omitempty"`
+	Scenes []*typedefs.Scene `json:"scenes,omitempty"`
 }
 
 // GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

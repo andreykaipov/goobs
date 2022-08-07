@@ -17,7 +17,7 @@ Gets the default settings for a filter kind.
 */
 type GetSourceFilterDefaultSettingsResponse struct {
 	// Object of default settings for the filter kind
-	DefaultFilterSettings interface{} `json:"defaultFilterSettings,omitempty"`
+	DefaultFilterSettings map[string]interface{} `json:"defaultFilterSettings,omitempty"`
 }
 
 // GetSourceFilterDefaultSettings sends the corresponding request to the connected OBS WebSockets server.

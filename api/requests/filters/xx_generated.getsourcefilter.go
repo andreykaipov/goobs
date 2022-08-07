@@ -29,7 +29,7 @@ type GetSourceFilterResponse struct {
 	FilterKind string `json:"filterKind,omitempty"`
 
 	// Settings object associated with the filter
-	FilterSettings interface{} `json:"filterSettings,omitempty"`
+	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
 }
 
 // GetSourceFilter sends the corresponding request to the connected OBS WebSockets server.

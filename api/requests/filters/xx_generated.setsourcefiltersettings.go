@@ -11,7 +11,7 @@ type SetSourceFilterSettingsParams struct {
 	FilterName string `json:"filterName,omitempty"`
 
 	// Object of settings to apply
-	FilterSettings interface{} `json:"filterSettings,omitempty"`
+	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
 
 	// True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply
 	// settings.

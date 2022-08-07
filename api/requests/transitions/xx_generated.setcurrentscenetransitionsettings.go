@@ -11,7 +11,7 @@ type SetCurrentSceneTransitionSettingsParams struct {
 	Overlay *bool `json:"overlay,omitempty"`
 
 	// Settings object to apply to the transition. Can be `{}`
-	TransitionSettings interface{} `json:"transitionSettings,omitempty"`
+	TransitionSettings map[string]interface{} `json:"transitionSettings,omitempty"`
 }
 
 /*

@@ -2,6 +2,8 @@
 
 package config
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 SetStreamServiceSettingsParams represents the params body for the "SetStreamServiceSettings" request.
 Sets the current stream service settings (stream destination).
@@ -9,8 +11,8 @@ Sets the current stream service settings (stream destination).
 Note: Simple RTMP settings can be set with type `rtmp_custom` and the settings fields `server` and `key`.
 */
 type SetStreamServiceSettingsParams struct {
-	// Settings to apply to the service
-	StreamServiceSettings interface{} `json:"streamServiceSettings,omitempty"`
+	//
+	StreamServiceSettings *typedefs.StreamServiceSettings `json:"streamServiceSettings,omitempty"`
 
 	// Type of stream service to apply. Example: `rtmp_common` or `rtmp_custom`
 	StreamServiceType string `json:"streamServiceType,omitempty"`

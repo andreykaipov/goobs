@@ -11,7 +11,7 @@ type SetInputSettingsParams struct {
 	InputName string `json:"inputName,omitempty"`
 
 	// Object of settings to apply
-	InputSettings interface{} `json:"inputSettings,omitempty"`
+	InputSettings map[string]interface{} `json:"inputSettings,omitempty"`
 
 	// True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply
 	// settings.

@@ -2,6 +2,8 @@
 
 package inputs
 
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+
 /*
 GetInputListParams represents the params body for the "GetInputList" request.
 Gets an array of all inputs in OBS.
@@ -16,8 +18,7 @@ GetInputListResponse represents the response body for the "GetInputList" request
 Gets an array of all inputs in OBS.
 */
 type GetInputListResponse struct {
-	// Array of inputs
-	Inputs []interface{} `json:"inputs,omitempty"`
+	Inputs []*typedefs.Input `json:"inputs,omitempty"`
 }
 
 // GetInputList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as

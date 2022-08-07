@@ -91,11 +91,16 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 
 	if code := status.Code; code != 100 {
 		return nil, fmt.Errorf(
-			"request %s: %s (%d): %s",
+			"request %s: %s (%d)%s",
 			name,
 			requests.GetStatusForCode(code),
 			code,
-			status.Comment,
+			func() (s string) {
+				if status.Comment != "" {
+					s = ": " + status.Comment
+				}
+				return
+			}(),
 		)
 	}
 

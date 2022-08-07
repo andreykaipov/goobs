@@ -179,12 +179,9 @@ func (c *Client) handleRawServerMessages() {
 				// for values the close error might have
 				switch t.Code {
 				case websocket.CloseNormalClosure:
-					c.Log.Printf("[DEBUG] Closing connection and channels: %s", t.Text)
-					close(c.IncomingResponses)
-					close(c.IncomingEvents)
-					close(c.Opcodes)
+					c.Log.Printf("[DEBUG] Closing connection: %s", t.Text)
 				default:
-					c.errors <- fmt.Errorf("reading raw message: %w", t)
+					c.errors <- fmt.Errorf("reading raw message: closed: %w", t)
 				}
 				return
 			default:

@@ -107,7 +107,7 @@ func New(host string, opts ...Option) (*Client, error) {
 		errors:             make(chan error),
 		Client: &api.Client{
 			IncomingEvents:    make(chan interface{}, 100),
-			IncomingResponses: make(chan *api.ResponsePair),
+			IncomingResponses: make(chan *opcodes.RequestResponse),
 			Opcodes:           make(chan opcodes.Opcode),
 			ResponseTimeout:   10000,
 			Log: log.New(
@@ -175,8 +175,8 @@ func (c *Client) handleRawServerMessages() {
 		if err := c.conn.ReadJSON(&raw); err != nil {
 			switch t := err.(type) {
 			case *websocket.CloseError:
-				// see https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#websocketclosecode
-				// for values the close error might have
+				// for values the close error might have, see
+				// https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#websocketclosecode
 				switch t.Code {
 				case websocket.CloseNormalClosure:
 					c.Log.Printf("[DEBUG] Closing connection: %s", t.Text)
@@ -274,10 +274,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 		case *opcodes.RequestResponse:
 			c.Log.Printf("[INFO] Got %s Response for ID %s (%d)", val.Type, val.ID, val.Status.Code)
 
-			c.IncomingResponses <- &api.ResponsePair{
-				RequestResponse: val,
-				ResponseType:    GetRequestResponseForType(val.Type),
-			}
+			c.IncomingResponses <- val
 
 		default:
 			c.errors <- fmt.Errorf("unhandled opcode %T", op)

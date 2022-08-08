@@ -135,6 +135,13 @@ func generateRequest(request *Request) (s *Statement, err error) {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", name, category)
 	}
 
+	s.Add(
+		Commentf("Returns the associated request.").Line(),
+		Func().Params(Id("o").Op("*").Id(structName)).Id("GetRequestName").Params().String().Block(
+			Return(Lit(request.RequestType)),
+		).Line(),
+	)
+
 	// Returns
 	structName = name + "Response"
 	s.Commentf("Represents the response body for the %s request.", name).Line()
@@ -174,14 +181,8 @@ func generateRequest(request *Request) (s *Statement, err error) {
 			z.Line()
 			z.Id("params").Op(":=").Id("paramss").Index(Lit(0))
 		}),
-		List(Id("resp"), Id("err")).Op(":=").Id("c").Dot("SendRequest").Call(
-			Lit(name),
-			Id("params"),
-		),
-		If(Id("err").Op("!=").Nil()).Block(
-			Return().List(Nil(), Id("err")),
-		),
-		Return().List(Id("resp").Assert(Op("*").Id(name+"Response")), Nil()),
+		Id("data").Op(":=").Op("&").Id(name+"Response").Values(),
+		Return().List(Id("data"), Id("c").Dot("SendRequest").Call(Id("params"), Id("data"))),
 	)
 
 	return s, nil

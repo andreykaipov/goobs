@@ -129,7 +129,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 
 	// Params
 	structName = name + "Params"
-	s.Commentf("%s represents the params body for the %q request.\n%s\n", structName, name, request.Description).Line()
+	s.Commentf("Represents the request body for the %s request.", name).Line()
 
 	if err := generateStructFromParams("request", s, structName, request.RequestFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Params' for request %q in category %q", name, category)
@@ -137,7 +137,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 
 	// Returns
 	structName = name + "Response"
-	s.Commentf("%s represents the response body for the %q request.\n%s\n", structName, name, request.Description).Line()
+	s.Commentf("Represents the response body for the %s request.", name).Line()
 
 	if err := generateStructFromParams("response", s, structName, request.ResponseFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", name, category)
@@ -155,12 +155,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	varargs := len(request.RequestFields) == 0 || allOptional
 	hasRequiredArgs := !varargs
 
-	s.Commentf("%s sends the corresponding request to the connected OBS WebSockets server.", name).Do(func(z *Statement) {
-		if hasRequiredArgs {
-			return
-		}
-		z.Id("Note the variadic arguments as this request doesn't require any parameters.")
-	})
+	s.Commentf("%s", request.Description)
 	s.Line()
 	s.Func().Params(Id("c").Op("*").Id("Client")).Id(name).ParamsFunc(func(g *Group) {
 		if hasRequiredArgs {
@@ -243,7 +238,7 @@ func generateEvent(event *Event) (s *Statement, err error) {
 	fmt.Printf("Event %s %s\n", event.Category, event.EventType)
 
 	s = Line()
-	s.Commentf("%s represents the event body for the %q event.\nSince v%s.", event.EventType, event.EventType, event.InitialVersion).Line()
+	s.Commentf("Represents the event body for the %s event.", event.EventType).Line()
 
 	if err := generateStructFromParams("event", s, event.EventType, event.DataFields); err != nil {
 		return nil, fmt.Errorf("Failed generating event %q in category %q", event.EventType, event.Category)

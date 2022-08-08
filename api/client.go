@@ -10,10 +10,7 @@ import (
 	uuid "github.com/nu7hatch/gouuid"
 )
 
-type ResponsePair struct {
-	*opcodes.RequestResponse
-	ResponseType interface{}
-}
+type Params interface{ GetRequestName() string }
 
 // Client represents a requests client to the OBS websocket server. Its
 // intention is to provide a means of communication between the top-level client
@@ -24,7 +21,7 @@ type Client struct {
 	ResponseTimeout time.Duration
 
 	IncomingEvents    chan interface{}
-	IncomingResponses chan *ResponsePair
+	IncomingResponses chan *opcodes.RequestResponse
 	Opcodes           chan opcodes.Opcode
 	Log               Logger
 }
@@ -49,12 +46,13 @@ type Client struct {
 // Phrased differently, mesasge IDs are unique per client. Moreover, events will
 // be broadcast to every client.
 //
-func (c *Client) SendRequest(name string, params interface{}) (interface{}, error) {
+func (c *Client) SendRequest(requestBody Params, responseBody interface{}) error {
 	uid, err := uuid.NewV4()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
+	name := requestBody.GetRequestName()
 	id := uid.String()
 
 	c.Log.Printf("[INFO] Sending %s Request with ID %s", name, id)
@@ -62,24 +60,21 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 	c.Opcodes <- &opcodes.Request{
 		Type: name,
 		ID:   id,
-		Data: params,
+		Data: requestBody,
 	}
 
-	var pair *ResponsePair
+	var response *opcodes.RequestResponse
 	select {
-	case pair = <-c.IncomingResponses:
+	case response = <-c.IncomingResponses:
 	case <-time.After(c.ResponseTimeout * time.Millisecond):
-		return nil, fmt.Errorf("request %s: timeout waiting for response from server", name)
+		return fmt.Errorf("request %s: timeout waiting for response from server", name)
 	}
-
-	response := pair.RequestResponse
-	responseType := pair.ResponseType
 
 	// i'm being overly cautious here making sure the request ID on the
 	// response mirrors what the client sent in the request. see the
 	// function header comment regarding concurrency concerns.
 	if response.ID != id {
-		return nil, fmt.Errorf(
+		return fmt.Errorf(
 			"request %s: mismatched ID: expected response with ID %s, but got %s",
 			name,
 			id,
@@ -90,7 +85,7 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 	status := response.Status
 
 	if code := status.Code; code != 100 {
-		return nil, fmt.Errorf(
+		return fmt.Errorf(
 			"request %s: %s (%d)%s",
 			name,
 			requests.GetStatusForCode(code),
@@ -112,15 +107,15 @@ func (c *Client) SendRequest(name string, params interface{}) (interface{}, erro
 		data = []byte("{}")
 	}
 
-	if err := json.Unmarshal(data, responseType); err != nil {
-		return nil, fmt.Errorf(
+	if err := json.Unmarshal(data, responseBody); err != nil {
+		return fmt.Errorf(
 			"request %s: unmarshalling `%s` into type %T: %s",
 			name,
 			data,
-			responseType,
+			responseBody,
 			err,
 		)
 	}
 
-	return responseType, nil
+	return nil
 }

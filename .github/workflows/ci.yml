@@ -7,27 +7,23 @@ on:
     branches: [master]
 
 jobs:
-  unit:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-go@v2
       with: {go-version: ^1}
-    - run: make unit
-  e2e:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-go@v2
-      with: {go-version: ^1}
-    - run: make e2e
+    - run: |
+        make test
   generate:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-go@v2
       with: {go-version: ^1}
-    - run: make generate
+    - run: |
+        make clean
+        make generate
     - name: Check if there's any changes
       if: success()
       run: |
@@ -39,6 +35,7 @@ jobs:
             echo
             echo "Untracked:"
             echo "$untracked"
+
+            git diff
             exit 1
         fi
-        exit 0

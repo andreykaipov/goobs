@@ -2,8 +2,8 @@ help:
 	@echo "Please specify a task:"
 	@awk -F: '/^[^\t#$$]+:[^=]+?$$/ {print "-",$$1}' Makefile
 
+.PHONY: test
 test: test.unit test.functional
-
 test.unit:
 	cd internal; go test -v -count 1 ./...
 test.functional:
@@ -17,6 +17,8 @@ generate:
 format:
 	go install github.com/segmentio/golines@latest
 	golines --shorten-comments --max-len=120 --reformat-tags --write-output *.go api
+	go install golang.org/x/tools/cmd/goimports@latest
+	go list -f '{{.Dir}}' ./... | xargs goimports -w
 
 clean:
 	find . -regextype awk -regex "./cover.+(out|html)" | xargs rm -f

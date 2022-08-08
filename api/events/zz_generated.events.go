@@ -1,115 +1,113 @@
 // This file has been automatically generated. Don't edit it.
 
-package goobs
+package events
 
-import events "github.com/andreykaipov/goobs/api/events"
-
-func GetEventForType(name string) interface{} {
+func GetType(name string) interface{} {
 	switch name {
 	case "CurrentSceneCollectionChanging":
-		return &events.CurrentSceneCollectionChanging{}
+		return &CurrentSceneCollectionChanging{}
 	case "CurrentSceneCollectionChanged":
-		return &events.CurrentSceneCollectionChanged{}
+		return &CurrentSceneCollectionChanged{}
 	case "SceneCollectionListChanged":
-		return &events.SceneCollectionListChanged{}
+		return &SceneCollectionListChanged{}
 	case "CurrentProfileChanging":
-		return &events.CurrentProfileChanging{}
+		return &CurrentProfileChanging{}
 	case "CurrentProfileChanged":
-		return &events.CurrentProfileChanged{}
+		return &CurrentProfileChanged{}
 	case "ProfileListChanged":
-		return &events.ProfileListChanged{}
+		return &ProfileListChanged{}
 	case "SourceFilterListReindexed":
-		return &events.SourceFilterListReindexed{}
+		return &SourceFilterListReindexed{}
 	case "SourceFilterCreated":
-		return &events.SourceFilterCreated{}
+		return &SourceFilterCreated{}
 	case "SourceFilterRemoved":
-		return &events.SourceFilterRemoved{}
+		return &SourceFilterRemoved{}
 	case "SourceFilterNameChanged":
-		return &events.SourceFilterNameChanged{}
+		return &SourceFilterNameChanged{}
 	case "SourceFilterEnableStateChanged":
-		return &events.SourceFilterEnableStateChanged{}
+		return &SourceFilterEnableStateChanged{}
 	case "ExitStarted":
-		return &events.ExitStarted{}
+		return &ExitStarted{}
 	case "InputCreated":
-		return &events.InputCreated{}
+		return &InputCreated{}
 	case "InputRemoved":
-		return &events.InputRemoved{}
+		return &InputRemoved{}
 	case "InputNameChanged":
-		return &events.InputNameChanged{}
+		return &InputNameChanged{}
 	case "InputActiveStateChanged":
-		return &events.InputActiveStateChanged{}
+		return &InputActiveStateChanged{}
 	case "InputShowStateChanged":
-		return &events.InputShowStateChanged{}
+		return &InputShowStateChanged{}
 	case "InputMuteStateChanged":
-		return &events.InputMuteStateChanged{}
+		return &InputMuteStateChanged{}
 	case "InputVolumeChanged":
-		return &events.InputVolumeChanged{}
+		return &InputVolumeChanged{}
 	case "InputAudioBalanceChanged":
-		return &events.InputAudioBalanceChanged{}
+		return &InputAudioBalanceChanged{}
 	case "InputAudioSyncOffsetChanged":
-		return &events.InputAudioSyncOffsetChanged{}
+		return &InputAudioSyncOffsetChanged{}
 	case "InputAudioTracksChanged":
-		return &events.InputAudioTracksChanged{}
+		return &InputAudioTracksChanged{}
 	case "InputAudioMonitorTypeChanged":
-		return &events.InputAudioMonitorTypeChanged{}
+		return &InputAudioMonitorTypeChanged{}
 	case "InputVolumeMeters":
-		return &events.InputVolumeMeters{}
+		return &InputVolumeMeters{}
 	case "MediaInputPlaybackStarted":
-		return &events.MediaInputPlaybackStarted{}
+		return &MediaInputPlaybackStarted{}
 	case "MediaInputPlaybackEnded":
-		return &events.MediaInputPlaybackEnded{}
+		return &MediaInputPlaybackEnded{}
 	case "MediaInputActionTriggered":
-		return &events.MediaInputActionTriggered{}
+		return &MediaInputActionTriggered{}
 	case "StreamStateChanged":
-		return &events.StreamStateChanged{}
+		return &StreamStateChanged{}
 	case "RecordStateChanged":
-		return &events.RecordStateChanged{}
+		return &RecordStateChanged{}
 	case "ReplayBufferStateChanged":
-		return &events.ReplayBufferStateChanged{}
+		return &ReplayBufferStateChanged{}
 	case "VirtualcamStateChanged":
-		return &events.VirtualcamStateChanged{}
+		return &VirtualcamStateChanged{}
 	case "ReplayBufferSaved":
-		return &events.ReplayBufferSaved{}
+		return &ReplayBufferSaved{}
 	case "SceneItemCreated":
-		return &events.SceneItemCreated{}
+		return &SceneItemCreated{}
 	case "SceneItemRemoved":
-		return &events.SceneItemRemoved{}
+		return &SceneItemRemoved{}
 	case "SceneItemListReindexed":
-		return &events.SceneItemListReindexed{}
+		return &SceneItemListReindexed{}
 	case "SceneItemEnableStateChanged":
-		return &events.SceneItemEnableStateChanged{}
+		return &SceneItemEnableStateChanged{}
 	case "SceneItemLockStateChanged":
-		return &events.SceneItemLockStateChanged{}
+		return &SceneItemLockStateChanged{}
 	case "SceneItemSelected":
-		return &events.SceneItemSelected{}
+		return &SceneItemSelected{}
 	case "SceneItemTransformChanged":
-		return &events.SceneItemTransformChanged{}
+		return &SceneItemTransformChanged{}
 	case "SceneCreated":
-		return &events.SceneCreated{}
+		return &SceneCreated{}
 	case "SceneRemoved":
-		return &events.SceneRemoved{}
+		return &SceneRemoved{}
 	case "SceneNameChanged":
-		return &events.SceneNameChanged{}
+		return &SceneNameChanged{}
 	case "CurrentProgramSceneChanged":
-		return &events.CurrentProgramSceneChanged{}
+		return &CurrentProgramSceneChanged{}
 	case "CurrentPreviewSceneChanged":
-		return &events.CurrentPreviewSceneChanged{}
+		return &CurrentPreviewSceneChanged{}
 	case "SceneListChanged":
-		return &events.SceneListChanged{}
+		return &SceneListChanged{}
 	case "CurrentSceneTransitionChanged":
-		return &events.CurrentSceneTransitionChanged{}
+		return &CurrentSceneTransitionChanged{}
 	case "CurrentSceneTransitionDurationChanged":
-		return &events.CurrentSceneTransitionDurationChanged{}
+		return &CurrentSceneTransitionDurationChanged{}
 	case "SceneTransitionStarted":
-		return &events.SceneTransitionStarted{}
+		return &SceneTransitionStarted{}
 	case "SceneTransitionEnded":
-		return &events.SceneTransitionEnded{}
+		return &SceneTransitionEnded{}
 	case "SceneTransitionVideoEnded":
-		return &events.SceneTransitionVideoEnded{}
+		return &SceneTransitionVideoEnded{}
 	case "StudioModeStateChanged":
-		return &events.StudioModeStateChanged{}
+		return &StudioModeStateChanged{}
 	case "VendorEvent":
-		return &events.VendorEvent{}
+		return &VendorEvent{}
 	default:
 		return nil
 	}

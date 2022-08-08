@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/andreykaipov/goobs/api"
+	"github.com/andreykaipov/goobs/api/events"
 	"github.com/andreykaipov/goobs/api/events/subscriptions"
 	"github.com/andreykaipov/goobs/api/opcodes"
 	"github.com/gorilla/websocket"
@@ -245,7 +246,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			c.Log.Printf("[INFO] Got %s Event", val.Type)
 			c.Log.Printf("[DEBUG] Event Data: %s", val.Data)
 
-			event := GetEventForType(val.Type)
+			event := events.GetType(val.Type)
 
 			var data json.RawMessage
 			if data = val.Data; data == nil {

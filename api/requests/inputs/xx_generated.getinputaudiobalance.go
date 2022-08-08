@@ -2,29 +2,25 @@
 
 package inputs
 
-/*
-GetInputAudioBalanceParams represents the params body for the "GetInputAudioBalance" request.
-Gets the audio balance of an input.
-*/
+// Represents the request body for the GetInputAudioBalance request.
 type GetInputAudioBalanceParams struct {
 	// Name of the input to get the audio balance of
 	InputName string `json:"inputName,omitempty"`
 }
 
-/*
-GetInputAudioBalanceResponse represents the response body for the "GetInputAudioBalance" request.
-Gets the audio balance of an input.
-*/
+// Returns the associated request.
+func (o *GetInputAudioBalanceParams) GetRequestName() string {
+	return "GetInputAudioBalance"
+}
+
+// Represents the response body for the GetInputAudioBalance request.
 type GetInputAudioBalanceResponse struct {
 	// Audio balance value from 0.0-1.0
 	InputAudioBalance float64 `json:"inputAudioBalance,omitempty"`
 }
 
-// GetInputAudioBalance sends the corresponding request to the connected OBS WebSockets server.
+// Gets the audio balance of an input.
 func (c *Client) GetInputAudioBalance(params *GetInputAudioBalanceParams) (*GetInputAudioBalanceResponse, error) {
-	resp, err := c.SendRequest("GetInputAudioBalance", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetInputAudioBalanceResponse), nil
+	data := &GetInputAudioBalanceResponse{}
+	return data, c.SendRequest(params, data)
 }

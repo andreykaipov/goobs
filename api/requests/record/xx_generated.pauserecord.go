@@ -2,28 +2,23 @@
 
 package record
 
-/*
-PauseRecordParams represents the params body for the "PauseRecord" request.
-Pauses the record output.
-*/
+// Represents the request body for the PauseRecord request.
 type PauseRecordParams struct{}
 
-/*
-PauseRecordResponse represents the response body for the "PauseRecord" request.
-Pauses the record output.
-*/
+// Returns the associated request.
+func (o *PauseRecordParams) GetRequestName() string {
+	return "PauseRecord"
+}
+
+// Represents the response body for the PauseRecord request.
 type PauseRecordResponse struct{}
 
-// PauseRecord sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Pauses the record output.
 func (c *Client) PauseRecord(paramss ...*PauseRecordParams) (*PauseRecordResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*PauseRecordParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("PauseRecord", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*PauseRecordResponse), nil
+	data := &PauseRecordResponse{}
+	return data, c.SendRequest(params, data)
 }

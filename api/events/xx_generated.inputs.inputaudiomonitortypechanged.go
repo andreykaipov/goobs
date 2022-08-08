@@ -2,10 +2,7 @@
 
 package events
 
-/*
-InputAudioMonitorTypeChanged represents the event body for the "InputAudioMonitorTypeChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the InputAudioMonitorTypeChanged event.
 type InputAudioMonitorTypeChanged struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

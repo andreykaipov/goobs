@@ -2,10 +2,7 @@
 
 package events
 
-/*
-CurrentProfileChanging represents the event body for the "CurrentProfileChanging" event.
-Since v5.0.0.
-*/
+// Represents the event body for the CurrentProfileChanging event.
 type CurrentProfileChanging struct {
 	// Name of the current profile
 	ProfileName string `json:"profileName,omitempty"`

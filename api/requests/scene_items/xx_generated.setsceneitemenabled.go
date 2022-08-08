@@ -2,12 +2,7 @@
 
 package sceneitems
 
-/*
-SetSceneItemEnabledParams represents the params body for the "SetSceneItemEnabled" request.
-Sets the enable state of a scene item.
-
-Scenes and Groups
-*/
+// Represents the request body for the SetSceneItemEnabled request.
 type SetSceneItemEnabledParams struct {
 	// New enable state of the scene item
 	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
@@ -19,19 +14,20 @@ type SetSceneItemEnabledParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+// Returns the associated request.
+func (o *SetSceneItemEnabledParams) GetRequestName() string {
+	return "SetSceneItemEnabled"
+}
+
+// Represents the response body for the SetSceneItemEnabled request.
+type SetSceneItemEnabledResponse struct{}
+
 /*
-SetSceneItemEnabledResponse represents the response body for the "SetSceneItemEnabled" request.
 Sets the enable state of a scene item.
 
 Scenes and Groups
 */
-type SetSceneItemEnabledResponse struct{}
-
-// SetSceneItemEnabled sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetSceneItemEnabled(params *SetSceneItemEnabledParams) (*SetSceneItemEnabledResponse, error) {
-	resp, err := c.SendRequest("SetSceneItemEnabled", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetSceneItemEnabledResponse), nil
+	data := &SetSceneItemEnabledResponse{}
+	return data, c.SendRequest(params, data)
 }

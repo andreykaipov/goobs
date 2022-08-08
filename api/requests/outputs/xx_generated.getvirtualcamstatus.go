@@ -2,31 +2,26 @@
 
 package outputs
 
-/*
-GetVirtualCamStatusParams represents the params body for the "GetVirtualCamStatus" request.
-Gets the status of the virtualcam output.
-*/
+// Represents the request body for the GetVirtualCamStatus request.
 type GetVirtualCamStatusParams struct{}
 
-/*
-GetVirtualCamStatusResponse represents the response body for the "GetVirtualCamStatus" request.
-Gets the status of the virtualcam output.
-*/
+// Returns the associated request.
+func (o *GetVirtualCamStatusParams) GetRequestName() string {
+	return "GetVirtualCamStatus"
+}
+
+// Represents the response body for the GetVirtualCamStatus request.
 type GetVirtualCamStatusResponse struct {
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 }
 
-// GetVirtualCamStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic
-// arguments as this request doesn't require any parameters.
+// Gets the status of the virtualcam output.
 func (c *Client) GetVirtualCamStatus(paramss ...*GetVirtualCamStatusParams) (*GetVirtualCamStatusResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetVirtualCamStatusParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetVirtualCamStatus", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetVirtualCamStatusResponse), nil
+	data := &GetVirtualCamStatusResponse{}
+	return data, c.SendRequest(params, data)
 }

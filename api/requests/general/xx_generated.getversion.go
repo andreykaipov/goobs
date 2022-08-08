@@ -2,16 +2,15 @@
 
 package general
 
-/*
-GetVersionParams represents the params body for the "GetVersion" request.
-Gets data about the current plugin and RPC version.
-*/
+// Represents the request body for the GetVersion request.
 type GetVersionParams struct{}
 
-/*
-GetVersionResponse represents the response body for the "GetVersion" request.
-Gets data about the current plugin and RPC version.
-*/
+// Returns the associated request.
+func (o *GetVersionParams) GetRequestName() string {
+	return "GetVersion"
+}
+
+// Represents the response body for the GetVersion request.
 type GetVersionResponse struct {
 	// Array of available RPC requests for the currently negotiated RPC version
 	AvailableRequests []string `json:"availableRequests,omitempty"`
@@ -35,16 +34,12 @@ type GetVersionResponse struct {
 	SupportedImageFormats []string `json:"supportedImageFormats,omitempty"`
 }
 
-// GetVersion sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Gets data about the current plugin and RPC version.
 func (c *Client) GetVersion(paramss ...*GetVersionParams) (*GetVersionResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetVersionParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetVersion", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetVersionResponse), nil
+	data := &GetVersionResponse{}
+	return data, c.SendRequest(params, data)
 }

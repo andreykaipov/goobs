@@ -2,41 +2,18 @@
 
 package mediainputs
 
-/*
-GetMediaInputStatusParams represents the params body for the "GetMediaInputStatus" request.
-Gets the status of a media input.
-
-Media States:
-
-- `OBS_MEDIA_STATE_NONE`
-- `OBS_MEDIA_STATE_PLAYING`
-- `OBS_MEDIA_STATE_OPENING`
-- `OBS_MEDIA_STATE_BUFFERING`
-- `OBS_MEDIA_STATE_PAUSED`
-- `OBS_MEDIA_STATE_STOPPED`
-- `OBS_MEDIA_STATE_ENDED`
-- `OBS_MEDIA_STATE_ERROR`
-*/
+// Represents the request body for the GetMediaInputStatus request.
 type GetMediaInputStatusParams struct {
 	// Name of the media input
 	InputName string `json:"inputName,omitempty"`
 }
 
-/*
-GetMediaInputStatusResponse represents the response body for the "GetMediaInputStatus" request.
-Gets the status of a media input.
+// Returns the associated request.
+func (o *GetMediaInputStatusParams) GetRequestName() string {
+	return "GetMediaInputStatus"
+}
 
-Media States:
-
-- `OBS_MEDIA_STATE_NONE`
-- `OBS_MEDIA_STATE_PLAYING`
-- `OBS_MEDIA_STATE_OPENING`
-- `OBS_MEDIA_STATE_BUFFERING`
-- `OBS_MEDIA_STATE_PAUSED`
-- `OBS_MEDIA_STATE_STOPPED`
-- `OBS_MEDIA_STATE_ENDED`
-- `OBS_MEDIA_STATE_ERROR`
-*/
+// Represents the response body for the GetMediaInputStatus request.
 type GetMediaInputStatusResponse struct {
 	// Position of the cursor in milliseconds. `null` if not playing
 	MediaCursor float64 `json:"mediaCursor,omitempty"`
@@ -48,11 +25,21 @@ type GetMediaInputStatusResponse struct {
 	MediaState string `json:"mediaState,omitempty"`
 }
 
-// GetMediaInputStatus sends the corresponding request to the connected OBS WebSockets server.
+/*
+Gets the status of a media input.
+
+Media States:
+
+- `OBS_MEDIA_STATE_NONE`
+- `OBS_MEDIA_STATE_PLAYING`
+- `OBS_MEDIA_STATE_OPENING`
+- `OBS_MEDIA_STATE_BUFFERING`
+- `OBS_MEDIA_STATE_PAUSED`
+- `OBS_MEDIA_STATE_STOPPED`
+- `OBS_MEDIA_STATE_ENDED`
+- `OBS_MEDIA_STATE_ERROR`
+*/
 func (c *Client) GetMediaInputStatus(params *GetMediaInputStatusParams) (*GetMediaInputStatusResponse, error) {
-	resp, err := c.SendRequest("GetMediaInputStatus", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetMediaInputStatusResponse), nil
+	data := &GetMediaInputStatusResponse{}
+	return data, c.SendRequest(params, data)
 }

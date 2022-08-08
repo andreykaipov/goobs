@@ -4,16 +4,15 @@ package config
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-GetStreamServiceSettingsParams represents the params body for the "GetStreamServiceSettings" request.
-Gets the current stream service settings (stream destination).
-*/
+// Represents the request body for the GetStreamServiceSettings request.
 type GetStreamServiceSettingsParams struct{}
 
-/*
-GetStreamServiceSettingsResponse represents the response body for the "GetStreamServiceSettings" request.
-Gets the current stream service settings (stream destination).
-*/
+// Returns the associated request.
+func (o *GetStreamServiceSettingsParams) GetRequestName() string {
+	return "GetStreamServiceSettings"
+}
+
+// Represents the response body for the GetStreamServiceSettings request.
 type GetStreamServiceSettingsResponse struct {
 	//
 	StreamServiceSettings *typedefs.StreamServiceSettings `json:"streamServiceSettings,omitempty"`
@@ -22,8 +21,7 @@ type GetStreamServiceSettingsResponse struct {
 	StreamServiceType string `json:"streamServiceType,omitempty"`
 }
 
-// GetStreamServiceSettings sends the corresponding request to the connected OBS WebSockets server. Note the variadic
-// arguments as this request doesn't require any parameters.
+// Gets the current stream service settings (stream destination).
 func (c *Client) GetStreamServiceSettings(
 	paramss ...*GetStreamServiceSettingsParams,
 ) (*GetStreamServiceSettingsResponse, error) {
@@ -31,9 +29,6 @@ func (c *Client) GetStreamServiceSettings(
 		paramss = []*GetStreamServiceSettingsParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetStreamServiceSettings", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetStreamServiceSettingsResponse), nil
+	data := &GetStreamServiceSettingsResponse{}
+	return data, c.SendRequest(params, data)
 }

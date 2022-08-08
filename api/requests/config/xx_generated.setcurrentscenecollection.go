@@ -2,32 +2,28 @@
 
 package config
 
-/*
-SetCurrentSceneCollectionParams represents the params body for the "SetCurrentSceneCollection" request.
-Switches to a scene collection.
-
-Note: This will block until the collection has finished changing.
-*/
+// Represents the request body for the SetCurrentSceneCollection request.
 type SetCurrentSceneCollectionParams struct {
 	// Name of the scene collection to switch to
 	SceneCollectionName string `json:"sceneCollectionName,omitempty"`
 }
 
+// Returns the associated request.
+func (o *SetCurrentSceneCollectionParams) GetRequestName() string {
+	return "SetCurrentSceneCollection"
+}
+
+// Represents the response body for the SetCurrentSceneCollection request.
+type SetCurrentSceneCollectionResponse struct{}
+
 /*
-SetCurrentSceneCollectionResponse represents the response body for the "SetCurrentSceneCollection" request.
 Switches to a scene collection.
 
 Note: This will block until the collection has finished changing.
 */
-type SetCurrentSceneCollectionResponse struct{}
-
-// SetCurrentSceneCollection sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetCurrentSceneCollection(
 	params *SetCurrentSceneCollectionParams,
 ) (*SetCurrentSceneCollectionResponse, error) {
-	resp, err := c.SendRequest("SetCurrentSceneCollection", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetCurrentSceneCollectionResponse), nil
+	data := &SetCurrentSceneCollectionResponse{}
+	return data, c.SendRequest(params, data)
 }

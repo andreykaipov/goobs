@@ -2,28 +2,23 @@
 
 package record
 
-/*
-StopRecordParams represents the params body for the "StopRecord" request.
-Stops the record output.
-*/
+// Represents the request body for the StopRecord request.
 type StopRecordParams struct{}
 
-/*
-StopRecordResponse represents the response body for the "StopRecord" request.
-Stops the record output.
-*/
+// Returns the associated request.
+func (o *StopRecordParams) GetRequestName() string {
+	return "StopRecord"
+}
+
+// Represents the response body for the StopRecord request.
 type StopRecordResponse struct{}
 
-// StopRecord sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Stops the record output.
 func (c *Client) StopRecord(paramss ...*StopRecordParams) (*StopRecordResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StopRecordParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("StopRecord", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*StopRecordResponse), nil
+	data := &StopRecordResponse{}
+	return data, c.SendRequest(params, data)
 }

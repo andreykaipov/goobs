@@ -2,10 +2,7 @@
 
 package events
 
-/*
-VendorEvent represents the event body for the "VendorEvent" event.
-Since v5.0.0.
-*/
+// Represents the event body for the VendorEvent event.
 type VendorEvent struct {
 	// Vendor-provided event data. {} if event does not provide any data
 	EventData interface{} `json:"eventData,omitempty"`

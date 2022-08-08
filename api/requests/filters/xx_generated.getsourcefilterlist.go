@@ -4,28 +4,24 @@ package filters
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-GetSourceFilterListParams represents the params body for the "GetSourceFilterList" request.
-Gets an array of all of a source's filters.
-*/
+// Represents the request body for the GetSourceFilterList request.
 type GetSourceFilterListParams struct {
 	// Name of the source
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-/*
-GetSourceFilterListResponse represents the response body for the "GetSourceFilterList" request.
-Gets an array of all of a source's filters.
-*/
+// Returns the associated request.
+func (o *GetSourceFilterListParams) GetRequestName() string {
+	return "GetSourceFilterList"
+}
+
+// Represents the response body for the GetSourceFilterList request.
 type GetSourceFilterListResponse struct {
 	Filters []*typedefs.Filter `json:"filters,omitempty"`
 }
 
-// GetSourceFilterList sends the corresponding request to the connected OBS WebSockets server.
+// Gets an array of all of a source's filters.
 func (c *Client) GetSourceFilterList(params *GetSourceFilterListParams) (*GetSourceFilterListResponse, error) {
-	resp, err := c.SendRequest("GetSourceFilterList", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSourceFilterListResponse), nil
+	data := &GetSourceFilterListResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,10 +2,7 @@
 
 package events
 
-/*
-MediaInputPlaybackEnded represents the event body for the "MediaInputPlaybackEnded" event.
-Since v5.0.0.
-*/
+// Represents the event body for the MediaInputPlaybackEnded event.
 type MediaInputPlaybackEnded struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

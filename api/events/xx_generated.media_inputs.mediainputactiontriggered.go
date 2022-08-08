@@ -2,10 +2,7 @@
 
 package events
 
-/*
-MediaInputActionTriggered represents the event body for the "MediaInputActionTriggered" event.
-Since v5.0.0.
-*/
+// Represents the event body for the MediaInputActionTriggered event.
 type MediaInputActionTriggered struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

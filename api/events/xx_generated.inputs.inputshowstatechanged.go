@@ -2,10 +2,7 @@
 
 package events
 
-/*
-InputShowStateChanged represents the event body for the "InputShowStateChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the InputShowStateChanged event.
 type InputShowStateChanged struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

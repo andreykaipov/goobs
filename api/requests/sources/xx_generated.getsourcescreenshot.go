@@ -2,15 +2,7 @@
 
 package sources
 
-/*
-GetSourceScreenshotParams represents the params body for the "GetSourceScreenshot" request.
-Gets a Base64-encoded screenshot of a source.
-
-The `imageWidth` and `imageHeight` parameters are treated as "scale to inner", meaning the smallest ratio will be used and the aspect ratio of the original resolution is kept.
-If `imageWidth` and `imageHeight` are not specified, the compressed image will use the full resolution of the source.
-
-**Compatible with inputs and scenes.**
-*/
+// Represents the request body for the GetSourceScreenshot request.
 type GetSourceScreenshotParams struct {
 	// Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use "default" (whatever that
 	// means, idk)
@@ -29,8 +21,18 @@ type GetSourceScreenshotParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+// Returns the associated request.
+func (o *GetSourceScreenshotParams) GetRequestName() string {
+	return "GetSourceScreenshot"
+}
+
+// Represents the response body for the GetSourceScreenshot request.
+type GetSourceScreenshotResponse struct {
+	// Base64-encoded screenshot
+	ImageData string `json:"imageData,omitempty"`
+}
+
 /*
-GetSourceScreenshotResponse represents the response body for the "GetSourceScreenshot" request.
 Gets a Base64-encoded screenshot of a source.
 
 The `imageWidth` and `imageHeight` parameters are treated as "scale to inner", meaning the smallest ratio will be used and the aspect ratio of the original resolution is kept.
@@ -38,16 +40,7 @@ If `imageWidth` and `imageHeight` are not specified, the compressed image will u
 
 **Compatible with inputs and scenes.**
 */
-type GetSourceScreenshotResponse struct {
-	// Base64-encoded screenshot
-	ImageData string `json:"imageData,omitempty"`
-}
-
-// GetSourceScreenshot sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) GetSourceScreenshot(params *GetSourceScreenshotParams) (*GetSourceScreenshotResponse, error) {
-	resp, err := c.SendRequest("GetSourceScreenshot", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSourceScreenshotResponse), nil
+	data := &GetSourceScreenshotResponse{}
+	return data, c.SendRequest(params, data)
 }

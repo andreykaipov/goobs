@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SourceFilterNameChanged represents the event body for the "SourceFilterNameChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SourceFilterNameChanged event.
 type SourceFilterNameChanged struct {
 	// New name of the filter
 	FilterName string `json:"filterName,omitempty"`

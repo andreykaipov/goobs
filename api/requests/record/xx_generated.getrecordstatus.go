@@ -2,16 +2,15 @@
 
 package record
 
-/*
-GetRecordStatusParams represents the params body for the "GetRecordStatus" request.
-Gets the status of the record output.
-*/
+// Represents the request body for the GetRecordStatus request.
 type GetRecordStatusParams struct{}
 
-/*
-GetRecordStatusResponse represents the response body for the "GetRecordStatus" request.
-Gets the status of the record output.
-*/
+// Returns the associated request.
+func (o *GetRecordStatusParams) GetRequestName() string {
+	return "GetRecordStatus"
+}
+
+// Represents the response body for the GetRecordStatus request.
 type GetRecordStatusResponse struct {
 	// Whether the output is paused
 	OuputPaused bool `json:"ouputPaused,omitempty"`
@@ -29,16 +28,12 @@ type GetRecordStatusResponse struct {
 	OutputTimecode string `json:"outputTimecode,omitempty"`
 }
 
-// GetRecordStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
-// as this request doesn't require any parameters.
+// Gets the status of the record output.
 func (c *Client) GetRecordStatus(paramss ...*GetRecordStatusParams) (*GetRecordStatusResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetRecordStatusParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetRecordStatus", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetRecordStatusResponse), nil
+	data := &GetRecordStatusResponse{}
+	return data, c.SendRequest(params, data)
 }

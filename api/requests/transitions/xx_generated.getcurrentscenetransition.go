@@ -2,16 +2,15 @@
 
 package transitions
 
-/*
-GetCurrentSceneTransitionParams represents the params body for the "GetCurrentSceneTransition" request.
-Gets information about the current scene transition.
-*/
+// Represents the request body for the GetCurrentSceneTransition request.
 type GetCurrentSceneTransitionParams struct{}
 
-/*
-GetCurrentSceneTransitionResponse represents the response body for the "GetCurrentSceneTransition" request.
-Gets information about the current scene transition.
-*/
+// Returns the associated request.
+func (o *GetCurrentSceneTransitionParams) GetRequestName() string {
+	return "GetCurrentSceneTransition"
+}
+
+// Represents the response body for the GetCurrentSceneTransition request.
 type GetCurrentSceneTransitionResponse struct {
 	// Whether the transition supports being configured
 	TransitionConfigurable bool `json:"transitionConfigurable,omitempty"`
@@ -32,8 +31,7 @@ type GetCurrentSceneTransitionResponse struct {
 	TransitionSettings map[string]interface{} `json:"transitionSettings,omitempty"`
 }
 
-// GetCurrentSceneTransition sends the corresponding request to the connected OBS WebSockets server. Note the variadic
-// arguments as this request doesn't require any parameters.
+// Gets information about the current scene transition.
 func (c *Client) GetCurrentSceneTransition(
 	paramss ...*GetCurrentSceneTransitionParams,
 ) (*GetCurrentSceneTransitionResponse, error) {
@@ -41,9 +39,6 @@ func (c *Client) GetCurrentSceneTransition(
 		paramss = []*GetCurrentSceneTransitionParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetCurrentSceneTransition", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetCurrentSceneTransitionResponse), nil
+	data := &GetCurrentSceneTransitionResponse{}
+	return data, c.SendRequest(params, data)
 }

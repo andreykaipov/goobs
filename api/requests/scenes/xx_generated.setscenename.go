@@ -2,10 +2,7 @@
 
 package scenes
 
-/*
-SetSceneNameParams represents the params body for the "SetSceneName" request.
-Sets the name of a scene (rename).
-*/
+// Represents the request body for the SetSceneName request.
 type SetSceneNameParams struct {
 	// New name for the scene
 	NewSceneName string `json:"newSceneName,omitempty"`
@@ -14,17 +11,16 @@ type SetSceneNameParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-/*
-SetSceneNameResponse represents the response body for the "SetSceneName" request.
-Sets the name of a scene (rename).
-*/
+// Returns the associated request.
+func (o *SetSceneNameParams) GetRequestName() string {
+	return "SetSceneName"
+}
+
+// Represents the response body for the SetSceneName request.
 type SetSceneNameResponse struct{}
 
-// SetSceneName sends the corresponding request to the connected OBS WebSockets server.
+// Sets the name of a scene (rename).
 func (c *Client) SetSceneName(params *SetSceneNameParams) (*SetSceneNameResponse, error) {
-	resp, err := c.SendRequest("SetSceneName", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetSceneNameResponse), nil
+	data := &SetSceneNameResponse{}
+	return data, c.SendRequest(params, data)
 }

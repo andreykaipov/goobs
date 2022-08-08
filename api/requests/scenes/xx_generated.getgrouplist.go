@@ -2,35 +2,30 @@
 
 package scenes
 
-/*
-GetGroupListParams represents the params body for the "GetGroupList" request.
-Gets an array of all groups in OBS.
-
-Groups in OBS are actually scenes, but renamed and modified. In obs-websocket, we treat them as scenes where we can.
-*/
+// Represents the request body for the GetGroupList request.
 type GetGroupListParams struct{}
 
-/*
-GetGroupListResponse represents the response body for the "GetGroupList" request.
-Gets an array of all groups in OBS.
+// Returns the associated request.
+func (o *GetGroupListParams) GetRequestName() string {
+	return "GetGroupList"
+}
 
-Groups in OBS are actually scenes, but renamed and modified. In obs-websocket, we treat them as scenes where we can.
-*/
+// Represents the response body for the GetGroupList request.
 type GetGroupListResponse struct {
 	// Array of group names
 	Groups []string `json:"groups,omitempty"`
 }
 
-// GetGroupList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+/*
+Gets an array of all groups in OBS.
+
+Groups in OBS are actually scenes, but renamed and modified. In obs-websocket, we treat them as scenes where we can.
+*/
 func (c *Client) GetGroupList(paramss ...*GetGroupListParams) (*GetGroupListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetGroupListParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetGroupList", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetGroupListResponse), nil
+	data := &GetGroupListResponse{}
+	return data, c.SendRequest(params, data)
 }

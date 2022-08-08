@@ -2,10 +2,7 @@
 
 package events
 
-/*
-StudioModeStateChanged represents the event body for the "StudioModeStateChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the StudioModeStateChanged event.
 type StudioModeStateChanged struct {
 	// True == Enabled, False == Disabled
 	StudioModeEnabled bool `json:"studioModeEnabled,omitempty"`

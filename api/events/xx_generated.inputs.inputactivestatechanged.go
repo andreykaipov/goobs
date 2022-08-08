@@ -2,10 +2,7 @@
 
 package events
 
-/*
-InputActiveStateChanged represents the event body for the "InputActiveStateChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the InputActiveStateChanged event.
 type InputActiveStateChanged struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

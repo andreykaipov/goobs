@@ -2,26 +2,22 @@
 
 package ui
 
-/*
-OpenInputFiltersDialogParams represents the params body for the "OpenInputFiltersDialog" request.
-Opens the filters dialog of an input.
-*/
+// Represents the request body for the OpenInputFiltersDialog request.
 type OpenInputFiltersDialogParams struct {
 	// Name of the input to open the dialog of
 	InputName string `json:"inputName,omitempty"`
 }
 
-/*
-OpenInputFiltersDialogResponse represents the response body for the "OpenInputFiltersDialog" request.
-Opens the filters dialog of an input.
-*/
+// Returns the associated request.
+func (o *OpenInputFiltersDialogParams) GetRequestName() string {
+	return "OpenInputFiltersDialog"
+}
+
+// Represents the response body for the OpenInputFiltersDialog request.
 type OpenInputFiltersDialogResponse struct{}
 
-// OpenInputFiltersDialog sends the corresponding request to the connected OBS WebSockets server.
+// Opens the filters dialog of an input.
 func (c *Client) OpenInputFiltersDialog(params *OpenInputFiltersDialogParams) (*OpenInputFiltersDialogResponse, error) {
-	resp, err := c.SendRequest("OpenInputFiltersDialog", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*OpenInputFiltersDialogResponse), nil
+	data := &OpenInputFiltersDialogResponse{}
+	return data, c.SendRequest(params, data)
 }

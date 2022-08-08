@@ -2,26 +2,22 @@
 
 package general
 
-/*
-BroadcastCustomEventParams represents the params body for the "BroadcastCustomEvent" request.
-Broadcasts a `CustomEvent` to all WebSocket clients. Receivers are clients which are identified and subscribed.
-*/
+// Represents the request body for the BroadcastCustomEvent request.
 type BroadcastCustomEventParams struct {
 	// Data payload to emit to all receivers
 	EventData interface{} `json:"eventData,omitempty"`
 }
 
-/*
-BroadcastCustomEventResponse represents the response body for the "BroadcastCustomEvent" request.
-Broadcasts a `CustomEvent` to all WebSocket clients. Receivers are clients which are identified and subscribed.
-*/
+// Returns the associated request.
+func (o *BroadcastCustomEventParams) GetRequestName() string {
+	return "BroadcastCustomEvent"
+}
+
+// Represents the response body for the BroadcastCustomEvent request.
 type BroadcastCustomEventResponse struct{}
 
-// BroadcastCustomEvent sends the corresponding request to the connected OBS WebSockets server.
+// Broadcasts a `CustomEvent` to all WebSocket clients. Receivers are clients which are identified and subscribed.
 func (c *Client) BroadcastCustomEvent(params *BroadcastCustomEventParams) (*BroadcastCustomEventResponse, error) {
-	resp, err := c.SendRequest("BroadcastCustomEvent", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*BroadcastCustomEventResponse), nil
+	data := &BroadcastCustomEventResponse{}
+	return data, c.SendRequest(params, data)
 }

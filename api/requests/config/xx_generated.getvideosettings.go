@@ -2,20 +2,15 @@
 
 package config
 
-/*
-GetVideoSettingsParams represents the params body for the "GetVideoSettings" request.
-Gets the current video settings.
-
-Note: To get the true FPS value, divide the FPS numerator by the FPS denominator. Example: `60000/1001`
-*/
+// Represents the request body for the GetVideoSettings request.
 type GetVideoSettingsParams struct{}
 
-/*
-GetVideoSettingsResponse represents the response body for the "GetVideoSettings" request.
-Gets the current video settings.
+// Returns the associated request.
+func (o *GetVideoSettingsParams) GetRequestName() string {
+	return "GetVideoSettings"
+}
 
-Note: To get the true FPS value, divide the FPS numerator by the FPS denominator. Example: `60000/1001`
-*/
+// Represents the response body for the GetVideoSettings request.
 type GetVideoSettingsResponse struct {
 	// Height of the base (canvas) resolution in pixels
 	BaseHeight float64 `json:"baseHeight,omitempty"`
@@ -36,16 +31,16 @@ type GetVideoSettingsResponse struct {
 	OutputWidth float64 `json:"outputWidth,omitempty"`
 }
 
-// GetVideoSettings sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
-// as this request doesn't require any parameters.
+/*
+Gets the current video settings.
+
+Note: To get the true FPS value, divide the FPS numerator by the FPS denominator. Example: `60000/1001`
+*/
 func (c *Client) GetVideoSettings(paramss ...*GetVideoSettingsParams) (*GetVideoSettingsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetVideoSettingsParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetVideoSettings", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetVideoSettingsResponse), nil
+	data := &GetVideoSettingsResponse{}
+	return data, c.SendRequest(params, data)
 }

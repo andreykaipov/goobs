@@ -4,10 +4,7 @@ package inputs
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-SetInputAudioTracksParams represents the params body for the "SetInputAudioTracks" request.
-Sets the enable state of audio tracks of an input.
-*/
+// Represents the request body for the SetInputAudioTracks request.
 type SetInputAudioTracksParams struct {
 	InputAudioTracks *typedefs.InputAudioTracks `json:"inputAudioTracks,omitempty"`
 
@@ -15,17 +12,16 @@ type SetInputAudioTracksParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
-/*
-SetInputAudioTracksResponse represents the response body for the "SetInputAudioTracks" request.
-Sets the enable state of audio tracks of an input.
-*/
+// Returns the associated request.
+func (o *SetInputAudioTracksParams) GetRequestName() string {
+	return "SetInputAudioTracks"
+}
+
+// Represents the response body for the SetInputAudioTracks request.
 type SetInputAudioTracksResponse struct{}
 
-// SetInputAudioTracks sends the corresponding request to the connected OBS WebSockets server.
+// Sets the enable state of audio tracks of an input.
 func (c *Client) SetInputAudioTracks(params *SetInputAudioTracksParams) (*SetInputAudioTracksResponse, error) {
-	resp, err := c.SendRequest("SetInputAudioTracks", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetInputAudioTracksResponse), nil
+	data := &SetInputAudioTracksResponse{}
+	return data, c.SendRequest(params, data)
 }

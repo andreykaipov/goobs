@@ -4,12 +4,7 @@ package sceneitems
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-GetSceneItemTransformParams represents the params body for the "GetSceneItemTransform" request.
-Gets the transform and crop info of a scene item.
-
-Scenes and Groups
-*/
+// Represents the request body for the GetSceneItemTransform request.
 type GetSceneItemTransformParams struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
@@ -18,22 +13,23 @@ type GetSceneItemTransformParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-/*
-GetSceneItemTransformResponse represents the response body for the "GetSceneItemTransform" request.
-Gets the transform and crop info of a scene item.
+// Returns the associated request.
+func (o *GetSceneItemTransformParams) GetRequestName() string {
+	return "GetSceneItemTransform"
+}
 
-Scenes and Groups
-*/
+// Represents the response body for the GetSceneItemTransform request.
 type GetSceneItemTransformResponse struct {
 	// Scene item transform info
 	SceneItemTransform *typedefs.SceneItemTransform `json:"sceneItemTransform,omitempty"`
 }
 
-// GetSceneItemTransform sends the corresponding request to the connected OBS WebSockets server.
+/*
+Gets the transform and crop info of a scene item.
+
+Scenes and Groups
+*/
 func (c *Client) GetSceneItemTransform(params *GetSceneItemTransformParams) (*GetSceneItemTransformResponse, error) {
-	resp, err := c.SendRequest("GetSceneItemTransform", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSceneItemTransformResponse), nil
+	data := &GetSceneItemTransformResponse{}
+	return data, c.SendRequest(params, data)
 }

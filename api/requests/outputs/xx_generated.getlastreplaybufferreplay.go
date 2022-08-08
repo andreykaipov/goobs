@@ -2,23 +2,21 @@
 
 package outputs
 
-/*
-GetLastReplayBufferReplayParams represents the params body for the "GetLastReplayBufferReplay" request.
-Gets the filename of the last replay buffer save file.
-*/
+// Represents the request body for the GetLastReplayBufferReplay request.
 type GetLastReplayBufferReplayParams struct{}
 
-/*
-GetLastReplayBufferReplayResponse represents the response body for the "GetLastReplayBufferReplay" request.
-Gets the filename of the last replay buffer save file.
-*/
+// Returns the associated request.
+func (o *GetLastReplayBufferReplayParams) GetRequestName() string {
+	return "GetLastReplayBufferReplay"
+}
+
+// Represents the response body for the GetLastReplayBufferReplay request.
 type GetLastReplayBufferReplayResponse struct {
 	// File path
 	SavedReplayPath string `json:"savedReplayPath,omitempty"`
 }
 
-// GetLastReplayBufferReplay sends the corresponding request to the connected OBS WebSockets server. Note the variadic
-// arguments as this request doesn't require any parameters.
+// Gets the filename of the last replay buffer save file.
 func (c *Client) GetLastReplayBufferReplay(
 	paramss ...*GetLastReplayBufferReplayParams,
 ) (*GetLastReplayBufferReplayResponse, error) {
@@ -26,9 +24,6 @@ func (c *Client) GetLastReplayBufferReplay(
 		paramss = []*GetLastReplayBufferReplayParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetLastReplayBufferReplay", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetLastReplayBufferReplayResponse), nil
+	data := &GetLastReplayBufferReplayResponse{}
+	return data, c.SendRequest(params, data)
 }

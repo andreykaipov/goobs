@@ -4,10 +4,7 @@ package events
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-SceneItemListReindexed represents the event body for the "SceneItemListReindexed" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SceneItemListReindexed event.
 type SceneItemListReindexed struct {
 	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
 

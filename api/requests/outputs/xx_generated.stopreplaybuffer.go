@@ -2,28 +2,23 @@
 
 package outputs
 
-/*
-StopReplayBufferParams represents the params body for the "StopReplayBuffer" request.
-Stops the replay buffer output.
-*/
+// Represents the request body for the StopReplayBuffer request.
 type StopReplayBufferParams struct{}
 
-/*
-StopReplayBufferResponse represents the response body for the "StopReplayBuffer" request.
-Stops the replay buffer output.
-*/
+// Returns the associated request.
+func (o *StopReplayBufferParams) GetRequestName() string {
+	return "StopReplayBuffer"
+}
+
+// Represents the response body for the StopReplayBuffer request.
 type StopReplayBufferResponse struct{}
 
-// StopReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
-// as this request doesn't require any parameters.
+// Stops the replay buffer output.
 func (c *Client) StopReplayBuffer(paramss ...*StopReplayBufferParams) (*StopReplayBufferResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StopReplayBufferParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("StopReplayBuffer", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*StopReplayBufferResponse), nil
+	data := &StopReplayBufferResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,10 +2,7 @@
 
 package inputs
 
-/*
-SetInputSettingsParams represents the params body for the "SetInputSettings" request.
-Sets the settings of an input.
-*/
+// Represents the request body for the SetInputSettings request.
 type SetInputSettingsParams struct {
 	// Name of the input to set the settings of
 	InputName string `json:"inputName,omitempty"`
@@ -18,17 +15,16 @@ type SetInputSettingsParams struct {
 	Overlay *bool `json:"overlay,omitempty"`
 }
 
-/*
-SetInputSettingsResponse represents the response body for the "SetInputSettings" request.
-Sets the settings of an input.
-*/
+// Returns the associated request.
+func (o *SetInputSettingsParams) GetRequestName() string {
+	return "SetInputSettings"
+}
+
+// Represents the response body for the SetInputSettings request.
 type SetInputSettingsResponse struct{}
 
-// SetInputSettings sends the corresponding request to the connected OBS WebSockets server.
+// Sets the settings of an input.
 func (c *Client) SetInputSettings(params *SetInputSettingsParams) (*SetInputSettingsResponse, error) {
-	resp, err := c.SendRequest("SetInputSettings", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetInputSettingsResponse), nil
+	data := &SetInputSettingsResponse{}
+	return data, c.SendRequest(params, data)
 }

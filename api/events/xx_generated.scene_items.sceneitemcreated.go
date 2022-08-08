@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SceneItemCreated represents the event body for the "SceneItemCreated" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SceneItemCreated event.
 type SceneItemCreated struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`

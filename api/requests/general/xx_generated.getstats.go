@@ -2,16 +2,15 @@
 
 package general
 
-/*
-GetStatsParams represents the params body for the "GetStats" request.
-Gets statistics about OBS, obs-websocket, and the current session.
-*/
+// Represents the request body for the GetStats request.
 type GetStatsParams struct{}
 
-/*
-GetStatsResponse represents the response body for the "GetStats" request.
-Gets statistics about OBS, obs-websocket, and the current session.
-*/
+// Returns the associated request.
+func (o *GetStatsParams) GetRequestName() string {
+	return "GetStats"
+}
+
+// Represents the response body for the GetStats request.
 type GetStatsResponse struct {
 	// Current FPS being rendered
 	ActiveFps float64 `json:"activeFps,omitempty"`
@@ -47,16 +46,12 @@ type GetStatsResponse struct {
 	WebSocketSessionOutgoingMessages float64 `json:"webSocketSessionOutgoingMessages,omitempty"`
 }
 
-// GetStats sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as this
-// request doesn't require any parameters.
+// Gets statistics about OBS, obs-websocket, and the current session.
 func (c *Client) GetStats(paramss ...*GetStatsParams) (*GetStatsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetStatsParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetStats", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetStatsResponse), nil
+	data := &GetStatsResponse{}
+	return data, c.SendRequest(params, data)
 }

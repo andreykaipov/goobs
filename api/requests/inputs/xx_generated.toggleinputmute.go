@@ -2,29 +2,25 @@
 
 package inputs
 
-/*
-ToggleInputMuteParams represents the params body for the "ToggleInputMute" request.
-Toggles the audio mute state of an input.
-*/
+// Represents the request body for the ToggleInputMute request.
 type ToggleInputMuteParams struct {
 	// Name of the input to toggle the mute state of
 	InputName string `json:"inputName,omitempty"`
 }
 
-/*
-ToggleInputMuteResponse represents the response body for the "ToggleInputMute" request.
-Toggles the audio mute state of an input.
-*/
+// Returns the associated request.
+func (o *ToggleInputMuteParams) GetRequestName() string {
+	return "ToggleInputMute"
+}
+
+// Represents the response body for the ToggleInputMute request.
 type ToggleInputMuteResponse struct {
 	// Whether the input has been muted or unmuted
 	InputMuted bool `json:"inputMuted,omitempty"`
 }
 
-// ToggleInputMute sends the corresponding request to the connected OBS WebSockets server.
+// Toggles the audio mute state of an input.
 func (c *Client) ToggleInputMute(params *ToggleInputMuteParams) (*ToggleInputMuteResponse, error) {
-	resp, err := c.SendRequest("ToggleInputMute", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*ToggleInputMuteResponse), nil
+	data := &ToggleInputMuteResponse{}
+	return data, c.SendRequest(params, data)
 }

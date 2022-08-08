@@ -2,12 +2,7 @@
 
 package mediainputs
 
-/*
-SetMediaInputCursorParams represents the params body for the "SetMediaInputCursor" request.
-Sets the cursor position of a media input.
-
-This request does not perform bounds checking of the cursor position.
-*/
+// Represents the request body for the SetMediaInputCursor request.
 type SetMediaInputCursorParams struct {
 	// Name of the media input
 	InputName string `json:"inputName,omitempty"`
@@ -16,19 +11,20 @@ type SetMediaInputCursorParams struct {
 	MediaCursor float64 `json:"mediaCursor,omitempty"`
 }
 
+// Returns the associated request.
+func (o *SetMediaInputCursorParams) GetRequestName() string {
+	return "SetMediaInputCursor"
+}
+
+// Represents the response body for the SetMediaInputCursor request.
+type SetMediaInputCursorResponse struct{}
+
 /*
-SetMediaInputCursorResponse represents the response body for the "SetMediaInputCursor" request.
 Sets the cursor position of a media input.
 
 This request does not perform bounds checking of the cursor position.
 */
-type SetMediaInputCursorResponse struct{}
-
-// SetMediaInputCursor sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetMediaInputCursor(params *SetMediaInputCursorParams) (*SetMediaInputCursorResponse, error) {
-	resp, err := c.SendRequest("SetMediaInputCursor", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetMediaInputCursorResponse), nil
+	data := &SetMediaInputCursorResponse{}
+	return data, c.SendRequest(params, data)
 }

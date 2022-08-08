@@ -4,10 +4,7 @@ package general
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-TriggerHotkeyByKeySequenceParams represents the params body for the "TriggerHotkeyByKeySequence" request.
-Triggers a hotkey using a sequence of keys.
-*/
+// Represents the request body for the TriggerHotkeyByKeySequence request.
 type TriggerHotkeyByKeySequenceParams struct {
 	// The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h
 	KeyId string `json:"keyId,omitempty"`
@@ -16,14 +13,15 @@ type TriggerHotkeyByKeySequenceParams struct {
 	KeyModifiers *typedefs.KeyModifiers `json:"keyModifiers,omitempty"`
 }
 
-/*
-TriggerHotkeyByKeySequenceResponse represents the response body for the "TriggerHotkeyByKeySequence" request.
-Triggers a hotkey using a sequence of keys.
-*/
+// Returns the associated request.
+func (o *TriggerHotkeyByKeySequenceParams) GetRequestName() string {
+	return "TriggerHotkeyByKeySequence"
+}
+
+// Represents the response body for the TriggerHotkeyByKeySequence request.
 type TriggerHotkeyByKeySequenceResponse struct{}
 
-// TriggerHotkeyByKeySequence sends the corresponding request to the connected OBS WebSockets server. Note the variadic
-// arguments as this request doesn't require any parameters.
+// Triggers a hotkey using a sequence of keys.
 func (c *Client) TriggerHotkeyByKeySequence(
 	paramss ...*TriggerHotkeyByKeySequenceParams,
 ) (*TriggerHotkeyByKeySequenceResponse, error) {
@@ -31,9 +29,6 @@ func (c *Client) TriggerHotkeyByKeySequence(
 		paramss = []*TriggerHotkeyByKeySequenceParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("TriggerHotkeyByKeySequence", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*TriggerHotkeyByKeySequenceResponse), nil
+	data := &TriggerHotkeyByKeySequenceResponse{}
+	return data, c.SendRequest(params, data)
 }

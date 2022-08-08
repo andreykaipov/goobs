@@ -2,10 +2,7 @@
 
 package filters
 
-/*
-GetSourceFilterParams represents the params body for the "GetSourceFilter" request.
-Gets the info for a specific source filter.
-*/
+// Represents the request body for the GetSourceFilter request.
 type GetSourceFilterParams struct {
 	// Name of the filter
 	FilterName string `json:"filterName,omitempty"`
@@ -14,10 +11,12 @@ type GetSourceFilterParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-/*
-GetSourceFilterResponse represents the response body for the "GetSourceFilter" request.
-Gets the info for a specific source filter.
-*/
+// Returns the associated request.
+func (o *GetSourceFilterParams) GetRequestName() string {
+	return "GetSourceFilter"
+}
+
+// Represents the response body for the GetSourceFilter request.
 type GetSourceFilterResponse struct {
 	// Whether the filter is enabled
 	FilterEnabled bool `json:"filterEnabled,omitempty"`
@@ -32,11 +31,8 @@ type GetSourceFilterResponse struct {
 	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
 }
 
-// GetSourceFilter sends the corresponding request to the connected OBS WebSockets server.
+// Gets the info for a specific source filter.
 func (c *Client) GetSourceFilter(params *GetSourceFilterParams) (*GetSourceFilterResponse, error) {
-	resp, err := c.SendRequest("GetSourceFilter", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSourceFilterResponse), nil
+	data := &GetSourceFilterResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,28 +2,23 @@
 
 package outputs
 
-/*
-StartVirtualCamParams represents the params body for the "StartVirtualCam" request.
-Starts the virtualcam output.
-*/
+// Represents the request body for the StartVirtualCam request.
 type StartVirtualCamParams struct{}
 
-/*
-StartVirtualCamResponse represents the response body for the "StartVirtualCam" request.
-Starts the virtualcam output.
-*/
+// Returns the associated request.
+func (o *StartVirtualCamParams) GetRequestName() string {
+	return "StartVirtualCam"
+}
+
+// Represents the response body for the StartVirtualCam request.
 type StartVirtualCamResponse struct{}
 
-// StartVirtualCam sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
-// as this request doesn't require any parameters.
+// Starts the virtualcam output.
 func (c *Client) StartVirtualCam(paramss ...*StartVirtualCamParams) (*StartVirtualCamResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StartVirtualCamParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("StartVirtualCam", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*StartVirtualCamResponse), nil
+	data := &StartVirtualCamResponse{}
+	return data, c.SendRequest(params, data)
 }

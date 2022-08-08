@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SceneCollectionListChanged represents the event body for the "SceneCollectionListChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SceneCollectionListChanged event.
 type SceneCollectionListChanged struct {
 	// Updated list of scene collections
 	SceneCollections []string `json:"sceneCollections,omitempty"`

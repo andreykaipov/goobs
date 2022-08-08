@@ -2,23 +2,21 @@
 
 package outputs
 
-/*
-GetReplayBufferStatusParams represents the params body for the "GetReplayBufferStatus" request.
-Gets the status of the replay buffer output.
-*/
+// Represents the request body for the GetReplayBufferStatus request.
 type GetReplayBufferStatusParams struct{}
 
-/*
-GetReplayBufferStatusResponse represents the response body for the "GetReplayBufferStatus" request.
-Gets the status of the replay buffer output.
-*/
+// Returns the associated request.
+func (o *GetReplayBufferStatusParams) GetRequestName() string {
+	return "GetReplayBufferStatus"
+}
+
+// Represents the response body for the GetReplayBufferStatus request.
 type GetReplayBufferStatusResponse struct {
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 }
 
-// GetReplayBufferStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic
-// arguments as this request doesn't require any parameters.
+// Gets the status of the replay buffer output.
 func (c *Client) GetReplayBufferStatus(
 	paramss ...*GetReplayBufferStatusParams,
 ) (*GetReplayBufferStatusResponse, error) {
@@ -26,9 +24,6 @@ func (c *Client) GetReplayBufferStatus(
 		paramss = []*GetReplayBufferStatusParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetReplayBufferStatus", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetReplayBufferStatusResponse), nil
+	data := &GetReplayBufferStatusResponse{}
+	return data, c.SendRequest(params, data)
 }

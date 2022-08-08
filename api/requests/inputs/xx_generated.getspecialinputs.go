@@ -2,16 +2,15 @@
 
 package inputs
 
-/*
-GetSpecialInputsParams represents the params body for the "GetSpecialInputs" request.
-Gets the names of all special inputs.
-*/
+// Represents the request body for the GetSpecialInputs request.
 type GetSpecialInputsParams struct{}
 
-/*
-GetSpecialInputsResponse represents the response body for the "GetSpecialInputs" request.
-Gets the names of all special inputs.
-*/
+// Returns the associated request.
+func (o *GetSpecialInputsParams) GetRequestName() string {
+	return "GetSpecialInputs"
+}
+
+// Represents the response body for the GetSpecialInputs request.
 type GetSpecialInputsResponse struct {
 	// Name of the Desktop Audio input
 	Desktop1 string `json:"desktop1,omitempty"`
@@ -32,16 +31,12 @@ type GetSpecialInputsResponse struct {
 	Mic4 string `json:"mic4,omitempty"`
 }
 
-// GetSpecialInputs sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
-// as this request doesn't require any parameters.
+// Gets the names of all special inputs.
 func (c *Client) GetSpecialInputs(paramss ...*GetSpecialInputsParams) (*GetSpecialInputsResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetSpecialInputsParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetSpecialInputs", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSpecialInputsResponse), nil
+	data := &GetSpecialInputsResponse{}
+	return data, c.SendRequest(params, data)
 }

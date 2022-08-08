@@ -2,10 +2,7 @@
 
 package events
 
-/*
-CurrentSceneCollectionChanged represents the event body for the "CurrentSceneCollectionChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the CurrentSceneCollectionChanged event.
 type CurrentSceneCollectionChanged struct {
 	// Name of the new scene collection
 	SceneCollectionName string `json:"sceneCollectionName,omitempty"`

@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SourceFilterRemoved represents the event body for the "SourceFilterRemoved" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SourceFilterRemoved event.
 type SourceFilterRemoved struct {
 	// Name of the filter
 	FilterName string `json:"filterName,omitempty"`

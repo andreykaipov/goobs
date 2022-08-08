@@ -2,26 +2,22 @@
 
 package general
 
-/*
-TriggerHotkeyByNameParams represents the params body for the "TriggerHotkeyByName" request.
-Triggers a hotkey using its name. See `GetHotkeyList`
-*/
+// Represents the request body for the TriggerHotkeyByName request.
 type TriggerHotkeyByNameParams struct {
 	// Name of the hotkey to trigger
 	HotkeyName string `json:"hotkeyName,omitempty"`
 }
 
-/*
-TriggerHotkeyByNameResponse represents the response body for the "TriggerHotkeyByName" request.
-Triggers a hotkey using its name. See `GetHotkeyList`
-*/
+// Returns the associated request.
+func (o *TriggerHotkeyByNameParams) GetRequestName() string {
+	return "TriggerHotkeyByName"
+}
+
+// Represents the response body for the TriggerHotkeyByName request.
 type TriggerHotkeyByNameResponse struct{}
 
-// TriggerHotkeyByName sends the corresponding request to the connected OBS WebSockets server.
+// Triggers a hotkey using its name. See `GetHotkeyList`
 func (c *Client) TriggerHotkeyByName(params *TriggerHotkeyByNameParams) (*TriggerHotkeyByNameResponse, error) {
-	resp, err := c.SendRequest("TriggerHotkeyByName", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*TriggerHotkeyByNameResponse), nil
+	data := &TriggerHotkeyByNameResponse{}
+	return data, c.SendRequest(params, data)
 }

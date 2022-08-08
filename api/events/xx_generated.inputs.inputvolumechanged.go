@@ -2,10 +2,7 @@
 
 package events
 
-/*
-InputVolumeChanged represents the event body for the "InputVolumeChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the InputVolumeChanged event.
 type InputVolumeChanged struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

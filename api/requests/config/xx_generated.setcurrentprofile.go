@@ -2,26 +2,22 @@
 
 package config
 
-/*
-SetCurrentProfileParams represents the params body for the "SetCurrentProfile" request.
-Switches to a profile.
-*/
+// Represents the request body for the SetCurrentProfile request.
 type SetCurrentProfileParams struct {
 	// Name of the profile to switch to
 	ProfileName string `json:"profileName,omitempty"`
 }
 
-/*
-SetCurrentProfileResponse represents the response body for the "SetCurrentProfile" request.
-Switches to a profile.
-*/
+// Returns the associated request.
+func (o *SetCurrentProfileParams) GetRequestName() string {
+	return "SetCurrentProfile"
+}
+
+// Represents the response body for the SetCurrentProfile request.
 type SetCurrentProfileResponse struct{}
 
-// SetCurrentProfile sends the corresponding request to the connected OBS WebSockets server.
+// Switches to a profile.
 func (c *Client) SetCurrentProfile(params *SetCurrentProfileParams) (*SetCurrentProfileResponse, error) {
-	resp, err := c.SendRequest("SetCurrentProfile", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetCurrentProfileResponse), nil
+	data := &SetCurrentProfileResponse{}
+	return data, c.SendRequest(params, data)
 }

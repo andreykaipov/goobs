@@ -2,31 +2,26 @@
 
 package general
 
-/*
-GetHotkeyListParams represents the params body for the "GetHotkeyList" request.
-Gets an array of all hotkey names in OBS
-*/
+// Represents the request body for the GetHotkeyList request.
 type GetHotkeyListParams struct{}
 
-/*
-GetHotkeyListResponse represents the response body for the "GetHotkeyList" request.
-Gets an array of all hotkey names in OBS
-*/
+// Returns the associated request.
+func (o *GetHotkeyListParams) GetRequestName() string {
+	return "GetHotkeyList"
+}
+
+// Represents the response body for the GetHotkeyList request.
 type GetHotkeyListResponse struct {
 	// Array of hotkey names
 	Hotkeys []string `json:"hotkeys,omitempty"`
 }
 
-// GetHotkeyList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Gets an array of all hotkey names in OBS
 func (c *Client) GetHotkeyList(paramss ...*GetHotkeyListParams) (*GetHotkeyListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetHotkeyListParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetHotkeyList", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetHotkeyListResponse), nil
+	data := &GetHotkeyListResponse{}
+	return data, c.SendRequest(params, data)
 }

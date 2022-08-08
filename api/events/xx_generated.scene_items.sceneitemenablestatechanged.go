@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SceneItemEnableStateChanged represents the event body for the "SceneItemEnableStateChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SceneItemEnableStateChanged event.
 type SceneItemEnableStateChanged struct {
 	// Whether the scene item is enabled (visible)
 	SceneItemEnabled bool `json:"sceneItemEnabled,omitempty"`

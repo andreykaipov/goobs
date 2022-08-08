@@ -4,10 +4,7 @@ package sceneitems
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-SetSceneItemTransformParams represents the params body for the "SetSceneItemTransform" request.
-Sets the transform and crop info of a scene item.
-*/
+// Represents the request body for the SetSceneItemTransform request.
 type SetSceneItemTransformParams struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
@@ -19,17 +16,16 @@ type SetSceneItemTransformParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-/*
-SetSceneItemTransformResponse represents the response body for the "SetSceneItemTransform" request.
-Sets the transform and crop info of a scene item.
-*/
+// Returns the associated request.
+func (o *SetSceneItemTransformParams) GetRequestName() string {
+	return "SetSceneItemTransform"
+}
+
+// Represents the response body for the SetSceneItemTransform request.
 type SetSceneItemTransformResponse struct{}
 
-// SetSceneItemTransform sends the corresponding request to the connected OBS WebSockets server.
+// Sets the transform and crop info of a scene item.
 func (c *Client) SetSceneItemTransform(params *SetSceneItemTransformParams) (*SetSceneItemTransformResponse, error) {
-	resp, err := c.SendRequest("SetSceneItemTransform", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetSceneItemTransformResponse), nil
+	data := &SetSceneItemTransformResponse{}
+	return data, c.SendRequest(params, data)
 }

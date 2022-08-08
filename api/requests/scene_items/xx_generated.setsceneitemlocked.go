@@ -2,12 +2,7 @@
 
 package sceneitems
 
-/*
-SetSceneItemLockedParams represents the params body for the "SetSceneItemLocked" request.
-Sets the lock state of a scene item.
-
-Scenes and Group
-*/
+// Represents the request body for the SetSceneItemLocked request.
 type SetSceneItemLockedParams struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
@@ -19,19 +14,20 @@ type SetSceneItemLockedParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+// Returns the associated request.
+func (o *SetSceneItemLockedParams) GetRequestName() string {
+	return "SetSceneItemLocked"
+}
+
+// Represents the response body for the SetSceneItemLocked request.
+type SetSceneItemLockedResponse struct{}
+
 /*
-SetSceneItemLockedResponse represents the response body for the "SetSceneItemLocked" request.
 Sets the lock state of a scene item.
 
 Scenes and Group
 */
-type SetSceneItemLockedResponse struct{}
-
-// SetSceneItemLocked sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetSceneItemLocked(params *SetSceneItemLockedParams) (*SetSceneItemLockedResponse, error) {
-	resp, err := c.SendRequest("SetSceneItemLocked", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetSceneItemLockedResponse), nil
+	data := &SetSceneItemLockedResponse{}
+	return data, c.SendRequest(params, data)
 }

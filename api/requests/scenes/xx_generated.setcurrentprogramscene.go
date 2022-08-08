@@ -2,26 +2,22 @@
 
 package scenes
 
-/*
-SetCurrentProgramSceneParams represents the params body for the "SetCurrentProgramScene" request.
-Sets the current program scene.
-*/
+// Represents the request body for the SetCurrentProgramScene request.
 type SetCurrentProgramSceneParams struct {
 	// Scene to set as the current program scene
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-/*
-SetCurrentProgramSceneResponse represents the response body for the "SetCurrentProgramScene" request.
-Sets the current program scene.
-*/
+// Returns the associated request.
+func (o *SetCurrentProgramSceneParams) GetRequestName() string {
+	return "SetCurrentProgramScene"
+}
+
+// Represents the response body for the SetCurrentProgramScene request.
 type SetCurrentProgramSceneResponse struct{}
 
-// SetCurrentProgramScene sends the corresponding request to the connected OBS WebSockets server.
+// Sets the current program scene.
 func (c *Client) SetCurrentProgramScene(params *SetCurrentProgramSceneParams) (*SetCurrentProgramSceneResponse, error) {
-	resp, err := c.SendRequest("SetCurrentProgramScene", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetCurrentProgramSceneResponse), nil
+	data := &SetCurrentProgramSceneResponse{}
+	return data, c.SendRequest(params, data)
 }

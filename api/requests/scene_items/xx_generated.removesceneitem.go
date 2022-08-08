@@ -2,12 +2,7 @@
 
 package sceneitems
 
-/*
-RemoveSceneItemParams represents the params body for the "RemoveSceneItem" request.
-Removes a scene item from a scene.
-
-Scenes only
-*/
+// Represents the request body for the RemoveSceneItem request.
 type RemoveSceneItemParams struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
@@ -16,19 +11,20 @@ type RemoveSceneItemParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+// Returns the associated request.
+func (o *RemoveSceneItemParams) GetRequestName() string {
+	return "RemoveSceneItem"
+}
+
+// Represents the response body for the RemoveSceneItem request.
+type RemoveSceneItemResponse struct{}
+
 /*
-RemoveSceneItemResponse represents the response body for the "RemoveSceneItem" request.
 Removes a scene item from a scene.
 
 Scenes only
 */
-type RemoveSceneItemResponse struct{}
-
-// RemoveSceneItem sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) RemoveSceneItem(params *RemoveSceneItemParams) (*RemoveSceneItemResponse, error) {
-	resp, err := c.SendRequest("RemoveSceneItem", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*RemoveSceneItemResponse), nil
+	data := &RemoveSceneItemResponse{}
+	return data, c.SendRequest(params, data)
 }

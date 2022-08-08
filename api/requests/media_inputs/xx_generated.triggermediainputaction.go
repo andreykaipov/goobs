@@ -2,10 +2,7 @@
 
 package mediainputs
 
-/*
-TriggerMediaInputActionParams represents the params body for the "TriggerMediaInputAction" request.
-Triggers an action on a media input.
-*/
+// Represents the request body for the TriggerMediaInputAction request.
 type TriggerMediaInputActionParams struct {
 	// Name of the media input
 	InputName string `json:"inputName,omitempty"`
@@ -14,19 +11,18 @@ type TriggerMediaInputActionParams struct {
 	MediaAction string `json:"mediaAction,omitempty"`
 }
 
-/*
-TriggerMediaInputActionResponse represents the response body for the "TriggerMediaInputAction" request.
-Triggers an action on a media input.
-*/
+// Returns the associated request.
+func (o *TriggerMediaInputActionParams) GetRequestName() string {
+	return "TriggerMediaInputAction"
+}
+
+// Represents the response body for the TriggerMediaInputAction request.
 type TriggerMediaInputActionResponse struct{}
 
-// TriggerMediaInputAction sends the corresponding request to the connected OBS WebSockets server.
+// Triggers an action on a media input.
 func (c *Client) TriggerMediaInputAction(
 	params *TriggerMediaInputActionParams,
 ) (*TriggerMediaInputActionResponse, error) {
-	resp, err := c.SendRequest("TriggerMediaInputAction", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*TriggerMediaInputActionResponse), nil
+	data := &TriggerMediaInputActionResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,16 +2,15 @@
 
 package stream
 
-/*
-GetStreamStatusParams represents the params body for the "GetStreamStatus" request.
-Gets the status of the stream output.
-*/
+// Represents the request body for the GetStreamStatus request.
 type GetStreamStatusParams struct{}
 
-/*
-GetStreamStatusResponse represents the response body for the "GetStreamStatus" request.
-Gets the status of the stream output.
-*/
+// Returns the associated request.
+func (o *GetStreamStatusParams) GetRequestName() string {
+	return "GetStreamStatus"
+}
+
+// Represents the response body for the GetStreamStatus request.
 type GetStreamStatusResponse struct {
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
@@ -35,16 +34,12 @@ type GetStreamStatusResponse struct {
 	OutputTotalFrames float64 `json:"outputTotalFrames,omitempty"`
 }
 
-// GetStreamStatus sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
-// as this request doesn't require any parameters.
+// Gets the status of the stream output.
 func (c *Client) GetStreamStatus(paramss ...*GetStreamStatusParams) (*GetStreamStatusResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetStreamStatusParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetStreamStatus", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetStreamStatusResponse), nil
+	data := &GetStreamStatusResponse{}
+	return data, c.SendRequest(params, data)
 }

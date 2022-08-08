@@ -2,10 +2,7 @@
 
 package config
 
-/*
-GetPersistentDataParams represents the params body for the "GetPersistentData" request.
-Gets the value of a "slot" from the selected persistent data realm.
-*/
+// Represents the request body for the GetPersistentData request.
 type GetPersistentDataParams struct {
 	// The data realm to select. `OBS_WEBSOCKET_DATA_REALM_GLOBAL` or `OBS_WEBSOCKET_DATA_REALM_PROFILE`
 	Realm string `json:"realm,omitempty"`
@@ -14,20 +11,19 @@ type GetPersistentDataParams struct {
 	SlotName string `json:"slotName,omitempty"`
 }
 
-/*
-GetPersistentDataResponse represents the response body for the "GetPersistentData" request.
-Gets the value of a "slot" from the selected persistent data realm.
-*/
+// Returns the associated request.
+func (o *GetPersistentDataParams) GetRequestName() string {
+	return "GetPersistentData"
+}
+
+// Represents the response body for the GetPersistentData request.
 type GetPersistentDataResponse struct {
 	// Value associated with the slot. `null` if not set
 	SlotValue interface{} `json:"slotValue,omitempty"`
 }
 
-// GetPersistentData sends the corresponding request to the connected OBS WebSockets server.
+// Gets the value of a "slot" from the selected persistent data realm.
 func (c *Client) GetPersistentData(params *GetPersistentDataParams) (*GetPersistentDataResponse, error) {
-	resp, err := c.SendRequest("GetPersistentData", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetPersistentDataResponse), nil
+	data := &GetPersistentDataResponse{}
+	return data, c.SendRequest(params, data)
 }

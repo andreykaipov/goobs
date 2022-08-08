@@ -2,10 +2,7 @@
 
 package events
 
-/*
-CurrentSceneTransitionDurationChanged represents the event body for the "CurrentSceneTransitionDurationChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the CurrentSceneTransitionDurationChanged event.
 type CurrentSceneTransitionDurationChanged struct {
 	// Transition duration in milliseconds
 	TransitionDuration float64 `json:"transitionDuration,omitempty"`

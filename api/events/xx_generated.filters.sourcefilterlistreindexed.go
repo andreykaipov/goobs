@@ -4,10 +4,7 @@ package events
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-SourceFilterListReindexed represents the event body for the "SourceFilterListReindexed" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SourceFilterListReindexed event.
 type SourceFilterListReindexed struct {
 	Filters []*typedefs.Filter `json:"filters,omitempty"`
 

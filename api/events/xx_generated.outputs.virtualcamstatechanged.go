@@ -2,10 +2,7 @@
 
 package events
 
-/*
-VirtualcamStateChanged represents the event body for the "VirtualcamStateChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the VirtualcamStateChanged event.
 type VirtualcamStateChanged struct {
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

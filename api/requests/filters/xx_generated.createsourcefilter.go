@@ -2,10 +2,7 @@
 
 package filters
 
-/*
-CreateSourceFilterParams represents the params body for the "CreateSourceFilter" request.
-Creates a new filter, adding it to the specified source.
-*/
+// Represents the request body for the CreateSourceFilter request.
 type CreateSourceFilterParams struct {
 	// The kind of filter to be created
 	FilterKind string `json:"filterKind,omitempty"`
@@ -20,17 +17,16 @@ type CreateSourceFilterParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-/*
-CreateSourceFilterResponse represents the response body for the "CreateSourceFilter" request.
-Creates a new filter, adding it to the specified source.
-*/
+// Returns the associated request.
+func (o *CreateSourceFilterParams) GetRequestName() string {
+	return "CreateSourceFilter"
+}
+
+// Represents the response body for the CreateSourceFilter request.
 type CreateSourceFilterResponse struct{}
 
-// CreateSourceFilter sends the corresponding request to the connected OBS WebSockets server.
+// Creates a new filter, adding it to the specified source.
 func (c *Client) CreateSourceFilter(params *CreateSourceFilterParams) (*CreateSourceFilterResponse, error) {
-	resp, err := c.SendRequest("CreateSourceFilter", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*CreateSourceFilterResponse), nil
+	data := &CreateSourceFilterResponse{}
+	return data, c.SendRequest(params, data)
 }

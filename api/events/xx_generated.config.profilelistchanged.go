@@ -2,10 +2,7 @@
 
 package events
 
-/*
-ProfileListChanged represents the event body for the "ProfileListChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the ProfileListChanged event.
 type ProfileListChanged struct {
 	// Updated list of profiles
 	Profiles []string `json:"profiles,omitempty"`

@@ -2,28 +2,23 @@
 
 package stream
 
-/*
-StopStreamParams represents the params body for the "StopStream" request.
-Stops the stream output.
-*/
+// Represents the request body for the StopStream request.
 type StopStreamParams struct{}
 
-/*
-StopStreamResponse represents the response body for the "StopStream" request.
-Stops the stream output.
-*/
+// Returns the associated request.
+func (o *StopStreamParams) GetRequestName() string {
+	return "StopStream"
+}
+
+// Represents the response body for the StopStream request.
 type StopStreamResponse struct{}
 
-// StopStream sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Stops the stream output.
 func (c *Client) StopStream(paramss ...*StopStreamParams) (*StopStreamResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StopStreamParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("StopStream", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*StopStreamResponse), nil
+	data := &StopStreamResponse{}
+	return data, c.SendRequest(params, data)
 }

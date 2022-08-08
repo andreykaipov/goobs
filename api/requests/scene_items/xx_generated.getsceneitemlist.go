@@ -4,32 +4,28 @@ package sceneitems
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-GetSceneItemListParams represents the params body for the "GetSceneItemList" request.
-Gets a list of all scene items in a scene.
-
-Scenes only
-*/
+// Represents the request body for the GetSceneItemList request.
 type GetSceneItemListParams struct {
 	// Name of the scene to get the items of
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-/*
-GetSceneItemListResponse represents the response body for the "GetSceneItemList" request.
-Gets a list of all scene items in a scene.
+// Returns the associated request.
+func (o *GetSceneItemListParams) GetRequestName() string {
+	return "GetSceneItemList"
+}
 
-Scenes only
-*/
+// Represents the response body for the GetSceneItemList request.
 type GetSceneItemListResponse struct {
 	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
 }
 
-// GetSceneItemList sends the corresponding request to the connected OBS WebSockets server.
+/*
+Gets a list of all scene items in a scene.
+
+Scenes only
+*/
 func (c *Client) GetSceneItemList(params *GetSceneItemListParams) (*GetSceneItemListResponse, error) {
-	resp, err := c.SendRequest("GetSceneItemList", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSceneItemListResponse), nil
+	data := &GetSceneItemListResponse{}
+	return data, c.SendRequest(params, data)
 }

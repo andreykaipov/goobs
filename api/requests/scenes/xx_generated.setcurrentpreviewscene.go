@@ -2,30 +2,26 @@
 
 package scenes
 
-/*
-SetCurrentPreviewSceneParams represents the params body for the "SetCurrentPreviewScene" request.
-Sets the current preview scene.
-
-Only available when studio mode is enabled.
-*/
+// Represents the request body for the SetCurrentPreviewScene request.
 type SetCurrentPreviewSceneParams struct {
 	// Scene to set as the current preview scene
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+// Returns the associated request.
+func (o *SetCurrentPreviewSceneParams) GetRequestName() string {
+	return "SetCurrentPreviewScene"
+}
+
+// Represents the response body for the SetCurrentPreviewScene request.
+type SetCurrentPreviewSceneResponse struct{}
+
 /*
-SetCurrentPreviewSceneResponse represents the response body for the "SetCurrentPreviewScene" request.
 Sets the current preview scene.
 
 Only available when studio mode is enabled.
 */
-type SetCurrentPreviewSceneResponse struct{}
-
-// SetCurrentPreviewScene sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetCurrentPreviewScene(params *SetCurrentPreviewSceneParams) (*SetCurrentPreviewSceneResponse, error) {
-	resp, err := c.SendRequest("SetCurrentPreviewScene", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetCurrentPreviewSceneResponse), nil
+	data := &SetCurrentPreviewSceneResponse{}
+	return data, c.SendRequest(params, data)
 }

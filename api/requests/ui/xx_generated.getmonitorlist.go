@@ -4,31 +4,26 @@ package ui
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-GetMonitorListParams represents the params body for the "GetMonitorList" request.
-Gets a list of connected monitors and information about them.
-*/
+// Represents the request body for the GetMonitorList request.
 type GetMonitorListParams struct{}
 
-/*
-GetMonitorListResponse represents the response body for the "GetMonitorList" request.
-Gets a list of connected monitors and information about them.
-*/
+// Returns the associated request.
+func (o *GetMonitorListParams) GetRequestName() string {
+	return "GetMonitorList"
+}
+
+// Represents the response body for the GetMonitorList request.
 type GetMonitorListResponse struct {
 	// List of detected monitors
 	Monitors []*typedefs.Monitor `json:"monitors,omitempty"`
 }
 
-// GetMonitorList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Gets a list of connected monitors and information about them.
 func (c *Client) GetMonitorList(paramss ...*GetMonitorListParams) (*GetMonitorListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetMonitorListParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetMonitorList", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetMonitorListResponse), nil
+	data := &GetMonitorListResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,26 +2,22 @@
 
 package ui
 
-/*
-SetStudioModeEnabledParams represents the params body for the "SetStudioModeEnabled" request.
-Enables or disables studio mode
-*/
+// Represents the request body for the SetStudioModeEnabled request.
 type SetStudioModeEnabledParams struct {
 	// True == Enabled, False == Disabled
 	StudioModeEnabled *bool `json:"studioModeEnabled,omitempty"`
 }
 
-/*
-SetStudioModeEnabledResponse represents the response body for the "SetStudioModeEnabled" request.
-Enables or disables studio mode
-*/
+// Returns the associated request.
+func (o *SetStudioModeEnabledParams) GetRequestName() string {
+	return "SetStudioModeEnabled"
+}
+
+// Represents the response body for the SetStudioModeEnabled request.
 type SetStudioModeEnabledResponse struct{}
 
-// SetStudioModeEnabled sends the corresponding request to the connected OBS WebSockets server.
+// Enables or disables studio mode
 func (c *Client) SetStudioModeEnabled(params *SetStudioModeEnabledParams) (*SetStudioModeEnabledResponse, error) {
-	resp, err := c.SendRequest("SetStudioModeEnabled", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetStudioModeEnabledResponse), nil
+	data := &SetStudioModeEnabledResponse{}
+	return data, c.SendRequest(params, data)
 }

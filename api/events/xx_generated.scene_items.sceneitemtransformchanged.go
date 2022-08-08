@@ -4,10 +4,7 @@ package events
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-SceneItemTransformChanged represents the event body for the "SceneItemTransformChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SceneItemTransformChanged event.
 type SceneItemTransformChanged struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`

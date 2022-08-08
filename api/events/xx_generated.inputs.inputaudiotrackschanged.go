@@ -4,10 +4,7 @@ package events
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-InputAudioTracksChanged represents the event body for the "InputAudioTracksChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the InputAudioTracksChanged event.
 type InputAudioTracksChanged struct {
 	InputAudioTracks *typedefs.InputAudioTracks `json:"inputAudioTracks,omitempty"`
 

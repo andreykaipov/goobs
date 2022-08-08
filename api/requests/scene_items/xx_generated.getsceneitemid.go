@@ -2,12 +2,7 @@
 
 package sceneitems
 
-/*
-GetSceneItemIdParams represents the params body for the "GetSceneItemId" request.
-Searches a scene for a source, and returns its id.
-
-Scenes and Groups
-*/
+// Represents the request body for the GetSceneItemId request.
 type GetSceneItemIdParams struct {
 	// Name of the scene or group to search in
 	SceneName string `json:"sceneName,omitempty"`
@@ -19,22 +14,23 @@ type GetSceneItemIdParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-/*
-GetSceneItemIdResponse represents the response body for the "GetSceneItemId" request.
-Searches a scene for a source, and returns its id.
+// Returns the associated request.
+func (o *GetSceneItemIdParams) GetRequestName() string {
+	return "GetSceneItemId"
+}
 
-Scenes and Groups
-*/
+// Represents the response body for the GetSceneItemId request.
 type GetSceneItemIdResponse struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
 }
 
-// GetSceneItemId sends the corresponding request to the connected OBS WebSockets server.
+/*
+Searches a scene for a source, and returns its id.
+
+Scenes and Groups
+*/
 func (c *Client) GetSceneItemId(params *GetSceneItemIdParams) (*GetSceneItemIdResponse, error) {
-	resp, err := c.SendRequest("GetSceneItemId", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSceneItemIdResponse), nil
+	data := &GetSceneItemIdResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,10 +2,7 @@
 
 package filters
 
-/*
-RemoveSourceFilterParams represents the params body for the "RemoveSourceFilter" request.
-Removes a filter from a source.
-*/
+// Represents the request body for the RemoveSourceFilter request.
 type RemoveSourceFilterParams struct {
 	// Name of the filter to remove
 	FilterName string `json:"filterName,omitempty"`
@@ -14,17 +11,16 @@ type RemoveSourceFilterParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-/*
-RemoveSourceFilterResponse represents the response body for the "RemoveSourceFilter" request.
-Removes a filter from a source.
-*/
+// Returns the associated request.
+func (o *RemoveSourceFilterParams) GetRequestName() string {
+	return "RemoveSourceFilter"
+}
+
+// Represents the response body for the RemoveSourceFilter request.
 type RemoveSourceFilterResponse struct{}
 
-// RemoveSourceFilter sends the corresponding request to the connected OBS WebSockets server.
+// Removes a filter from a source.
 func (c *Client) RemoveSourceFilter(params *RemoveSourceFilterParams) (*RemoveSourceFilterResponse, error) {
-	resp, err := c.SendRequest("RemoveSourceFilter", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*RemoveSourceFilterResponse), nil
+	data := &RemoveSourceFilterResponse{}
+	return data, c.SendRequest(params, data)
 }

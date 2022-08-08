@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SceneTransitionEnded represents the event body for the "SceneTransitionEnded" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SceneTransitionEnded event.
 type SceneTransitionEnded struct {
 	// Scene transition name
 	TransitionName string `json:"transitionName,omitempty"`

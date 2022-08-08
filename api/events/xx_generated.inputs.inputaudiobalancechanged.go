@@ -2,10 +2,7 @@
 
 package events
 
-/*
-InputAudioBalanceChanged represents the event body for the "InputAudioBalanceChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the InputAudioBalanceChanged event.
 type InputAudioBalanceChanged struct {
 	// New audio balance value of the input
 	InputAudioBalance float64 `json:"inputAudioBalance,omitempty"`

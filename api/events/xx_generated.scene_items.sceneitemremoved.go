@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SceneItemRemoved represents the event body for the "SceneItemRemoved" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SceneItemRemoved event.
 type SceneItemRemoved struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`

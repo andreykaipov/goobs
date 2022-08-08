@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SceneItemSelected represents the event body for the "SceneItemSelected" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SceneItemSelected event.
 type SceneItemSelected struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`

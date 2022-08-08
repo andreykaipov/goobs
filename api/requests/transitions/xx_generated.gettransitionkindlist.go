@@ -2,27 +2,25 @@
 
 package transitions
 
-/*
-GetTransitionKindListParams represents the params body for the "GetTransitionKindList" request.
-Gets an array of all available transition kinds.
-
-Similar to `GetInputKindList`
-*/
+// Represents the request body for the GetTransitionKindList request.
 type GetTransitionKindListParams struct{}
 
-/*
-GetTransitionKindListResponse represents the response body for the "GetTransitionKindList" request.
-Gets an array of all available transition kinds.
+// Returns the associated request.
+func (o *GetTransitionKindListParams) GetRequestName() string {
+	return "GetTransitionKindList"
+}
 
-Similar to `GetInputKindList`
-*/
+// Represents the response body for the GetTransitionKindList request.
 type GetTransitionKindListResponse struct {
 	// Array of transition kinds
 	TransitionKinds []string `json:"transitionKinds,omitempty"`
 }
 
-// GetTransitionKindList sends the corresponding request to the connected OBS WebSockets server. Note the variadic
-// arguments as this request doesn't require any parameters.
+/*
+Gets an array of all available transition kinds.
+
+Similar to `GetInputKindList`
+*/
 func (c *Client) GetTransitionKindList(
 	paramss ...*GetTransitionKindListParams,
 ) (*GetTransitionKindListResponse, error) {
@@ -30,9 +28,6 @@ func (c *Client) GetTransitionKindList(
 		paramss = []*GetTransitionKindListParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetTransitionKindList", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetTransitionKindListResponse), nil
+	data := &GetTransitionKindListResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,12 +2,7 @@
 
 package mediainputs
 
-/*
-OffsetMediaInputCursorParams represents the params body for the "OffsetMediaInputCursor" request.
-Offsets the current cursor position of a media input by the specified value.
-
-This request does not perform bounds checking of the cursor position.
-*/
+// Represents the request body for the OffsetMediaInputCursor request.
 type OffsetMediaInputCursorParams struct {
 	// Name of the media input
 	InputName string `json:"inputName,omitempty"`
@@ -16,19 +11,20 @@ type OffsetMediaInputCursorParams struct {
 	MediaCursorOffset float64 `json:"mediaCursorOffset,omitempty"`
 }
 
+// Returns the associated request.
+func (o *OffsetMediaInputCursorParams) GetRequestName() string {
+	return "OffsetMediaInputCursor"
+}
+
+// Represents the response body for the OffsetMediaInputCursor request.
+type OffsetMediaInputCursorResponse struct{}
+
 /*
-OffsetMediaInputCursorResponse represents the response body for the "OffsetMediaInputCursor" request.
 Offsets the current cursor position of a media input by the specified value.
 
 This request does not perform bounds checking of the cursor position.
 */
-type OffsetMediaInputCursorResponse struct{}
-
-// OffsetMediaInputCursor sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) OffsetMediaInputCursor(params *OffsetMediaInputCursorParams) (*OffsetMediaInputCursorResponse, error) {
-	resp, err := c.SendRequest("OffsetMediaInputCursor", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*OffsetMediaInputCursorResponse), nil
+	data := &OffsetMediaInputCursorResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -4,28 +4,24 @@ package inputs
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-GetInputAudioTracksParams represents the params body for the "GetInputAudioTracks" request.
-Gets the enable state of all audio tracks of an input.
-*/
+// Represents the request body for the GetInputAudioTracks request.
 type GetInputAudioTracksParams struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`
 }
 
-/*
-GetInputAudioTracksResponse represents the response body for the "GetInputAudioTracks" request.
-Gets the enable state of all audio tracks of an input.
-*/
+// Returns the associated request.
+func (o *GetInputAudioTracksParams) GetRequestName() string {
+	return "GetInputAudioTracks"
+}
+
+// Represents the response body for the GetInputAudioTracks request.
 type GetInputAudioTracksResponse struct {
 	InputAudioTracks *typedefs.InputAudioTracks `json:"inputAudioTracks,omitempty"`
 }
 
-// GetInputAudioTracks sends the corresponding request to the connected OBS WebSockets server.
+// Gets the enable state of all audio tracks of an input.
 func (c *Client) GetInputAudioTracks(params *GetInputAudioTracksParams) (*GetInputAudioTracksResponse, error) {
-	resp, err := c.SendRequest("GetInputAudioTracks", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetInputAudioTracksResponse), nil
+	data := &GetInputAudioTracksResponse{}
+	return data, c.SendRequest(params, data)
 }

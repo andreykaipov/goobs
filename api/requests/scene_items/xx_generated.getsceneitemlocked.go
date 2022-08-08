@@ -2,12 +2,7 @@
 
 package sceneitems
 
-/*
-GetSceneItemLockedParams represents the params body for the "GetSceneItemLocked" request.
-Gets the lock state of a scene item.
-
-Scenes and Groups
-*/
+// Represents the request body for the GetSceneItemLocked request.
 type GetSceneItemLockedParams struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
@@ -16,22 +11,23 @@ type GetSceneItemLockedParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-/*
-GetSceneItemLockedResponse represents the response body for the "GetSceneItemLocked" request.
-Gets the lock state of a scene item.
+// Returns the associated request.
+func (o *GetSceneItemLockedParams) GetRequestName() string {
+	return "GetSceneItemLocked"
+}
 
-Scenes and Groups
-*/
+// Represents the response body for the GetSceneItemLocked request.
 type GetSceneItemLockedResponse struct {
 	// Whether the scene item is locked. `true` for locked, `false` for unlocked
 	SceneItemLocked bool `json:"sceneItemLocked,omitempty"`
 }
 
-// GetSceneItemLocked sends the corresponding request to the connected OBS WebSockets server.
+/*
+Gets the lock state of a scene item.
+
+Scenes and Groups
+*/
 func (c *Client) GetSceneItemLocked(params *GetSceneItemLockedParams) (*GetSceneItemLockedResponse, error) {
-	resp, err := c.SendRequest("GetSceneItemLocked", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSceneItemLockedResponse), nil
+	data := &GetSceneItemLockedResponse{}
+	return data, c.SendRequest(params, data)
 }

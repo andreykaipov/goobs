@@ -2,30 +2,26 @@
 
 package inputs
 
-/*
-RemoveInputParams represents the params body for the "RemoveInput" request.
-Removes an existing input.
-
-Note: Will immediately remove all associated scene items.
-*/
+// Represents the request body for the RemoveInput request.
 type RemoveInputParams struct {
 	// Name of the input to remove
 	InputName string `json:"inputName,omitempty"`
 }
 
+// Returns the associated request.
+func (o *RemoveInputParams) GetRequestName() string {
+	return "RemoveInput"
+}
+
+// Represents the response body for the RemoveInput request.
+type RemoveInputResponse struct{}
+
 /*
-RemoveInputResponse represents the response body for the "RemoveInput" request.
 Removes an existing input.
 
 Note: Will immediately remove all associated scene items.
 */
-type RemoveInputResponse struct{}
-
-// RemoveInput sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) RemoveInput(params *RemoveInputParams) (*RemoveInputResponse, error) {
-	resp, err := c.SendRequest("RemoveInput", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*RemoveInputResponse), nil
+	data := &RemoveInputResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,10 +2,7 @@
 
 package filters
 
-/*
-SetSourceFilterNameParams represents the params body for the "SetSourceFilterName" request.
-Sets the name of a source filter (rename).
-*/
+// Represents the request body for the SetSourceFilterName request.
 type SetSourceFilterNameParams struct {
 	// Current name of the filter
 	FilterName string `json:"filterName,omitempty"`
@@ -17,17 +14,16 @@ type SetSourceFilterNameParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-/*
-SetSourceFilterNameResponse represents the response body for the "SetSourceFilterName" request.
-Sets the name of a source filter (rename).
-*/
+// Returns the associated request.
+func (o *SetSourceFilterNameParams) GetRequestName() string {
+	return "SetSourceFilterName"
+}
+
+// Represents the response body for the SetSourceFilterName request.
 type SetSourceFilterNameResponse struct{}
 
-// SetSourceFilterName sends the corresponding request to the connected OBS WebSockets server.
+// Sets the name of a source filter (rename).
 func (c *Client) SetSourceFilterName(params *SetSourceFilterNameParams) (*SetSourceFilterNameResponse, error) {
-	resp, err := c.SendRequest("SetSourceFilterName", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetSourceFilterNameResponse), nil
+	data := &SetSourceFilterNameResponse{}
+	return data, c.SendRequest(params, data)
 }

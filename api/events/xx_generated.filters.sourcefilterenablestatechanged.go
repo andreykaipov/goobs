@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SourceFilterEnableStateChanged represents the event body for the "SourceFilterEnableStateChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SourceFilterEnableStateChanged event.
 type SourceFilterEnableStateChanged struct {
 	// Whether the filter is enabled
 	FilterEnabled bool `json:"filterEnabled,omitempty"`

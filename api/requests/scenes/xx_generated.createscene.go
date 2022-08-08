@@ -2,26 +2,22 @@
 
 package scenes
 
-/*
-CreateSceneParams represents the params body for the "CreateScene" request.
-Creates a new scene in OBS.
-*/
+// Represents the request body for the CreateScene request.
 type CreateSceneParams struct {
 	// Name for the new scene
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-/*
-CreateSceneResponse represents the response body for the "CreateScene" request.
-Creates a new scene in OBS.
-*/
+// Returns the associated request.
+func (o *CreateSceneParams) GetRequestName() string {
+	return "CreateScene"
+}
+
+// Represents the response body for the CreateScene request.
 type CreateSceneResponse struct{}
 
-// CreateScene sends the corresponding request to the connected OBS WebSockets server.
+// Creates a new scene in OBS.
 func (c *Client) CreateScene(params *CreateSceneParams) (*CreateSceneResponse, error) {
-	resp, err := c.SendRequest("CreateScene", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*CreateSceneResponse), nil
+	data := &CreateSceneResponse{}
+	return data, c.SendRequest(params, data)
 }

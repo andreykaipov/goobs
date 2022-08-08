@@ -2,10 +2,7 @@
 
 package events
 
-/*
-InputNameChanged represents the event body for the "InputNameChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the InputNameChanged event.
 type InputNameChanged struct {
 	// New name of the input
 	InputName string `json:"inputName,omitempty"`

@@ -2,10 +2,7 @@
 
 package transitions
 
-/*
-SetCurrentSceneTransitionSettingsParams represents the params body for the "SetCurrentSceneTransitionSettings" request.
-Sets the settings of the current scene transition.
-*/
+// Represents the request body for the SetCurrentSceneTransitionSettings request.
 type SetCurrentSceneTransitionSettingsParams struct {
 	// Whether to overlay over the current settings or replace them
 	Overlay *bool `json:"overlay,omitempty"`
@@ -14,19 +11,18 @@ type SetCurrentSceneTransitionSettingsParams struct {
 	TransitionSettings map[string]interface{} `json:"transitionSettings,omitempty"`
 }
 
-/*
-SetCurrentSceneTransitionSettingsResponse represents the response body for the "SetCurrentSceneTransitionSettings" request.
-Sets the settings of the current scene transition.
-*/
+// Returns the associated request.
+func (o *SetCurrentSceneTransitionSettingsParams) GetRequestName() string {
+	return "SetCurrentSceneTransitionSettings"
+}
+
+// Represents the response body for the SetCurrentSceneTransitionSettings request.
 type SetCurrentSceneTransitionSettingsResponse struct{}
 
-// SetCurrentSceneTransitionSettings sends the corresponding request to the connected OBS WebSockets server.
+// Sets the settings of the current scene transition.
 func (c *Client) SetCurrentSceneTransitionSettings(
 	params *SetCurrentSceneTransitionSettingsParams,
 ) (*SetCurrentSceneTransitionSettingsResponse, error) {
-	resp, err := c.SendRequest("SetCurrentSceneTransitionSettings", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetCurrentSceneTransitionSettingsResponse), nil
+	data := &SetCurrentSceneTransitionSettingsResponse{}
+	return data, c.SendRequest(params, data)
 }

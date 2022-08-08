@@ -2,12 +2,7 @@
 
 package sceneitems
 
-/*
-GetSceneItemEnabledParams represents the params body for the "GetSceneItemEnabled" request.
-Gets the enable state of a scene item.
-
-Scenes and Groups
-*/
+// Represents the request body for the GetSceneItemEnabled request.
 type GetSceneItemEnabledParams struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
@@ -16,22 +11,23 @@ type GetSceneItemEnabledParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-/*
-GetSceneItemEnabledResponse represents the response body for the "GetSceneItemEnabled" request.
-Gets the enable state of a scene item.
+// Returns the associated request.
+func (o *GetSceneItemEnabledParams) GetRequestName() string {
+	return "GetSceneItemEnabled"
+}
 
-Scenes and Groups
-*/
+// Represents the response body for the GetSceneItemEnabled request.
 type GetSceneItemEnabledResponse struct {
 	// Whether the scene item is enabled. `true` for enabled, `false` for disabled
 	SceneItemEnabled bool `json:"sceneItemEnabled,omitempty"`
 }
 
-// GetSceneItemEnabled sends the corresponding request to the connected OBS WebSockets server.
+/*
+Gets the enable state of a scene item.
+
+Scenes and Groups
+*/
 func (c *Client) GetSceneItemEnabled(params *GetSceneItemEnabledParams) (*GetSceneItemEnabledResponse, error) {
-	resp, err := c.SendRequest("GetSceneItemEnabled", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSceneItemEnabledResponse), nil
+	data := &GetSceneItemEnabledResponse{}
+	return data, c.SendRequest(params, data)
 }

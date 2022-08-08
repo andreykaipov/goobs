@@ -2,10 +2,7 @@
 
 package events
 
-/*
-SceneNameChanged represents the event body for the "SceneNameChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the SceneNameChanged event.
 type SceneNameChanged struct {
 	// Old name of the scene
 	OldSceneName string `json:"oldSceneName,omitempty"`

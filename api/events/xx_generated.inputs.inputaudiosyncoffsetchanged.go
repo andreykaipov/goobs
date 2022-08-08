@@ -2,10 +2,7 @@
 
 package events
 
-/*
-InputAudioSyncOffsetChanged represents the event body for the "InputAudioSyncOffsetChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the InputAudioSyncOffsetChanged event.
 type InputAudioSyncOffsetChanged struct {
 	// New sync offset in milliseconds
 	InputAudioSyncOffset float64 `json:"inputAudioSyncOffset,omitempty"`

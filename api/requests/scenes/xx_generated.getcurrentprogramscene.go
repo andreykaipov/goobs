@@ -2,23 +2,21 @@
 
 package scenes
 
-/*
-GetCurrentProgramSceneParams represents the params body for the "GetCurrentProgramScene" request.
-Gets the current program scene.
-*/
+// Represents the request body for the GetCurrentProgramScene request.
 type GetCurrentProgramSceneParams struct{}
 
-/*
-GetCurrentProgramSceneResponse represents the response body for the "GetCurrentProgramScene" request.
-Gets the current program scene.
-*/
+// Returns the associated request.
+func (o *GetCurrentProgramSceneParams) GetRequestName() string {
+	return "GetCurrentProgramScene"
+}
+
+// Represents the response body for the GetCurrentProgramScene request.
 type GetCurrentProgramSceneResponse struct {
 	// Current program scene
 	CurrentProgramSceneName string `json:"currentProgramSceneName,omitempty"`
 }
 
-// GetCurrentProgramScene sends the corresponding request to the connected OBS WebSockets server. Note the variadic
-// arguments as this request doesn't require any parameters.
+// Gets the current program scene.
 func (c *Client) GetCurrentProgramScene(
 	paramss ...*GetCurrentProgramSceneParams,
 ) (*GetCurrentProgramSceneResponse, error) {
@@ -26,9 +24,6 @@ func (c *Client) GetCurrentProgramScene(
 		paramss = []*GetCurrentProgramSceneParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetCurrentProgramScene", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetCurrentProgramSceneResponse), nil
+	data := &GetCurrentProgramSceneResponse{}
+	return data, c.SendRequest(params, data)
 }

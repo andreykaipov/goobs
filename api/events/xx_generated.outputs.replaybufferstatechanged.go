@@ -2,10 +2,7 @@
 
 package events
 
-/*
-ReplayBufferStateChanged represents the event body for the "ReplayBufferStateChanged" event.
-Since v5.0.0.
-*/
+// Represents the event body for the ReplayBufferStateChanged event.
 type ReplayBufferStateChanged struct {
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

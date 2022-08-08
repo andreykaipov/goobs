@@ -2,10 +2,7 @@
 
 package config
 
-/*
-SetProfileParameterParams represents the params body for the "SetProfileParameter" request.
-Sets the value of a parameter in the current profile's configuration.
-*/
+// Represents the request body for the SetProfileParameter request.
 type SetProfileParameterParams struct {
 	// Category of the parameter to set
 	ParameterCategory string `json:"parameterCategory,omitempty"`
@@ -17,17 +14,16 @@ type SetProfileParameterParams struct {
 	ParameterValue string `json:"parameterValue,omitempty"`
 }
 
-/*
-SetProfileParameterResponse represents the response body for the "SetProfileParameter" request.
-Sets the value of a parameter in the current profile's configuration.
-*/
+// Returns the associated request.
+func (o *SetProfileParameterParams) GetRequestName() string {
+	return "SetProfileParameter"
+}
+
+// Represents the response body for the SetProfileParameter request.
 type SetProfileParameterResponse struct{}
 
-// SetProfileParameter sends the corresponding request to the connected OBS WebSockets server.
+// Sets the value of a parameter in the current profile's configuration.
 func (c *Client) SetProfileParameter(params *SetProfileParameterParams) (*SetProfileParameterResponse, error) {
-	resp, err := c.SendRequest("SetProfileParameter", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetProfileParameterResponse), nil
+	data := &SetProfileParameterResponse{}
+	return data, c.SendRequest(params, data)
 }

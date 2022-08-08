@@ -2,28 +2,23 @@
 
 package outputs
 
-/*
-StartReplayBufferParams represents the params body for the "StartReplayBuffer" request.
-Starts the replay buffer output.
-*/
+// Represents the request body for the StartReplayBuffer request.
 type StartReplayBufferParams struct{}
 
-/*
-StartReplayBufferResponse represents the response body for the "StartReplayBuffer" request.
-Starts the replay buffer output.
-*/
+// Returns the associated request.
+func (o *StartReplayBufferParams) GetRequestName() string {
+	return "StartReplayBuffer"
+}
+
+// Represents the response body for the StartReplayBuffer request.
 type StartReplayBufferResponse struct{}
 
-// StartReplayBuffer sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments
-// as this request doesn't require any parameters.
+// Starts the replay buffer output.
 func (c *Client) StartReplayBuffer(paramss ...*StartReplayBufferParams) (*StartReplayBufferResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StartReplayBufferParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("StartReplayBuffer", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*StartReplayBufferResponse), nil
+	data := &StartReplayBufferResponse{}
+	return data, c.SendRequest(params, data)
 }

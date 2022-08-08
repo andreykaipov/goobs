@@ -2,10 +2,7 @@
 
 package inputs
 
-/*
-SetInputAudioSyncOffsetParams represents the params body for the "SetInputAudioSyncOffset" request.
-Sets the audio sync offset of an input.
-*/
+// Represents the request body for the SetInputAudioSyncOffset request.
 type SetInputAudioSyncOffsetParams struct {
 	// New audio sync offset in milliseconds
 	InputAudioSyncOffset float64 `json:"inputAudioSyncOffset,omitempty"`
@@ -14,19 +11,18 @@ type SetInputAudioSyncOffsetParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
-/*
-SetInputAudioSyncOffsetResponse represents the response body for the "SetInputAudioSyncOffset" request.
-Sets the audio sync offset of an input.
-*/
+// Returns the associated request.
+func (o *SetInputAudioSyncOffsetParams) GetRequestName() string {
+	return "SetInputAudioSyncOffset"
+}
+
+// Represents the response body for the SetInputAudioSyncOffset request.
 type SetInputAudioSyncOffsetResponse struct{}
 
-// SetInputAudioSyncOffset sends the corresponding request to the connected OBS WebSockets server.
+// Sets the audio sync offset of an input.
 func (c *Client) SetInputAudioSyncOffset(
 	params *SetInputAudioSyncOffsetParams,
 ) (*SetInputAudioSyncOffsetResponse, error) {
-	resp, err := c.SendRequest("SetInputAudioSyncOffset", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetInputAudioSyncOffsetResponse), nil
+	data := &SetInputAudioSyncOffsetResponse{}
+	return data, c.SendRequest(params, data)
 }

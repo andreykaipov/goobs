@@ -2,10 +2,7 @@
 
 package events
 
-/*
-ReplayBufferSaved represents the event body for the "ReplayBufferSaved" event.
-Since v5.0.0.
-*/
+// Represents the event body for the ReplayBufferSaved event.
 type ReplayBufferSaved struct {
 	// Path of the saved replay file
 	SavedReplayPath string `json:"savedReplayPath,omitempty"`

@@ -2,12 +2,7 @@
 
 package sceneitems
 
-/*
-CreateSceneItemParams represents the params body for the "CreateSceneItem" request.
-Creates a new scene item using a source.
-
-Scenes only
-*/
+// Represents the request body for the CreateSceneItem request.
 type CreateSceneItemParams struct {
 	// Enable state to apply to the scene item on creation
 	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
@@ -19,22 +14,23 @@ type CreateSceneItemParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-/*
-CreateSceneItemResponse represents the response body for the "CreateSceneItem" request.
-Creates a new scene item using a source.
+// Returns the associated request.
+func (o *CreateSceneItemParams) GetRequestName() string {
+	return "CreateSceneItem"
+}
 
-Scenes only
-*/
+// Represents the response body for the CreateSceneItem request.
 type CreateSceneItemResponse struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
 }
 
-// CreateSceneItem sends the corresponding request to the connected OBS WebSockets server.
+/*
+Creates a new scene item using a source.
+
+Scenes only
+*/
 func (c *Client) CreateSceneItem(params *CreateSceneItemParams) (*CreateSceneItemResponse, error) {
-	resp, err := c.SendRequest("CreateSceneItem", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*CreateSceneItemResponse), nil
+	data := &CreateSceneItemResponse{}
+	return data, c.SendRequest(params, data)
 }

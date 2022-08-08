@@ -2,26 +2,22 @@
 
 package scenes
 
-/*
-RemoveSceneParams represents the params body for the "RemoveScene" request.
-Removes a scene from OBS.
-*/
+// Represents the request body for the RemoveScene request.
 type RemoveSceneParams struct {
 	// Name of the scene to remove
 	SceneName string `json:"sceneName,omitempty"`
 }
 
-/*
-RemoveSceneResponse represents the response body for the "RemoveScene" request.
-Removes a scene from OBS.
-*/
+// Returns the associated request.
+func (o *RemoveSceneParams) GetRequestName() string {
+	return "RemoveScene"
+}
+
+// Represents the response body for the RemoveScene request.
 type RemoveSceneResponse struct{}
 
-// RemoveScene sends the corresponding request to the connected OBS WebSockets server.
+// Removes a scene from OBS.
 func (c *Client) RemoveScene(params *RemoveSceneParams) (*RemoveSceneResponse, error) {
-	resp, err := c.SendRequest("RemoveScene", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*RemoveSceneResponse), nil
+	data := &RemoveSceneResponse{}
+	return data, c.SendRequest(params, data)
 }

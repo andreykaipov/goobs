@@ -2,8 +2,5 @@
 
 package events
 
-/*
-ExitStarted represents the event body for the "ExitStarted" event.
-Since v5.0.0.
-*/
+// Represents the event body for the ExitStarted event.
 type ExitStarted struct{}

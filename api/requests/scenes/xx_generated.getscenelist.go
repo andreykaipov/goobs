@@ -4,16 +4,15 @@ package scenes
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-/*
-GetSceneListParams represents the params body for the "GetSceneList" request.
-Gets an array of all scenes in OBS.
-*/
+// Represents the request body for the GetSceneList request.
 type GetSceneListParams struct{}
 
-/*
-GetSceneListResponse represents the response body for the "GetSceneList" request.
-Gets an array of all scenes in OBS.
-*/
+// Returns the associated request.
+func (o *GetSceneListParams) GetRequestName() string {
+	return "GetSceneList"
+}
+
+// Represents the response body for the GetSceneList request.
 type GetSceneListResponse struct {
 	// Current preview scene. `null` if not in studio mode
 	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`
@@ -24,16 +23,12 @@ type GetSceneListResponse struct {
 	Scenes []*typedefs.Scene `json:"scenes,omitempty"`
 }
 
-// GetSceneList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Gets an array of all scenes in OBS.
 func (c *Client) GetSceneList(paramss ...*GetSceneListParams) (*GetSceneListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetSceneListParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetSceneList", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetSceneListResponse), nil
+	data := &GetSceneListResponse{}
+	return data, c.SendRequest(params, data)
 }

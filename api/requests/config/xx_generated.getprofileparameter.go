@@ -2,10 +2,7 @@
 
 package config
 
-/*
-GetProfileParameterParams represents the params body for the "GetProfileParameter" request.
-Gets a parameter from the current profile's configuration.
-*/
+// Represents the request body for the GetProfileParameter request.
 type GetProfileParameterParams struct {
 	// Category of the parameter to get
 	ParameterCategory string `json:"parameterCategory,omitempty"`
@@ -14,10 +11,12 @@ type GetProfileParameterParams struct {
 	ParameterName string `json:"parameterName,omitempty"`
 }
 
-/*
-GetProfileParameterResponse represents the response body for the "GetProfileParameter" request.
-Gets a parameter from the current profile's configuration.
-*/
+// Returns the associated request.
+func (o *GetProfileParameterParams) GetRequestName() string {
+	return "GetProfileParameter"
+}
+
+// Represents the response body for the GetProfileParameter request.
 type GetProfileParameterResponse struct {
 	// Default value associated with the parameter. `null` if no default
 	DefaultParameterValue string `json:"defaultParameterValue,omitempty"`
@@ -26,11 +25,8 @@ type GetProfileParameterResponse struct {
 	ParameterValue string `json:"parameterValue,omitempty"`
 }
 
-// GetProfileParameter sends the corresponding request to the connected OBS WebSockets server.
+// Gets a parameter from the current profile's configuration.
 func (c *Client) GetProfileParameter(params *GetProfileParameterParams) (*GetProfileParameterResponse, error) {
-	resp, err := c.SendRequest("GetProfileParameter", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetProfileParameterResponse), nil
+	data := &GetProfileParameterResponse{}
+	return data, c.SendRequest(params, data)
 }

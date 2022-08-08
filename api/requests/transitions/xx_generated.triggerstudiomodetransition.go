@@ -2,20 +2,18 @@
 
 package transitions
 
-/*
-TriggerStudioModeTransitionParams represents the params body for the "TriggerStudioModeTransition" request.
-Triggers the current scene transition. Same functionality as the `Transition` button in studio mode.
-*/
+// Represents the request body for the TriggerStudioModeTransition request.
 type TriggerStudioModeTransitionParams struct{}
 
-/*
-TriggerStudioModeTransitionResponse represents the response body for the "TriggerStudioModeTransition" request.
-Triggers the current scene transition. Same functionality as the `Transition` button in studio mode.
-*/
+// Returns the associated request.
+func (o *TriggerStudioModeTransitionParams) GetRequestName() string {
+	return "TriggerStudioModeTransition"
+}
+
+// Represents the response body for the TriggerStudioModeTransition request.
 type TriggerStudioModeTransitionResponse struct{}
 
-// TriggerStudioModeTransition sends the corresponding request to the connected OBS WebSockets server. Note the variadic
-// arguments as this request doesn't require any parameters.
+// Triggers the current scene transition. Same functionality as the `Transition` button in studio mode.
 func (c *Client) TriggerStudioModeTransition(
 	paramss ...*TriggerStudioModeTransitionParams,
 ) (*TriggerStudioModeTransitionResponse, error) {
@@ -23,9 +21,6 @@ func (c *Client) TriggerStudioModeTransition(
 		paramss = []*TriggerStudioModeTransitionParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("TriggerStudioModeTransition", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*TriggerStudioModeTransitionResponse), nil
+	data := &TriggerStudioModeTransitionResponse{}
+	return data, c.SendRequest(params, data)
 }

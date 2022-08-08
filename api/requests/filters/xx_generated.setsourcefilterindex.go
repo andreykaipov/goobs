@@ -2,10 +2,7 @@
 
 package filters
 
-/*
-SetSourceFilterIndexParams represents the params body for the "SetSourceFilterIndex" request.
-Sets the index position of a filter on a source.
-*/
+// Represents the request body for the SetSourceFilterIndex request.
 type SetSourceFilterIndexParams struct {
 	// New index position of the filter
 	FilterIndex float64 `json:"filterIndex,omitempty"`
@@ -17,17 +14,16 @@ type SetSourceFilterIndexParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
-/*
-SetSourceFilterIndexResponse represents the response body for the "SetSourceFilterIndex" request.
-Sets the index position of a filter on a source.
-*/
+// Returns the associated request.
+func (o *SetSourceFilterIndexParams) GetRequestName() string {
+	return "SetSourceFilterIndex"
+}
+
+// Represents the response body for the SetSourceFilterIndex request.
 type SetSourceFilterIndexResponse struct{}
 
-// SetSourceFilterIndex sends the corresponding request to the connected OBS WebSockets server.
+// Sets the index position of a filter on a source.
 func (c *Client) SetSourceFilterIndex(params *SetSourceFilterIndexParams) (*SetSourceFilterIndexResponse, error) {
-	resp, err := c.SendRequest("SetSourceFilterIndex", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetSourceFilterIndexResponse), nil
+	data := &SetSourceFilterIndexResponse{}
+	return data, c.SendRequest(params, data)
 }

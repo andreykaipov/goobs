@@ -2,28 +2,23 @@
 
 package outputs
 
-/*
-StopVirtualCamParams represents the params body for the "StopVirtualCam" request.
-Stops the virtualcam output.
-*/
+// Represents the request body for the StopVirtualCam request.
 type StopVirtualCamParams struct{}
 
-/*
-StopVirtualCamResponse represents the response body for the "StopVirtualCam" request.
-Stops the virtualcam output.
-*/
+// Returns the associated request.
+func (o *StopVirtualCamParams) GetRequestName() string {
+	return "StopVirtualCam"
+}
+
+// Represents the response body for the StopVirtualCam request.
 type StopVirtualCamResponse struct{}
 
-// StopVirtualCam sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Stops the virtualcam output.
 func (c *Client) StopVirtualCam(paramss ...*StopVirtualCamParams) (*StopVirtualCamResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*StopVirtualCamParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("StopVirtualCam", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*StopVirtualCamResponse), nil
+	data := &StopVirtualCamResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,26 +2,22 @@
 
 package stream
 
-/*
-SendStreamCaptionParams represents the params body for the "SendStreamCaption" request.
-Sends CEA-608 caption text over the stream output.
-*/
+// Represents the request body for the SendStreamCaption request.
 type SendStreamCaptionParams struct {
 	// Caption text
 	CaptionText string `json:"captionText,omitempty"`
 }
 
-/*
-SendStreamCaptionResponse represents the response body for the "SendStreamCaption" request.
-Sends CEA-608 caption text over the stream output.
-*/
+// Returns the associated request.
+func (o *SendStreamCaptionParams) GetRequestName() string {
+	return "SendStreamCaption"
+}
+
+// Represents the response body for the SendStreamCaption request.
 type SendStreamCaptionResponse struct{}
 
-// SendStreamCaption sends the corresponding request to the connected OBS WebSockets server.
+// Sends CEA-608 caption text over the stream output.
 func (c *Client) SendStreamCaption(params *SendStreamCaptionParams) (*SendStreamCaptionResponse, error) {
-	resp, err := c.SendRequest("SendStreamCaption", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SendStreamCaptionResponse), nil
+	data := &SendStreamCaptionResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,16 +2,15 @@
 
 package config
 
-/*
-GetProfileListParams represents the params body for the "GetProfileList" request.
-Gets an array of all profiles
-*/
+// Represents the request body for the GetProfileList request.
 type GetProfileListParams struct{}
 
-/*
-GetProfileListResponse represents the response body for the "GetProfileList" request.
-Gets an array of all profiles
-*/
+// Returns the associated request.
+func (o *GetProfileListParams) GetRequestName() string {
+	return "GetProfileList"
+}
+
+// Represents the response body for the GetProfileList request.
 type GetProfileListResponse struct {
 	// The name of the current profile
 	CurrentProfileName string `json:"currentProfileName,omitempty"`
@@ -20,16 +19,12 @@ type GetProfileListResponse struct {
 	Profiles []string `json:"profiles,omitempty"`
 }
 
-// GetProfileList sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Gets an array of all profiles
 func (c *Client) GetProfileList(paramss ...*GetProfileListParams) (*GetProfileListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetProfileListParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("GetProfileList", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*GetProfileListResponse), nil
+	data := &GetProfileListResponse{}
+	return data, c.SendRequest(params, data)
 }

@@ -2,28 +2,23 @@
 
 package record
 
-/*
-ToggleRecordParams represents the params body for the "ToggleRecord" request.
-Toggles the status of the record output.
-*/
+// Represents the request body for the ToggleRecord request.
 type ToggleRecordParams struct{}
 
-/*
-ToggleRecordResponse represents the response body for the "ToggleRecord" request.
-Toggles the status of the record output.
-*/
+// Returns the associated request.
+func (o *ToggleRecordParams) GetRequestName() string {
+	return "ToggleRecord"
+}
+
+// Represents the response body for the ToggleRecord request.
 type ToggleRecordResponse struct{}
 
-// ToggleRecord sends the corresponding request to the connected OBS WebSockets server. Note the variadic arguments as
-// this request doesn't require any parameters.
+// Toggles the status of the record output.
 func (c *Client) ToggleRecord(paramss ...*ToggleRecordParams) (*ToggleRecordResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*ToggleRecordParams{{}}
 	}
 	params := paramss[0]
-	resp, err := c.SendRequest("ToggleRecord", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*ToggleRecordResponse), nil
+	data := &ToggleRecordResponse{}
+	return data, c.SendRequest(params, data)
 }

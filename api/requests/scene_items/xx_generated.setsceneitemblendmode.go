@@ -2,12 +2,7 @@
 
 package sceneitems
 
-/*
-SetSceneItemBlendModeParams represents the params body for the "SetSceneItemBlendMode" request.
-Sets the blend mode of a scene item.
-
-Scenes and Groups
-*/
+// Represents the request body for the SetSceneItemBlendMode request.
 type SetSceneItemBlendModeParams struct {
 	// New blend mode
 	SceneItemBlendMode string `json:"sceneItemBlendMode,omitempty"`
@@ -19,19 +14,20 @@ type SetSceneItemBlendModeParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+// Returns the associated request.
+func (o *SetSceneItemBlendModeParams) GetRequestName() string {
+	return "SetSceneItemBlendMode"
+}
+
+// Represents the response body for the SetSceneItemBlendMode request.
+type SetSceneItemBlendModeResponse struct{}
+
 /*
-SetSceneItemBlendModeResponse represents the response body for the "SetSceneItemBlendMode" request.
 Sets the blend mode of a scene item.
 
 Scenes and Groups
 */
-type SetSceneItemBlendModeResponse struct{}
-
-// SetSceneItemBlendMode sends the corresponding request to the connected OBS WebSockets server.
 func (c *Client) SetSceneItemBlendMode(params *SetSceneItemBlendModeParams) (*SetSceneItemBlendModeResponse, error) {
-	resp, err := c.SendRequest("SetSceneItemBlendMode", params)
-	if err != nil {
-		return nil, err
-	}
-	return resp.(*SetSceneItemBlendModeResponse), nil
+	data := &SetSceneItemBlendModeResponse{}
+	return data, c.SendRequest(params, data)
 }

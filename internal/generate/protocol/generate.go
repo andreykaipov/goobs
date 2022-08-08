@@ -95,27 +95,28 @@ func generateRequests(requests []*Request) {
 		panic(err)
 	}
 
-	// GetRequestResponseForType to get the Go type of responses from their names
-	f = NewFile("goobs")
-	f.HeaderComment("This file has been automatically generated. Don't edit it.")
-	f.Add(
-		Func().Id("GetRequestResponseForType").Params(Id("name").String()).Interface().Block(
-			Switch(Id("name")).BlockFunc(func(g *Group) {
-				for _, category := range sortedKeys(categories) {
-					categorySnake := strings.ReplaceAll(category, " ", "_")
-					for _, request := range categories[category] {
-						g.Case(Lit(request.RequestType))
-						g.Return(Op("&").Qual(goobs+"/api/requests/"+categorySnake, request.RequestType+"Response").Values())
+	/*
+		// GetRequestResponseForType to get the Go type of responses from their names
+		f = NewFile("goobs")
+		f.HeaderComment("This file has been automatically generated. Don't edit it.")
+		f.Add(
+			Func().Id("GetRequestResponseForType").Params(Id("name").String()).Interface().Block(
+				Switch(Id("name")).BlockFunc(func(g *Group) {
+					for _, category := range sortedKeys(categories) {
+						categorySnake := strings.ReplaceAll(category, " ", "_")
+						for _, request := range categories[category] {
+							g.Case(Lit(request.RequestType))
+							g.Return(Op("&").Qual(goobs+"/api/requests/"+categorySnake, request.RequestType+"Response").Values())
+						}
 					}
-				}
-				g.Default().Return(Nil())
-			}),
-		),
-	)
-	if err := f.Save(fmt.Sprintf("%s/zz_generated.requests.go", root)); err != nil {
-		panic(err)
-	}
-
+					g.Default().Return(Nil())
+				}),
+			),
+		)
+		if err := f.Save(fmt.Sprintf("%s/zz_generated.requests.go", root)); err != nil {
+			panic(err)
+		}
+	*/
 }
 
 func generateRequest(request *Request) (s *Statement, err error) {
@@ -230,7 +231,7 @@ func generateEvents(events []*Event) {
 			}),
 		),
 	)
-	if err := f.Save(fmt.Sprintf("%s/zz_generated.events.go", root)); err != nil {
+	if err := f.Save(fmt.Sprintf("%s/api/events/zz_generated.events.go", root)); err != nil {
 		panic(err)
 	}
 }

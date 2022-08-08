@@ -218,14 +218,14 @@ func generateEvents(events []*Event) {
 	}
 
 	// GetEventForType to get the Go type of responses from their names
-	f := NewFile("goobs")
+	f := NewFile("events")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 	f.Add(
-		Func().Id("GetEventForType").Params(Id("name").String()).Interface().Block(
+		Func().Id("GetType").Params(Id("name").String()).Interface().Block(
 			Switch(Id("name")).BlockFunc(func(g *Group) {
 				for _, e := range events {
 					g.Case(Lit(e.EventType))
-					g.Return(Op("&").Qual(goobs+"/api/events", e.EventType).Values())
+					g.Return(Op("&").Id(e.EventType).Values())
 				}
 				g.Default().Return(Nil())
 			}),

@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SceneNameChanged event.
+
 The name of a scene has changed.
 */
 type SceneNameChanged struct {

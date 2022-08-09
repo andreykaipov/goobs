@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the InputAudioBalanceChanged event.
+
 The audio balance value of an input has changed.
 */
 type InputAudioBalanceChanged struct {

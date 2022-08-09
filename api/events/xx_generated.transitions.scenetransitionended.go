@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SceneTransitionEnded event.
+
 A scene transition has completed fully.
 
 Note: Does not appear to trigger when the transition is interrupted by the user.

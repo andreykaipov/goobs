@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the InputAudioMonitorTypeChanged event.
+
 The monitor type of an input has changed.
 
 Available types are:

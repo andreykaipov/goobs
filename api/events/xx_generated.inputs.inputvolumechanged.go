@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the InputVolumeChanged event.
+
 An input's volume level has changed.
 */
 type InputVolumeChanged struct {

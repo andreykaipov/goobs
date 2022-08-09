@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SourceFilterCreated event.
+
 A filter has been added to a source.
 */
 type SourceFilterCreated struct {

@@ -6,6 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 /*
 Represents the event body for the SceneItemListReindexed event.
+
 A scene's item list has been reindexed.
 */
 type SceneItemListReindexed struct {

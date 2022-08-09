@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SceneItemLockStateChanged event.
+
 A scene item's lock state has changed.
 */
 type SceneItemLockStateChanged struct {

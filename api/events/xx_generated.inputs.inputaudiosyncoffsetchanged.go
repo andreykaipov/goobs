@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the InputAudioSyncOffsetChanged event.
+
 The sync offset of an input has changed.
 */
 type InputAudioSyncOffsetChanged struct {

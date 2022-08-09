@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SourceFilterNameChanged event.
+
 The name of a source filter has changed.
 */
 type SourceFilterNameChanged struct {

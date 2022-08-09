@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the CurrentProgramSceneChanged event.
+
 The current program scene has changed.
 */
 type CurrentProgramSceneChanged struct {

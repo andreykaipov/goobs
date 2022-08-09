@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the CurrentSceneTransitionChanged event.
+
 The current scene transition has changed.
 */
 type CurrentSceneTransitionChanged struct {

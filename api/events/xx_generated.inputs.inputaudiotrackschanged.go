@@ -6,6 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 /*
 Represents the event body for the InputAudioTracksChanged event.
+
 The audio tracks of an input have changed.
 */
 type InputAudioTracksChanged struct {

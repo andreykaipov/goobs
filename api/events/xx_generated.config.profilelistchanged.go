@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the ProfileListChanged event.
+
 The profile list has changed.
 */
 type ProfileListChanged struct {

@@ -6,6 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 /*
 Represents the event body for the SceneItemTransformChanged event.
+
 The transform/crop of a scene item has changed.
 */
 type SceneItemTransformChanged struct {

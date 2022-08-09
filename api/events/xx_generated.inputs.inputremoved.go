@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the InputRemoved event.
+
 An input has been removed.
 */
 type InputRemoved struct {

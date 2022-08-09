@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the VirtualcamStateChanged event.
+
 The state of the virtualcam output has changed.
 */
 type VirtualcamStateChanged struct {

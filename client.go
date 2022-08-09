@@ -44,7 +44,7 @@ func WithPassword(x string) Option {
 }
 
 // WithEventSubscriptions specifies the events we'd like to susbcribe to via
-// `c.IncomingEvents`. The value is a bitmask of any of the subscription values
+// `client.Listen()`. The value is a bitmask of any of the subscription values
 // specified in api/events/subscriptions. By default, all event categories are
 // subscribed, except for events marked as high volume. High volume events must
 // be explicitly subscribed to.
@@ -300,5 +300,11 @@ func (c *Client) writeEvent(event interface{}) {
 
 			c.IncomingEvents <- event
 		}
+	}
+}
+
+func (c *Client) Listen(f func(interface{})) {
+	for event := range c.IncomingEvents {
+		f(event)
 	}
 }

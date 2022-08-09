@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the InputActiveStateChanged event.
+
 An input's active state has changed.
 
 When an input is active, it means it's being shown by the program feed.

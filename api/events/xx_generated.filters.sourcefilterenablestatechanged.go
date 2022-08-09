@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SourceFilterEnableStateChanged event.
+
 A source filter's enable state has changed.
 */
 type SourceFilterEnableStateChanged struct {

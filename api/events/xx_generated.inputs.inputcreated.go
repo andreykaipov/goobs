@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the InputCreated event.
+
 An input has been created.
 */
 type InputCreated struct {

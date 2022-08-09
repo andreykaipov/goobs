@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SceneTransitionStarted event.
+
 A scene transition has started.
 */
 type SceneTransitionStarted struct {

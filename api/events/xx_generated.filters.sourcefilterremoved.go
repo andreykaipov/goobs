@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SourceFilterRemoved event.
+
 A filter has been removed from a source.
 */
 type SourceFilterRemoved struct {

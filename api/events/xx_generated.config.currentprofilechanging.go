@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the CurrentProfileChanging event.
+
 The current profile has begun changing.
 */
 type CurrentProfileChanging struct {

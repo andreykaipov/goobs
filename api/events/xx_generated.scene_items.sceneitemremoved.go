@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SceneItemRemoved event.
+
 A scene item has been removed.
 
 This event is not emitted when the scene the item is in is removed.

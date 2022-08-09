@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SceneItemSelected event.
+
 A scene item has been selected in the Ui.
 */
 type SceneItemSelected struct {

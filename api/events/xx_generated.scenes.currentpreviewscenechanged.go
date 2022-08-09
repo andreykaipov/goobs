@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the CurrentPreviewSceneChanged event.
+
 The current preview scene has changed.
 */
 type CurrentPreviewSceneChanged struct {

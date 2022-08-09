@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SceneCollectionListChanged event.
+
 The scene collection list has changed.
 */
 type SceneCollectionListChanged struct {

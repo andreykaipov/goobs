@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SceneCreated event.
+
 A new scene has been created.
 */
 type SceneCreated struct {

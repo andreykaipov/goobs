@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the CurrentSceneCollectionChanging event.
+
 The current scene collection has begun changing.
 
 Note: We recommend using this event to trigger a pause of all polling requests, as performing any requests during a

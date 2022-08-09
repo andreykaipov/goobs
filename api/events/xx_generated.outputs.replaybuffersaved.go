@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the ReplayBufferSaved event.
+
 The replay buffer has been saved.
 */
 type ReplayBufferSaved struct {

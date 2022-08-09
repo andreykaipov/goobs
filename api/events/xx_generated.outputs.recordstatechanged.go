@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the RecordStateChanged event.
+
 The state of the record output has changed.
 */
 type RecordStateChanged struct {

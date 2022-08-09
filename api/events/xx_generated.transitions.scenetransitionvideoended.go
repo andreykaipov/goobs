@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the SceneTransitionVideoEnded event.
+
 A scene transition's video has completed fully.
 
 Useful for stinger transitions to tell when the video *actually* ends.

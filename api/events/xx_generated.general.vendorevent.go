@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the VendorEvent event.
+
 An event has been emitted from a vendor.
 
 A vendor is a unique name registered by a third-party plugin or script, which allows for custom requests and events to be added to obs-websocket.

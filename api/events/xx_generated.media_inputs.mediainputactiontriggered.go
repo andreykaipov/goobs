@@ -4,6 +4,7 @@ package events
 
 /*
 Represents the event body for the MediaInputActionTriggered event.
+
 An action has been performed on an input.
 */
 type MediaInputActionTriggered struct {

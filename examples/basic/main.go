@@ -18,7 +18,6 @@ func main() {
 	fmt.Printf("OBS Studio version: %s\n", version.ObsVersion)
 	fmt.Printf("Websocket server version: %s\n", version.ObsWebSocketVersion)
 
-	fmt.Println("Scenes:")
 	resp, _ := client.Scenes.GetSceneList()
 	for _, v := range resp.Scenes {
 		fmt.Printf("%2d %s\n", v.SceneIndex, v.SceneName)

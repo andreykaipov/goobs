@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the SceneTransitionStarted event.
+/*
+Represents the event body for the SceneTransitionStarted event.
+A scene transition has started.
+*/
 type SceneTransitionStarted struct {
 	// Scene transition name
 	TransitionName string `json:"transitionName,omitempty"`

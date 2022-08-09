@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the InputCreated event.
+/*
+Represents the event body for the InputCreated event.
+An input has been created.
+*/
 type InputCreated struct {
 	// The default settings for the input
 	DefaultInputSettings map[string]interface{} `json:"defaultInputSettings,omitempty"`

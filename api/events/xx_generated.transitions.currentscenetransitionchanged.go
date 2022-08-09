@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the CurrentSceneTransitionChanged event.
+/*
+Represents the event body for the CurrentSceneTransitionChanged event.
+The current scene transition has changed.
+*/
 type CurrentSceneTransitionChanged struct {
 	// Name of the new transition
 	TransitionName string `json:"transitionName,omitempty"`

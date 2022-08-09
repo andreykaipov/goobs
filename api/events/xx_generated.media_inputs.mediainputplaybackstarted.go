@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the MediaInputPlaybackStarted event.
+/*
+Represents the event body for the MediaInputPlaybackStarted event.
+A media input has started playing.
+*/
 type MediaInputPlaybackStarted struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

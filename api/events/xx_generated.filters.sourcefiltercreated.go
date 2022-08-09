@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the SourceFilterCreated event.
+/*
+Represents the event body for the SourceFilterCreated event.
+A filter has been added to a source.
+*/
 type SourceFilterCreated struct {
 	// The default settings for the filter
 	DefaultFilterSettings map[string]interface{} `json:"defaultFilterSettings,omitempty"`

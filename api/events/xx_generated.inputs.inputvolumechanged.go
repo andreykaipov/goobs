@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the InputVolumeChanged event.
+/*
+Represents the event body for the InputVolumeChanged event.
+An input's volume level has changed.
+*/
 type InputVolumeChanged struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

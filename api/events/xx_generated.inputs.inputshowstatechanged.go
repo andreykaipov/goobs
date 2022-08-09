@@ -2,7 +2,12 @@
 
 package events
 
-// Represents the event body for the InputShowStateChanged event.
+/*
+Represents the event body for the InputShowStateChanged event.
+An input's show state has changed.
+
+When an input is showing, it means it's being shown by the preview or a dialog.
+*/
 type InputShowStateChanged struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

@@ -16,12 +16,12 @@
 
 It's a Go client for
 [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket),
-allowing us to interact with OBS Studio from Go.
+allowing us to interact with OBS Studio from Go!
 
 ## installation
 
-To add this client library to your module, simply `go get` it like any other Go
-module after you've initialized your own:
+To add this library to your module, simply `go get` it like any other Go module
+after you've initialized your own:
 
 ```console
 ❯ go mod init blah
@@ -81,15 +81,7 @@ Websocket server version: 5.0.0
 
 ### logging
 
-We can view what this library is doing under the hood (i.e. the raw messages it
-sends and receives) by setting `GOOBS_LOG=debug`. This value can be set to the
-typical Log4j values for more or less verbosity.
-
-## development
-
-The client library code is generated from the mess inside
-`./internal/generate/protocol`. Tests are then generated from that generated
-code via `./internal/generate/tests`.
-
-Iteration typically involves changing the generative code, running `make
-generate`, and a `make test`.
+Further, we can view what this library is doing under the hood (i.e. the raw
+messages it sends and receives) by setting `GOOBS_LOG=debug`. This value can be
+set to the typical Log4j values (e.g. `debug`, `info`, `error`) for more or less
+verbosity.

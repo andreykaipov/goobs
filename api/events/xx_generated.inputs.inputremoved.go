@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the InputRemoved event.
+/*
+Represents the event body for the InputRemoved event.
+An input has been removed.
+*/
 type InputRemoved struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`

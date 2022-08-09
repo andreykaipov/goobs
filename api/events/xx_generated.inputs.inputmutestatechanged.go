@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the InputMuteStateChanged event.
+/*
+Represents the event body for the InputMuteStateChanged event.
+An input's mute state has changed.
+*/
 type InputMuteStateChanged struct {
 	// Whether the input is muted
 	InputMuted bool `json:"inputMuted,omitempty"`

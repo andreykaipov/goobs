@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the StreamStateChanged event.
+/*
+Represents the event body for the StreamStateChanged event.
+The state of the stream output has changed.
+*/
 type StreamStateChanged struct {
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

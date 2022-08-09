@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the SceneItemLockStateChanged event.
+/*
+Represents the event body for the SceneItemLockStateChanged event.
+A scene item's lock state has changed.
+*/
 type SceneItemLockStateChanged struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`

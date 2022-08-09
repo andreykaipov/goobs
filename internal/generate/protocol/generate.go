@@ -240,7 +240,7 @@ func generateEvent(event *Event) (s *Statement, err error) {
 	fmt.Printf("Event %s %s\n", event.Category, event.EventType)
 
 	s = Line()
-	s.Commentf("Represents the event body for the %s event.", event.EventType).Line()
+	s.Commentf("Represents the event body for the %s event.\n\n%s", event.EventType, event.Description).Line()
 
 	if err := generateStructFromParams("event", s, event.EventType, event.DataFields); err != nil {
 		return nil, fmt.Errorf("Failed generating event %q in category %q", event.EventType, event.Category)

@@ -4,7 +4,10 @@ package events
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-// Represents the event body for the SceneItemTransformChanged event.
+/*
+Represents the event body for the SceneItemTransformChanged event.
+The transform/crop of a scene item has changed.
+*/
 type SceneItemTransformChanged struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`

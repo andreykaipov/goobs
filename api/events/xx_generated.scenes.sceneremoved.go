@@ -2,7 +2,10 @@
 
 package events
 
-// Represents the event body for the SceneRemoved event.
+/*
+Represents the event body for the SceneRemoved event.
+A scene has been removed.
+*/
 type SceneRemoved struct {
 	// Whether the scene was a group
 	IsGroup bool `json:"isGroup,omitempty"`

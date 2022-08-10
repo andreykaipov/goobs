@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
 	"go/ast"
 	"io/ioutil"
@@ -63,6 +64,19 @@ func run(cmd string) (string, error) {
 	}
 
 	return strings.TrimSuffix(string(output), "\n"), nil
+}
+
+// renders our statement. if it errors because of formatting issues, parse the
+// invalid Go code from the error. don't want to maintain a fork for the proper
+// solution
+//
+// see https://github.com/dave/jennifer/pull/94
+func jenRenderUnsafe(s *Statement) string {
+	buf := &bytes.Buffer{}
+	if err := s.Render(buf); err != nil {
+		return strings.Join(strings.Split(err.Error(), "\n")[1:], "\n")
+	}
+	return buf.String()
 }
 
 func main() {
@@ -195,7 +209,7 @@ func generateRequestTest(pkg *packages.Package, category string, structs map[str
 				}
 			}
 			val = Lit(n)
-		case "* bool":
+		case "*bool":
 			val = Op("&").Index().Bool().Values(True()).Index(Lit(0))
 		case "interface{}":
 			switch field {
@@ -208,15 +222,15 @@ func generateRequestTest(pkg *packages.Package, category string, structs map[str
 			val = Map(String()).Interface().Values(Dict{
 				Lit("test"): Lit("test"),
 			})
-		case "* typedefs.StreamServiceSettings":
+		case "*typedefs.StreamServiceSettings":
 			val = Op("&").Qual(goobs+"/api/typedefs", "StreamServiceSettings").Values(Dict{})
-		case "* typedefs.KeyModifiers":
+		case "*typedefs.KeyModifiers":
 			val = Op("&").Qual(goobs+"/api/typedefs", "KeyModifiers").Values()
-		case "* typedefs.InputAudioTracks":
+		case "*typedefs.InputAudioTracks":
 			val = Op("&").Qual(goobs+"/api/typedefs", "InputAudioTracks").Values(Dict{
 				Lit("test"): True(),
 			})
-		case "* typedefs.SceneItemTransform":
+		case "*typedefs.SceneItemTransform":
 			val = Op("&").Qual(goobs+"/api/typedefs", "SceneItemTransform").Values(Dict{
 				Id("BoundsType"):   Lit("OBS_BOUNDS_NONE"),
 				Id("BoundsWidth"):  Lit(1.0),
@@ -261,10 +275,7 @@ func generateRequestTest(pkg *packages.Package, category string, structs map[str
 				s.Line()
 				s.List(Id("_"), Id("err")).Op("=").Id("client").Dot(pascal(category)).Dot(request).Call(Op("&").Qual(goobs+"/api/requests/"+category, request+"Params").Values(DictFunc(func(d Dict) {
 					for field, fieldInfo := range structFields {
-						fieldType, err := fieldInfo.Type.GoStringUnsafe()
-						if err != nil {
-							panic(err)
-						}
+						fieldType := jenRenderUnsafe(fieldInfo.Type)
 
 						d[Id(field)] = paramsMapper(request, field, fieldType)
 					}

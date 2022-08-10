@@ -9,8 +9,6 @@ require (
 	golang.org/x/tools v0.1.12
 )
 
-replace github.com/dave/jennifer => github.com/andreykaipov/jennifer v0.0.0-20220806044938-878e4aa190c8
-
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect

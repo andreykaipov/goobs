@@ -20,8 +20,6 @@ import (
 	"github.com/hashicorp/logutils"
 )
 
-var version = "0.9.0-dev"
-
 // Client represents a client to an OBS websockets server.
 type Client struct {
 	*api.Client

@@ -1,3 +1,5 @@
+version := $(shell grep -Eo 'version = "[^"]+"' version.go | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+
 help:
 	@echo "Please specify a task:"
 	@awk -F: '/^[^\t#$$]+:[^=]+?$$/ {print "-",$$1}' Makefile
@@ -25,3 +27,15 @@ clean:
 	find . -regextype awk -regex "./.+_generated.[^.]+.go" | xargs rm -f
 	find . -type d -empty -delete
 	docker stop obs || true
+
+# 1. update version in version.go
+# 2. commit all the changes
+# 3. run this task
+release:
+	@if ! git diff --quiet; then \
+		echo "Can't release... dirty worktree" ;\
+		echo ;\
+		git status ;\
+		exit 1 ;\
+	fi
+	@gh release create v$(version) --generate-notes

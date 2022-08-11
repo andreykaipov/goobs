@@ -89,7 +89,6 @@ func ParseRawMessage(raw json.RawMessage) (Opcode, error) {
 // (e.g. we receive a message from server, process it, send back).
 //
 // Also see https://stackoverflow.com/q/33903552/4085283.
-//
 func marshal(v interface{}) []byte {
 	b, err := json.Marshal(v)
 	if err != nil {

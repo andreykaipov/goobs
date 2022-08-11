@@ -45,7 +45,6 @@ type Client struct {
 // It should be noted multiple connections to the server are totally fine.
 // Phrased differently, mesasge IDs are unique per client. Moreover, events will
 // be broadcast to every client.
-//
 func (c *Client) SendRequest(requestBody Params, responseBody interface{}) error {
 	uid, err := uuid.NewV4()
 	if err != nil {

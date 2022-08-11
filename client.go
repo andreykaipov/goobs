@@ -202,7 +202,6 @@ func (c *Client) handleRawServerMessages() {
 
 // here's the meat of the operation
 // handles both server and client opcodes
-//
 func (c *Client) handleOpcodes(auth chan<- error) {
 	for op := range c.Opcodes {
 		switch val := op.(type) {

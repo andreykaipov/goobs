@@ -6,7 +6,6 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the SetStreamServiceSettings request.
 type SetStreamServiceSettingsParams struct {
-	//
 	StreamServiceSettings *typedefs.StreamServiceSettings `json:"streamServiceSettings,omitempty"`
 
 	// Type of stream service to apply. Example: `rtmp_common` or `rtmp_custom`

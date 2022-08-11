@@ -1,8 +1,12 @@
-version := $(shell grep -Eo 'version = "[^"]+"' version.go | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+goobs_version                  := $(shell grep obs_version                    version.go | cut -d= -f2 | tr -dc '[0-9.]')
+obs_websocket_protocol_version := $(shell grep obs_websocket_protocol_version version.go | cut -d= -f2 | tr -dc '[0-9.]')
+
+export goobs_version
+export obs_websocket_protocol_version
 
 help:
 	@echo "Please specify a task:"
-	@awk -F: '/^[^\t#$$]+:[^=]+?$$/ {print "-",$$1}' Makefile
+	@awk -F: '/^[^.\t][^#$$]+:[^=]+?$$/ {print "-",$$1}' Makefile
 
 .PHONY: test
 test: test.unit test.functional
@@ -40,4 +44,4 @@ release:
 		git status ;\
 		exit 1 ;\
 	fi
-	@gh release create v$(version) --generate-notes
+	@gh release create v$(goobs_version) --generate-notes

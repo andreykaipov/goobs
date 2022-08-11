@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -13,15 +15,26 @@ var (
 	goobs = "github.com/andreykaipov/goobs"
 	root  = ""
 
-	version  = "5.0.0"
-	protocol = fmt.Sprintf("https://raw.githubusercontent.com/obsproject/obs-websocket/%s/docs/generated/protocol.json", version)
+	version  = ""
+	protocol = ""
 )
 
 func init() {
+	log.SetFlags(0)
+
 	var err error
 	if root, err = run("git rev-parse --show-toplevel"); err != nil || root == "" {
 		panic(err)
 	}
+
+	version = os.Getenv("obs_websocket_protocol_version")
+	if version == "" {
+		log.Fatal("Provide an OBS websocket version")
+	}
+
+	log.Printf("Generating with OBS websocket protocol version: %s", version)
+
+	protocol = fmt.Sprintf("https://raw.githubusercontent.com/obsproject/obs-websocket/%s/docs/generated/protocol.json", version)
 }
 
 func main() {

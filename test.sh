@@ -10,15 +10,15 @@ setup() {
         if [ "$obs" = running ]; then
                 echo "Main OBS container is already running"
         else
-                docker run --rm --detach --name obs -p 4444:1234 ghcr.io/andreykaipov/goobs
+                docker run --rm --detach --name obs -p 4455:1234 ghcr.io/andreykaipov/goobs
         fi
 
         # record and stream categories aren't totally idempotent so we need
         # a clean OBS docker instance each time
 
         echo "Spinning up OBS instances for 'record' and 'stream' tests"
-        docker run --rm --detach --name obs-record -p 4445:1234 ghcr.io/andreykaipov/goobs
-        docker run --rm --detach --name obs-stream -p 4446:1234 ghcr.io/andreykaipov/goobs
+        docker run --rm --detach --name obs-record -p 4456:1234 ghcr.io/andreykaipov/goobs
+        docker run --rm --detach --name obs-stream -p 4457:1234 ghcr.io/andreykaipov/goobs
 
         covermode=count
         echo "mode: $covermode" >coverall.out
@@ -55,11 +55,11 @@ main() {
 
         for category in $categories; do
                 echo "$category"
-                OBS_PORT=4444 gotest "$category"
+                OBS_PORT=4455 gotest "$category"
         done
 
-        OBS_PORT=4445 gotest record
-        OBS_PORT=4446 gotest stream
+        OBS_PORT=4456 gotest record
+        OBS_PORT=4457 gotest stream
 
         go tool cover -html coverall.out -o coverall.html
 }

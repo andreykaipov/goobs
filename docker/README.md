@@ -20,7 +20,7 @@ or for any other reason you'd like to log into it. The VNC server is bound to
 The most basic usage:
 
 ```console
-❯ docker run --rm -it -p 4444:1234 ghcr.io/andreykaipov/goobs
+❯ docker run --rm -it -p 4455:1234 ghcr.io/andreykaipov/goobs
 ```
 
 Enable VNC:
@@ -49,5 +49,5 @@ A quick way to verify they were bundled correctly is by rerunning the rebuilt
 image. Since copying the configs are last in our layers, this is rather quick:
 
 ```console
-❯ docker run --rm -it --name obs -p 4444:1234 -e vnc=1 -p 5900:5900 "$(docker build -q docker)"
+❯ docker run --rm -it --name obs -p 4455:1234 -e vnc=1 -p 5900:5900 "$(docker build -q docker)"
 ```

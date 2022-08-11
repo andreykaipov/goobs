@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	client, err := goobs.New("localhost:4444", goobs.WithPassword("goodpassword"))
+	client, err := goobs.New("localhost:4455", goobs.WithPassword("goodpassword"))
 	if err != nil {
 		log.Fatal(err)
 	}

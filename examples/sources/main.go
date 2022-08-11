@@ -15,7 +15,7 @@ func green(f string, v ...any) { log.Printf("\033[32m"+f+"\033[0m", v...) }
 func blue(f string, v ...any)  { log.Printf("\033[34m"+f+"\033[0m", v...) }
 
 func main() {
-	client, err := goobs.New("localhost:4444", goobs.WithPassword("goodpassword"))
+	client, err := goobs.New("localhost:4455", goobs.WithPassword("goodpassword"))
 	if err != nil {
 		log.Fatal(err)
 	}

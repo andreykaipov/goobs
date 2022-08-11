@@ -3,14 +3,12 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"go/ast"
-	"io/ioutil"
 	"os/exec"
+	"reflect"
 	"sort"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
-	"golang.org/x/tools/go/packages"
 )
 
 var (
@@ -32,9 +30,9 @@ var (
 		"inputs.SetInputName",                        // not idempotent
 		"inputs.SetInputVolume",                      // too tricky to remove one of the two volume fields
 		"outputs.",
-		"scene_items.DuplicateSceneItem",
-		"scene_items.GetGroupItemList",
-		"scene_items.RemoveSceneItem",
+		"sceneitems.DuplicateSceneItem",
+		"sceneitems.GetGroupItemList",
+		"sceneitems.RemoveSceneItem",
 		"scenes.CreateScene",
 		"scenes.RemoveScene",
 		"scenes.SetSceneName",
@@ -80,63 +78,28 @@ func jenRenderUnsafe(s *Statement) string {
 }
 
 func main() {
-	dirs, err := ioutil.ReadDir(root + "/api/requests")
+	f := NewFile("goobs_test")
+	f.HeaderComment("This file has been automatically generated. Don't edit it.")
+
+	// find subclients at the root of goobs, using that to then find the
+	// structs within each of the subclient categories
+
+	structs, err := findStructs(root)
 	if err != nil {
 		panic(err)
 	}
 
-	f := NewFile("goobs_test")
-	f.HeaderComment("This file has been automatically generated. Don't edit it.")
+	subclients := sortedKeys(structs["subclients"])
 
-	for _, dir := range dirs {
-		if !dir.IsDir() {
-			continue
-		}
+	for _, subclient := range subclients {
+		category := strings.ToLower(subclient)
 
-		category := dir.Name()
-		path := fmt.Sprintf("%s/api/requests/%s", root, category)
-
-		pkgs, err := packages.Load(&packages.Config{
-			Mode: packages.NeedName | packages.NeedSyntax | packages.NeedTypes,
-			Dir:  path,
-		})
+		structs, err := findStructs(root + "/api/requests/" + category)
 		if err != nil {
 			panic(err)
 		}
 
-		if len(pkgs) > 1 {
-			panic(fmt.Errorf("really should only be one package in api/requests/%s ?", category))
-		}
-
-		pkg := pkgs[0]
-
-		fmt.Printf("%s\n", pkg.ID)
-
-		// Find structs
-		structs := map[string]StructFieldMap{}
-
-		for _, file := range pkg.Syntax {
-			for objName, obj := range file.Scope.Objects {
-				switch obj.Kind {
-				case ast.Typ:
-					switch typ := obj.Decl.(*ast.TypeSpec).Type.(type) {
-					case *ast.StructType:
-						structs[objName] = structFieldsToMap(typ, pkg)
-					case *ast.Ident:
-						continue
-					default:
-						continue
-					}
-				case ast.Con:
-					continue
-				default:
-					continue
-				}
-
-			}
-		}
-
-		test := generateRequestTest(pkg, category, structs)
+		test := generateRequestTest(subclient, category, structs)
 
 		f.Add(test.Line())
 	}
@@ -146,7 +109,7 @@ func main() {
 	}
 }
 
-func generateRequestTest(pkg *packages.Package, category string, structs map[string]StructFieldMap) *Statement {
+func generateRequestTest(subclient, category string, structs map[string]StructFieldMap) *Statement {
 	paramsMapper := func(request, field, fieldType string) *Statement {
 		var val *Statement
 		switch fieldType {
@@ -273,7 +236,7 @@ func generateRequestTest(pkg *packages.Package, category string, structs map[str
 				// fmt.Printf("%s %s\n", category, request)
 
 				s.Line()
-				s.List(Id("_"), Id("err")).Op("=").Id("client").Dot(pascal(category)).Dot(request).Call(Op("&").Qual(goobs+"/api/requests/"+category, request+"Params").Values(DictFunc(func(d Dict) {
+				s.List(Id("_"), Id("err")).Op("=").Id("client").Dot(subclient).Dot(request).Call(Op("&").Qual(goobs+"/api/requests/"+category, request+"Params").Values(DictFunc(func(d Dict) {
 					for field, fieldInfo := range structFields {
 						fieldType := jenRenderUnsafe(fieldInfo.Type)
 
@@ -327,4 +290,18 @@ func customSortedKeys(m map[string]StructFieldMap) []string {
 	})
 
 	return keys
+}
+
+func sortedKeys(m interface{}) []string {
+	keys := reflect.ValueOf(m).MapKeys()
+
+	sorted := make([]string, len(keys))
+	i := 0
+	for _, key := range keys {
+		sorted[i] = key.Interface().(string)
+		i++
+	}
+	sort.Strings(sorted)
+
+	return sorted
 }

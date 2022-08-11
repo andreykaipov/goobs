@@ -114,3 +114,46 @@ func findJenTypeOfField(field *ast.Field, pkg *packages.Package) *Statement {
 
 	return f(field.Type)
 }
+
+func findStructs(pkgPath string) (map[string]StructFieldMap, error) {
+	pkgs, err := packages.Load(&packages.Config{
+		Mode: packages.NeedName | packages.NeedSyntax | packages.NeedTypes,
+		Dir:  pkgPath,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	if len(pkgs) > 1 {
+		return nil, fmt.Errorf("really should only be one package in %s, no?", pkgPath)
+	}
+
+	pkg := pkgs[0]
+
+	fmt.Printf("%s\n", pkg.Types)
+
+	structs := map[string]StructFieldMap{}
+
+	for _, file := range pkg.Syntax {
+		for objName, obj := range file.Scope.Objects {
+			switch obj.Kind {
+			case ast.Typ:
+				switch typ := obj.Decl.(*ast.TypeSpec).Type.(type) {
+				case *ast.StructType:
+					structs[objName] = structFieldsToMap(typ, pkg)
+				case *ast.Ident:
+					continue
+				default:
+					continue
+				}
+			case ast.Con:
+				continue
+			default:
+				continue
+			}
+
+		}
+	}
+
+	return structs, nil
+}

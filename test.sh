@@ -43,10 +43,10 @@ main() {
 		filters
 		general
 		inputs
-		media_inputs
+		mediainputs
 		outputs
 		rconfig
-		scene_items
+		sceneitems
 		sources
 		ui
 		scenes

@@ -12,11 +12,11 @@ import (
 	filters "github.com/andreykaipov/goobs/api/requests/filters"
 	general "github.com/andreykaipov/goobs/api/requests/general"
 	inputs "github.com/andreykaipov/goobs/api/requests/inputs"
-	mediainputs "github.com/andreykaipov/goobs/api/requests/media_inputs"
+	mediainputs "github.com/andreykaipov/goobs/api/requests/mediainputs"
 	outputs "github.com/andreykaipov/goobs/api/requests/outputs"
 	rconfig "github.com/andreykaipov/goobs/api/requests/rconfig"
 	record "github.com/andreykaipov/goobs/api/requests/record"
-	sceneitems "github.com/andreykaipov/goobs/api/requests/scene_items"
+	sceneitems "github.com/andreykaipov/goobs/api/requests/sceneitems"
 	scenes "github.com/andreykaipov/goobs/api/requests/scenes"
 	sources "github.com/andreykaipov/goobs/api/requests/sources"
 	stream "github.com/andreykaipov/goobs/api/requests/stream"
@@ -298,7 +298,7 @@ func Test_inputs(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func Test_media_inputs(t *testing.T) {
+func Test_mediainputs(t *testing.T) {
 	client, err := goobs.New(
 		"localhost:"+os.Getenv("OBS_PORT"),
 		goobs.WithPassword("goodpassword"),
@@ -403,7 +403,7 @@ func Test_record(t *testing.T) {
 	assert.NoError(t, err)
 }
 
-func Test_scene_items(t *testing.T) {
+func Test_sceneitems(t *testing.T) {
 	client, err := goobs.New(
 		"localhost:"+os.Getenv("OBS_PORT"),
 		goobs.WithPassword("goodpassword"),

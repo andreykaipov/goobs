@@ -8,12 +8,9 @@ import (
 	. "github.com/dave/jennifer/jen"
 )
 
-func snake(s string) string {
-	return strings.ReplaceAll(s, " ", "_")
-}
-func lower(s string) string {
-	return strings.ToLower(s)
-}
+func snake(s string) string { return strings.ReplaceAll(s, " ", "_") }
+func trim(s string) string  { return strings.ReplaceAll(s, " ", "") }
+func lower(s string) string { return strings.ToLower(s) }
 
 func generateRequests(requests []*Request) {
 	topClientFields := []Code{}
@@ -28,12 +25,11 @@ func generateRequests(requests []*Request) {
 	for _, category := range sortedKeys(categories) {
 		requestsInCategory := categories[category]
 
-		categorySnake := strings.ReplaceAll(category, " ", "_")
-		categoryPascal := strings.ReplaceAll(strings.Title(category), " ", "")
-		categoryClaustrophic := strings.ReplaceAll(category, " ", "")
+		categoryPascal := pascal(category)
+		categoryClaustrophic := trim(category)
 
 		// For the top-level client
-		qualifier := goobs + "/api/requests/" + categorySnake
+		qualifier := goobs + "/api/requests/" + categoryClaustrophic
 		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
 		topClientSetters = append(
 			topClientSetters, Id("c").Dot(categoryPascal).Op("=").Op("&").Qual(qualifier, "Client").Values(
@@ -52,7 +48,7 @@ func generateRequests(requests []*Request) {
 		)
 
 		// Write the category-level client
-		dir := fmt.Sprintf("%s/api/requests/%s", root, categorySnake)
+		dir := fmt.Sprintf("%s/api/requests/%s", root, categoryClaustrophic)
 		if err := os.MkdirAll(dir, 0777); err != nil {
 			panic(err)
 		}
@@ -77,7 +73,7 @@ func generateRequests(requests []*Request) {
 			f := NewFile(categoryClaustrophic)
 			f.HeaderComment("This file has been automatically generated. Don't edit it.")
 			f.Add(s)
-			fName := strings.ToLower(name)
+			fName := lower(name)
 			if err := f.Save(fmt.Sprintf("%s/xx_generated.%s.go", dir, fName)); err != nil {
 				panic(err)
 			}
@@ -200,7 +196,7 @@ func generateEvents(events []*Event) {
 	}
 
 	for _, e := range events {
-		category := snake(e.Category)
+		category := trim(e.Category)
 		name := e.EventType
 
 		s, err := generateEvent(e)

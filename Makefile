@@ -11,10 +11,12 @@ test.unit:
 test.functional:
 	./test.sh
 
-generate:
-	cd internal; go run ./generate/protocol/...
-	cd internal; go run ./generate/tests/...
+generate: generate.protocol generate.tests
 	$(MAKE) format
+generate.protocol:
+	cd internal; go run ./generate/protocol/...
+generate.tests:
+	cd internal; go run ./generate/tests/...
 
 format:
 	go install github.com/segmentio/golines@latest

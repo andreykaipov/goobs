@@ -97,7 +97,7 @@ func main() {
 		path := fmt.Sprintf("%s/api/requests/%s", root, category)
 
 		pkgs, err := packages.Load(&packages.Config{
-			Mode: packages.NeedName | packages.NeedSyntax | packages.NeedImports,
+			Mode: packages.NeedName | packages.NeedSyntax | packages.NeedTypes,
 			Dir:  path,
 		})
 		if err != nil {
@@ -109,6 +109,8 @@ func main() {
 		}
 
 		pkg := pkgs[0]
+
+		fmt.Printf("%s\n", pkg.ID)
 
 		// Find structs
 		structs := map[string]StructFieldMap{}
@@ -133,8 +135,6 @@ func main() {
 
 			}
 		}
-
-		fmt.Println(category)
 
 		test := generateRequestTest(pkg, category, structs)
 

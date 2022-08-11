@@ -26,7 +26,7 @@ format:
 
 clean:
 	find . -regextype awk -regex "./cover.+(out|html)" | xargs rm -f
-	find . -regextype awk -regex "./.+_generated.[^.]+.go" | xargs rm -f
+	find . -regextype awk -regex "./.+_generated\..+\.go" | xargs rm -f
 	find . -type d -empty -delete
 	docker stop obs || true
 

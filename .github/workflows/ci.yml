@@ -11,31 +11,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-go@v3
-      with: {go-version: ^1}
-    - run: |
-        make test
+    - uses: magnetikonline/action-golang-cache@v3
+      with: {go-version-file: go.mod}
+    - run: make test
+    - run: go tool cover -func coverall.out
   generate:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-go@v3
-      with: {go-version: ^1}
-    - run: |
-        make clean
-        make generate
-    - name: Check if there's any changes
+    - uses: magnetikonline/action-golang-cache@v3
+      with: {go-version-file: go.mod}
+    - run: make clean && make generate
+    - name: Ensure generated code is already checked in
       if: success()
       run: |
-        modified="$(git ls-files --modified)"
-        untracked="$(git ls-files --exclude-standard --others)"
-        if [ -n "$modified" ] || [ -n "$untracked" ]; then
-            echo "Modified:"
-            echo "$modified"
-            echo
-            echo "Untracked:"
-            echo "$untracked"
-
-            git diff
-            exit 1
-        fi
+        files="$(git diff --name-only)"
+        if [ -z "$files" ]; then exit 0; fi
+        echo "Files with diffs:"
+        echo "$files"
+        echo
+        echo
+        git diff
+        exit 1

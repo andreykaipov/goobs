@@ -6,13 +6,26 @@ on:
   push:
     branches: [master]
 
+.go-setup: &go-setup
+  uses: actions/setup-go@v3
+  with: {go-version: ^1}
+
+.go-cache: &go-cache
+  uses: actions/cache@v3
+  with:
+    path: ~/go/pkg/mod
+    key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+    restore-keys: |
+      ${{ runner.os }}-go-
+      ${{ runner.os }}-
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-go@v3
-      with: {go-version: ^1}
+    - *go-setup
+    - *go-setup
     - run: |
         make test
   generate:
@@ -21,21 +34,17 @@ jobs:
     - uses: actions/checkout@v3
     - uses: actions/setup-go@v3
       with: {go-version: ^1}
+    - *go-setup
+    - *go-setup
     - run: |
-        make clean
-        make generate
+        make clean && make generate
     - name: Check if there's any changes
       if: success()
       run: |
-        modified="$(git ls-files --modified)"
-        untracked="$(git ls-files --exclude-standard --others)"
-        if [ -n "$modified" ] || [ -n "$untracked" ]; then
-            echo "Modified:"
-            echo "$modified"
-            echo
-            echo "Untracked:"
-            echo "$untracked"
-
-            git diff
-            exit 1
-        fi
+        files="$(git diff --name-only)"
+        if [ -z "$files" ]; then exit 0; fi
+        echo "$files"
+        echo
+        echo
+        git diff
+        exit 1

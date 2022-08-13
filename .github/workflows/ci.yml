@@ -37,11 +37,12 @@ jobs:
           ${{ runner.os }}-
     - run: |
         make clean && make generate
-    - name: Check if there's any changes
+    - name: Ensure generated code is already checked in
       if: success()
       run: |
         files="$(git diff --name-only)"
         if [ -z "$files" ]; then exit 0; fi
+        echo "Files with diffs:"
         echo "$files"
         echo
         echo

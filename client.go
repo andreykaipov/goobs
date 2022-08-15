@@ -16,6 +16,7 @@ import (
 	"github.com/andreykaipov/goobs/api/events"
 	"github.com/andreykaipov/goobs/api/events/subscriptions"
 	"github.com/andreykaipov/goobs/api/opcodes"
+	"github.com/buger/jsonparser"
 	"github.com/gorilla/websocket"
 	"github.com/hashicorp/logutils"
 )
@@ -137,6 +138,10 @@ func New(host string, opts ...Option) (*Client, error) {
 }
 
 func (c *Client) connect() (err error) {
+	if err = c.checkProtocolVersion(); err != nil {
+		return
+	}
+
 	u := url.URL{Scheme: "ws", Host: c.host}
 
 	c.Log.Printf("[INFO] Connecting to %s", u.String())
@@ -157,6 +162,42 @@ func (c *Client) connect() (err error) {
 	case <-time.After(c.ResponseTimeout * time.Millisecond):
 		return fmt.Errorf("timeout waiting for authentication: %dms", c.ResponseTimeout)
 	}
+}
+
+// Here we connect and send a v4.x-like message to the server. If it responds
+// properly, we want to fail immediately. Motiviation is similar to what the
+// obs-websocket server does when it detects a v4 client connecting to it (see
+// ref). However, in this case we're checking a v5 client against a v4 server.
+// We use a separate connection to not error out the main one, because a v5
+// server will be disappointed with a v4 message.
+//
+// ref:
+// https://github.com/obsproject/obs-websocket/blob/5.0.0/src/websocketserver/WebSocketServer.cpp#L431-L439
+func (c *Client) checkProtocolVersion() error {
+	c.Log.Printf("[DEBUG] Checking correct protocol version")
+
+	u := url.URL{Scheme: "ws", Host: c.host}
+	conn, _, _ := c.dialer.Dial(u.String(), c.requestHeader)
+
+	_ = conn.WriteMessage(
+		websocket.TextMessage,
+		[]byte(`{"request-type":"GetAuthRequired","message-id":"1"}`),
+	)
+
+	raw := json.RawMessage{}
+	_ = conn.ReadJSON(&raw)
+	c.Log.Printf("[DEBUG] %s", raw)
+
+	var val []byte
+	if val, _, _, _ = jsonparser.Get(raw, "authRequired"); val != nil {
+		return fmt.Errorf(
+			"%s; %s",
+			"obs-websocket v4.x is not supported",
+			"please use github.com/andreykaipov/goobs@v0.8.1",
+		)
+	}
+
+	return nil
 }
 
 // expose errors as events 🤷

@@ -153,7 +153,7 @@ func (c *Client) connect() (err error) {
 	authComplete := make(chan error)
 
 	go c.handleErrors()
-	go c.handleRawServerMessages()
+	go c.handleRawServerMessages(authComplete)
 	go c.handleOpcodes(authComplete)
 
 	select {
@@ -209,7 +209,7 @@ func (c *Client) handleErrors() {
 }
 
 // translates raw server messages into opcodes
-func (c *Client) handleRawServerMessages() {
+func (c *Client) handleRawServerMessages(auth chan<- error) {
 	for {
 		raw := json.RawMessage{}
 		if err := c.conn.ReadJSON(&raw); err != nil {
@@ -220,6 +220,9 @@ func (c *Client) handleRawServerMessages() {
 				switch t.Code {
 				case websocket.CloseNormalClosure:
 					c.Log.Printf("[DEBUG] Closing connection: %s", t.Text)
+				case 4009: // WebSocketCloseCode::AuthenticationFailed
+					c.Log.Printf("[INFO] Closing connection: %s", t.Text)
+					auth <- err
 				default:
 					c.errors <- fmt.Errorf("reading raw message: closed: %w", t)
 				}

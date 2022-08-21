@@ -39,6 +39,7 @@ main() {
         # note: `scenes` and `transitions` must be ran after `ui`
         #
         categories='
+		client
 		config
 		filters
 		general

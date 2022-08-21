@@ -12,8 +12,10 @@ import (
 )
 
 var (
-	goobs = "github.com/andreykaipov/goobs"
-	root  = ""
+	goobs     = "github.com/andreykaipov/goobs"
+	root      = ""
+	assert    = "github.com/stretchr/testify/assert"
+	websocket = "github.com/gorilla/websocket"
 
 	// These are requests that should be tested with assert.Error instead of
 	// assert.NoError. They are either very hard to generate idempotently or
@@ -81,6 +83,8 @@ func main() {
 	f := NewFile("goobs_test")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 
+	f.Add(generateClientTest().Line())
+
 	// find subclients at the root of goobs, using that to then find the
 	// structs within each of the subclient categories
 
@@ -107,6 +111,22 @@ func main() {
 	if err := f.Save(fmt.Sprintf("%s/zz_generated._test.go", root)); err != nil {
 		panic(err)
 	}
+}
+
+func generateClientTest() *Statement {
+	// tries to connect incorrectly
+	return Func().Id("Test_client").Params(Id("t").Op("*").Qual("testing", "T")).Block(
+		List(Id("_"), Id("err")).Op(":=").Qual(goobs, "New").Call(
+			Lit("localhost:").Op("+").Qual("os", "Getenv").Call(Lit("OBS_PORT")),
+			Qual(goobs, "WithPassword").Call(Lit("wrongpassword")),
+			Qual(goobs, "WithRequestHeader").Call(Qual("net/http", "Header").Values(Dict{
+				Lit("User-Agent"): Index().String().Values(Lit("goobs-e2e/0.0.0")),
+			})),
+		),
+		Qual(assert, "Error").Call(Id("t"), Id("err")),
+		Qual(assert, "IsType").Call(Id("t"), Op("&").Qual(websocket, "CloseError").Block(), Id("err")),
+		Qual(assert, "Equal").Call(Id("t"), Id("err").Assert(Op("*").Qual(websocket, "CloseError")).Dot("Code"), Lit(4009)),
+	)
 }
 
 func generateRequestTest(subclient, category string, structs map[string]StructFieldMap) *Statement {
@@ -205,8 +225,6 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 
 		return val
 	}
-
-	assert := "github.com/stretchr/testify/assert"
 
 	return Func().Id("Test_"+category).Params(Id("t").Op("*").Qual("testing", "T")).Block(
 		List(Id("client"), Id("err")).Op(":=").Qual(goobs, "New").Call(

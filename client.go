@@ -177,7 +177,10 @@ func (c *Client) checkProtocolVersion() error {
 	c.Log.Printf("[DEBUG] Checking correct protocol version")
 
 	u := url.URL{Scheme: "ws", Host: c.host}
-	conn, _, _ := c.dialer.Dial(u.String(), c.requestHeader)
+	conn, _, err := c.dialer.Dial(u.String(), c.requestHeader)
+	if err != nil {
+		return err
+	}
 
 	_ = conn.WriteMessage(
 		websocket.TextMessage,

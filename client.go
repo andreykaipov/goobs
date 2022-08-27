@@ -181,6 +181,7 @@ func (c *Client) checkProtocolVersion() error {
 	if err != nil {
 		return err
 	}
+	defer conn.Close()
 
 	_ = conn.WriteMessage(
 		websocket.TextMessage,

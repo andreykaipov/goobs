@@ -21,8 +21,14 @@ func (o *CallVendorRequestParams) GetRequestName() string {
 
 // Represents the response body for the CallVendorRequest request.
 type CallVendorRequestResponse struct {
+	// Echoed of `requestType`
+	RequestType string `json:"requestType,omitempty"`
+
 	// Object containing appropriate response data. {} if request does not provide any response data
 	ResponseData interface{} `json:"responseData,omitempty"`
+
+	// Echoed of `vendorName`
+	VendorName string `json:"vendorName,omitempty"`
 }
 
 /*

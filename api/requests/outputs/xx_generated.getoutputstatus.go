@@ -1,17 +1,20 @@
 // This file has been automatically generated. Don't edit it.
 
-package stream
+package outputs
 
-// Represents the request body for the GetStreamStatus request.
-type GetStreamStatusParams struct{}
-
-// Returns the associated request.
-func (o *GetStreamStatusParams) GetRequestName() string {
-	return "GetStreamStatus"
+// Represents the request body for the GetOutputStatus request.
+type GetOutputStatusParams struct {
+	// Output name
+	OutputName string `json:"outputName,omitempty"`
 }
 
-// Represents the response body for the GetStreamStatus request.
-type GetStreamStatusResponse struct {
+// Returns the associated request.
+func (o *GetOutputStatusParams) GetRequestName() string {
+	return "GetOutputStatus"
+}
+
+// Represents the response body for the GetOutputStatus request.
+type GetOutputStatusResponse struct {
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 
@@ -24,7 +27,7 @@ type GetStreamStatusResponse struct {
 	// Current duration in milliseconds for the output
 	OutputDuration float64 `json:"outputDuration,omitempty"`
 
-	// Whether the output is currently reconnecting
+	// Whether the output is reconnecting
 	OutputReconnecting bool `json:"outputReconnecting,omitempty"`
 
 	// Number of frames skipped by the output's process
@@ -37,12 +40,8 @@ type GetStreamStatusResponse struct {
 	OutputTotalFrames float64 `json:"outputTotalFrames,omitempty"`
 }
 
-// Gets the status of the stream output.
-func (c *Client) GetStreamStatus(paramss ...*GetStreamStatusParams) (*GetStreamStatusResponse, error) {
-	if len(paramss) == 0 {
-		paramss = []*GetStreamStatusParams{{}}
-	}
-	params := paramss[0]
-	data := &GetStreamStatusResponse{}
+// Gets the status of an output.
+func (c *Client) GetOutputStatus(params *GetOutputStatusParams) (*GetOutputStatusResponse, error) {
+	data := &GetOutputStatusResponse{}
 	return data, c.SendRequest(params, data)
 }

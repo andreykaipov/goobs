@@ -1,5 +1,5 @@
 FROM alpine:3.16 AS build
-ENV obs_studio_version    27.2.4
+ENV obs_studio_version    28.0.0-beta2
 ENV obs_websocket_version 5.0.0
 
 # clone projects; takes the longest
@@ -19,32 +19,37 @@ WORKDIR /work/obs-studio/build
 RUN git checkout "$obs_studio_version"
 RUN cmake \
 	-DOBS_VERSION_OVERRIDE="$obs_studio_version" \
-	-DLINUX_PORTABLE=ON \
+	-DLINUX_PORTABLE=OFF \
 	-DCMAKE_INSTALL_PREFIX=/opt/obs \
 	-DENABLE_UI=ON \
 	-DENABLE_SCRIPTING=OFF \
 	-DENABLE_BROWSER=OFF \
-	-DENABLE_PLUGINS=OFF \
-	-DBUILD_VST=OFF \
+	-DENABLE_PLUGINS=ON \
+	-DENABLE_ALSA=OFF \
+	-DENABLE_VLC=OFF \
+	-DENABLE_NEW_MPEGTS_OUTPUT=OFF \
+	-DENABLE_SPEEXDSP=OFF \
+	-DENABLE_AJA=OFF \
+	-DENABLE_VST=OFF \
 	-DENABLE_WAYLAND=OFF \
 	-DENABLE_PIPEWIRE=OFF \
 	-DENABLE_DECKLINK=OFF \
-	-DDISABLE_PULSEAUDIO=1 \
+	-DENABLE_PULSEAUDIO=OFF \
 	-DENABLE_V4L2=OFF \
 	..
 RUN make -j4
 RUN make install
 
 # build obs-websocket, we install it into the same /opt/obs path
-WORKDIR /work/obs-websocket/build
-RUN git checkout "$obs_websocket_version"
-RUN cmake \
-	-DLIBOBS_INCLUDE_DIR=/work/obs-studio/libobs \
-	-DCMAKE_INSTALL_PREFIX=/opt/obs \
-	..
-ENV LIBRARY_PATH /opt/obs/lib
-RUN make -j4
-RUN make install
+# WORKDIR /work/obs-websocket/build
+# RUN git checkout "$obs_websocket_version"
+# RUN cmake \
+# 	-DLIBOBS_INCLUDE_DIR=/work/obs-studio/libobs \
+# 	-DCMAKE_INSTALL_PREFIX=/opt/obs \
+# 	..
+# ENV LIBRARY_PATH /opt/obs/lib
+# RUN make -j4
+# RUN make install
 
 FROM alpine:3.16
 

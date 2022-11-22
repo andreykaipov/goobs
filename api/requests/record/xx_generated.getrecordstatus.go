@@ -13,7 +13,7 @@ func (o *GetRecordStatusParams) GetRequestName() string {
 // Represents the response body for the GetRecordStatus request.
 type GetRecordStatusResponse struct {
 	// Whether the output is paused
-	OuputPaused bool `json:"ouputPaused,omitempty"`
+	OutputPaused bool `json:"ouputPaused,omitempty"`
 
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

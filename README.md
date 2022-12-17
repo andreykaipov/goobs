@@ -5,8 +5,8 @@
 [![Build Status][build-img]][build-url]
 [![Go Report][goreport-img]][goreport-url]
 
-[protocol-img]: https://img.shields.io/badge/obs--websocket-v5.0.0-blue?logo=obs-studio&style=flat-square
-[protocol-url]: https://github.com/obsproject/obs-websocket/blob/5.0.0/docs/generated/protocol.md
+[protocol-img]: https://img.shields.io/badge/obs--websocket-v5.0.2-blue?logo=obs-studio&style=flat-square
+[protocol-url]: https://github.com/obsproject/obs-websocket/blob/5.0.2/docs/generated/protocol.md
 [doc-img]: https://img.shields.io/badge/pkg.go.dev-reference-blue?logo=go&logoColor=white&style=flat-square
 [doc-url]: https://pkg.go.dev/github.com/andreykaipov/goobs
 [build-img]: https://img.shields.io/github/workflow/status/andreykaipov/goobs/test?logo=github&style=flat-square

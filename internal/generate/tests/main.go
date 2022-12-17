@@ -31,9 +31,10 @@ var (
 		"inputs.SetInputAudioMonitorType",            // audio monitoring not available on this platform
 		"inputs.SetInputName",                        // not idempotent
 		"inputs.SetInputVolume",                      // too tricky to remove one of the two volume fields
+		"!outputs.GetOutputList",
 		"outputs.",
 		"sceneitems.DuplicateSceneItem",
-		"sceneitems.GetGroupItemList",
+		"sceneitems.GetGroupSceneItemList",
 		"sceneitems.RemoveSceneItem",
 		"scenes.CreateScene",
 		"scenes.RemoveScene",
@@ -183,6 +184,10 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 				lit = "Cut"
 			case "ImageFormat":
 				lit = "png"
+			case "VideoMixType":
+				lit = "OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW"
+			case "ProjectorGeometry":
+				lit = ""
 			default:
 				switch category {
 				case "inputs":
@@ -281,7 +286,13 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 
 				assertion := "NoError"
 				for _, r := range requestsTestsAssertingErrors {
-					if strings.HasPrefix(category+"."+request, r) {
+					prefix := category + "." + request
+					// make sure to put negations before
+					// a wider prefix pattern
+					if strings.HasPrefix("!"+prefix, r) {
+						break
+					}
+					if strings.HasPrefix(prefix, r) {
 						assertion = "Error"
 						break
 					}

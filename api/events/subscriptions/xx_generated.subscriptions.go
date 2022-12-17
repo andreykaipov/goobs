@@ -40,7 +40,7 @@ const (
 	Ui = (1 << 10)
 
 	// Helper to receive all non-high-volume events.
-	All = (General | Config | Scenes | Inputs | Transitions | Filters | Outputs | SceneItems | MediaInputs | Vendors)
+	All = (General | Config | Scenes | Inputs | Transitions | Filters | Outputs | SceneItems | MediaInputs | Vendors | Ui)
 
 	// Subscription value to receive the `InputVolumeMeters` high-volume event.
 	InputVolumeMeters = (1 << 16)

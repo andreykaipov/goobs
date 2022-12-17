@@ -4,19 +4,19 @@ package sceneitems
 
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
-// Represents the request body for the GetGroupItemList request.
-type GetGroupItemListParams struct {
+// Represents the request body for the GetGroupSceneItemList request.
+type GetGroupSceneItemListParams struct {
 	// Name of the group to get the items of
 	SceneName string `json:"sceneName,omitempty"`
 }
 
 // Returns the associated request.
-func (o *GetGroupItemListParams) GetRequestName() string {
-	return "GetGroupItemList"
+func (o *GetGroupSceneItemListParams) GetRequestName() string {
+	return "GetGroupSceneItemList"
 }
 
-// Represents the response body for the GetGroupItemList request.
-type GetGroupItemListResponse struct {
+// Represents the response body for the GetGroupSceneItemList request.
+type GetGroupSceneItemListResponse struct {
 	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
 }
 
@@ -27,7 +27,7 @@ Using groups at all in OBS is discouraged, as they are very broken under the hoo
 
 Groups only
 */
-func (c *Client) GetGroupItemList(params *GetGroupItemListParams) (*GetGroupItemListResponse, error) {
-	data := &GetGroupItemListResponse{}
+func (c *Client) GetGroupSceneItemList(params *GetGroupSceneItemListParams) (*GetGroupSceneItemListResponse, error) {
+	data := &GetGroupSceneItemListResponse{}
 	return data, c.SendRequest(params, data)
 }

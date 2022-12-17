@@ -9,7 +9,6 @@ import (
 	inputs "github.com/andreykaipov/goobs/api/requests/inputs"
 	mediainputs "github.com/andreykaipov/goobs/api/requests/mediainputs"
 	outputs "github.com/andreykaipov/goobs/api/requests/outputs"
-	rconfig "github.com/andreykaipov/goobs/api/requests/rconfig"
 	record "github.com/andreykaipov/goobs/api/requests/record"
 	sceneitems "github.com/andreykaipov/goobs/api/requests/sceneitems"
 	scenes "github.com/andreykaipov/goobs/api/requests/scenes"
@@ -26,7 +25,6 @@ type subclients struct {
 	Inputs      *inputs.Client
 	MediaInputs *mediainputs.Client
 	Outputs     *outputs.Client
-	Rconfig     *rconfig.Client
 	Record      *record.Client
 	SceneItems  *sceneitems.Client
 	Scenes      *scenes.Client
@@ -43,7 +41,6 @@ func setClients(c *Client) {
 	c.Inputs = &inputs.Client{Client: c.Client}
 	c.MediaInputs = &mediainputs.Client{Client: c.Client}
 	c.Outputs = &outputs.Client{Client: c.Client}
-	c.Rconfig = &rconfig.Client{Client: c.Client}
 	c.Record = &record.Client{Client: c.Client}
 	c.SceneItems = &sceneitems.Client{Client: c.Client}
 	c.Scenes = &scenes.Client{Client: c.Client}

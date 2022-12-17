@@ -15,7 +15,6 @@ import (
 	inputs "github.com/andreykaipov/goobs/api/requests/inputs"
 	mediainputs "github.com/andreykaipov/goobs/api/requests/mediainputs"
 	outputs "github.com/andreykaipov/goobs/api/requests/outputs"
-	rconfig "github.com/andreykaipov/goobs/api/requests/rconfig"
 	record "github.com/andreykaipov/goobs/api/requests/record"
 	sceneitems "github.com/andreykaipov/goobs/api/requests/sceneitems"
 	scenes "github.com/andreykaipov/goobs/api/requests/scenes"
@@ -73,6 +72,8 @@ func Test_config(t *testing.T) {
 		ParameterCategory: "test",
 		ParameterName:     "test",
 	})
+	assert.NoError(t, err)
+	_, err = client.Config.GetRecordDirectory(&config.GetRecordDirectoryParams{})
 	assert.NoError(t, err)
 	_, err = client.Config.GetSceneCollectionList(&config.GetSceneCollectionListParams{})
 	assert.NoError(t, err)
@@ -362,39 +363,41 @@ func Test_outputs(t *testing.T) {
 
 	_, err = client.Outputs.GetLastReplayBufferReplay(&outputs.GetLastReplayBufferReplayParams{})
 	assert.Error(t, err)
+	_, err = client.Outputs.GetOutputList(&outputs.GetOutputListParams{})
+	assert.NoError(t, err)
+	_, err = client.Outputs.GetOutputSettings(&outputs.GetOutputSettingsParams{OutputName: "test"})
+	assert.Error(t, err)
+	_, err = client.Outputs.GetOutputStatus(&outputs.GetOutputStatusParams{OutputName: "test"})
+	assert.Error(t, err)
 	_, err = client.Outputs.GetReplayBufferStatus(&outputs.GetReplayBufferStatusParams{})
 	assert.Error(t, err)
 	_, err = client.Outputs.GetVirtualCamStatus(&outputs.GetVirtualCamStatusParams{})
 	assert.Error(t, err)
 	_, err = client.Outputs.SaveReplayBuffer(&outputs.SaveReplayBufferParams{})
 	assert.Error(t, err)
+	_, err = client.Outputs.SetOutputSettings(&outputs.SetOutputSettingsParams{
+		OutputName:     "test",
+		OutputSettings: "",
+	})
+	assert.Error(t, err)
+	_, err = client.Outputs.StartOutput(&outputs.StartOutputParams{OutputName: "test"})
+	assert.Error(t, err)
 	_, err = client.Outputs.StartReplayBuffer(&outputs.StartReplayBufferParams{})
 	assert.Error(t, err)
 	_, err = client.Outputs.StartVirtualCam(&outputs.StartVirtualCamParams{})
+	assert.Error(t, err)
+	_, err = client.Outputs.StopOutput(&outputs.StopOutputParams{OutputName: "test"})
 	assert.Error(t, err)
 	_, err = client.Outputs.StopReplayBuffer(&outputs.StopReplayBufferParams{})
 	assert.Error(t, err)
 	_, err = client.Outputs.StopVirtualCam(&outputs.StopVirtualCamParams{})
 	assert.Error(t, err)
+	_, err = client.Outputs.ToggleOutput(&outputs.ToggleOutputParams{OutputName: "test"})
+	assert.Error(t, err)
 	_, err = client.Outputs.ToggleReplayBuffer(&outputs.ToggleReplayBufferParams{})
 	assert.Error(t, err)
 	_, err = client.Outputs.ToggleVirtualCam(&outputs.ToggleVirtualCamParams{})
 	assert.Error(t, err)
-}
-
-func Test_rconfig(t *testing.T) {
-	client, err := goobs.New(
-		"localhost:"+os.Getenv("OBS_PORT"),
-		goobs.WithPassword("goodpassword"),
-		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
-	)
-	assert.NoError(t, err)
-	t.Cleanup(func() {
-		client.Disconnect()
-	})
-
-	_, err = client.Rconfig.GetRecordDirectory(&rconfig.GetRecordDirectoryParams{})
-	assert.NoError(t, err)
 }
 
 func Test_record(t *testing.T) {
@@ -447,7 +450,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:            "Scene",
 	})
 	assert.Error(t, err)
-	_, err = client.SceneItems.GetGroupItemList(&sceneitems.GetGroupItemListParams{SceneName: "Scene"})
+	_, err = client.SceneItems.GetGroupSceneItemList(&sceneitems.GetGroupSceneItemListParams{SceneName: "Scene"})
 	assert.Error(t, err)
 	_, err = client.SceneItems.GetSceneItemBlendMode(&sceneitems.GetSceneItemBlendModeParams{
 		SceneItemId: 1.0,
@@ -683,6 +686,18 @@ func Test_ui(t *testing.T) {
 	_, err = client.Ui.OpenInputInteractDialog(&ui.OpenInputInteractDialogParams{InputName: "test"})
 	assert.Error(t, err)
 	_, err = client.Ui.OpenInputPropertiesDialog(&ui.OpenInputPropertiesDialogParams{InputName: "test"})
+	assert.NoError(t, err)
+	_, err = client.Ui.OpenSourceProjector(&ui.OpenSourceProjectorParams{
+		MonitorIndex:      1.0,
+		ProjectorGeometry: "",
+		SourceName:        "test",
+	})
+	assert.NoError(t, err)
+	_, err = client.Ui.OpenVideoMixProjector(&ui.OpenVideoMixProjectorParams{
+		MonitorIndex:      1.0,
+		ProjectorGeometry: "",
+		VideoMixType:      "OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW",
+	})
 	assert.NoError(t, err)
 	_, err = client.Ui.SetStudioModeEnabled(&ui.SetStudioModeEnabledParams{StudioModeEnabled: &[]bool{true}[0]})
 	assert.NoError(t, err)

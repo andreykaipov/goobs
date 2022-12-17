@@ -11,7 +11,10 @@ func (o *StopRecordParams) GetRequestName() string {
 }
 
 // Represents the response body for the StopRecord request.
-type StopRecordResponse struct{}
+type StopRecordResponse struct {
+	// File name for the saved recording
+	OutputPath string `json:"outputPath,omitempty"`
+}
 
 // Stops the record output.
 func (c *Client) StopRecord(paramss ...*StopRecordParams) (*StopRecordResponse, error) {

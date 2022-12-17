@@ -1,6 +1,6 @@
 // This file has been automatically generated. Don't edit it.
 
-package rconfig
+package config
 
 // Represents the request body for the GetRecordDirectory request.
 type GetRecordDirectoryParams struct{}

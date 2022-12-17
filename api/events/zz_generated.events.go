@@ -106,8 +106,12 @@ func GetType(name string) interface{} {
 		return &SceneTransitionVideoEnded{}
 	case "StudioModeStateChanged":
 		return &StudioModeStateChanged{}
+	case "ScreenshotSaved":
+		return &ScreenshotSaved{}
 	case "VendorEvent":
 		return &VendorEvent{}
+	case "CustomEvent":
+		return &CustomEvent{}
 	default:
 		return nil
 	}

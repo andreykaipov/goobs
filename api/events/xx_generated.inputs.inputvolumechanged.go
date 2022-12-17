@@ -14,6 +14,6 @@ type InputVolumeChanged struct {
 	// New volume level in dB
 	InputVolumeDb float64 `json:"inputVolumeDb,omitempty"`
 
-	// New volume level in multimap
+	// New volume level multiplier
 	InputVolumeMul float64 `json:"inputVolumeMul,omitempty"`
 }

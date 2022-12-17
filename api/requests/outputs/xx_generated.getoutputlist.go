@@ -11,7 +11,10 @@ func (o *GetOutputListParams) GetRequestName() string {
 }
 
 // Represents the response body for the GetOutputList request.
-type GetOutputListResponse struct{}
+type GetOutputListResponse struct {
+	// Array of outputs
+	Outputs []interface{} `json:"outputs,omitempty"`
+}
 
 // Gets the list of available outputs.
 func (c *Client) GetOutputList(paramss ...*GetOutputListParams) (*GetOutputListResponse, error) {

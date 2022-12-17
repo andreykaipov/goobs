@@ -21,7 +21,11 @@ type SleepResponse struct{}
 
 // Sleeps for a time duration or number of frames. Only available in request batches with types `SERIAL_REALTIME` or
 // `SERIAL_FRAME`.
-func (c *Client) Sleep(params *SleepParams) (*SleepResponse, error) {
+func (c *Client) Sleep(paramss ...*SleepParams) (*SleepResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*SleepParams{{}}
+	}
+	params := paramss[0]
 	data := &SleepResponse{}
 	return data, c.SendRequest(params, data)
 }

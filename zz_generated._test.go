@@ -364,7 +364,7 @@ func Test_outputs(t *testing.T) {
 	_, err = client.Outputs.GetLastReplayBufferReplay(&outputs.GetLastReplayBufferReplayParams{})
 	assert.Error(t, err)
 	_, err = client.Outputs.GetOutputList(&outputs.GetOutputListParams{})
-	assert.Error(t, err)
+	assert.NoError(t, err)
 	_, err = client.Outputs.GetOutputSettings(&outputs.GetOutputSettingsParams{OutputName: "test"})
 	assert.Error(t, err)
 	_, err = client.Outputs.GetOutputStatus(&outputs.GetOutputStatusParams{OutputName: "test"})
@@ -451,7 +451,7 @@ func Test_sceneitems(t *testing.T) {
 	})
 	assert.Error(t, err)
 	_, err = client.SceneItems.GetGroupSceneItemList(&sceneitems.GetGroupSceneItemListParams{SceneName: "Scene"})
-	assert.NoError(t, err)
+	assert.Error(t, err)
 	_, err = client.SceneItems.GetSceneItemBlendMode(&sceneitems.GetSceneItemBlendModeParams{
 		SceneItemId: 1.0,
 		SceneName:   "Scene",
@@ -689,14 +689,14 @@ func Test_ui(t *testing.T) {
 	assert.NoError(t, err)
 	_, err = client.Ui.OpenSourceProjector(&ui.OpenSourceProjectorParams{
 		MonitorIndex:      1.0,
-		ProjectorGeometry: "test",
+		ProjectorGeometry: "",
 		SourceName:        "test",
 	})
 	assert.NoError(t, err)
 	_, err = client.Ui.OpenVideoMixProjector(&ui.OpenVideoMixProjectorParams{
 		MonitorIndex:      1.0,
-		ProjectorGeometry: "test",
-		VideoMixType:      "test",
+		ProjectorGeometry: "",
+		VideoMixType:      "OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW",
 	})
 	assert.NoError(t, err)
 	_, err = client.Ui.SetStudioModeEnabled(&ui.SetStudioModeEnabledParams{StudioModeEnabled: &[]bool{true}[0]})

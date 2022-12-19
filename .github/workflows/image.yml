@@ -3,7 +3,7 @@ name: image
 on:
   workflow_dispatch:
   push:
-    branches: [master,feature/image]
+    branches: [master]
     paths:
     - docker/*
 
@@ -15,7 +15,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: docker/setup-buildx-action@v3
+    - uses: docker/setup-buildx-action@v2
     - uses: docker/login-action@v2
       with:
         registry: ghcr.io
@@ -23,7 +23,7 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
     - uses: docker/build-push-action@v3
       with:
-        context: docker/
+        context: "{{ defaultContext }}:docker"
         push: true
         cache-from: type=registry,ref=${{ env.image }}:buildcache
         cache-to: type=registry,ref=${{ env.image }}:buildcache,mode=max
@@ -32,7 +32,9 @@ jobs:
     - name: Tag with OBS versions included in our image
       run: |
         docker pull ${{ env.image }}:latest
-        obs_version=$(docker run --rm -it ${{ env.image }}:latest obs --version | tr -dc '[0-9.]')
-        websocket_version=$(docker run --rm -it ${{ env.image }}:latest timeout 2s xvfb-run obs | grep -Po 'websocket.+Version: \K\d+\.\d+\.\d+')
-        docker tag ${{ env.image }}:latest ${{ env.image }}:$obs_version-$websocket_version
-        docker push ${{ env.image }}
+        set -x
+        obs_version=$(docker run --rm ${{ env.image }}:latest obs --version | tr -dc '[0-9.]')
+        websocket_version=$(docker run --rm ${{ env.image }}:latest timeout 2s xvfb-run obs | grep -Po 'websocket.+Version: \K\d+\.\d+\.\d+')
+        version_tagged="${{ env.image }}:$obs_version-$websocket_version"
+        docker tag ${{ env.image }}:latest "$version_tagged"
+        docker push "$version_tagged"

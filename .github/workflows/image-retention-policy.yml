@@ -1,0 +1,20 @@
+name: image-retention-policy
+
+on:
+  workflow_dispatch:
+  schedule: [{cron: '0 0 2 * *'}] # the second of every month
+
+jobs:
+  clean-ghcr:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Delete old images
+      uses: snok/container-retention-policy@v1
+      with:
+        account-type: personal
+        token: ${{ secrets.PAT }}
+        image-names: ghcr.io/${{ github.repository }}
+        cut-off: one month ago EST
+        untagged-only: true
+        filter-include-untagged: true
+        keep-at-least: 5

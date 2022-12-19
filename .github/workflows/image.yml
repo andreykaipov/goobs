@@ -2,8 +2,7 @@ name: image
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '5 12 * * 3' # 12:05 on Wednesdays
+  schedule: [{cron: '25 9 * * 3'}] # 9:25 on Wednesdays
   push:
     branches: [master]
     paths:

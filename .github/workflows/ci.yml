@@ -5,6 +5,9 @@ on:
     branches: [master]
   push:
     branches: [master]
+  workflow_run:
+    workflows: [image]
+    types: [completed]
 
 jobs:
   test:

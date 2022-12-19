@@ -29,9 +29,10 @@ jobs:
         cache-to: type=registry,ref=${{ env.image }}:buildcache,mode=max
         tags: |
           ${{ env.image }}:latest
-    - name: Tag with OBS version included in image
+    - name: Tag with OBS versions included in our image
       run: |
         docker pull ${{ env.image }}:latest
         obs_version=$(docker run --rm -it ${{ env.image }}:latest obs --version | tr -dc '[0-9.]')
-        docker tag ${{ env.image }}:latest ${{ env.image }}:$obs_version
+        websocket_version=$(docker run --rm -it ${{ env.image }}:latest timeout 2s xvfb-run obs | grep -Po 'websocket.+Version: \K\d+\.\d+\.\d+')
+        docker tag ${{ env.image }}:latest ${{ env.image }}:$obs_version-$websocket_version
         docker push ${{ env.image }}

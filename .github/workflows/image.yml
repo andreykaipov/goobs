@@ -2,6 +2,8 @@ name: image
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '5 12 * * 3' # 12:05 on Wednesdays
   push:
     branches: [master]
     paths:

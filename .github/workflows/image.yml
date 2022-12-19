@@ -1,0 +1,38 @@
+name: image
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master,feature/image]
+    paths:
+    - docker/*
+
+env:
+  image: ghcr.io/${{ github.repository }}
+
+# https://docs.docker.com/build/ci/github-actions/examples/#registry-cache
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: docker/setup-buildx-action@v3
+    - uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - uses: docker/build-push-action@v3
+      with:
+        context: docker/
+        push: true
+        cache-from: type=registry,ref=${{ env.image }}:buildcache
+        cache-to: type=registry,ref=${{ env.image }}:buildcache,mode=max
+        tags: |
+          ${{ env.image }}:latest
+    - name: Tag with OBS versions included in our image
+      run: |
+        docker pull ${{ env.image }}:latest
+        obs_version=$(docker run --rm -it ${{ env.image }}:latest obs --version | tr -dc '[0-9.]')
+        websocket_version=$(docker run --rm -it ${{ env.image }}:latest timeout 2s xvfb-run obs | grep -Po 'websocket.+Version: \K\d+\.\d+\.\d+')
+        docker tag ${{ env.image }}:latest ${{ env.image }}:$obs_version-$websocket_version
+        docker push ${{ env.image }}

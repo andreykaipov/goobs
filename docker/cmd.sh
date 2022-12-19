@@ -8,7 +8,7 @@ xvfb-run \
         --auth-file /var/run/Xauthority \
         --server-num 99 \
         --server-args '-screen 0 1200x800x24' \
-        /opt/obs/bin/obs &
+        obs &
 
 # indicates obs is up
 until nc -vz localhost 1234; do

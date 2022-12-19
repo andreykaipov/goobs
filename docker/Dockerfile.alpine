@@ -1,0 +1,77 @@
+# very odd multistage build to take advantage of cached layers
+
+# fetch obs studio, websocket is bundled with 28+
+FROM alpine:latest AS clone
+ARG obs_version
+RUN : "${obs_version?}"
+RUN apk add -U git
+WORKDIR /work
+RUN git clone --recursive https://github.com/obsproject/obs-studio.git
+WORKDIR /work/obs-studio
+#RUN git submodule update --init --recursive plugins/obs-websocket
+RUN git checkout "$obs_version"
+# patch
+COPY obs-studio.*.patch .
+RUN git apply *.patch
+WORKDIR plugins
+COPY obs-websocket.CMakeLists.txt.patch obs-websocket
+RUN cd obs-websocket && git apply *.patch
+RUN touch obs-browser/CMakeLists.txt
+
+FROM alpine:3.16 AS deps
+RUN apk add -U build-base cmake
+RUN apk add -U qt6-qtbase-dev qt6-qtsvg-dev
+RUN apk add -U ffmpeg-dev curl-dev mesa-dev x264-dev pciutils-dev
+RUN apk add -U git
+
+## build obs, see:
+## https://obsproject.com/wiki/Building-OBS-Studio
+## https://obsproject.com/wiki/build-instructions-for-linux
+FROM alpine:3.16 AS build
+COPY --from=deps / /
+COPY --from=clone /work/obs-studio /work/obs-studio
+WORKDIR /work/obs-studio/build
+ENV on UI PLUGINS WEBSOCKET
+ENV off SCRIPTING WAYLAND PULSEAUDIO V4L2 ALSA PIPEWIRE VLC NEW_MPEGTS_OUTPUT SPEEXDSP AJA \
+	DECKLINK JACK BROWSER RNNOISE VST OSS SNDIO FREETYPE
+RUN cmake \
+	-Wno-dev \
+	-DLINUX_PORTABLE=ON \
+	-DCMAKE_INSTALL_PREFIX=/opt/obs \
+	$(echo "$on" | xargs -n1 printf ' -DENABLE_%s=ON') \
+	$(echo "$off" | xargs -n1 printf ' -DENABLE_%s=OFF') \
+	..
+#RUN cmake -Wno-dev -DLINUX_PORTABLE=OFF -DCMAKE_INSTALL_PREFIX=/opt/obs $(echo "$on" | xargs -n1 printf ' -DENABLE_%s=ON') $(echo "$off" | xargs -n1 printf ' -DENABLE_%s=OFF') ..
+RUN make -j4
+RUN make install
+RUN for lib in $(ldd /opt/obs/bin/obs | grep -Eo '\S*/lib\S*'); do d="/tmp/libs/$(dirname "$lib")"; mkdir -p "$d"; cp "$lib" "$d"; done
+
+#FROM alpine:3.16
+RUN apk add -U xvfb-run mesa-dri-gallium x11vnc
+#COPY --from=build /opt/obs/bin/obs /usr/local/bin
+#COPY --from=build /tmp/libs /
+#
+#
+## bundle tini so we effectively always run with --init as xvfb-run needs signal
+## propagation anyways
+#ENV tini_version v0.19.0
+#ADD https://github.com/krallin/tini/releases/download/${tini_version}/tini-static /tini
+#RUN chmod +x /tini
+#ENTRYPOINT ["/tini", "--"]
+#
+#
+# COPY --from=build /opt /opt
+# COPY --from=build /lib/libmount.so.1 /lib/libmount.so.1
+# COPY --from=build /lib/libblkid.so.1 /lib/libblkid.so.1
+# COPY --from=build /usr/lib /usr/lib
+# COPY config/global.ini                      /root/.config/obs-studio/
+# COPY config/obsWebSocketPersistentData.json /root/.config/obs-studio/
+# COPY config/basic.ini                       /root/.config/obs-studio/basic/profiles/docker/
+# COPY config/service.json                    /root/.config/obs-studio/basic/profiles/docker/
+# COPY config/scenes.json                     /root/.config/obs-studio/basic/scenes/test.json
+#
+# ENV LD_LIBRARY_PATH /opt/obs/lib
+# COPY cmd.sh /opt/cmd.sh
+# CMD ["sh", "/opt/cmd.sh"]
+#
+# EXPOSE 1234/tcp 5900/tcp

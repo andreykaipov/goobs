@@ -14,7 +14,10 @@ func main() {
 	}
 	defer client.Disconnect()
 
-	version, _ := client.General.GetVersion()
+	version, err := client.General.GetVersion()
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Printf("OBS Studio version: %s\n", version.ObsVersion)
 	fmt.Printf("Websocket server version: %s\n", version.ObsWebSocketVersion)
 

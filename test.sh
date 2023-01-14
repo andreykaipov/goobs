@@ -10,7 +10,7 @@ setup() {
         if [ "$obs" = running ]; then
                 echo "Main OBS container is already running"
         else
-                docker run --rm --detach --name obs -p 4455:1234 ghcr.io/andreykaipov/goobs
+                docker run --rm --detach --name obs -e vnc=1 -p 5900:5900 -p 4455:1234 ghcr.io/andreykaipov/goobs
         fi
 
         # record and stream categories aren't totally idempotent so we need

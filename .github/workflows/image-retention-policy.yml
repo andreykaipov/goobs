@@ -9,11 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Delete old images
-      uses: snok/container-retention-policy@v1
+      uses: snok/container-retention-policy@main
       with:
         account-type: personal
         token: ${{ secrets.PAT }}
-        image-names: ghcr.io/${{ github.repository }}
+        image-names: ${{ github.event.repository.name }}
         cut-off: one month ago EST
         untagged-only: true
         filter-include-untagged: true

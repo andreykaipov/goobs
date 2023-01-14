@@ -3,6 +3,7 @@
 package goobs_test
 
 import (
+	"fmt"
 	"net"
 	"net/http"
 	"os"
@@ -420,6 +421,7 @@ func Test_record(t *testing.T) {
 	_, err = client.Record.StartRecord(&record.StartRecordParams{})
 	assert.NoError(t, err)
 	_, err = client.Record.StopRecord(&record.StopRecordParams{})
+	fmt.Printf("%#v\n", err)
 	assert.Error(t, err)
 	_, err = client.Record.ToggleRecord(&record.ToggleRecordParams{})
 	assert.NoError(t, err)

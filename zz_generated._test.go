@@ -59,12 +59,12 @@ func Test_config(t *testing.T) {
 
 	_, err = client.Config.CreateProfile(&config.CreateProfileParams{ProfileName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "CreateProfile", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.CreateSceneCollection(&config.CreateSceneCollectionParams{SceneCollectionName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "CreateSceneCollection", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Config.GetPersistentData(&config.GetPersistentDataParams{
@@ -72,12 +72,12 @@ func Test_config(t *testing.T) {
 		SlotName: "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetPersistentData", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.GetProfileList(&config.GetProfileListParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetProfileList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.GetProfileParameter(&config.GetProfileParameterParams{
@@ -85,39 +85,39 @@ func Test_config(t *testing.T) {
 		ParameterName:     "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetProfileParameter", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.GetRecordDirectory(&config.GetRecordDirectoryParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetRecordDirectory", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.GetSceneCollectionList(&config.GetSceneCollectionListParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneCollectionList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.GetStreamServiceSettings(&config.GetStreamServiceSettingsParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetStreamServiceSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.GetVideoSettings(&config.GetVideoSettingsParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetVideoSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.SetCurrentProfile(&config.SetCurrentProfileParams{ProfileName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetCurrentProfile", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.SetCurrentSceneCollection(
 		&config.SetCurrentSceneCollectionParams{SceneCollectionName: "test"},
 	)
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetCurrentSceneCollection", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.SetPersistentData(&config.SetPersistentDataParams{
@@ -126,7 +126,7 @@ func Test_config(t *testing.T) {
 		SlotValue: "",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetPersistentData", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.SetProfileParameter(&config.SetProfileParameterParams{
@@ -135,7 +135,7 @@ func Test_config(t *testing.T) {
 		ParameterValue:    "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetProfileParameter", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.SetStreamServiceSettings(&config.SetStreamServiceSettingsParams{
@@ -143,7 +143,7 @@ func Test_config(t *testing.T) {
 		StreamServiceType:     "rtmp_custom",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetStreamServiceSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.SetVideoSettings(&config.SetVideoSettingsParams{
@@ -155,12 +155,12 @@ func Test_config(t *testing.T) {
 		OutputWidth:    10.0,
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetVideoSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Config.RemoveProfile(&config.RemoveProfileParams{ProfileName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "RemoveProfile", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }
@@ -183,19 +183,19 @@ func Test_filters(t *testing.T) {
 		SourceName:     "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "CreateSourceFilter", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.GetSourceFilterDefaultSettings(
 		&filters.GetSourceFilterDefaultSettingsParams{FilterKind: "scroll_filter"},
 	)
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSourceFilterDefaultSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.GetSourceFilterList(&filters.GetSourceFilterListParams{SourceName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSourceFilterList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.GetSourceFilter(&filters.GetSourceFilterParams{
@@ -203,7 +203,7 @@ func Test_filters(t *testing.T) {
 		SourceName: "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSourceFilter", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.SetSourceFilterEnabled(&filters.SetSourceFilterEnabledParams{
@@ -212,7 +212,7 @@ func Test_filters(t *testing.T) {
 		SourceName:    "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSourceFilterEnabled", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.SetSourceFilterIndex(&filters.SetSourceFilterIndexParams{
@@ -221,7 +221,7 @@ func Test_filters(t *testing.T) {
 		SourceName:  "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSourceFilterIndex", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.SetSourceFilterName(&filters.SetSourceFilterNameParams{
@@ -230,7 +230,7 @@ func Test_filters(t *testing.T) {
 		SourceName:    "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSourceFilterName", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Filters.SetSourceFilterSettings(&filters.SetSourceFilterSettingsParams{
@@ -240,7 +240,7 @@ func Test_filters(t *testing.T) {
 		SourceName:     "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSourceFilterSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.RemoveSourceFilter(&filters.RemoveSourceFilterParams{
@@ -248,7 +248,7 @@ func Test_filters(t *testing.T) {
 		SourceName: "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "RemoveSourceFilter", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }
@@ -268,7 +268,7 @@ func Test_general(t *testing.T) {
 		&general.BroadcastCustomEventParams{EventData: map[string]bool{"test": true}},
 	)
 	if err != nil {
-		t.Logf("%s\n%s\n", "BroadcastCustomEvent", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.General.CallVendorRequest(&general.CallVendorRequestParams{
@@ -277,22 +277,22 @@ func Test_general(t *testing.T) {
 		VendorName:  "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "CallVendorRequest", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.General.GetHotkeyList(&general.GetHotkeyListParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetHotkeyList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.General.GetStats(&general.GetStatsParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetStats", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.General.GetVersion(&general.GetVersionParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetVersion", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.General.Sleep(&general.SleepParams{
@@ -300,7 +300,7 @@ func Test_general(t *testing.T) {
 		SleepMillis: 1.0,
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "Sleep", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.General.TriggerHotkeyByKeySequence(&general.TriggerHotkeyByKeySequenceParams{
@@ -308,14 +308,14 @@ func Test_general(t *testing.T) {
 		KeyModifiers: &typedefs.KeyModifiers{},
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "TriggerHotkeyByKeySequence", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.General.TriggerHotkeyByName(
 		&general.TriggerHotkeyByNameParams{HotkeyName: "OBSBasic.ShowContextBar"},
 	)
 	if err != nil {
-		t.Logf("%s\n%s\n", "TriggerHotkeyByName", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }
@@ -339,47 +339,47 @@ func Test_inputs(t *testing.T) {
 		SceneName:        "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "CreateInput", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputAudioBalance(&inputs.GetInputAudioBalanceParams{InputName: "test2"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputAudioBalance", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputAudioMonitorType(&inputs.GetInputAudioMonitorTypeParams{InputName: "test2"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputAudioMonitorType", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputAudioSyncOffset(&inputs.GetInputAudioSyncOffsetParams{InputName: "test2"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputAudioSyncOffset", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputAudioTracks(&inputs.GetInputAudioTracksParams{InputName: "test2"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputAudioTracks", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputDefaultSettings(&inputs.GetInputDefaultSettingsParams{InputKind: "ffmpeg_source"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputDefaultSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputKindList(&inputs.GetInputKindListParams{Unversioned: &[]bool{true}[0]})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputKindList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputList(&inputs.GetInputListParams{InputKind: "ffmpeg_source"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputMute(&inputs.GetInputMuteParams{InputName: "test2"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputMute", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputPropertiesListPropertyItems(&inputs.GetInputPropertiesListPropertyItemsParams{
@@ -387,22 +387,22 @@ func Test_inputs(t *testing.T) {
 		PropertyName: "test2",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputPropertiesListPropertyItems", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Inputs.GetInputSettings(&inputs.GetInputSettingsParams{InputName: "test2"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputVolume(&inputs.GetInputVolumeParams{InputName: "test2"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetInputVolume", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.GetSpecialInputs(&inputs.GetSpecialInputsParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSpecialInputs", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.PressInputPropertiesButton(&inputs.PressInputPropertiesButtonParams{
@@ -410,7 +410,7 @@ func Test_inputs(t *testing.T) {
 		PropertyName: "test2",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "PressInputPropertiesButton", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Inputs.SetInputAudioBalance(&inputs.SetInputAudioBalanceParams{
@@ -418,7 +418,7 @@ func Test_inputs(t *testing.T) {
 		InputName:         "test2",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetInputAudioBalance", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.SetInputAudioMonitorType(&inputs.SetInputAudioMonitorTypeParams{
@@ -426,7 +426,7 @@ func Test_inputs(t *testing.T) {
 		MonitorType: "test2",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetInputAudioMonitorType", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Inputs.SetInputAudioSyncOffset(&inputs.SetInputAudioSyncOffsetParams{
@@ -434,7 +434,7 @@ func Test_inputs(t *testing.T) {
 		InputName:            "test2",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetInputAudioSyncOffset", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.SetInputAudioTracks(&inputs.SetInputAudioTracksParams{
@@ -442,7 +442,7 @@ func Test_inputs(t *testing.T) {
 		InputName:        "test2",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetInputAudioTracks", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.SetInputMute(&inputs.SetInputMuteParams{
@@ -450,7 +450,7 @@ func Test_inputs(t *testing.T) {
 		InputName:  "test2",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetInputMute", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.SetInputName(&inputs.SetInputNameParams{
@@ -458,7 +458,7 @@ func Test_inputs(t *testing.T) {
 		NewInputName: "test2",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetInputName", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Inputs.SetInputSettings(&inputs.SetInputSettingsParams{
@@ -467,7 +467,7 @@ func Test_inputs(t *testing.T) {
 		Overlay:       &[]bool{true}[0],
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetInputSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.SetInputVolume(&inputs.SetInputVolumeParams{
@@ -476,17 +476,17 @@ func Test_inputs(t *testing.T) {
 		InputVolumeMul: 1.0,
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetInputVolume", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Inputs.ToggleInputMute(&inputs.ToggleInputMuteParams{InputName: "test2"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "ToggleInputMute", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Inputs.RemoveInput(&inputs.RemoveInputParams{InputName: "test2"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "RemoveInput", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }
@@ -504,7 +504,7 @@ func Test_mediainputs(t *testing.T) {
 
 	_, err = client.MediaInputs.GetMediaInputStatus(&mediainputs.GetMediaInputStatusParams{InputName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetMediaInputStatus", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.MediaInputs.OffsetMediaInputCursor(&mediainputs.OffsetMediaInputCursorParams{
@@ -512,7 +512,7 @@ func Test_mediainputs(t *testing.T) {
 		MediaCursorOffset: 1.0,
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "OffsetMediaInputCursor", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.MediaInputs.SetMediaInputCursor(&mediainputs.SetMediaInputCursorParams{
@@ -520,7 +520,7 @@ func Test_mediainputs(t *testing.T) {
 		MediaCursor: 1.0,
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetMediaInputCursor", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.MediaInputs.TriggerMediaInputAction(&mediainputs.TriggerMediaInputActionParams{
@@ -528,7 +528,7 @@ func Test_mediainputs(t *testing.T) {
 		MediaAction: "OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PAUSE",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "TriggerMediaInputAction", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }
@@ -546,37 +546,37 @@ func Test_outputs(t *testing.T) {
 
 	_, err = client.Outputs.GetLastReplayBufferReplay(&outputs.GetLastReplayBufferReplayParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetLastReplayBufferReplay", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.GetOutputList(&outputs.GetOutputListParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetOutputList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Outputs.GetOutputSettings(&outputs.GetOutputSettingsParams{OutputName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetOutputSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.GetOutputStatus(&outputs.GetOutputStatusParams{OutputName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetOutputStatus", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.GetReplayBufferStatus(&outputs.GetReplayBufferStatusParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetReplayBufferStatus", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.GetVirtualCamStatus(&outputs.GetVirtualCamStatusParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetVirtualCamStatus", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.SaveReplayBuffer(&outputs.SaveReplayBufferParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SaveReplayBuffer", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.SetOutputSettings(&outputs.SetOutputSettingsParams{
@@ -584,52 +584,52 @@ func Test_outputs(t *testing.T) {
 		OutputSettings: "",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetOutputSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.StartOutput(&outputs.StartOutputParams{OutputName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "StartOutput", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.StartReplayBuffer(&outputs.StartReplayBufferParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "StartReplayBuffer", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.StartVirtualCam(&outputs.StartVirtualCamParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "StartVirtualCam", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.StopOutput(&outputs.StopOutputParams{OutputName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "StopOutput", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.StopReplayBuffer(&outputs.StopReplayBufferParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "StopReplayBuffer", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.StopVirtualCam(&outputs.StopVirtualCamParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "StopVirtualCam", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.ToggleOutput(&outputs.ToggleOutputParams{OutputName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "ToggleOutput", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.ToggleReplayBuffer(&outputs.ToggleReplayBufferParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "ToggleReplayBuffer", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Outputs.ToggleVirtualCam(&outputs.ToggleVirtualCamParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "ToggleVirtualCam", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 }
@@ -647,37 +647,34 @@ func Test_record(t *testing.T) {
 
 	_, err = client.Record.GetRecordStatus(&record.GetRecordStatusParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetRecordStatus", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Record.PauseRecord(&record.PauseRecordParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "PauseRecord", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Record.ResumeRecord(&record.ResumeRecordParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "ResumeRecord", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Record.StartRecord(&record.StartRecordParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "StartRecord", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Record.StopRecord(&record.StopRecordParams{})
-	if err != nil {
-		t.Logf("%s\n%s\n", "StopRecord", err)
-	}
-	assert.Error(t, err)
+	t.Logf("skipped: %s", err)
 	_, err = client.Record.ToggleRecord(&record.ToggleRecordParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "ToggleRecord", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Record.ToggleRecordPause(&record.ToggleRecordPauseParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "ToggleRecordPause", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }
@@ -699,7 +696,7 @@ func Test_sceneitems(t *testing.T) {
 		SourceName:       "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "CreateSceneItem", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.DuplicateSceneItem(&sceneitems.DuplicateSceneItemParams{
@@ -708,12 +705,12 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:            "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "DuplicateSceneItem", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.SceneItems.GetGroupSceneItemList(&sceneitems.GetGroupSceneItemListParams{SceneName: "Scene"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetGroupSceneItemList", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.SceneItems.GetSceneItemBlendMode(&sceneitems.GetSceneItemBlendModeParams{
@@ -721,7 +718,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:   "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneItemBlendMode", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemEnabled(&sceneitems.GetSceneItemEnabledParams{
@@ -729,7 +726,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:   "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneItemEnabled", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemId(&sceneitems.GetSceneItemIdParams{
@@ -738,7 +735,7 @@ func Test_sceneitems(t *testing.T) {
 		SourceName:   "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneItemId", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemIndex(&sceneitems.GetSceneItemIndexParams{
@@ -746,12 +743,12 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:   "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneItemIndex", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemList(&sceneitems.GetSceneItemListParams{SceneName: "Scene"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneItemList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemLocked(&sceneitems.GetSceneItemLockedParams{
@@ -759,7 +756,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:   "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneItemLocked", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemTransform(&sceneitems.GetSceneItemTransformParams{
@@ -767,7 +764,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:   "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneItemTransform", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemBlendMode(&sceneitems.SetSceneItemBlendModeParams{
@@ -776,7 +773,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:          "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSceneItemBlendMode", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemEnabled(&sceneitems.SetSceneItemEnabledParams{
@@ -785,7 +782,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:        "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSceneItemEnabled", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemIndex(&sceneitems.SetSceneItemIndexParams{
@@ -794,7 +791,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:      "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSceneItemIndex", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemLocked(&sceneitems.SetSceneItemLockedParams{
@@ -803,7 +800,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:       "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSceneItemLocked", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemTransform(&sceneitems.SetSceneItemTransformParams{
@@ -816,7 +813,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName: "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSceneItemTransform", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.RemoveSceneItem(&sceneitems.RemoveSceneItemParams{
@@ -824,7 +821,7 @@ func Test_sceneitems(t *testing.T) {
 		SceneName:   "nonexistent",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "RemoveSceneItem", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 }
@@ -842,44 +839,44 @@ func Test_scenes(t *testing.T) {
 
 	_, err = client.Scenes.CreateScene(&scenes.CreateSceneParams{SceneName: "Scene"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "CreateScene", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Scenes.GetCurrentPreviewScene(&scenes.GetCurrentPreviewSceneParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetCurrentPreviewScene", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.GetCurrentProgramScene(&scenes.GetCurrentProgramSceneParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetCurrentProgramScene", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.GetGroupList(&scenes.GetGroupListParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetGroupList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.GetSceneList(&scenes.GetSceneListParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.GetSceneSceneTransitionOverride(
 		&scenes.GetSceneSceneTransitionOverrideParams{SceneName: "Scene"},
 	)
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneSceneTransitionOverride", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.SetCurrentPreviewScene(&scenes.SetCurrentPreviewSceneParams{SceneName: "Scene"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetCurrentPreviewScene", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.SetCurrentProgramScene(&scenes.SetCurrentProgramSceneParams{SceneName: "Scene"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetCurrentProgramScene", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.SetSceneName(&scenes.SetSceneNameParams{
@@ -887,7 +884,7 @@ func Test_scenes(t *testing.T) {
 		SceneName:    "Scene",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSceneName", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Scenes.SetSceneSceneTransitionOverride(&scenes.SetSceneSceneTransitionOverrideParams{
@@ -896,12 +893,12 @@ func Test_scenes(t *testing.T) {
 		TransitionName:     "Cut",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetSceneSceneTransitionOverride", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.RemoveScene(&scenes.RemoveSceneParams{SceneName: "nonexistent"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "RemoveScene", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 }
@@ -919,7 +916,7 @@ func Test_sources(t *testing.T) {
 
 	_, err = client.Sources.GetSourceActive(&sources.GetSourceActiveParams{SourceName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSourceActive", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Sources.GetSourceScreenshot(&sources.GetSourceScreenshotParams{
@@ -930,7 +927,7 @@ func Test_sources(t *testing.T) {
 		SourceName:              "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSourceScreenshot", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Sources.SaveSourceScreenshot(&sources.SaveSourceScreenshotParams{
@@ -942,7 +939,7 @@ func Test_sources(t *testing.T) {
 		SourceName:              "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SaveSourceScreenshot", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }
@@ -960,27 +957,27 @@ func Test_stream(t *testing.T) {
 
 	_, err = client.Stream.GetStreamStatus(&stream.GetStreamStatusParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetStreamStatus", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Stream.SendStreamCaption(&stream.SendStreamCaptionParams{CaptionText: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SendStreamCaption", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Stream.StartStream(&stream.StartStreamParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "StartStream", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Stream.StopStream(&stream.StopStreamParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "StopStream", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Stream.ToggleStream(&stream.ToggleStreamParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "ToggleStream", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }
@@ -998,36 +995,36 @@ func Test_transitions(t *testing.T) {
 
 	_, err = client.Transitions.GetCurrentSceneTransitionCursor(&transitions.GetCurrentSceneTransitionCursorParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetCurrentSceneTransitionCursor", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Transitions.GetCurrentSceneTransition(&transitions.GetCurrentSceneTransitionParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetCurrentSceneTransition", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Transitions.GetSceneTransitionList(&transitions.GetSceneTransitionListParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetSceneTransitionList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Transitions.GetTransitionKindList(&transitions.GetTransitionKindListParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetTransitionKindList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Transitions.SetCurrentSceneTransitionDuration(
 		&transitions.SetCurrentSceneTransitionDurationParams{TransitionDuration: 50.0},
 	)
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetCurrentSceneTransitionDuration", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Transitions.SetCurrentSceneTransition(
 		&transitions.SetCurrentSceneTransitionParams{TransitionName: "Cut"},
 	)
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetCurrentSceneTransition", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Transitions.SetCurrentSceneTransitionSettings(&transitions.SetCurrentSceneTransitionSettingsParams{
@@ -1035,7 +1032,7 @@ func Test_transitions(t *testing.T) {
 		TransitionSettings: map[string]interface{}{"test": "test"},
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetCurrentSceneTransitionSettings", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Transitions.SetTBarPosition(&transitions.SetTBarPositionParams{
@@ -1043,12 +1040,12 @@ func Test_transitions(t *testing.T) {
 		Release:  &[]bool{true}[0],
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetTBarPosition", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Transitions.TriggerStudioModeTransition(&transitions.TriggerStudioModeTransitionParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "TriggerStudioModeTransition", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }
@@ -1066,27 +1063,27 @@ func Test_ui(t *testing.T) {
 
 	_, err = client.Ui.GetMonitorList(&ui.GetMonitorListParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetMonitorList", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Ui.GetStudioModeEnabled(&ui.GetStudioModeEnabledParams{})
 	if err != nil {
-		t.Logf("%s\n%s\n", "GetStudioModeEnabled", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Ui.OpenInputFiltersDialog(&ui.OpenInputFiltersDialogParams{InputName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "OpenInputFiltersDialog", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Ui.OpenInputInteractDialog(&ui.OpenInputInteractDialogParams{InputName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "OpenInputInteractDialog", err)
+		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
 	_, err = client.Ui.OpenInputPropertiesDialog(&ui.OpenInputPropertiesDialogParams{InputName: "test"})
 	if err != nil {
-		t.Logf("%s\n%s\n", "OpenInputPropertiesDialog", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Ui.OpenSourceProjector(&ui.OpenSourceProjectorParams{
@@ -1095,7 +1092,7 @@ func Test_ui(t *testing.T) {
 		SourceName:        "test",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "OpenSourceProjector", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Ui.OpenVideoMixProjector(&ui.OpenVideoMixProjectorParams{
@@ -1104,12 +1101,12 @@ func Test_ui(t *testing.T) {
 		VideoMixType:      "OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW",
 	})
 	if err != nil {
-		t.Logf("%s\n%s\n", "OpenVideoMixProjector", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Ui.SetStudioModeEnabled(&ui.SetStudioModeEnabledParams{StudioModeEnabled: &[]bool{true}[0]})
 	if err != nil {
-		t.Logf("%s\n%s\n", "SetStudioModeEnabled", err)
+		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 }

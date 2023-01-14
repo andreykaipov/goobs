@@ -297,6 +297,10 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 						break
 					}
 				}
+				s.If(Id("err").Op("!=").Nil()).Block(
+					Id("t").Dot("Logf").Call(Lit("%s"), Id("err")),
+				)
+				s.Line()
 				s.Qual(assert, assertion).Call(Id("t"), Id("err"))
 			}
 		}),

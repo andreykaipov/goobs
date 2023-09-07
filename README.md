@@ -5,8 +5,8 @@
 [![Build Status][build-img]][build-url]
 [![Go Report][goreport-img]][goreport-url]
 
-[protocol-img]: https://img.shields.io/badge/obs--websocket-v5.1.0-blue?logo=obs-studio&style=flat-square
-[protocol-url]: https://github.com/obsproject/obs-websocket/blob/5.1.0/docs/generated/protocol.md
+[protocol-img]: https://img.shields.io/badge/obs--websocket-v5.2.3-blue?logo=obs-studio&style=flat-square
+[protocol-url]: https://github.com/obsproject/obs-websocket/blob/5.2.3/docs/generated/protocol.md
 [doc-img]: https://img.shields.io/badge/pkg.go.dev-reference-blue?logo=go&logoColor=white&style=flat-square
 [doc-url]: https://pkg.go.dev/github.com/andreykaipov/goobs
 [build-img]: https://img.shields.io/github/actions/workflow/status/andreykaipov/goobs/ci.yml?logo=github&style=flat-square&branch=master
@@ -68,8 +68,8 @@ This outputs the following:
 
 ```console
 ❯ go run examples/basic/main.go
-OBS Studio version: 29.0.0
-Websocket server version: 5.1.0
+OBS Studio version: 29.1.3
+Websocket server version: 5.2.3
  1 Just Chatting
  2 Intermission
  3 Be Right Back 2

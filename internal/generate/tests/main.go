@@ -188,7 +188,7 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 			default:
 				val = Lit("")
 			}
-		case "map[string] interface{}":
+		case "map[string]interface{}":
 			val = Map(String()).Interface().Values(Dict{
 				Lit("test"): Lit("test"),
 			})

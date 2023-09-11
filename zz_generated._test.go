@@ -27,6 +27,27 @@ import (
 	assert "github.com/stretchr/testify/assert"
 )
 
+func Test_multi_goroutine(t *testing.T) {
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
+	assert.NoError(t, err)
+	t.Cleanup(func() {
+		client.Disconnect()
+	})
+
+	for i := 0; i < 4000; i++ {
+		go func() {
+			if _, err = client.Scenes.GetSceneList(); err != nil {
+				t.Logf("%v", err)
+			}
+		}()
+	}
+
+}
+
 func Test_client(t *testing.T) {
 	var err error
 	_, err = goobs.New(

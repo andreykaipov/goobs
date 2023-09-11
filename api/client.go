@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"sync"
 	"time"
 
 	"github.com/andreykaipov/goobs/api/opcodes"
@@ -24,6 +25,7 @@ type Client struct {
 	IncomingResponses chan *opcodes.RequestResponse
 	Opcodes           chan opcodes.Opcode
 	Log               Logger
+	mutex             sync.Mutex
 }
 
 // SendRequest abstracts the logic every subclient uses to send a request and
@@ -55,6 +57,9 @@ func (c *Client) SendRequest(requestBody Params, responseBody interface{}) error
 	id := uid.String()
 
 	c.Log.Printf("[INFO] Sending %s Request with ID %s", name, id)
+
+	c.mutex.Lock()
+	defer c.mutex.Unlock()
 
 	c.Opcodes <- &opcodes.Request{
 		Type: name,

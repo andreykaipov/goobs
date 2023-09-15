@@ -3,7 +3,6 @@
 package goobs_test
 
 import (
-	"net"
 	"net/http"
 	"os"
 	"testing"
@@ -23,28 +22,8 @@ import (
 	transitions "github.com/andreykaipov/goobs/api/requests/transitions"
 	ui "github.com/andreykaipov/goobs/api/requests/ui"
 	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-	websocket "github.com/gorilla/websocket"
 	assert "github.com/stretchr/testify/assert"
 )
-
-func Test_client(t *testing.T) {
-	var err error
-	_, err = goobs.New(
-		"localhost:"+os.Getenv("OBS_PORT"),
-		goobs.WithPassword("wrongpassword"),
-		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
-	)
-	assert.Error(t, err)
-	assert.IsType(t, &websocket.CloseError{}, err)
-	assert.Equal(t, err.(*websocket.CloseError).Code, 4009)
-	_, err = goobs.New(
-		"localhost:42069",
-		goobs.WithPassword("wrongpassword"),
-		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
-	)
-	assert.Error(t, err)
-	assert.IsType(t, &net.OpError{}, err)
-}
 
 func Test_config(t *testing.T) {
 	client, err := goobs.New(

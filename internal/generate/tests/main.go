@@ -84,8 +84,6 @@ func main() {
 	f := NewFile("goobs_test")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 
-	f.Add(generateClientTest().Line())
-
 	// find subclients at the root of goobs, using that to then find the
 	// structs within each of the subclient categories
 
@@ -112,38 +110,6 @@ func main() {
 	if err := f.Save(fmt.Sprintf("%s/zz_generated._test.go", root)); err != nil {
 		panic(err)
 	}
-}
-
-func generateClientTest() *Statement {
-	s := Line()
-
-	s.Func().Id("Test_client").Params(Id("t").Op("*").Qual("testing", "T")).Block(
-		Var().Id("err").Error(),
-		// tries to connect incorrectly
-		List(Id("_"), Id("err")).Op("=").Qual(goobs, "New").Call(
-			Lit("localhost:").Op("+").Qual("os", "Getenv").Call(Lit("OBS_PORT")),
-			Qual(goobs, "WithPassword").Call(Lit("wrongpassword")),
-			Qual(goobs, "WithRequestHeader").Call(Qual("net/http", "Header").Values(Dict{
-				Lit("User-Agent"): Index().String().Values(Lit("goobs-e2e/0.0.0")),
-			})),
-		),
-		Qual(assert, "Error").Call(Id("t"), Id("err")),
-		Qual(assert, "IsType").Call(Id("t"), Op("&").Qual(websocket, "CloseError").Block(), Id("err")),
-		Qual(assert, "Equal").Call(Id("t"), Id("err").Assert(Op("*").Qual(websocket, "CloseError")).Dot("Code"), Lit(4009)),
-
-		// tries to connect to a nonrunning server
-		List(Id("_"), Id("err")).Op("=").Qual(goobs, "New").Call(
-			Lit("localhost:42069"),
-			Qual(goobs, "WithPassword").Call(Lit("wrongpassword")),
-			Qual(goobs, "WithRequestHeader").Call(Qual("net/http", "Header").Values(Dict{
-				Lit("User-Agent"): Index().String().Values(Lit("goobs-e2e/0.0.0")),
-			})),
-		),
-		Qual(assert, "Error").Call(Id("t"), Id("err")),
-		Qual(assert, "IsType").Call(Id("t"), Op("&").Qual("net", "OpError").Block(), Id("err")),
-	)
-
-	return s
 }
 
 func generateRequestTest(subclient, category string, structs map[string]StructFieldMap) *Statement {

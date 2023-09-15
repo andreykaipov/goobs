@@ -11,6 +11,7 @@ setup() {
                 echo "Main OBS container is already running"
         else
                 docker run --rm --detach --name obs -e vnc=1 -p 5900:5900 -p 4455:1234 ghcr.io/andreykaipov/goobs
+                sleep 3
         fi
 
         # record and stream categories aren't totally idempotent so we need
@@ -26,7 +27,7 @@ setup() {
 
 gotest() {
         category="$1"
-        go test -v -run="^Test_$category$" -coverprofile=cover.out -coverpkg=./... -covermode=$covermode ./zz_generated.*test.go
+        go test -v -run="^Test_$category$" -coverprofile=cover.out -coverpkg=./... -covermode=$covermode ./...
         awk 'NR>1' cover.out >>coverall.out
 }
 
@@ -39,20 +40,21 @@ main() {
         # note: `scenes` and `transitions` must be ran after `ui`
         #
         categories='
-		client
-		config
-		filters
-		general
-		inputs
-		mediainputs
-		outputs
-		rconfig
-		sceneitems
-		sources
-		ui
-		scenes
-		transitions
-	'
+                client
+                multi_goroutine
+                config
+                filters
+                general
+                inputs
+                mediainputs
+                outputs
+                rconfig
+                sceneitems
+                sources
+                ui
+                scenes
+                transitions
+        '
 
         for category in $categories; do
                 echo "$category"

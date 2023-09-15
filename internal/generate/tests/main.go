@@ -85,6 +85,7 @@ func main() {
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 
 	f.Add(generateClientTest().Line())
+	f.Add(generateMultiGoroutineTest().Line())
 
 	// find subclients at the root of goobs, using that to then find the
 	// structs within each of the subclient categories
@@ -141,6 +142,36 @@ func generateClientTest() *Statement {
 		),
 		Qual(assert, "Error").Call(Id("t"), Id("err")),
 		Qual(assert, "IsType").Call(Id("t"), Op("&").Qual("net", "OpError").Block(), Id("err")),
+	)
+
+	return s
+}
+
+func generateMultiGoroutineTest() *Statement {
+	s := Line()
+
+	s.Func().Id("Test_multi_goroutine").Params(Id("t").Op("*").Qual("testing", "T")).Block(
+		List(Id("client"), Id("err")).Op(":=").Qual(goobs, "New").Call(
+			Lit("localhost:").Op("+").Qual("os", "Getenv").Call(Lit("OBS_PORT")),
+			Qual(goobs, "WithPassword").Call(Lit("goodpassword")),
+			Qual(goobs, "WithRequestHeader").Call(Qual("net/http", "Header").Values(Dict{
+				Lit("User-Agent"): Index().String().Values(Lit("goobs-e2e/0.0.0")),
+			})),
+		),
+		Qual(assert, "NoError").Call(Id("t"), Id("err")),
+		Id("t").Dot("Cleanup").Call(Func().Params().Block(
+			Id("client").Dot("Disconnect").Call(),
+		)),
+		Id("wg").Op(":=").Qual("sync", "WaitGroup").Values(),
+		For(Id("i").Op(":=").Lit(0), Id("i").Op("<").Lit(1000), Id("i").Op("++")).Block(
+			Id("wg").Dot("Add").Call(Lit(1)),
+			Go().Func().Params().Block(
+				Id("defer").Id("wg").Dot("Done").Call(),
+				List(Id("_"), Id("err")).Op(":=").Id("client").Dot("Scenes").Dot("GetSceneList").Call(),
+				Qual(assert, "NoError").Call(Id("t"), Id("err")),
+			).Call(),
+		),
+		Id("wg").Dot("Wait").Call(),
 	)
 
 	return s

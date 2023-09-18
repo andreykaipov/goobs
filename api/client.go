@@ -68,9 +68,13 @@ func (c *Client) SendRequest(requestBody Params, responseBody interface{}) error
 	}
 
 	var response *opcodes.RequestResponse
+	timeout, timer := newTimeoutTimer(c.ResponseTimeout * time.Millisecond)
 	select {
 	case response = <-c.IncomingResponses:
-	case <-time.After(c.ResponseTimeout * time.Millisecond):
+		if timer != nil {
+			timer.Stop()
+		}
+	case <-timeout:
 		return fmt.Errorf("request %s: timeout waiting for response from server", name)
 	}
 
@@ -122,4 +126,16 @@ func (c *Client) SendRequest(requestBody Params, responseBody interface{}) error
 	}
 
 	return nil
+}
+
+// newTimeoutTimer is an alternative to time.After with the possibility to cancel
+// the underlying time.Timer to achieve better efficiency.
+// time.Duration d <= 0 means no timeout or waiting forever.
+// See https://pkg.go.dev/time#After
+func newTimeoutTimer(d time.Duration) (timeout <-chan time.Time, timer *time.Timer) {
+	if d > 0 {
+		timer = time.NewTimer(d)
+		timeout = timer.C
+	}
+	return
 }

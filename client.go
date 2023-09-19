@@ -172,14 +172,12 @@ func (c *Client) connect() (err error) {
 	go c.handleRawServerMessages(authComplete)
 	go c.handleOpcodes(authComplete)
 
-	timeout, timer := newTimeoutTimer(c.ResponseTimeout * time.Millisecond)
+	timer := time.NewTimer(c.ResponseTimeout * time.Millisecond)
+	defer timer.Stop()
 	select {
 	case a := <-authComplete:
-		if timer != nil {
-			timer.Stop()
-		}
 		return a
-	case <-timeout:
+	case <-timer.C:
 		return fmt.Errorf("timeout waiting for authentication: %dms", c.ResponseTimeout)
 	}
 }
@@ -372,16 +370,4 @@ func (c *Client) Listen(f func(interface{})) {
 	for event := range c.IncomingEvents {
 		f(event)
 	}
-}
-
-// newTimeoutTimer is an alternative to time.After with the possibility to cancel
-// the underlying time.Timer to achieve better efficiency.
-// time.Duration d <= 0 means no timeout or waiting forever.
-// See https://pkg.go.dev/time#After
-func newTimeoutTimer(d time.Duration) (timeout <-chan time.Time, timer *time.Timer) {
-	if d > 0 {
-		timer = time.NewTimer(d)
-		timeout = timer.C
-	}
-	return
 }

@@ -112,7 +112,7 @@ func New(host string, opts ...Option) (*Client, error) {
 			ResponseTimeout:   10000,
 			Log: log.New(
 				&logutils.LevelFilter{
-					Levels:   []logutils.LogLevel{"TRACE", "DEBUG", "INFO", "WARN", "ERROR", ""},
+					Levels:   []logutils.LogLevel{"DEBUG", "INFO", "ERROR", ""},
 					MinLevel: logutils.LogLevel(strings.ToUpper(os.Getenv("GOOBS_LOG"))),
 					Writer: api.LoggerWithWrite(func(p []byte) (int, error) {
 						return os.Stderr.WriteString(fmt.Sprintf("\033[36m%s\033[0m", p))

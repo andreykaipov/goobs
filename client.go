@@ -19,6 +19,7 @@ import (
 	"github.com/buger/jsonparser"
 	"github.com/gorilla/websocket"
 	"github.com/hashicorp/logutils"
+	"github.com/mmcloughlin/profile"
 )
 
 // Client represents a client to an OBS websockets server.
@@ -32,6 +33,7 @@ type Client struct {
 	requestHeader      http.Header
 	eventSubscriptions int
 	errors             chan error
+	profiler           *profile.Profile
 }
 
 // Option represents a functional option of a Client.
@@ -86,8 +88,14 @@ open connection. You don't really have to do this as any connections should
 close when your program terminates or interrupts. But here's a function anyways.
 */
 func (c *Client) Disconnect() error {
-	c.Log.Printf("[DEBUG] Sending disconnect message")
+	defer func() {
+		if c.profiler != nil {
+			c.Log.Printf("[DEBUG] Ending profiling")
+			c.profiler.Stop()
+		}
+	}()
 
+	c.Log.Printf("[DEBUG] Sending disconnect message")
 	return c.conn.WriteMessage(
 		websocket.CloseMessage,
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Bye"),
@@ -122,6 +130,14 @@ func New(host string, opts ...Option) (*Client, error) {
 				log.Ltime|log.Lshortfile,
 			),
 		},
+	}
+
+	if os.Getenv("GOOBS_PROFILE") != "" {
+		c.profiler = profile.Start(
+			profile.AllProfiles,
+			profile.ConfigEnvVar("GOOBS_PROFILE"),
+			profile.WithLogger(c.Log.(*log.Logger)),
+		)
 	}
 
 	for _, opt := range opts {

@@ -52,3 +52,20 @@ func Test_multi_goroutine(t *testing.T) {
 	}
 	wg.Wait()
 }
+
+func Test_profile(t *testing.T) {
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
+	assert.NoError(t, err)
+	t.Cleanup(func() {
+		client.Disconnect()
+	})
+
+	for n := 0; n < 5_000; n++ {
+		_, err := client.Scenes.GetSceneList()
+		assert.NoError(t, err)
+	}
+}

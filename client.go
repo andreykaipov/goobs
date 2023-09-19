@@ -19,6 +19,7 @@ import (
 	"github.com/buger/jsonparser"
 	"github.com/gorilla/websocket"
 	"github.com/hashicorp/logutils"
+	"github.com/mmcloughlin/profile"
 )
 
 // Client represents a client to an OBS websockets server.
@@ -32,6 +33,7 @@ type Client struct {
 	requestHeader      http.Header
 	eventSubscriptions int
 	errors             chan error
+	profiler           *profile.Profile
 }
 
 // Option represents a functional option of a Client.
@@ -86,8 +88,14 @@ open connection. You don't really have to do this as any connections should
 close when your program terminates or interrupts. But here's a function anyways.
 */
 func (c *Client) Disconnect() error {
-	c.Log.Printf("[DEBUG] Sending disconnect message")
+	defer func() {
+		if c.profiler != nil {
+			c.Log.Printf("[DEBUG] Ending profiling")
+			c.profiler.Stop()
+		}
+	}()
 
+	c.Log.Printf("[DEBUG] Sending disconnect message")
 	return c.conn.WriteMessage(
 		websocket.CloseMessage,
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Bye"),
@@ -112,7 +120,7 @@ func New(host string, opts ...Option) (*Client, error) {
 			ResponseTimeout:   10000,
 			Log: log.New(
 				&logutils.LevelFilter{
-					Levels:   []logutils.LogLevel{"TRACE", "DEBUG", "INFO", "WARN", "ERROR", ""},
+					Levels:   []logutils.LogLevel{"DEBUG", "INFO", "ERROR", ""},
 					MinLevel: logutils.LogLevel(strings.ToUpper(os.Getenv("GOOBS_LOG"))),
 					Writer: api.LoggerWithWrite(func(p []byte) (int, error) {
 						return os.Stderr.WriteString(fmt.Sprintf("\033[36m%s\033[0m", p))
@@ -122,6 +130,14 @@ func New(host string, opts ...Option) (*Client, error) {
 				log.Ltime|log.Lshortfile,
 			),
 		},
+	}
+
+	if os.Getenv("GOOBS_PROFILE") != "" {
+		c.profiler = profile.Start(
+			profile.AllProfiles,
+			profile.ConfigEnvVar("GOOBS_PROFILE"),
+			profile.WithLogger(c.Log.(*log.Logger)),
+		)
 	}
 
 	for _, opt := range opts {

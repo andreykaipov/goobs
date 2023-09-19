@@ -172,10 +172,12 @@ func (c *Client) connect() (err error) {
 	go c.handleRawServerMessages(authComplete)
 	go c.handleOpcodes(authComplete)
 
+	timer := time.NewTimer(c.ResponseTimeout * time.Millisecond)
+	defer timer.Stop()
 	select {
 	case a := <-authComplete:
 		return a
-	case <-time.After(c.ResponseTimeout * time.Millisecond):
+	case <-timer.C:
 		return fmt.Errorf("timeout waiting for authentication: %dms", c.ResponseTimeout)
 	}
 }
@@ -355,7 +357,7 @@ func (c *Client) writeEvent(event interface{}) {
 			// incoming events was full (but might not be by now),
 			// so safely read off the oldest, and write the latest
 			select {
-			case _ = <-c.IncomingEvents:
+			case <-c.IncomingEvents:
 			default:
 			}
 

@@ -68,9 +68,12 @@ func (c *Client) SendRequest(requestBody Params, responseBody interface{}) error
 	}
 
 	var response *opcodes.RequestResponse
+
+	timer := time.NewTimer(c.ResponseTimeout * time.Millisecond)
+	defer timer.Stop()
 	select {
 	case response = <-c.IncomingResponses:
-	case <-time.After(c.ResponseTimeout * time.Millisecond):
+	case <-timer.C:
 		return fmt.Errorf("request %s: timeout waiting for response from server", name)
 	}
 

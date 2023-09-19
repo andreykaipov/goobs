@@ -82,9 +82,16 @@ Websocket server version: 5.1.0
 10 Main
 ```
 
-### logging
+## advanced configuration
 
-Further, we can view what this library is doing under the hood (i.e. the raw
-messages it sends and receives) by setting `GOOBS_LOG=debug`. This value can be
-set to the typical Log4j values (e.g. `debug`, `info`, `error`) for more or less
-verbosity.
+- `GOOBS_LOG` can be set to `debug`, `info`, or `error` to better understand what our client is doing under the hood.
+
+- `GOOBS_PROFILE` can be set to enable profiling.
+  For example, the following will help us find unreleased memory:
+
+  ```console
+  ❯ GOOBS_PROFILE=memprofile=mem.out OBS_PORT=4455 go test -v -run=profile client_test.go
+  ❯ go tool pprof -top -sample_index=inuse_space mem.out
+  ```
+
+  Set `GOOBS_PROFILE=help` to see all the other available options.

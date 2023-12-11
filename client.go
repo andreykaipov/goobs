@@ -251,7 +251,7 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 				return
 			default:
 				c.errors <- fmt.Errorf("reading raw message from websocket connection: %w", t)
-				continue
+				return
 			}
 		}
 

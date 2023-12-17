@@ -116,7 +116,7 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 	paramsMapper := func(request, field, fieldType string) *Statement {
 		var val *Statement
 		switch fieldType {
-		case "string":
+		case "*string":
 			lit := ""
 			switch field {
 			case "Realm":
@@ -153,7 +153,7 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 			case "VideoMixType":
 				lit = "OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW"
 			case "ProjectorGeometry":
-				lit = ""
+				return Nil()
 			default:
 				switch category {
 				case "inputs":
@@ -163,7 +163,12 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 				}
 			}
 			val = Lit(lit)
-		case "float64":
+			val = Op("&").Index().String().Values(val).Index(Lit(0))
+		case "*int":
+			n := 1
+			val = Lit(n)
+			val = Op("&").Index().Int().Values(val).Index(Lit(0))
+		case "*float64":
 			var n float64
 			switch field {
 			case "TransitionDuration":
@@ -179,6 +184,7 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 				}
 			}
 			val = Lit(n)
+			val = Op("&").Index().Float64().Values(val).Index(Lit(0))
 		case "*bool":
 			val = Op("&").Index().Bool().Values(True()).Index(Lit(0))
 		case "interface{}":

@@ -1,0 +1,45 @@
+---
+name-template: v$RESOLVED_VERSION 🌈
+tag-template: v$RESOLVED_VERSION
+tag-prefix: v
+categories:
+- title: 🚨 Breaking Changes
+  labels:
+  - breaking
+- title: 🚀 Features
+  labels:
+  - enhancement
+  - feature
+- title: 🐛 Bug Fixes
+  labels:
+  - bug
+  - fix
+- title: 🔧 Maintenance
+  labels:
+  - chore
+  - documentation
+  - test
+- title: 🤖 Dependencies
+  labels:
+  - dependencies
+version-resolver:
+  major:
+    labels:
+    - breaking
+  minor:
+    labels:
+    - enhancement
+    - feature
+  patch:
+    labels:
+    - bug
+    - chore
+    - dependencies
+    - documentation
+    - fix
+    - test
+  default: patch
+template: |
+  ## Changes
+
+  $CHANGES

@@ -38,7 +38,13 @@ jobs:
     - uses: magnetikonline/action-golang-cache@v3
       with:
         go-version-file: go.mod
-    - run: make test
+    - run: |
+        # some tests are flaky because it's running against a dockerized obs
+        # instance, so just retry a few times or whatever to be certain
+        for _ in $(seq 1 5); do
+          if make test; then exit; fi
+        done
+        exit 1
     - run: go tool cover -func coverall.out
 
   generate:

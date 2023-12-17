@@ -8,6 +8,14 @@ type BroadcastCustomEventParams struct {
 	EventData map[string]interface{} `json:"eventData,omitempty"`
 }
 
+func NewBroadcastCustomEventParams() *BroadcastCustomEventParams {
+	return &BroadcastCustomEventParams{}
+}
+func (o *BroadcastCustomEventParams) WithEventData(x map[string]interface{}) *BroadcastCustomEventParams {
+	o.EventData = x
+	return o
+}
+
 // Returns the associated request.
 func (o *BroadcastCustomEventParams) GetRequestName() string {
 	return "BroadcastCustomEvent"

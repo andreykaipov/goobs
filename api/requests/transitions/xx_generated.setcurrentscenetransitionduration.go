@@ -8,6 +8,17 @@ type SetCurrentSceneTransitionDurationParams struct {
 	TransitionDuration float64 `json:"transitionDuration,omitempty"`
 }
 
+func NewSetCurrentSceneTransitionDurationParams() *SetCurrentSceneTransitionDurationParams {
+	return &SetCurrentSceneTransitionDurationParams{}
+}
+
+func (o *SetCurrentSceneTransitionDurationParams) WithTransitionDuration(
+	x float64,
+) *SetCurrentSceneTransitionDurationParams {
+	o.TransitionDuration = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetCurrentSceneTransitionDurationParams) GetRequestName() string {
 	return "SetCurrentSceneTransitionDuration"

@@ -14,6 +14,22 @@ type OpenVideoMixProjectorParams struct {
 	VideoMixType string `json:"videoMixType,omitempty"`
 }
 
+func NewOpenVideoMixProjectorParams() *OpenVideoMixProjectorParams {
+	return &OpenVideoMixProjectorParams{}
+}
+func (o *OpenVideoMixProjectorParams) WithMonitorIndex(x float64) *OpenVideoMixProjectorParams {
+	o.MonitorIndex = x
+	return o
+}
+func (o *OpenVideoMixProjectorParams) WithProjectorGeometry(x string) *OpenVideoMixProjectorParams {
+	o.ProjectorGeometry = x
+	return o
+}
+func (o *OpenVideoMixProjectorParams) WithVideoMixType(x string) *OpenVideoMixProjectorParams {
+	o.VideoMixType = x
+	return o
+}
+
 // Returns the associated request.
 func (o *OpenVideoMixProjectorParams) GetRequestName() string {
 	return "OpenVideoMixProjector"

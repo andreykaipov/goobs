@@ -11,6 +11,18 @@ type SetInputMuteParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewSetInputMuteParams() *SetInputMuteParams {
+	return &SetInputMuteParams{}
+}
+func (o *SetInputMuteParams) WithInputMuted(x *bool) *SetInputMuteParams {
+	o.InputMuted = x
+	return o
+}
+func (o *SetInputMuteParams) WithInputName(x string) *SetInputMuteParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetInputMuteParams) GetRequestName() string {
 	return "SetInputMute"

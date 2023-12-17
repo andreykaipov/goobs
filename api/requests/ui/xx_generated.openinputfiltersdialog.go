@@ -8,6 +8,14 @@ type OpenInputFiltersDialogParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewOpenInputFiltersDialogParams() *OpenInputFiltersDialogParams {
+	return &OpenInputFiltersDialogParams{}
+}
+func (o *OpenInputFiltersDialogParams) WithInputName(x string) *OpenInputFiltersDialogParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *OpenInputFiltersDialogParams) GetRequestName() string {
 	return "OpenInputFiltersDialog"

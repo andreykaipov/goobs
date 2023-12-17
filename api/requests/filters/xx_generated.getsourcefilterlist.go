@@ -10,6 +10,14 @@ type GetSourceFilterListParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewGetSourceFilterListParams() *GetSourceFilterListParams {
+	return &GetSourceFilterListParams{}
+}
+func (o *GetSourceFilterListParams) WithSourceName(x string) *GetSourceFilterListParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetSourceFilterListParams) GetRequestName() string {
 	return "GetSourceFilterList"

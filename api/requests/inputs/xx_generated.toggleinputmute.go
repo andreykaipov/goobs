@@ -8,6 +8,14 @@ type ToggleInputMuteParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewToggleInputMuteParams() *ToggleInputMuteParams {
+	return &ToggleInputMuteParams{}
+}
+func (o *ToggleInputMuteParams) WithInputName(x string) *ToggleInputMuteParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *ToggleInputMuteParams) GetRequestName() string {
 	return "ToggleInputMute"

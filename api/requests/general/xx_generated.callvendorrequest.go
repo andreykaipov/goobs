@@ -14,6 +14,22 @@ type CallVendorRequestParams struct {
 	VendorName string `json:"vendorName,omitempty"`
 }
 
+func NewCallVendorRequestParams() *CallVendorRequestParams {
+	return &CallVendorRequestParams{}
+}
+func (o *CallVendorRequestParams) WithRequestData(x map[string]interface{}) *CallVendorRequestParams {
+	o.RequestData = x
+	return o
+}
+func (o *CallVendorRequestParams) WithRequestType(x string) *CallVendorRequestParams {
+	o.RequestType = x
+	return o
+}
+func (o *CallVendorRequestParams) WithVendorName(x string) *CallVendorRequestParams {
+	o.VendorName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *CallVendorRequestParams) GetRequestName() string {
 	return "CallVendorRequest"

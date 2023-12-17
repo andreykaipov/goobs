@@ -8,6 +8,14 @@ type GetInputVolumeParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewGetInputVolumeParams() *GetInputVolumeParams {
+	return &GetInputVolumeParams{}
+}
+func (o *GetInputVolumeParams) WithInputName(x string) *GetInputVolumeParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetInputVolumeParams) GetRequestName() string {
 	return "GetInputVolume"

@@ -11,6 +11,18 @@ type GetSceneItemIndexParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewGetSceneItemIndexParams() *GetSceneItemIndexParams {
+	return &GetSceneItemIndexParams{}
+}
+func (o *GetSceneItemIndexParams) WithSceneItemId(x float64) *GetSceneItemIndexParams {
+	o.SceneItemId = x
+	return o
+}
+func (o *GetSceneItemIndexParams) WithSceneName(x string) *GetSceneItemIndexParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetSceneItemIndexParams) GetRequestName() string {
 	return "GetSceneItemIndex"

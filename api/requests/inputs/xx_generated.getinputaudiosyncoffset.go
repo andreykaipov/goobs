@@ -8,6 +8,14 @@ type GetInputAudioSyncOffsetParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewGetInputAudioSyncOffsetParams() *GetInputAudioSyncOffsetParams {
+	return &GetInputAudioSyncOffsetParams{}
+}
+func (o *GetInputAudioSyncOffsetParams) WithInputName(x string) *GetInputAudioSyncOffsetParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetInputAudioSyncOffsetParams) GetRequestName() string {
 	return "GetInputAudioSyncOffset"

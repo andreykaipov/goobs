@@ -8,6 +8,14 @@ type GetInputAudioBalanceParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewGetInputAudioBalanceParams() *GetInputAudioBalanceParams {
+	return &GetInputAudioBalanceParams{}
+}
+func (o *GetInputAudioBalanceParams) WithInputName(x string) *GetInputAudioBalanceParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetInputAudioBalanceParams) GetRequestName() string {
 	return "GetInputAudioBalance"

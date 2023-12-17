@@ -8,6 +8,14 @@ type SetCurrentPreviewSceneParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewSetCurrentPreviewSceneParams() *SetCurrentPreviewSceneParams {
+	return &SetCurrentPreviewSceneParams{}
+}
+func (o *SetCurrentPreviewSceneParams) WithSceneName(x string) *SetCurrentPreviewSceneParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetCurrentPreviewSceneParams) GetRequestName() string {
 	return "SetCurrentPreviewScene"

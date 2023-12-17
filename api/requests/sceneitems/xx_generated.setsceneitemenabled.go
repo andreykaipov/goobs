@@ -14,6 +14,22 @@ type SetSceneItemEnabledParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewSetSceneItemEnabledParams() *SetSceneItemEnabledParams {
+	return &SetSceneItemEnabledParams{}
+}
+func (o *SetSceneItemEnabledParams) WithSceneItemEnabled(x *bool) *SetSceneItemEnabledParams {
+	o.SceneItemEnabled = x
+	return o
+}
+func (o *SetSceneItemEnabledParams) WithSceneItemId(x float64) *SetSceneItemEnabledParams {
+	o.SceneItemId = x
+	return o
+}
+func (o *SetSceneItemEnabledParams) WithSceneName(x string) *SetSceneItemEnabledParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetSceneItemEnabledParams) GetRequestName() string {
 	return "SetSceneItemEnabled"

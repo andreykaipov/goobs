@@ -18,6 +18,26 @@ type SetSourceFilterSettingsParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewSetSourceFilterSettingsParams() *SetSourceFilterSettingsParams {
+	return &SetSourceFilterSettingsParams{}
+}
+func (o *SetSourceFilterSettingsParams) WithFilterName(x string) *SetSourceFilterSettingsParams {
+	o.FilterName = x
+	return o
+}
+func (o *SetSourceFilterSettingsParams) WithFilterSettings(x map[string]interface{}) *SetSourceFilterSettingsParams {
+	o.FilterSettings = x
+	return o
+}
+func (o *SetSourceFilterSettingsParams) WithOverlay(x *bool) *SetSourceFilterSettingsParams {
+	o.Overlay = x
+	return o
+}
+func (o *SetSourceFilterSettingsParams) WithSourceName(x string) *SetSourceFilterSettingsParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetSourceFilterSettingsParams) GetRequestName() string {
 	return "SetSourceFilterSettings"

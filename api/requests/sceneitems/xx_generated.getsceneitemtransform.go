@@ -13,6 +13,18 @@ type GetSceneItemTransformParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewGetSceneItemTransformParams() *GetSceneItemTransformParams {
+	return &GetSceneItemTransformParams{}
+}
+func (o *GetSceneItemTransformParams) WithSceneItemId(x float64) *GetSceneItemTransformParams {
+	o.SceneItemId = x
+	return o
+}
+func (o *GetSceneItemTransformParams) WithSceneName(x string) *GetSceneItemTransformParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetSceneItemTransformParams) GetRequestName() string {
 	return "GetSceneItemTransform"

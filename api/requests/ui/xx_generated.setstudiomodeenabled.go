@@ -8,6 +8,14 @@ type SetStudioModeEnabledParams struct {
 	StudioModeEnabled *bool `json:"studioModeEnabled,omitempty"`
 }
 
+func NewSetStudioModeEnabledParams() *SetStudioModeEnabledParams {
+	return &SetStudioModeEnabledParams{}
+}
+func (o *SetStudioModeEnabledParams) WithStudioModeEnabled(x *bool) *SetStudioModeEnabledParams {
+	o.StudioModeEnabled = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetStudioModeEnabledParams) GetRequestName() string {
 	return "SetStudioModeEnabled"

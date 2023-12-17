@@ -8,6 +8,14 @@ type GetInputKindListParams struct {
 	Unversioned *bool `json:"unversioned,omitempty"`
 }
 
+func NewGetInputKindListParams() *GetInputKindListParams {
+	return &GetInputKindListParams{}
+}
+func (o *GetInputKindListParams) WithUnversioned(x *bool) *GetInputKindListParams {
+	o.Unversioned = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetInputKindListParams) GetRequestName() string {
 	return "GetInputKindList"

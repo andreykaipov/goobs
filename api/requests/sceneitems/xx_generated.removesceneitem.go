@@ -11,6 +11,18 @@ type RemoveSceneItemParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewRemoveSceneItemParams() *RemoveSceneItemParams {
+	return &RemoveSceneItemParams{}
+}
+func (o *RemoveSceneItemParams) WithSceneItemId(x float64) *RemoveSceneItemParams {
+	o.SceneItemId = x
+	return o
+}
+func (o *RemoveSceneItemParams) WithSceneName(x string) *RemoveSceneItemParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *RemoveSceneItemParams) GetRequestName() string {
 	return "RemoveSceneItem"

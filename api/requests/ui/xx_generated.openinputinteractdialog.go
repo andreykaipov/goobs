@@ -8,6 +8,14 @@ type OpenInputInteractDialogParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewOpenInputInteractDialogParams() *OpenInputInteractDialogParams {
+	return &OpenInputInteractDialogParams{}
+}
+func (o *OpenInputInteractDialogParams) WithInputName(x string) *OpenInputInteractDialogParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *OpenInputInteractDialogParams) GetRequestName() string {
 	return "OpenInputInteractDialog"

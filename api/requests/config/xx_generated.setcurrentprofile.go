@@ -8,6 +8,14 @@ type SetCurrentProfileParams struct {
 	ProfileName string `json:"profileName,omitempty"`
 }
 
+func NewSetCurrentProfileParams() *SetCurrentProfileParams {
+	return &SetCurrentProfileParams{}
+}
+func (o *SetCurrentProfileParams) WithProfileName(x string) *SetCurrentProfileParams {
+	o.ProfileName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetCurrentProfileParams) GetRequestName() string {
 	return "SetCurrentProfile"

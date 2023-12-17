@@ -8,6 +8,14 @@ type SetCurrentSceneTransitionParams struct {
 	TransitionName string `json:"transitionName,omitempty"`
 }
 
+func NewSetCurrentSceneTransitionParams() *SetCurrentSceneTransitionParams {
+	return &SetCurrentSceneTransitionParams{}
+}
+func (o *SetCurrentSceneTransitionParams) WithTransitionName(x string) *SetCurrentSceneTransitionParams {
+	o.TransitionName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetCurrentSceneTransitionParams) GetRequestName() string {
 	return "SetCurrentSceneTransition"

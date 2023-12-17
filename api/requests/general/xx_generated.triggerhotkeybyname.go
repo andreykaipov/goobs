@@ -8,6 +8,14 @@ type TriggerHotkeyByNameParams struct {
 	HotkeyName string `json:"hotkeyName,omitempty"`
 }
 
+func NewTriggerHotkeyByNameParams() *TriggerHotkeyByNameParams {
+	return &TriggerHotkeyByNameParams{}
+}
+func (o *TriggerHotkeyByNameParams) WithHotkeyName(x string) *TriggerHotkeyByNameParams {
+	o.HotkeyName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *TriggerHotkeyByNameParams) GetRequestName() string {
 	return "TriggerHotkeyByName"

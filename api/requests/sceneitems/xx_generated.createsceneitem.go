@@ -14,6 +14,22 @@ type CreateSceneItemParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewCreateSceneItemParams() *CreateSceneItemParams {
+	return &CreateSceneItemParams{}
+}
+func (o *CreateSceneItemParams) WithSceneItemEnabled(x *bool) *CreateSceneItemParams {
+	o.SceneItemEnabled = x
+	return o
+}
+func (o *CreateSceneItemParams) WithSceneName(x string) *CreateSceneItemParams {
+	o.SceneName = x
+	return o
+}
+func (o *CreateSceneItemParams) WithSourceName(x string) *CreateSceneItemParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *CreateSceneItemParams) GetRequestName() string {
 	return "CreateSceneItem"

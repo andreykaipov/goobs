@@ -8,6 +8,14 @@ type GetSourceActiveParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewGetSourceActiveParams() *GetSourceActiveParams {
+	return &GetSourceActiveParams{}
+}
+func (o *GetSourceActiveParams) WithSourceName(x string) *GetSourceActiveParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetSourceActiveParams) GetRequestName() string {
 	return "GetSourceActive"

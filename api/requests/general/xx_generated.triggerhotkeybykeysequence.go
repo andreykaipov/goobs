@@ -13,6 +13,21 @@ type TriggerHotkeyByKeySequenceParams struct {
 	KeyModifiers *typedefs.KeyModifiers `json:"keyModifiers,omitempty"`
 }
 
+func NewTriggerHotkeyByKeySequenceParams() *TriggerHotkeyByKeySequenceParams {
+	return &TriggerHotkeyByKeySequenceParams{}
+}
+func (o *TriggerHotkeyByKeySequenceParams) WithKeyId(x string) *TriggerHotkeyByKeySequenceParams {
+	o.KeyId = x
+	return o
+}
+
+func (o *TriggerHotkeyByKeySequenceParams) WithKeyModifiers(
+	x *typedefs.KeyModifiers,
+) *TriggerHotkeyByKeySequenceParams {
+	o.KeyModifiers = x
+	return o
+}
+
 // Returns the associated request.
 func (o *TriggerHotkeyByKeySequenceParams) GetRequestName() string {
 	return "TriggerHotkeyByKeySequence"

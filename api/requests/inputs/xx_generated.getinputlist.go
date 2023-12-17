@@ -10,6 +10,14 @@ type GetInputListParams struct {
 	InputKind string `json:"inputKind,omitempty"`
 }
 
+func NewGetInputListParams() *GetInputListParams {
+	return &GetInputListParams{}
+}
+func (o *GetInputListParams) WithInputKind(x string) *GetInputListParams {
+	o.InputKind = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetInputListParams) GetRequestName() string {
 	return "GetInputList"

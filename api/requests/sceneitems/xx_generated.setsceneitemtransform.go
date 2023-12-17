@@ -16,6 +16,25 @@ type SetSceneItemTransformParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewSetSceneItemTransformParams() *SetSceneItemTransformParams {
+	return &SetSceneItemTransformParams{}
+}
+func (o *SetSceneItemTransformParams) WithSceneItemId(x float64) *SetSceneItemTransformParams {
+	o.SceneItemId = x
+	return o
+}
+
+func (o *SetSceneItemTransformParams) WithSceneItemTransform(
+	x *typedefs.SceneItemTransform,
+) *SetSceneItemTransformParams {
+	o.SceneItemTransform = x
+	return o
+}
+func (o *SetSceneItemTransformParams) WithSceneName(x string) *SetSceneItemTransformParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetSceneItemTransformParams) GetRequestName() string {
 	return "SetSceneItemTransform"

@@ -8,6 +8,14 @@ type RemoveProfileParams struct {
 	ProfileName string `json:"profileName,omitempty"`
 }
 
+func NewRemoveProfileParams() *RemoveProfileParams {
+	return &RemoveProfileParams{}
+}
+func (o *RemoveProfileParams) WithProfileName(x string) *RemoveProfileParams {
+	o.ProfileName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *RemoveProfileParams) GetRequestName() string {
 	return "RemoveProfile"

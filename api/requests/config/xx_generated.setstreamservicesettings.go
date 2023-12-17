@@ -13,6 +13,21 @@ type SetStreamServiceSettingsParams struct {
 	StreamServiceType string `json:"streamServiceType,omitempty"`
 }
 
+func NewSetStreamServiceSettingsParams() *SetStreamServiceSettingsParams {
+	return &SetStreamServiceSettingsParams{}
+}
+
+func (o *SetStreamServiceSettingsParams) WithStreamServiceSettings(
+	x *typedefs.StreamServiceSettings,
+) *SetStreamServiceSettingsParams {
+	o.StreamServiceSettings = x
+	return o
+}
+func (o *SetStreamServiceSettingsParams) WithStreamServiceType(x string) *SetStreamServiceSettingsParams {
+	o.StreamServiceType = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetStreamServiceSettingsParams) GetRequestName() string {
 	return "SetStreamServiceSettings"

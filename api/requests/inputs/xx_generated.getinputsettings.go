@@ -8,6 +8,14 @@ type GetInputSettingsParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewGetInputSettingsParams() *GetInputSettingsParams {
+	return &GetInputSettingsParams{}
+}
+func (o *GetInputSettingsParams) WithInputName(x string) *GetInputSettingsParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetInputSettingsParams) GetRequestName() string {
 	return "GetInputSettings"

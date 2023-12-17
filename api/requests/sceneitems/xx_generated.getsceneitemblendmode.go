@@ -11,6 +11,18 @@ type GetSceneItemBlendModeParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewGetSceneItemBlendModeParams() *GetSceneItemBlendModeParams {
+	return &GetSceneItemBlendModeParams{}
+}
+func (o *GetSceneItemBlendModeParams) WithSceneItemId(x float64) *GetSceneItemBlendModeParams {
+	o.SceneItemId = x
+	return o
+}
+func (o *GetSceneItemBlendModeParams) WithSceneName(x string) *GetSceneItemBlendModeParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetSceneItemBlendModeParams) GetRequestName() string {
 	return "GetSceneItemBlendMode"

@@ -8,6 +8,14 @@ type OpenInputPropertiesDialogParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewOpenInputPropertiesDialogParams() *OpenInputPropertiesDialogParams {
+	return &OpenInputPropertiesDialogParams{}
+}
+func (o *OpenInputPropertiesDialogParams) WithInputName(x string) *OpenInputPropertiesDialogParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *OpenInputPropertiesDialogParams) GetRequestName() string {
 	return "OpenInputPropertiesDialog"

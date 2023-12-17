@@ -8,6 +8,14 @@ type RemoveInputParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewRemoveInputParams() *RemoveInputParams {
+	return &RemoveInputParams{}
+}
+func (o *RemoveInputParams) WithInputName(x string) *RemoveInputParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *RemoveInputParams) GetRequestName() string {
 	return "RemoveInput"

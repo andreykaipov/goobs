@@ -14,6 +14,25 @@ type SetSceneSceneTransitionOverrideParams struct {
 	TransitionName string `json:"transitionName,omitempty"`
 }
 
+func NewSetSceneSceneTransitionOverrideParams() *SetSceneSceneTransitionOverrideParams {
+	return &SetSceneSceneTransitionOverrideParams{}
+}
+func (o *SetSceneSceneTransitionOverrideParams) WithSceneName(x string) *SetSceneSceneTransitionOverrideParams {
+	o.SceneName = x
+	return o
+}
+
+func (o *SetSceneSceneTransitionOverrideParams) WithTransitionDuration(
+	x float64,
+) *SetSceneSceneTransitionOverrideParams {
+	o.TransitionDuration = x
+	return o
+}
+func (o *SetSceneSceneTransitionOverrideParams) WithTransitionName(x string) *SetSceneSceneTransitionOverrideParams {
+	o.TransitionName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetSceneSceneTransitionOverrideParams) GetRequestName() string {
 	return "SetSceneSceneTransitionOverride"

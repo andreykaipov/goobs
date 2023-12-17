@@ -11,6 +11,18 @@ type GetSceneItemLockedParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewGetSceneItemLockedParams() *GetSceneItemLockedParams {
+	return &GetSceneItemLockedParams{}
+}
+func (o *GetSceneItemLockedParams) WithSceneItemId(x float64) *GetSceneItemLockedParams {
+	o.SceneItemId = x
+	return o
+}
+func (o *GetSceneItemLockedParams) WithSceneName(x string) *GetSceneItemLockedParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetSceneItemLockedParams) GetRequestName() string {
 	return "GetSceneItemLocked"

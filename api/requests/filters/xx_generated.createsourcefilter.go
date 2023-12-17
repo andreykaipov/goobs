@@ -17,6 +17,26 @@ type CreateSourceFilterParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewCreateSourceFilterParams() *CreateSourceFilterParams {
+	return &CreateSourceFilterParams{}
+}
+func (o *CreateSourceFilterParams) WithFilterKind(x string) *CreateSourceFilterParams {
+	o.FilterKind = x
+	return o
+}
+func (o *CreateSourceFilterParams) WithFilterName(x string) *CreateSourceFilterParams {
+	o.FilterName = x
+	return o
+}
+func (o *CreateSourceFilterParams) WithFilterSettings(x map[string]interface{}) *CreateSourceFilterParams {
+	o.FilterSettings = x
+	return o
+}
+func (o *CreateSourceFilterParams) WithSourceName(x string) *CreateSourceFilterParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *CreateSourceFilterParams) GetRequestName() string {
 	return "CreateSourceFilter"

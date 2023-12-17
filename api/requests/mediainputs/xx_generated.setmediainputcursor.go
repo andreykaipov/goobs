@@ -11,6 +11,18 @@ type SetMediaInputCursorParams struct {
 	MediaCursor float64 `json:"mediaCursor,omitempty"`
 }
 
+func NewSetMediaInputCursorParams() *SetMediaInputCursorParams {
+	return &SetMediaInputCursorParams{}
+}
+func (o *SetMediaInputCursorParams) WithInputName(x string) *SetMediaInputCursorParams {
+	o.InputName = x
+	return o
+}
+func (o *SetMediaInputCursorParams) WithMediaCursor(x float64) *SetMediaInputCursorParams {
+	o.MediaCursor = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetMediaInputCursorParams) GetRequestName() string {
 	return "SetMediaInputCursor"

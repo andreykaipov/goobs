@@ -14,6 +14,22 @@ type DuplicateSceneItemParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewDuplicateSceneItemParams() *DuplicateSceneItemParams {
+	return &DuplicateSceneItemParams{}
+}
+func (o *DuplicateSceneItemParams) WithDestinationSceneName(x string) *DuplicateSceneItemParams {
+	o.DestinationSceneName = x
+	return o
+}
+func (o *DuplicateSceneItemParams) WithSceneItemId(x float64) *DuplicateSceneItemParams {
+	o.SceneItemId = x
+	return o
+}
+func (o *DuplicateSceneItemParams) WithSceneName(x string) *DuplicateSceneItemParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *DuplicateSceneItemParams) GetRequestName() string {
 	return "DuplicateSceneItem"

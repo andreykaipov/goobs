@@ -11,6 +11,18 @@ type SetInputNameParams struct {
 	NewInputName string `json:"newInputName,omitempty"`
 }
 
+func NewSetInputNameParams() *SetInputNameParams {
+	return &SetInputNameParams{}
+}
+func (o *SetInputNameParams) WithInputName(x string) *SetInputNameParams {
+	o.InputName = x
+	return o
+}
+func (o *SetInputNameParams) WithNewInputName(x string) *SetInputNameParams {
+	o.NewInputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetInputNameParams) GetRequestName() string {
 	return "SetInputName"

@@ -24,6 +24,34 @@ type SaveSourceScreenshotParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewSaveSourceScreenshotParams() *SaveSourceScreenshotParams {
+	return &SaveSourceScreenshotParams{}
+}
+func (o *SaveSourceScreenshotParams) WithImageCompressionQuality(x float64) *SaveSourceScreenshotParams {
+	o.ImageCompressionQuality = x
+	return o
+}
+func (o *SaveSourceScreenshotParams) WithImageFilePath(x string) *SaveSourceScreenshotParams {
+	o.ImageFilePath = x
+	return o
+}
+func (o *SaveSourceScreenshotParams) WithImageFormat(x string) *SaveSourceScreenshotParams {
+	o.ImageFormat = x
+	return o
+}
+func (o *SaveSourceScreenshotParams) WithImageHeight(x float64) *SaveSourceScreenshotParams {
+	o.ImageHeight = x
+	return o
+}
+func (o *SaveSourceScreenshotParams) WithImageWidth(x float64) *SaveSourceScreenshotParams {
+	o.ImageWidth = x
+	return o
+}
+func (o *SaveSourceScreenshotParams) WithSourceName(x string) *SaveSourceScreenshotParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SaveSourceScreenshotParams) GetRequestName() string {
 	return "SaveSourceScreenshot"

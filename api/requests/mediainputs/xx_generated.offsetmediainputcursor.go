@@ -11,6 +11,18 @@ type OffsetMediaInputCursorParams struct {
 	MediaCursorOffset float64 `json:"mediaCursorOffset,omitempty"`
 }
 
+func NewOffsetMediaInputCursorParams() *OffsetMediaInputCursorParams {
+	return &OffsetMediaInputCursorParams{}
+}
+func (o *OffsetMediaInputCursorParams) WithInputName(x string) *OffsetMediaInputCursorParams {
+	o.InputName = x
+	return o
+}
+func (o *OffsetMediaInputCursorParams) WithMediaCursorOffset(x float64) *OffsetMediaInputCursorParams {
+	o.MediaCursorOffset = x
+	return o
+}
+
 // Returns the associated request.
 func (o *OffsetMediaInputCursorParams) GetRequestName() string {
 	return "OffsetMediaInputCursor"

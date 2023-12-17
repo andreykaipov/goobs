@@ -23,6 +23,34 @@ type SetVideoSettingsParams struct {
 	OutputWidth float64 `json:"outputWidth,omitempty"`
 }
 
+func NewSetVideoSettingsParams() *SetVideoSettingsParams {
+	return &SetVideoSettingsParams{}
+}
+func (o *SetVideoSettingsParams) WithBaseHeight(x float64) *SetVideoSettingsParams {
+	o.BaseHeight = x
+	return o
+}
+func (o *SetVideoSettingsParams) WithBaseWidth(x float64) *SetVideoSettingsParams {
+	o.BaseWidth = x
+	return o
+}
+func (o *SetVideoSettingsParams) WithFpsDenominator(x float64) *SetVideoSettingsParams {
+	o.FpsDenominator = x
+	return o
+}
+func (o *SetVideoSettingsParams) WithFpsNumerator(x float64) *SetVideoSettingsParams {
+	o.FpsNumerator = x
+	return o
+}
+func (o *SetVideoSettingsParams) WithOutputHeight(x float64) *SetVideoSettingsParams {
+	o.OutputHeight = x
+	return o
+}
+func (o *SetVideoSettingsParams) WithOutputWidth(x float64) *SetVideoSettingsParams {
+	o.OutputWidth = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetVideoSettingsParams) GetRequestName() string {
 	return "SetVideoSettings"

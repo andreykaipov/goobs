@@ -14,6 +14,22 @@ type SetPersistentDataParams struct {
 	SlotValue interface{} `json:"slotValue,omitempty"`
 }
 
+func NewSetPersistentDataParams() *SetPersistentDataParams {
+	return &SetPersistentDataParams{}
+}
+func (o *SetPersistentDataParams) WithRealm(x string) *SetPersistentDataParams {
+	o.Realm = x
+	return o
+}
+func (o *SetPersistentDataParams) WithSlotName(x string) *SetPersistentDataParams {
+	o.SlotName = x
+	return o
+}
+func (o *SetPersistentDataParams) WithSlotValue(x interface{}) *SetPersistentDataParams {
+	o.SlotValue = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetPersistentDataParams) GetRequestName() string {
 	return "SetPersistentData"

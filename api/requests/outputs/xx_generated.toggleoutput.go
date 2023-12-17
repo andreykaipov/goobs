@@ -8,6 +8,14 @@ type ToggleOutputParams struct {
 	OutputName string `json:"outputName,omitempty"`
 }
 
+func NewToggleOutputParams() *ToggleOutputParams {
+	return &ToggleOutputParams{}
+}
+func (o *ToggleOutputParams) WithOutputName(x string) *ToggleOutputParams {
+	o.OutputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *ToggleOutputParams) GetRequestName() string {
 	return "ToggleOutput"

@@ -11,6 +11,18 @@ type SetOutputSettingsParams struct {
 	OutputSettings map[string]interface{} `json:"outputSettings,omitempty"`
 }
 
+func NewSetOutputSettingsParams() *SetOutputSettingsParams {
+	return &SetOutputSettingsParams{}
+}
+func (o *SetOutputSettingsParams) WithOutputName(x string) *SetOutputSettingsParams {
+	o.OutputName = x
+	return o
+}
+func (o *SetOutputSettingsParams) WithOutputSettings(x map[string]interface{}) *SetOutputSettingsParams {
+	o.OutputSettings = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetOutputSettingsParams) GetRequestName() string {
 	return "SetOutputSettings"

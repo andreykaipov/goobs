@@ -8,6 +8,14 @@ type GetSourceFilterDefaultSettingsParams struct {
 	FilterKind string `json:"filterKind,omitempty"`
 }
 
+func NewGetSourceFilterDefaultSettingsParams() *GetSourceFilterDefaultSettingsParams {
+	return &GetSourceFilterDefaultSettingsParams{}
+}
+func (o *GetSourceFilterDefaultSettingsParams) WithFilterKind(x string) *GetSourceFilterDefaultSettingsParams {
+	o.FilterKind = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetSourceFilterDefaultSettingsParams) GetRequestName() string {
 	return "GetSourceFilterDefaultSettings"

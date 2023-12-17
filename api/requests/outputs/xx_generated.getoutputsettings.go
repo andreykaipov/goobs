@@ -8,6 +8,14 @@ type GetOutputSettingsParams struct {
 	OutputName string `json:"outputName,omitempty"`
 }
 
+func NewGetOutputSettingsParams() *GetOutputSettingsParams {
+	return &GetOutputSettingsParams{}
+}
+func (o *GetOutputSettingsParams) WithOutputName(x string) *GetOutputSettingsParams {
+	o.OutputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetOutputSettingsParams) GetRequestName() string {
 	return "GetOutputSettings"

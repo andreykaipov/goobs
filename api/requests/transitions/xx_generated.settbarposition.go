@@ -11,6 +11,18 @@ type SetTBarPositionParams struct {
 	Release *bool `json:"release,omitempty"`
 }
 
+func NewSetTBarPositionParams() *SetTBarPositionParams {
+	return &SetTBarPositionParams{}
+}
+func (o *SetTBarPositionParams) WithPosition(x float64) *SetTBarPositionParams {
+	o.Position = x
+	return o
+}
+func (o *SetTBarPositionParams) WithRelease(x *bool) *SetTBarPositionParams {
+	o.Release = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetTBarPositionParams) GetRequestName() string {
 	return "SetTBarPosition"

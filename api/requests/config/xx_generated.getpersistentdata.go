@@ -11,6 +11,18 @@ type GetPersistentDataParams struct {
 	SlotName string `json:"slotName,omitempty"`
 }
 
+func NewGetPersistentDataParams() *GetPersistentDataParams {
+	return &GetPersistentDataParams{}
+}
+func (o *GetPersistentDataParams) WithRealm(x string) *GetPersistentDataParams {
+	o.Realm = x
+	return o
+}
+func (o *GetPersistentDataParams) WithSlotName(x string) *GetPersistentDataParams {
+	o.SlotName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetPersistentDataParams) GetRequestName() string {
 	return "GetPersistentData"

@@ -8,6 +8,14 @@ type CreateSceneCollectionParams struct {
 	SceneCollectionName string `json:"sceneCollectionName,omitempty"`
 }
 
+func NewCreateSceneCollectionParams() *CreateSceneCollectionParams {
+	return &CreateSceneCollectionParams{}
+}
+func (o *CreateSceneCollectionParams) WithSceneCollectionName(x string) *CreateSceneCollectionParams {
+	o.SceneCollectionName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *CreateSceneCollectionParams) GetRequestName() string {
 	return "CreateSceneCollection"

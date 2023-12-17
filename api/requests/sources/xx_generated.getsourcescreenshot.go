@@ -21,6 +21,30 @@ type GetSourceScreenshotParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewGetSourceScreenshotParams() *GetSourceScreenshotParams {
+	return &GetSourceScreenshotParams{}
+}
+func (o *GetSourceScreenshotParams) WithImageCompressionQuality(x float64) *GetSourceScreenshotParams {
+	o.ImageCompressionQuality = x
+	return o
+}
+func (o *GetSourceScreenshotParams) WithImageFormat(x string) *GetSourceScreenshotParams {
+	o.ImageFormat = x
+	return o
+}
+func (o *GetSourceScreenshotParams) WithImageHeight(x float64) *GetSourceScreenshotParams {
+	o.ImageHeight = x
+	return o
+}
+func (o *GetSourceScreenshotParams) WithImageWidth(x float64) *GetSourceScreenshotParams {
+	o.ImageWidth = x
+	return o
+}
+func (o *GetSourceScreenshotParams) WithSourceName(x string) *GetSourceScreenshotParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetSourceScreenshotParams) GetRequestName() string {
 	return "GetSourceScreenshot"

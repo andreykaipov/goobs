@@ -11,6 +11,21 @@ type SetCurrentSceneTransitionSettingsParams struct {
 	TransitionSettings map[string]interface{} `json:"transitionSettings,omitempty"`
 }
 
+func NewSetCurrentSceneTransitionSettingsParams() *SetCurrentSceneTransitionSettingsParams {
+	return &SetCurrentSceneTransitionSettingsParams{}
+}
+func (o *SetCurrentSceneTransitionSettingsParams) WithOverlay(x *bool) *SetCurrentSceneTransitionSettingsParams {
+	o.Overlay = x
+	return o
+}
+
+func (o *SetCurrentSceneTransitionSettingsParams) WithTransitionSettings(
+	x map[string]interface{},
+) *SetCurrentSceneTransitionSettingsParams {
+	o.TransitionSettings = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetCurrentSceneTransitionSettingsParams) GetRequestName() string {
 	return "SetCurrentSceneTransitionSettings"

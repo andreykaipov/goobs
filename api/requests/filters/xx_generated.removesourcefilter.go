@@ -11,6 +11,18 @@ type RemoveSourceFilterParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewRemoveSourceFilterParams() *RemoveSourceFilterParams {
+	return &RemoveSourceFilterParams{}
+}
+func (o *RemoveSourceFilterParams) WithFilterName(x string) *RemoveSourceFilterParams {
+	o.FilterName = x
+	return o
+}
+func (o *RemoveSourceFilterParams) WithSourceName(x string) *RemoveSourceFilterParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *RemoveSourceFilterParams) GetRequestName() string {
 	return "RemoveSourceFilter"

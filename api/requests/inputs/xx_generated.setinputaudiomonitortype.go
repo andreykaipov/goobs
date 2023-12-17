@@ -11,6 +11,18 @@ type SetInputAudioMonitorTypeParams struct {
 	MonitorType string `json:"monitorType,omitempty"`
 }
 
+func NewSetInputAudioMonitorTypeParams() *SetInputAudioMonitorTypeParams {
+	return &SetInputAudioMonitorTypeParams{}
+}
+func (o *SetInputAudioMonitorTypeParams) WithInputName(x string) *SetInputAudioMonitorTypeParams {
+	o.InputName = x
+	return o
+}
+func (o *SetInputAudioMonitorTypeParams) WithMonitorType(x string) *SetInputAudioMonitorTypeParams {
+	o.MonitorType = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetInputAudioMonitorTypeParams) GetRequestName() string {
 	return "SetInputAudioMonitorType"

@@ -8,6 +8,14 @@ type StartOutputParams struct {
 	OutputName string `json:"outputName,omitempty"`
 }
 
+func NewStartOutputParams() *StartOutputParams {
+	return &StartOutputParams{}
+}
+func (o *StartOutputParams) WithOutputName(x string) *StartOutputParams {
+	o.OutputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *StartOutputParams) GetRequestName() string {
 	return "StartOutput"

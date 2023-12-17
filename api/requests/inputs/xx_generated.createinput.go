@@ -20,6 +20,30 @@ type CreateInputParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewCreateInputParams() *CreateInputParams {
+	return &CreateInputParams{}
+}
+func (o *CreateInputParams) WithInputKind(x string) *CreateInputParams {
+	o.InputKind = x
+	return o
+}
+func (o *CreateInputParams) WithInputName(x string) *CreateInputParams {
+	o.InputName = x
+	return o
+}
+func (o *CreateInputParams) WithInputSettings(x map[string]interface{}) *CreateInputParams {
+	o.InputSettings = x
+	return o
+}
+func (o *CreateInputParams) WithSceneItemEnabled(x *bool) *CreateInputParams {
+	o.SceneItemEnabled = x
+	return o
+}
+func (o *CreateInputParams) WithSceneName(x string) *CreateInputParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *CreateInputParams) GetRequestName() string {
 	return "CreateInput"

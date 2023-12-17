@@ -10,6 +10,14 @@ type GetInputAudioTracksParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewGetInputAudioTracksParams() *GetInputAudioTracksParams {
+	return &GetInputAudioTracksParams{}
+}
+func (o *GetInputAudioTracksParams) WithInputName(x string) *GetInputAudioTracksParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetInputAudioTracksParams) GetRequestName() string {
 	return "GetInputAudioTracks"

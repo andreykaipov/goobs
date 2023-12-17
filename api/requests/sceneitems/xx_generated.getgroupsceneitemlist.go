@@ -10,6 +10,14 @@ type GetGroupSceneItemListParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewGetGroupSceneItemListParams() *GetGroupSceneItemListParams {
+	return &GetGroupSceneItemListParams{}
+}
+func (o *GetGroupSceneItemListParams) WithSceneName(x string) *GetGroupSceneItemListParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetGroupSceneItemListParams) GetRequestName() string {
 	return "GetGroupSceneItemList"

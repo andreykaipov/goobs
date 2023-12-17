@@ -13,6 +13,21 @@ type GetInputPropertiesListPropertyItemsParams struct {
 	PropertyName string `json:"propertyName,omitempty"`
 }
 
+func NewGetInputPropertiesListPropertyItemsParams() *GetInputPropertiesListPropertyItemsParams {
+	return &GetInputPropertiesListPropertyItemsParams{}
+}
+func (o *GetInputPropertiesListPropertyItemsParams) WithInputName(x string) *GetInputPropertiesListPropertyItemsParams {
+	o.InputName = x
+	return o
+}
+
+func (o *GetInputPropertiesListPropertyItemsParams) WithPropertyName(
+	x string,
+) *GetInputPropertiesListPropertyItemsParams {
+	o.PropertyName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetInputPropertiesListPropertyItemsParams) GetRequestName() string {
 	return "GetInputPropertiesListPropertyItems"

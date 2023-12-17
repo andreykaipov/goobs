@@ -11,6 +11,18 @@ type PressInputPropertiesButtonParams struct {
 	PropertyName string `json:"propertyName,omitempty"`
 }
 
+func NewPressInputPropertiesButtonParams() *PressInputPropertiesButtonParams {
+	return &PressInputPropertiesButtonParams{}
+}
+func (o *PressInputPropertiesButtonParams) WithInputName(x string) *PressInputPropertiesButtonParams {
+	o.InputName = x
+	return o
+}
+func (o *PressInputPropertiesButtonParams) WithPropertyName(x string) *PressInputPropertiesButtonParams {
+	o.PropertyName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *PressInputPropertiesButtonParams) GetRequestName() string {
 	return "PressInputPropertiesButton"

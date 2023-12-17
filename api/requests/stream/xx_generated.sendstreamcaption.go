@@ -8,6 +8,14 @@ type SendStreamCaptionParams struct {
 	CaptionText string `json:"captionText,omitempty"`
 }
 
+func NewSendStreamCaptionParams() *SendStreamCaptionParams {
+	return &SendStreamCaptionParams{}
+}
+func (o *SendStreamCaptionParams) WithCaptionText(x string) *SendStreamCaptionParams {
+	o.CaptionText = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SendStreamCaptionParams) GetRequestName() string {
 	return "SendStreamCaption"

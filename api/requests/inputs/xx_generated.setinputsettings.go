@@ -15,6 +15,22 @@ type SetInputSettingsParams struct {
 	Overlay *bool `json:"overlay,omitempty"`
 }
 
+func NewSetInputSettingsParams() *SetInputSettingsParams {
+	return &SetInputSettingsParams{}
+}
+func (o *SetInputSettingsParams) WithInputName(x string) *SetInputSettingsParams {
+	o.InputName = x
+	return o
+}
+func (o *SetInputSettingsParams) WithInputSettings(x map[string]interface{}) *SetInputSettingsParams {
+	o.InputSettings = x
+	return o
+}
+func (o *SetInputSettingsParams) WithOverlay(x *bool) *SetInputSettingsParams {
+	o.Overlay = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetInputSettingsParams) GetRequestName() string {
 	return "SetInputSettings"

@@ -14,6 +14,22 @@ type SetProfileParameterParams struct {
 	ParameterValue string `json:"parameterValue,omitempty"`
 }
 
+func NewSetProfileParameterParams() *SetProfileParameterParams {
+	return &SetProfileParameterParams{}
+}
+func (o *SetProfileParameterParams) WithParameterCategory(x string) *SetProfileParameterParams {
+	o.ParameterCategory = x
+	return o
+}
+func (o *SetProfileParameterParams) WithParameterName(x string) *SetProfileParameterParams {
+	o.ParameterName = x
+	return o
+}
+func (o *SetProfileParameterParams) WithParameterValue(x string) *SetProfileParameterParams {
+	o.ParameterValue = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetProfileParameterParams) GetRequestName() string {
 	return "SetProfileParameter"

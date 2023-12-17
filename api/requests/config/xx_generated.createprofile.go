@@ -8,6 +8,14 @@ type CreateProfileParams struct {
 	ProfileName string `json:"profileName,omitempty"`
 }
 
+func NewCreateProfileParams() *CreateProfileParams {
+	return &CreateProfileParams{}
+}
+func (o *CreateProfileParams) WithProfileName(x string) *CreateProfileParams {
+	o.ProfileName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *CreateProfileParams) GetRequestName() string {
 	return "CreateProfile"

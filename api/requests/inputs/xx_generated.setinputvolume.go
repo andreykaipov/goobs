@@ -14,6 +14,22 @@ type SetInputVolumeParams struct {
 	InputVolumeMul float64 `json:"inputVolumeMul,omitempty"`
 }
 
+func NewSetInputVolumeParams() *SetInputVolumeParams {
+	return &SetInputVolumeParams{}
+}
+func (o *SetInputVolumeParams) WithInputName(x string) *SetInputVolumeParams {
+	o.InputName = x
+	return o
+}
+func (o *SetInputVolumeParams) WithInputVolumeDb(x float64) *SetInputVolumeParams {
+	o.InputVolumeDb = x
+	return o
+}
+func (o *SetInputVolumeParams) WithInputVolumeMul(x float64) *SetInputVolumeParams {
+	o.InputVolumeMul = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetInputVolumeParams) GetRequestName() string {
 	return "SetInputVolume"

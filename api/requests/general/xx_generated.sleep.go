@@ -11,6 +11,18 @@ type SleepParams struct {
 	SleepMillis float64 `json:"sleepMillis,omitempty"`
 }
 
+func NewSleepParams() *SleepParams {
+	return &SleepParams{}
+}
+func (o *SleepParams) WithSleepFrames(x float64) *SleepParams {
+	o.SleepFrames = x
+	return o
+}
+func (o *SleepParams) WithSleepMillis(x float64) *SleepParams {
+	o.SleepMillis = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SleepParams) GetRequestName() string {
 	return "Sleep"

@@ -8,6 +8,14 @@ type SetCurrentProgramSceneParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewSetCurrentProgramSceneParams() *SetCurrentProgramSceneParams {
+	return &SetCurrentProgramSceneParams{}
+}
+func (o *SetCurrentProgramSceneParams) WithSceneName(x string) *SetCurrentProgramSceneParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetCurrentProgramSceneParams) GetRequestName() string {
 	return "SetCurrentProgramScene"

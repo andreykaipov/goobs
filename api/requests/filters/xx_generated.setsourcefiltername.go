@@ -14,6 +14,22 @@ type SetSourceFilterNameParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewSetSourceFilterNameParams() *SetSourceFilterNameParams {
+	return &SetSourceFilterNameParams{}
+}
+func (o *SetSourceFilterNameParams) WithFilterName(x string) *SetSourceFilterNameParams {
+	o.FilterName = x
+	return o
+}
+func (o *SetSourceFilterNameParams) WithNewFilterName(x string) *SetSourceFilterNameParams {
+	o.NewFilterName = x
+	return o
+}
+func (o *SetSourceFilterNameParams) WithSourceName(x string) *SetSourceFilterNameParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetSourceFilterNameParams) GetRequestName() string {
 	return "SetSourceFilterName"

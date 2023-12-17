@@ -8,6 +8,14 @@ type StopOutputParams struct {
 	OutputName string `json:"outputName,omitempty"`
 }
 
+func NewStopOutputParams() *StopOutputParams {
+	return &StopOutputParams{}
+}
+func (o *StopOutputParams) WithOutputName(x string) *StopOutputParams {
+	o.OutputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *StopOutputParams) GetRequestName() string {
 	return "StopOutput"

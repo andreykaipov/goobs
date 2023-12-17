@@ -14,6 +14,22 @@ type OpenSourceProjectorParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewOpenSourceProjectorParams() *OpenSourceProjectorParams {
+	return &OpenSourceProjectorParams{}
+}
+func (o *OpenSourceProjectorParams) WithMonitorIndex(x float64) *OpenSourceProjectorParams {
+	o.MonitorIndex = x
+	return o
+}
+func (o *OpenSourceProjectorParams) WithProjectorGeometry(x string) *OpenSourceProjectorParams {
+	o.ProjectorGeometry = x
+	return o
+}
+func (o *OpenSourceProjectorParams) WithSourceName(x string) *OpenSourceProjectorParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *OpenSourceProjectorParams) GetRequestName() string {
 	return "OpenSourceProjector"

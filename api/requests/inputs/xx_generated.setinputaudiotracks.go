@@ -13,6 +13,18 @@ type SetInputAudioTracksParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewSetInputAudioTracksParams() *SetInputAudioTracksParams {
+	return &SetInputAudioTracksParams{}
+}
+func (o *SetInputAudioTracksParams) WithInputAudioTracks(x *typedefs.InputAudioTracks) *SetInputAudioTracksParams {
+	o.InputAudioTracks = x
+	return o
+}
+func (o *SetInputAudioTracksParams) WithInputName(x string) *SetInputAudioTracksParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetInputAudioTracksParams) GetRequestName() string {
 	return "SetInputAudioTracks"

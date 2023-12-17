@@ -14,6 +14,22 @@ type GetSceneItemIdParams struct {
 	SourceName string `json:"sourceName,omitempty"`
 }
 
+func NewGetSceneItemIdParams() *GetSceneItemIdParams {
+	return &GetSceneItemIdParams{}
+}
+func (o *GetSceneItemIdParams) WithSceneName(x string) *GetSceneItemIdParams {
+	o.SceneName = x
+	return o
+}
+func (o *GetSceneItemIdParams) WithSearchOffset(x float64) *GetSceneItemIdParams {
+	o.SearchOffset = x
+	return o
+}
+func (o *GetSceneItemIdParams) WithSourceName(x string) *GetSceneItemIdParams {
+	o.SourceName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetSceneItemIdParams) GetRequestName() string {
 	return "GetSceneItemId"

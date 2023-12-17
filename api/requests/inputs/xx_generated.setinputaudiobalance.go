@@ -11,6 +11,18 @@ type SetInputAudioBalanceParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewSetInputAudioBalanceParams() *SetInputAudioBalanceParams {
+	return &SetInputAudioBalanceParams{}
+}
+func (o *SetInputAudioBalanceParams) WithInputAudioBalance(x float64) *SetInputAudioBalanceParams {
+	o.InputAudioBalance = x
+	return o
+}
+func (o *SetInputAudioBalanceParams) WithInputName(x string) *SetInputAudioBalanceParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetInputAudioBalanceParams) GetRequestName() string {
 	return "SetInputAudioBalance"

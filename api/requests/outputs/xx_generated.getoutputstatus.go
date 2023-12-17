@@ -8,6 +8,14 @@ type GetOutputStatusParams struct {
 	OutputName string `json:"outputName,omitempty"`
 }
 
+func NewGetOutputStatusParams() *GetOutputStatusParams {
+	return &GetOutputStatusParams{}
+}
+func (o *GetOutputStatusParams) WithOutputName(x string) *GetOutputStatusParams {
+	o.OutputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetOutputStatusParams) GetRequestName() string {
 	return "GetOutputStatus"

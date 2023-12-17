@@ -11,6 +11,18 @@ type SetSceneNameParams struct {
 	SceneName string `json:"sceneName,omitempty"`
 }
 
+func NewSetSceneNameParams() *SetSceneNameParams {
+	return &SetSceneNameParams{}
+}
+func (o *SetSceneNameParams) WithNewSceneName(x string) *SetSceneNameParams {
+	o.NewSceneName = x
+	return o
+}
+func (o *SetSceneNameParams) WithSceneName(x string) *SetSceneNameParams {
+	o.SceneName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *SetSceneNameParams) GetRequestName() string {
 	return "SetSceneName"

@@ -11,6 +11,18 @@ type TriggerMediaInputActionParams struct {
 	MediaAction string `json:"mediaAction,omitempty"`
 }
 
+func NewTriggerMediaInputActionParams() *TriggerMediaInputActionParams {
+	return &TriggerMediaInputActionParams{}
+}
+func (o *TriggerMediaInputActionParams) WithInputName(x string) *TriggerMediaInputActionParams {
+	o.InputName = x
+	return o
+}
+func (o *TriggerMediaInputActionParams) WithMediaAction(x string) *TriggerMediaInputActionParams {
+	o.MediaAction = x
+	return o
+}
+
 // Returns the associated request.
 func (o *TriggerMediaInputActionParams) GetRequestName() string {
 	return "TriggerMediaInputAction"

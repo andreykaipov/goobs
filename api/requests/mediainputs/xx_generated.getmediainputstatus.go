@@ -8,6 +8,14 @@ type GetMediaInputStatusParams struct {
 	InputName string `json:"inputName,omitempty"`
 }
 
+func NewGetMediaInputStatusParams() *GetMediaInputStatusParams {
+	return &GetMediaInputStatusParams{}
+}
+func (o *GetMediaInputStatusParams) WithInputName(x string) *GetMediaInputStatusParams {
+	o.InputName = x
+	return o
+}
+
 // Returns the associated request.
 func (o *GetMediaInputStatusParams) GetRequestName() string {
 	return "GetMediaInputStatus"

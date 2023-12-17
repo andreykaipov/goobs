@@ -14,7 +14,8 @@ var client *goobs.Client
 
 func list() {
 	fmt.Println("listing scene items...")
-	items, err := client.SceneItems.GetSceneItemList(&sceneitems.GetSceneItemListParams{SceneName: "Scene"})
+	params := sceneitems.NewGetSceneItemListParams().WithSceneName("Scene")
+	items, err := client.SceneItems.GetSceneItemList(params)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -23,8 +24,12 @@ func list() {
 	}
 }
 
-func create(scene, name, kind string) float64 {
-	resp, err := client.Inputs.CreateInput(&inputs.CreateInputParams{SceneName: scene, InputName: name, InputKind: kind})
+func create(scene, name, kind string) int {
+	params := inputs.NewCreateInputParams().
+		WithSceneName(scene).
+		WithInputName(name).
+		WithInputKind(kind)
+	resp, err := client.Inputs.CreateInput(params)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -50,13 +55,15 @@ func main() {
 	time.Sleep(3 * time.Second)
 
 	fmt.Println("reversing the order of each scene item in the scene")
-	items, _ := client.SceneItems.GetSceneItemList(&sceneitems.GetSceneItemListParams{SceneName: "Scene"})
+	params := sceneitems.NewGetSceneItemListParams().WithSceneName("Scene")
+	items, _ := client.SceneItems.GetSceneItemList(params)
 	for _, v := range items.SceneItems {
-		_, _ = client.SceneItems.SetSceneItemIndex(&sceneitems.SetSceneItemIndexParams{
-			SceneName:      "Scene",
-			SceneItemId:    float64(v.SceneItemID),
-			SceneItemIndex: float64(len(items.SceneItems) - v.SceneItemIndex - 1),
-		})
+		_, _ = client.SceneItems.SetSceneItemIndex(
+			sceneitems.NewSetSceneItemIndexParams().
+				WithSceneName("Scene").
+				WithSceneItemId(v.SceneItemID).
+				WithSceneItemIndex(len(items.SceneItems) - v.SceneItemIndex - 1),
+		)
 	}
 
 	list()

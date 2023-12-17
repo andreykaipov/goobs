@@ -366,11 +366,13 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 				fieldType = String()
 			}
 		case "Number":
+			fieldType = Float64()
+			if strings.HasSuffix(fvn, "Id") || strings.HasSuffix(fvn, "Index") {
+				fieldType = Int()
+			}
 			switch origin {
 			case "request":
-				fieldType = Op("*").Float64()
-			default:
-				fieldType = Float64()
+				fieldType = Op("*").Add(fieldType)
 			}
 		case "Boolean":
 			switch origin {

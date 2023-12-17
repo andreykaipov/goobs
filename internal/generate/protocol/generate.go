@@ -404,7 +404,7 @@ var typedefs = goobs + "/api/typedefs"
 
 func mapObject(origin, name string, field Field) *Statement {
 	fvn := field.GetValueName()
-	fmt.Println("mapObject", origin, name, fvn)
+
 	switch fvn {
 	case "inputAudioTracks":
 		return Op("*").Qual(typedefs, "InputAudioTracks")
@@ -414,12 +414,23 @@ func mapObject(origin, name string, field Field) *Statement {
 		return Op("*").Qual(typedefs, "SceneItemTransform")
 	case "keyModifiers":
 		return Op("*").Qual(typedefs, "KeyModifiers")
+
+	// too many settings for individual inputs, filters, outputs, etc.
+	// makes sense to just use map[string]any
+	case "outputSettings":
+		fallthrough
 	case "inputSettings", "defaultInputSettings":
 		fallthrough
 	case "filterSettings", "defaultFilterSettings":
 		fallthrough
 	case "transitionSettings":
 		return Map(String()).Interface()
+
+	// from CallVendorRequest* and VendorEvent, CustomEvent
+	// the data here can be anything
+	case "requestData", "responseData", "eventData":
+		return Map(String()).Interface()
+
 	default:
 		fmt.Printf("!! unhandled Object type for field %s from %s:%s\n", fvn, origin, name)
 		return Interface()
@@ -428,12 +439,14 @@ func mapObject(origin, name string, field Field) *Statement {
 
 func mapArrayObject(origin, name string, field Field) *Statement {
 	fvn := field.GetValueName()
-	fmt.Println("mapArrayObject", origin, name, fvn)
+
 	switch fvn {
 	case "filters":
 		return Index().Op("*").Qual(typedefs, "Filter")
 	case "inputs":
 		return Index().Op("*").Qual(typedefs, "Input")
+	case "outputs":
+		return Index().Op("*").Qual(typedefs, "Output")
 	case "sceneItems":
 		return Index().Op("*").Qual(typedefs, "SceneItem")
 	case "scenes":

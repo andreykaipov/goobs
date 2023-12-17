@@ -6,6 +6,23 @@ type Input struct {
 	UnversionedInputKind string `json:"unversionedInputKind"`
 }
 
+type Output struct {
+	Name   string       `json:"outputName"`
+	Kind   string       `json:"outputKind"`
+	Width  int          `json:"outputWidth"`
+	Height int          `json:"outputHeight"`
+	Active bool         `json:"outputActive"`
+	Flags  *OutputFlags `json:"outputFlags"`
+}
+
+type OutputFlags struct {
+	Audio      bool `json:"OBS_OUTPUT_AUDIO"`
+	Video      bool `json:"OBS_OUTPUT_VIDEO"`
+	Encoded    bool `json:"OBS_OUTPUT_ENCODED"`
+	MultiTrack bool `json:"OBS_OUTPUT_MULTI_TRACK"`
+	Service    bool `json:"OBS_OUTPUT_SERVICE"`
+}
+
 type Scene struct {
 	SceneIndex int    `json:"sceneIndex"`
 	SceneName  string `json:"sceneName"`

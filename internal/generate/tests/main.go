@@ -182,12 +182,7 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 		case "*bool":
 			val = Op("&").Index().Bool().Values(True()).Index(Lit(0))
 		case "interface{}":
-			switch field {
-			case "EventData":
-				val = Map(String()).Bool().Values(Dict{Lit("test"): True()})
-			default:
-				val = Lit("")
-			}
+			val = Lit("")
 		case "map[string]interface{}":
 			val = Map(String()).Interface().Values(Dict{
 				Lit("test"): Lit("test"),

@@ -17,6 +17,8 @@ autolabeler:
 - label: bug
   branch:
   - /fix\/.+/
+  title:
+  - /fix/i
 - label: feature
   branch:
   - /feature\/.+/

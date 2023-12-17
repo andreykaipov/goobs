@@ -11,5 +11,5 @@ A high-volume event providing volume levels of all active inputs every 50 millis
 */
 type InputVolumeMeters struct {
 	// Array of active inputs with their associated volume levels
-	Inputs []*typedefs.Input `json:"inputs,omitempty"`
+	Inputs []*typedefs.InputVolumeMeter `json:"inputs,omitempty"`
 }

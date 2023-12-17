@@ -117,6 +117,11 @@ func Test_config(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
+	_, err = client.Config.SetRecordDirectory(&config.SetRecordDirectoryParams{RecordDirectory: "test"})
+	if err != nil {
+		t.Logf("%s", err)
+	}
+	assert.NoError(t, err)
 	_, err = client.Config.SetStreamServiceSettings(&config.SetStreamServiceSettingsParams{
 		StreamServiceSettings: &typedefs.StreamServiceSettings{},
 		StreamServiceType:     "rtmp_custom",

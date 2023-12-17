@@ -11,12 +11,13 @@ import (
 )
 
 type keyInfo struct {
-	Type      jen.Code
-	Comment   string
-	NoJSONTag bool
-	Embedded  bool
-	OmitEmpty bool
-	Field     Field
+	Type          jen.Code
+	Comment       string
+	NoJSONTag     bool
+	Embedded      bool
+	OmitEmpty     bool
+	Field         Field
+	ExposeBuilder bool
 }
 
 func parseJenKeysAsMap(lines map[string]keyInfo) (map[string]interface{}, error) {
@@ -97,6 +98,8 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 	// siblings with the original parent struct
 	anonymousStructs := []*jen.Statement{}
 
+	fieldToTypeBuilders := map[string]jen.Code{}
+
 	traverse = func(data interface{}, g *jen.Group, parent string) {
 		var idType jen.Code
 		id := pascal(parent)
@@ -162,6 +165,11 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 			panic("unhandled case idk")
 		}
 
+		// has to be outside the switch in case it's a nested struct
+		if info, ok := data.(keyInfo); ok && info.ExposeBuilder {
+			fieldToTypeBuilders[id] = idType
+		}
+
 		g.Id(id).Add(idType).Do(func(s *jen.Statement) {
 			if tag == "" {
 				return
@@ -175,6 +183,25 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 	for _, q := range anonymousStructs {
 		s.Line().Type().Add(q).Line()
 	}
+
+	// generate builders for each field in the struct
+	if len(fieldToTypeBuilders) > 0 {
+		s.Line()
+		s.Func().Id("New" + name).Params().Op("*").Id(name).BlockFunc(func(g *jen.Group) {
+			g.Return(jen.Op("&").Id(name).Values())
+		})
+		s.Line()
+	}
+	for _, key := range sortedKeys(fieldToTypeBuilders) {
+		fType := fieldToTypeBuilders[key]
+		fnName := fmt.Sprintf("With%s", pascal(key))
+		s.Func().Params(jen.Id("o").Op("*").Id(name)).Id(fnName).Params(jen.Id("x").Add(fType)).Op("*").Id(name).BlockFunc(func(g *jen.Group) {
+			g.Id("o").Dot(pascal(key)).Op("=").Id("x")
+			g.Return(jen.Id("o"))
+		})
+		s.Line()
+	}
+
 	return s, nil
 }
 

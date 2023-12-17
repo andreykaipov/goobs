@@ -382,11 +382,12 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 		}
 
 		keysInfo[fvn] = keyInfo{
-			Type:      fieldType,
-			Comment:   fvd,
-			NoJSONTag: false,
-			Embedded:  false,
-			OmitEmpty: true,
+			Type:          fieldType,
+			Comment:       fvd,
+			NoJSONTag:     false,
+			Embedded:      false,
+			OmitEmpty:     true,
+			ExposeBuilder: origin == "request",
 		}
 	}
 

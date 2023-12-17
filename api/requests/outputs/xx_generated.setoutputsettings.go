@@ -8,7 +8,7 @@ type SetOutputSettingsParams struct {
 	OutputName string `json:"outputName,omitempty"`
 
 	// Output settings
-	OutputSettings interface{} `json:"outputSettings,omitempty"`
+	OutputSettings map[string]interface{} `json:"outputSettings,omitempty"`
 }
 
 // Returns the associated request.

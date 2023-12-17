@@ -17,6 +17,7 @@ func (o *GetInputAudioTracksParams) GetRequestName() string {
 
 // Represents the response body for the GetInputAudioTracks request.
 type GetInputAudioTracksResponse struct {
+	// Object of audio tracks and associated enable states
 	InputAudioTracks *typedefs.InputAudioTracks `json:"inputAudioTracks,omitempty"`
 }
 

@@ -20,6 +20,7 @@ type GetSceneListResponse struct {
 	// Current program scene
 	CurrentProgramSceneName string `json:"currentProgramSceneName,omitempty"`
 
+	// Array of scenes
 	Scenes []*typedefs.Scene `json:"scenes,omitempty"`
 }
 

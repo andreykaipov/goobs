@@ -5,7 +5,7 @@ package general
 // Represents the request body for the BroadcastCustomEvent request.
 type BroadcastCustomEventParams struct {
 	// Data payload to emit to all receivers
-	EventData interface{} `json:"eventData,omitempty"`
+	EventData map[string]interface{} `json:"eventData,omitempty"`
 }
 
 // Returns the associated request.

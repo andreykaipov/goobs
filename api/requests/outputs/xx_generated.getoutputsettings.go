@@ -16,7 +16,7 @@ func (o *GetOutputSettingsParams) GetRequestName() string {
 // Represents the response body for the GetOutputSettings request.
 type GetOutputSettingsResponse struct {
 	// Output settings
-	OutputSettings interface{} `json:"outputSettings,omitempty"`
+	OutputSettings map[string]interface{} `json:"outputSettings,omitempty"`
 }
 
 // Gets the settings of an output.

@@ -17,6 +17,7 @@ func (o *GetInputListParams) GetRequestName() string {
 
 // Represents the response body for the GetInputList request.
 type GetInputListResponse struct {
+	// Array of inputs
 	Inputs []*typedefs.Input `json:"inputs,omitempty"`
 }
 

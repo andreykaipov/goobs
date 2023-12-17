@@ -14,6 +14,7 @@ func (o *GetStreamServiceSettingsParams) GetRequestName() string {
 
 // Represents the response body for the GetStreamServiceSettings request.
 type GetStreamServiceSettingsResponse struct {
+	// Stream service settings
 	StreamServiceSettings *typedefs.StreamServiceSettings `json:"streamServiceSettings,omitempty"`
 
 	// Stream service type, like `rtmp_custom` or `rtmp_common`

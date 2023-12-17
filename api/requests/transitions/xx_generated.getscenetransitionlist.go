@@ -20,6 +20,7 @@ type GetSceneTransitionListResponse struct {
 	// Name of the current scene transition. Can be null
 	CurrentSceneTransitionName string `json:"currentSceneTransitionName,omitempty"`
 
+	// Array of transitions
 	Transitions []*typedefs.Transition `json:"transitions,omitempty"`
 }
 

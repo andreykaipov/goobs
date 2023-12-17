@@ -20,7 +20,7 @@ func (o *GetSceneItemTransformParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemTransform request.
 type GetSceneItemTransformResponse struct {
-	// Scene item transform info
+	// Object containing scene item transform info
 	SceneItemTransform *typedefs.SceneItemTransform `json:"sceneItemTransform,omitempty"`
 }
 

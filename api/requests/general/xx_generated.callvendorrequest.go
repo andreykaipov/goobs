@@ -5,7 +5,7 @@ package general
 // Represents the request body for the CallVendorRequest request.
 type CallVendorRequestParams struct {
 	// Object containing appropriate request data
-	RequestData interface{} `json:"requestData,omitempty"`
+	RequestData map[string]interface{} `json:"requestData,omitempty"`
 
 	// The request type to call
 	RequestType string `json:"requestType,omitempty"`
@@ -25,7 +25,7 @@ type CallVendorRequestResponse struct {
 	RequestType string `json:"requestType,omitempty"`
 
 	// Object containing appropriate response data. {} if request does not provide any response data
-	ResponseData interface{} `json:"responseData,omitempty"`
+	ResponseData map[string]interface{} `json:"responseData,omitempty"`
 
 	// Echoed of `vendorName`
 	VendorName string `json:"vendorName,omitempty"`

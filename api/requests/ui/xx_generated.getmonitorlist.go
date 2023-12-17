@@ -14,7 +14,7 @@ func (o *GetMonitorListParams) GetRequestName() string {
 
 // Represents the response body for the GetMonitorList request.
 type GetMonitorListResponse struct {
-	// List of detected monitors
+	// a list of detected monitors with some information
 	Monitors []*typedefs.Monitor `json:"monitors,omitempty"`
 }
 

@@ -6,6 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the SetInputAudioTracks request.
 type SetInputAudioTracksParams struct {
+	// Track settings to apply
 	InputAudioTracks *typedefs.InputAudioTracks `json:"inputAudioTracks,omitempty"`
 
 	// Name of the input

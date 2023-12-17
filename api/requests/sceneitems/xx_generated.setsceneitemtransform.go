@@ -9,7 +9,7 @@ type SetSceneItemTransformParams struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
 
-	// Scene item transform info
+	// Object containing scene item transform info to update
 	SceneItemTransform *typedefs.SceneItemTransform `json:"sceneItemTransform,omitempty"`
 
 	// Name of the scene the item is in

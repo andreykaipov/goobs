@@ -17,6 +17,7 @@ func (o *GetSourceFilterListParams) GetRequestName() string {
 
 // Represents the response body for the GetSourceFilterList request.
 type GetSourceFilterListResponse struct {
+	// Array of filters
 	Filters []*typedefs.Filter `json:"filters,omitempty"`
 }
 

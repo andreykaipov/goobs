@@ -13,7 +13,7 @@ type SceneItemTransformChanged struct {
 	// Numeric ID of the scene item
 	SceneItemId float64 `json:"sceneItemId,omitempty"`
 
-	// Scene item transform info
+	// New transform/crop info of the scene item
 	SceneItemTransform *typedefs.SceneItemTransform `json:"sceneItemTransform,omitempty"`
 
 	// The name of the scene the item is in

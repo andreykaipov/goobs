@@ -17,6 +17,7 @@ func (o *GetGroupSceneItemListParams) GetRequestName() string {
 
 // Represents the response body for the GetGroupSceneItemList request.
 type GetGroupSceneItemListResponse struct {
+	// Array of scene items in the group
 	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
 }
 

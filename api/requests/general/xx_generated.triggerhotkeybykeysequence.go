@@ -9,7 +9,7 @@ type TriggerHotkeyByKeySequenceParams struct {
 	// The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h
 	KeyId string `json:"keyId,omitempty"`
 
-	// Key modifiers to apply
+	// Object containing key modifiers to apply
 	KeyModifiers *typedefs.KeyModifiers `json:"keyModifiers,omitempty"`
 }
 

@@ -249,14 +249,14 @@ func Test_general(t *testing.T) {
 	})
 
 	_, err = client.General.BroadcastCustomEvent(
-		&general.BroadcastCustomEventParams{EventData: map[string]bool{"test": true}},
+		&general.BroadcastCustomEventParams{EventData: map[string]interface{}{"test": "test"}},
 	)
 	if err != nil {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.General.CallVendorRequest(&general.CallVendorRequestParams{
-		RequestData: "",
+		RequestData: map[string]interface{}{"test": "test"},
 		RequestType: "test",
 		VendorName:  "test",
 	})
@@ -565,7 +565,7 @@ func Test_outputs(t *testing.T) {
 	assert.Error(t, err)
 	_, err = client.Outputs.SetOutputSettings(&outputs.SetOutputSettingsParams{
 		OutputName:     "test",
-		OutputSettings: "",
+		OutputSettings: map[string]interface{}{"test": "test"},
 	})
 	if err != nil {
 		t.Logf("%s", err)

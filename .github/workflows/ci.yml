@@ -19,7 +19,7 @@ jobs:
     outputs:
       go: ${{ steps.filter.outputs.go }}
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: dorny/paths-filter@v2
       id: filter
       with:
@@ -34,7 +34,7 @@ jobs:
     if: ${{ needs.check-changes.outputs.go == 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: magnetikonline/action-golang-cache@v4
       with:
         go-version-file: go.mod
@@ -52,7 +52,7 @@ jobs:
     if: ${{ needs.check-changes.outputs.go == 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: magnetikonline/action-golang-cache@v4
       with:
         go-version-file: go.mod

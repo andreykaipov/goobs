@@ -340,36 +340,21 @@ func generateRequestStatuses(enums []*Enum, filter enumFilter) {
 	}
 }
 
-func generateStructFromParams(origin string, s *Statement, name string, fields interface{}) error {
-	var fs []Field
-
-	switch v := fields.(type) {
-	case []*DataField:
-		fs = make([]Field, len(v))
-		for i := range fs {
-			fs[i] = v[i]
-		}
-	case []*RequestField:
-		fs = make([]Field, len(v))
-		for i := range fs {
-			fs[i] = v[i]
-		}
-	case []*ResponseField:
-		fs = make([]Field, len(v))
-		for i := range fs {
-			fs[i] = v[i]
-		}
-	default:
-		panic("uh")
-	}
-
+func generateStructFromParams[F Field](origin string, s *Statement, name string, fields []F) error {
 	keysInfo := map[string]keyInfo{}
 
-	for _, f := range fs {
+	for _, f := range fields {
 		fvn := f.GetValueName()
 		fvt := f.GetValueType()
 		fvd := f.GetValueDescription()
-		embedded := false
+
+		// some fields document the type of the fields in the Object
+		// like keyModifiers.shift, but we handle these in our manually
+		// written typedefs
+		if strings.Contains(fvn, ".") {
+			fmt.Printf("generateStructFromParams for %s/%s: skipping %s\n", origin, name, fvn)
+			continue
+		}
 
 		var fieldType *Statement
 		switch fvt {
@@ -389,40 +374,18 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 		case "Any":
 			fieldType = Interface()
 		case "Object":
-			switch fvn {
-			case "inputSettings":
-				fallthrough
-			case "defaultInputSettings":
-				fallthrough
-			case "filterSettings":
-				fallthrough
-			case "defaultFilterSettings":
-				fallthrough
-			case "transitionSettings":
-				fieldType = Map(String()).Interface()
-			default:
-				fieldType = Interface()
-			}
+			fieldType = mapObject(origin, name, f)
 		case "Array<Object>":
-			switch fvn {
-			default:
-				fieldType = Index().Interface()
-			}
+			fieldType = mapArrayObject(origin, name, f)
 		default:
 			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, fvn, fvt))
-		}
-
-		if key, keyInfo := handleCommonObjects(origin, fvn, name); keyInfo != nil {
-			fmt.Printf("  > %-25s handled as (or part of) common struct %s\n", fvn, key)
-			keysInfo[key] = *keyInfo
-			continue
 		}
 
 		keysInfo[fvn] = keyInfo{
 			Type:      fieldType,
 			Comment:   fvd,
 			NoJSONTag: false,
-			Embedded:  embedded,
+			Embedded:  false,
 			OmitEmpty: true,
 		}
 	}
@@ -437,74 +400,52 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 	return nil
 }
 
-func handleCommonObjects(origin, fieldName, structName string) (string, *keyInfo) {
-	type nestedInfo struct {
-		Refer   string
-		Comment string
-		OnlyFor []string // additional requirement to allow us to use different types for the same key prefix
+var typedefs = goobs + "/api/typedefs"
+
+func mapObject(origin, name string, field Field) *Statement {
+	fvn := field.GetValueName()
+	fmt.Println("mapObject", origin, name, fvn)
+	switch fvn {
+	case "inputAudioTracks":
+		return Op("*").Qual(typedefs, "InputAudioTracks")
+	case "streamServiceSettings":
+		return Op("*").Qual(typedefs, "StreamServiceSettings")
+	case "sceneItemTransform":
+		return Op("*").Qual(typedefs, "SceneItemTransform")
+	case "keyModifiers":
+		return Op("*").Qual(typedefs, "KeyModifiers")
+	case "inputSettings", "defaultInputSettings":
+		fallthrough
+	case "filterSettings", "defaultFilterSettings":
+		fallthrough
+	case "transitionSettings":
+		return Map(String()).Interface()
+	default:
+		fmt.Printf("!! unhandled Object type for field %s from %s:%s\n", fvn, origin, name)
+		return Interface()
 	}
-
-	// key prefix to manually declared struct in typedefs package
-	lookup := map[string]nestedInfo{
-		"keyModifiers.":         {"KeyModifiers", "Key modifiers to apply", nil},
-		"streamServiceSettings": {"StreamServiceSettings", " ", nil},
-		"inputAudioTracks":      {"InputAudioTracks", "", nil},
-		"sceneItemTransform":    {"SceneItemTransform", "Scene item transform info", nil},
-		"monitors":              {"[]Monitor", "List of detected monitors", nil},
-		"scenes":                {"[]Scene", "", nil},
-		"sceneItems":            {"[]SceneItem", "", nil},
-		"inputs":                {"[]Input", "", nil},
-		"filters":               {"[]Filter", "", nil},
-		"transitions":           {"[]Transition", "", nil},
-		"propertyItems":         {"[]PropertyItem", "", nil},
-		// "settings.":             {"StreamSettings", " ", []string{"GetStreamSettings", "SetStreamSettings"}},
-		// "stream.settings.":      {"StreamSettings", " ", []string{}},
-	}
-
-	valid := func(i nestedInfo) bool {
-		if len(i.OnlyFor) == 0 {
-			return true
-		}
-
-		for _, v := range i.OnlyFor {
-			if strings.HasPrefix(structName, v) {
-				return true
-			}
-		}
-
-		return false
-	}
-
-	for k, info := range lookup {
-		if !valid(info) {
-			continue
-		}
-
-		if strings.HasPrefix(fieldName, k) {
-			k = strings.TrimSuffix(k, ".")
-
-			s := Null()
-			if strings.HasPrefix(info.Refer, "[]") {
-				s = Index()
-				info.Refer = strings.TrimPrefix(info.Refer, "[]")
-			}
-
-			s = s.Op("*").Qual(typedefQualifier(origin), info.Refer)
-
-			return k, &keyInfo{Type: s, Comment: info.Comment, OmitEmpty: true}
-		}
-	}
-
-	return "", nil
 }
 
-// If the origin of the generation is from a typedef, we don't actually need
-// a Qualifier. Saves us repeating this switch/case a bunch
-func typedefQualifier(origin string) string {
-	switch origin {
-	case "typedef":
-		return ""
+func mapArrayObject(origin, name string, field Field) *Statement {
+	fvn := field.GetValueName()
+	fmt.Println("mapArrayObject", origin, name, fvn)
+	switch fvn {
+	case "filters":
+		return Index().Op("*").Qual(typedefs, "Filter")
+	case "inputs":
+		return Index().Op("*").Qual(typedefs, "Input")
+	case "sceneItems":
+		return Index().Op("*").Qual(typedefs, "SceneItem")
+	case "scenes":
+		return Index().Op("*").Qual(typedefs, "Scene")
+	case "propertyItems":
+		return Index().Op("*").Qual(typedefs, "PropertyItem")
+	case "transitions":
+		return Index().Op("*").Qual(typedefs, "Transition")
+	case "monitors":
+		return Index().Op("*").Qual(typedefs, "Monitor")
 	default:
-		return goobs + "/api/typedefs"
+		fmt.Printf("!! unhandled Array<Object> type for field %s from %s:%s\n", fvn, origin, name)
+		return Index().Interface()
 	}
 }

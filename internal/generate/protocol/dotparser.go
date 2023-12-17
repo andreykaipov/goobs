@@ -184,25 +184,53 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 		s.Line().Type().Add(q).Line()
 	}
 
-	// generate builders for each field in the struct
 	if len(fieldToTypeBuilders) > 0 {
-		s.Line()
-		s.Func().Id("New" + name).Params().Op("*").Id(name).BlockFunc(func(g *jen.Group) {
-			g.Return(jen.Op("&").Id(name).Values())
-		})
-		s.Line()
+		builders := generateBuilders(name, fieldToTypeBuilders)
+		s.Add(builders)
 	}
-	for _, key := range sortedKeys(fieldToTypeBuilders) {
-		fType := fieldToTypeBuilders[key]
+
+	return s, nil
+}
+
+func generateBuilders(name string, fields map[string]jen.Code) *jen.Statement {
+	s := jen.Line()
+	s.Func().Id("New" + name).Params().Op("*").Id(name).BlockFunc(func(g *jen.Group) {
+		g.Return(jen.Op("&").Id(name).Values())
+	})
+	s.Line()
+
+	for _, key := range sortedKeys(fields) {
+		fType := fields[key]
 		fnName := fmt.Sprintf("With%s", pascal(key))
-		s.Func().Params(jen.Id("o").Op("*").Id(name)).Id(fnName).Params(jen.Id("x").Add(fType)).Op("*").Id(name).BlockFunc(func(g *jen.Group) {
-			g.Id("o").Dot(pascal(key)).Op("=").Id("x")
+
+		primitivePtr := false
+		fTypeStatement, ok := fType.(*jen.Statement)
+		if !ok {
+			panic("i'll eat my shorts if this is not a statement 🤔")
+		}
+
+		// avoid pointers to primitives in the param list for the builder
+		primitivePtr = false
+		params := jen.Id("x").Add(fType)
+		switch gostr := fTypeStatement.GoString(); gostr {
+		case "*string", "*int", "*int64", "*float64", "*bool":
+			primitivePtr = true
+			params = jen.Id("x").Id(strings.TrimPrefix(gostr, "*"))
+		}
+
+		s.Func().Params(jen.Id("o").Op("*").Id(name)).Id(fnName).Params(params).Op("*").Id(name).BlockFunc(func(g *jen.Group) {
+			rhs := jen.Id("x")
+			if primitivePtr {
+				rhs = jen.Op("&").Id("x")
+			}
+
+			g.Id("o").Dot(pascal(key)).Op("=").Add(rhs)
 			g.Return(jen.Id("o"))
 		})
 		s.Line()
 	}
 
-	return s, nil
+	return s
 }
 
 func pascal(text string) string {

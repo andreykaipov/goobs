@@ -359,11 +359,19 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 		var fieldType *Statement
 		switch fvt {
 		case "String":
-			fieldType = String()
-		case "Array<String>":
-			fieldType = Index().String()
+			switch origin {
+			case "request":
+				fieldType = Op("*").String()
+			default:
+				fieldType = String()
+			}
 		case "Number":
-			fieldType = Float64()
+			switch origin {
+			case "request":
+				fieldType = Op("*").Float64()
+			default:
+				fieldType = Float64()
+			}
 		case "Boolean":
 			switch origin {
 			case "request":
@@ -371,6 +379,12 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 			default:
 				fieldType = Bool()
 			}
+		case "Array<String>":
+			fieldType = Index().String()
+		case "Array<Number>":
+			fieldType = Index().Float64()
+		case "Array<Boolean>":
+			fieldType = Index().Bool()
 		case "Any":
 			fieldType = Interface()
 		case "Object":

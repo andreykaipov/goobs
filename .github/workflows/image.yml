@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   schedule: [{cron: '25 9 * * 3'}] # 9:25 on Wednesdays
   push:
-    branches: [master]
+    branches: [main]
     paths:
     - docker/*
 

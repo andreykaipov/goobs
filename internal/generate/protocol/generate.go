@@ -433,32 +433,34 @@ func mapObject(origin, name string, field Field) *Statement {
 
 	default:
 		fmt.Printf("!! unhandled Object type for field %s from %s:%s\n", fvn, origin, name)
-		return Interface()
+		return Map(String()).Interface()
 	}
 }
 
 func mapArrayObject(origin, name string, field Field) *Statement {
 	fvn := field.GetValueName()
 
-	switch fvn {
-	case "filters":
+	switch {
+	case fvn == "filters":
 		return Index().Op("*").Qual(typedefs, "Filter")
-	case "inputs":
+	case fvn == "inputs" && origin == "event" && name == "InputVolumeMeters":
+		return Index().Op("*").Qual(typedefs, "InputVolumeMeter")
+	case fvn == "inputs":
 		return Index().Op("*").Qual(typedefs, "Input")
-	case "outputs":
+	case fvn == "outputs":
 		return Index().Op("*").Qual(typedefs, "Output")
-	case "sceneItems":
+	case fvn == "sceneItems":
 		return Index().Op("*").Qual(typedefs, "SceneItem")
-	case "scenes":
+	case fvn == "scenes":
 		return Index().Op("*").Qual(typedefs, "Scene")
-	case "propertyItems":
+	case fvn == "propertyItems":
 		return Index().Op("*").Qual(typedefs, "PropertyItem")
-	case "transitions":
+	case fvn == "transitions":
 		return Index().Op("*").Qual(typedefs, "Transition")
-	case "monitors":
+	case fvn == "monitors":
 		return Index().Op("*").Qual(typedefs, "Monitor")
 	default:
 		fmt.Printf("!! unhandled Array<Object> type for field %s from %s:%s\n", fvn, origin, name)
-		return Index().Interface()
+		return Index().Map(String()).Interface()
 	}
 }

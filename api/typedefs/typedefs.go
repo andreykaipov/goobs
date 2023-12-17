@@ -109,3 +109,8 @@ type SceneItemTransform struct {
 	SourceWidth     float64 `json:"sourceWidth"`
 	Width           float64 `json:"width"`
 }
+
+type InputVolumeMeter struct {
+	Name   string       `json:"inputName"`
+	Levels [][3]float64 `json:"inputLevelsMul"`
+}

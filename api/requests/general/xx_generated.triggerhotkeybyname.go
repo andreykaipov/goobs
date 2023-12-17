@@ -5,14 +5,14 @@ package general
 // Represents the request body for the TriggerHotkeyByName request.
 type TriggerHotkeyByNameParams struct {
 	// Name of the hotkey to trigger
-	HotkeyName string `json:"hotkeyName,omitempty"`
+	HotkeyName *string `json:"hotkeyName,omitempty"`
 }
 
 func NewTriggerHotkeyByNameParams() *TriggerHotkeyByNameParams {
 	return &TriggerHotkeyByNameParams{}
 }
 func (o *TriggerHotkeyByNameParams) WithHotkeyName(x string) *TriggerHotkeyByNameParams {
-	o.HotkeyName = x
+	o.HotkeyName = &x
 	return o
 }
 

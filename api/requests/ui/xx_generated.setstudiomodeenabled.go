@@ -11,8 +11,8 @@ type SetStudioModeEnabledParams struct {
 func NewSetStudioModeEnabledParams() *SetStudioModeEnabledParams {
 	return &SetStudioModeEnabledParams{}
 }
-func (o *SetStudioModeEnabledParams) WithStudioModeEnabled(x *bool) *SetStudioModeEnabledParams {
-	o.StudioModeEnabled = x
+func (o *SetStudioModeEnabledParams) WithStudioModeEnabled(x bool) *SetStudioModeEnabledParams {
+	o.StudioModeEnabled = &x
 	return o
 }
 

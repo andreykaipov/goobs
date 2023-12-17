@@ -5,21 +5,21 @@ package sceneitems
 // Represents the request body for the GetSceneItemBlendMode request.
 type GetSceneItemBlendModeParams struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewGetSceneItemBlendModeParams() *GetSceneItemBlendModeParams {
 	return &GetSceneItemBlendModeParams{}
 }
-func (o *GetSceneItemBlendModeParams) WithSceneItemId(x float64) *GetSceneItemBlendModeParams {
-	o.SceneItemId = x
+func (o *GetSceneItemBlendModeParams) WithSceneItemId(x int) *GetSceneItemBlendModeParams {
+	o.SceneItemId = &x
 	return o
 }
 func (o *GetSceneItemBlendModeParams) WithSceneName(x string) *GetSceneItemBlendModeParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

@@ -7,24 +7,24 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 // Represents the request body for the GetInputPropertiesListPropertyItems request.
 type GetInputPropertiesListPropertyItemsParams struct {
 	// Name of the input
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 
 	// Name of the list property to get the items of
-	PropertyName string `json:"propertyName,omitempty"`
+	PropertyName *string `json:"propertyName,omitempty"`
 }
 
 func NewGetInputPropertiesListPropertyItemsParams() *GetInputPropertiesListPropertyItemsParams {
 	return &GetInputPropertiesListPropertyItemsParams{}
 }
 func (o *GetInputPropertiesListPropertyItemsParams) WithInputName(x string) *GetInputPropertiesListPropertyItemsParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 
 func (o *GetInputPropertiesListPropertyItemsParams) WithPropertyName(
 	x string,
 ) *GetInputPropertiesListPropertyItemsParams {
-	o.PropertyName = x
+	o.PropertyName = &x
 	return o
 }
 

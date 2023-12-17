@@ -5,14 +5,14 @@ package scenes
 // Represents the request body for the SetCurrentPreviewScene request.
 type SetCurrentPreviewSceneParams struct {
 	// Scene to set as the current preview scene
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewSetCurrentPreviewSceneParams() *SetCurrentPreviewSceneParams {
 	return &SetCurrentPreviewSceneParams{}
 }
 func (o *SetCurrentPreviewSceneParams) WithSceneName(x string) *SetCurrentPreviewSceneParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

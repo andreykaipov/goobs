@@ -5,14 +5,14 @@ package ui
 // Represents the request body for the OpenInputInteractDialog request.
 type OpenInputInteractDialogParams struct {
 	// Name of the input to open the dialog of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewOpenInputInteractDialogParams() *OpenInputInteractDialogParams {
 	return &OpenInputInteractDialogParams{}
 }
 func (o *OpenInputInteractDialogParams) WithInputName(x string) *OpenInputInteractDialogParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

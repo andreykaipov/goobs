@@ -5,14 +5,14 @@ package scenes
 // Represents the request body for the GetSceneSceneTransitionOverride request.
 type GetSceneSceneTransitionOverrideParams struct {
 	// Name of the scene
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewGetSceneSceneTransitionOverrideParams() *GetSceneSceneTransitionOverrideParams {
 	return &GetSceneSceneTransitionOverrideParams{}
 }
 func (o *GetSceneSceneTransitionOverrideParams) WithSceneName(x string) *GetSceneSceneTransitionOverrideParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

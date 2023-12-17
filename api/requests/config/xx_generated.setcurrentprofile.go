@@ -5,14 +5,14 @@ package config
 // Represents the request body for the SetCurrentProfile request.
 type SetCurrentProfileParams struct {
 	// Name of the profile to switch to
-	ProfileName string `json:"profileName,omitempty"`
+	ProfileName *string `json:"profileName,omitempty"`
 }
 
 func NewSetCurrentProfileParams() *SetCurrentProfileParams {
 	return &SetCurrentProfileParams{}
 }
 func (o *SetCurrentProfileParams) WithProfileName(x string) *SetCurrentProfileParams {
-	o.ProfileName = x
+	o.ProfileName = &x
 	return o
 }
 

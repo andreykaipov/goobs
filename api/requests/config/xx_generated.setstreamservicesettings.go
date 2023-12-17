@@ -10,7 +10,7 @@ type SetStreamServiceSettingsParams struct {
 	StreamServiceSettings *typedefs.StreamServiceSettings `json:"streamServiceSettings,omitempty"`
 
 	// Type of stream service to apply. Example: `rtmp_common` or `rtmp_custom`
-	StreamServiceType string `json:"streamServiceType,omitempty"`
+	StreamServiceType *string `json:"streamServiceType,omitempty"`
 }
 
 func NewSetStreamServiceSettingsParams() *SetStreamServiceSettingsParams {
@@ -24,7 +24,7 @@ func (o *SetStreamServiceSettingsParams) WithStreamServiceSettings(
 	return o
 }
 func (o *SetStreamServiceSettingsParams) WithStreamServiceType(x string) *SetStreamServiceSettingsParams {
-	o.StreamServiceType = x
+	o.StreamServiceType = &x
 	return o
 }
 

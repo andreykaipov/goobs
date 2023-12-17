@@ -5,14 +5,14 @@ package inputs
 // Represents the request body for the ToggleInputMute request.
 type ToggleInputMuteParams struct {
 	// Name of the input to toggle the mute state of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewToggleInputMuteParams() *ToggleInputMuteParams {
 	return &ToggleInputMuteParams{}
 }
 func (o *ToggleInputMuteParams) WithInputName(x string) *ToggleInputMuteParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

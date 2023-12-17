@@ -5,14 +5,14 @@ package ui
 // Represents the request body for the OpenInputFiltersDialog request.
 type OpenInputFiltersDialogParams struct {
 	// Name of the input to open the dialog of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewOpenInputFiltersDialogParams() *OpenInputFiltersDialogParams {
 	return &OpenInputFiltersDialogParams{}
 }
 func (o *OpenInputFiltersDialogParams) WithInputName(x string) *OpenInputFiltersDialogParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

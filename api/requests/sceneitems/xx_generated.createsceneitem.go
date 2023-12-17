@@ -8,25 +8,25 @@ type CreateSceneItemParams struct {
 	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
 
 	// Name of the scene to create the new item in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 
 	// Name of the source to add to the scene
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
 }
 
 func NewCreateSceneItemParams() *CreateSceneItemParams {
 	return &CreateSceneItemParams{}
 }
-func (o *CreateSceneItemParams) WithSceneItemEnabled(x *bool) *CreateSceneItemParams {
-	o.SceneItemEnabled = x
+func (o *CreateSceneItemParams) WithSceneItemEnabled(x bool) *CreateSceneItemParams {
+	o.SceneItemEnabled = &x
 	return o
 }
 func (o *CreateSceneItemParams) WithSceneName(x string) *CreateSceneItemParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 func (o *CreateSceneItemParams) WithSourceName(x string) *CreateSceneItemParams {
-	o.SourceName = x
+	o.SourceName = &x
 	return o
 }
 
@@ -38,7 +38,7 @@ func (o *CreateSceneItemParams) GetRequestName() string {
 // Represents the response body for the CreateSceneItem request.
 type CreateSceneItemResponse struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId int `json:"sceneItemId,omitempty"`
 }
 
 /*

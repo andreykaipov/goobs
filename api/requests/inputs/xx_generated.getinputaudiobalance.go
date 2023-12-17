@@ -5,14 +5,14 @@ package inputs
 // Represents the request body for the GetInputAudioBalance request.
 type GetInputAudioBalanceParams struct {
 	// Name of the input to get the audio balance of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewGetInputAudioBalanceParams() *GetInputAudioBalanceParams {
 	return &GetInputAudioBalanceParams{}
 }
 func (o *GetInputAudioBalanceParams) WithInputName(x string) *GetInputAudioBalanceParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

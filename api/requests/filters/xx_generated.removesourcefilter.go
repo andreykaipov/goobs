@@ -5,21 +5,21 @@ package filters
 // Represents the request body for the RemoveSourceFilter request.
 type RemoveSourceFilterParams struct {
 	// Name of the filter to remove
-	FilterName string `json:"filterName,omitempty"`
+	FilterName *string `json:"filterName,omitempty"`
 
 	// Name of the source the filter is on
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
 }
 
 func NewRemoveSourceFilterParams() *RemoveSourceFilterParams {
 	return &RemoveSourceFilterParams{}
 }
 func (o *RemoveSourceFilterParams) WithFilterName(x string) *RemoveSourceFilterParams {
-	o.FilterName = x
+	o.FilterName = &x
 	return o
 }
 func (o *RemoveSourceFilterParams) WithSourceName(x string) *RemoveSourceFilterParams {
-	o.SourceName = x
+	o.SourceName = &x
 	return o
 }
 

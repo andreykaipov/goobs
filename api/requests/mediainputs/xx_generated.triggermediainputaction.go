@@ -5,21 +5,21 @@ package mediainputs
 // Represents the request body for the TriggerMediaInputAction request.
 type TriggerMediaInputActionParams struct {
 	// Name of the media input
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 
 	// Identifier of the `ObsMediaInputAction` enum
-	MediaAction string `json:"mediaAction,omitempty"`
+	MediaAction *string `json:"mediaAction,omitempty"`
 }
 
 func NewTriggerMediaInputActionParams() *TriggerMediaInputActionParams {
 	return &TriggerMediaInputActionParams{}
 }
 func (o *TriggerMediaInputActionParams) WithInputName(x string) *TriggerMediaInputActionParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 func (o *TriggerMediaInputActionParams) WithMediaAction(x string) *TriggerMediaInputActionParams {
-	o.MediaAction = x
+	o.MediaAction = &x
 	return o
 }
 

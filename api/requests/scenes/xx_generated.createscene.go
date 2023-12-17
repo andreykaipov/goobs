@@ -5,14 +5,14 @@ package scenes
 // Represents the request body for the CreateScene request.
 type CreateSceneParams struct {
 	// Name for the new scene
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewCreateSceneParams() *CreateSceneParams {
 	return &CreateSceneParams{}
 }
 func (o *CreateSceneParams) WithSceneName(x string) *CreateSceneParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

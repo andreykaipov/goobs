@@ -5,10 +5,10 @@ package inputs
 // Represents the request body for the CreateInput request.
 type CreateInputParams struct {
 	// The kind of input to be created
-	InputKind string `json:"inputKind,omitempty"`
+	InputKind *string `json:"inputKind,omitempty"`
 
 	// Name of the new input to created
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 
 	// Settings object to initialize the input with
 	InputSettings map[string]interface{} `json:"inputSettings,omitempty"`
@@ -17,30 +17,30 @@ type CreateInputParams struct {
 	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
 
 	// Name of the scene to add the input to as a scene item
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewCreateInputParams() *CreateInputParams {
 	return &CreateInputParams{}
 }
 func (o *CreateInputParams) WithInputKind(x string) *CreateInputParams {
-	o.InputKind = x
+	o.InputKind = &x
 	return o
 }
 func (o *CreateInputParams) WithInputName(x string) *CreateInputParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 func (o *CreateInputParams) WithInputSettings(x map[string]interface{}) *CreateInputParams {
 	o.InputSettings = x
 	return o
 }
-func (o *CreateInputParams) WithSceneItemEnabled(x *bool) *CreateInputParams {
-	o.SceneItemEnabled = x
+func (o *CreateInputParams) WithSceneItemEnabled(x bool) *CreateInputParams {
+	o.SceneItemEnabled = &x
 	return o
 }
 func (o *CreateInputParams) WithSceneName(x string) *CreateInputParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 
@@ -52,7 +52,7 @@ func (o *CreateInputParams) GetRequestName() string {
 // Represents the response body for the CreateInput request.
 type CreateInputResponse struct {
 	// ID of the newly created scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId int `json:"sceneItemId,omitempty"`
 }
 
 // Creates a new input, adding it as a scene item to the specified scene.

@@ -5,14 +5,14 @@ package inputs
 // Represents the request body for the GetInputDefaultSettings request.
 type GetInputDefaultSettingsParams struct {
 	// Input kind to get the default settings for
-	InputKind string `json:"inputKind,omitempty"`
+	InputKind *string `json:"inputKind,omitempty"`
 }
 
 func NewGetInputDefaultSettingsParams() *GetInputDefaultSettingsParams {
 	return &GetInputDefaultSettingsParams{}
 }
 func (o *GetInputDefaultSettingsParams) WithInputKind(x string) *GetInputDefaultSettingsParams {
-	o.InputKind = x
+	o.InputKind = &x
 	return o
 }
 

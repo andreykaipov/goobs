@@ -5,14 +5,14 @@ package stream
 // Represents the request body for the SendStreamCaption request.
 type SendStreamCaptionParams struct {
 	// Caption text
-	CaptionText string `json:"captionText,omitempty"`
+	CaptionText *string `json:"captionText,omitempty"`
 }
 
 func NewSendStreamCaptionParams() *SendStreamCaptionParams {
 	return &SendStreamCaptionParams{}
 }
 func (o *SendStreamCaptionParams) WithCaptionText(x string) *SendStreamCaptionParams {
-	o.CaptionText = x
+	o.CaptionText = &x
 	return o
 }
 

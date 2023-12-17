@@ -5,14 +5,14 @@ package sources
 // Represents the request body for the GetSourceActive request.
 type GetSourceActiveParams struct {
 	// Name of the source to get the active state of
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
 }
 
 func NewGetSourceActiveParams() *GetSourceActiveParams {
 	return &GetSourceActiveParams{}
 }
 func (o *GetSourceActiveParams) WithSourceName(x string) *GetSourceActiveParams {
-	o.SourceName = x
+	o.SourceName = &x
 	return o
 }
 

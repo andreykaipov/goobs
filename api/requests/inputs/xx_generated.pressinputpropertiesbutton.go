@@ -5,21 +5,21 @@ package inputs
 // Represents the request body for the PressInputPropertiesButton request.
 type PressInputPropertiesButtonParams struct {
 	// Name of the input
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 
 	// Name of the button property to press
-	PropertyName string `json:"propertyName,omitempty"`
+	PropertyName *string `json:"propertyName,omitempty"`
 }
 
 func NewPressInputPropertiesButtonParams() *PressInputPropertiesButtonParams {
 	return &PressInputPropertiesButtonParams{}
 }
 func (o *PressInputPropertiesButtonParams) WithInputName(x string) *PressInputPropertiesButtonParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 func (o *PressInputPropertiesButtonParams) WithPropertyName(x string) *PressInputPropertiesButtonParams {
-	o.PropertyName = x
+	o.PropertyName = &x
 	return o
 }
 

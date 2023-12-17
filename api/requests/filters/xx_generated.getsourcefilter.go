@@ -5,21 +5,21 @@ package filters
 // Represents the request body for the GetSourceFilter request.
 type GetSourceFilterParams struct {
 	// Name of the filter
-	FilterName string `json:"filterName,omitempty"`
+	FilterName *string `json:"filterName,omitempty"`
 
 	// Name of the source
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
 }
 
 func NewGetSourceFilterParams() *GetSourceFilterParams {
 	return &GetSourceFilterParams{}
 }
 func (o *GetSourceFilterParams) WithFilterName(x string) *GetSourceFilterParams {
-	o.FilterName = x
+	o.FilterName = &x
 	return o
 }
 func (o *GetSourceFilterParams) WithSourceName(x string) *GetSourceFilterParams {
-	o.SourceName = x
+	o.SourceName = &x
 	return o
 }
 
@@ -34,7 +34,7 @@ type GetSourceFilterResponse struct {
 	FilterEnabled bool `json:"filterEnabled,omitempty"`
 
 	// Index of the filter in the list, beginning at 0
-	FilterIndex float64 `json:"filterIndex,omitempty"`
+	FilterIndex int `json:"filterIndex,omitempty"`
 
 	// The kind of filter
 	FilterKind string `json:"filterKind,omitempty"`

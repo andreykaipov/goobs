@@ -5,14 +5,14 @@ package outputs
 // Represents the request body for the StopOutput request.
 type StopOutputParams struct {
 	// Output name
-	OutputName string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitempty"`
 }
 
 func NewStopOutputParams() *StopOutputParams {
 	return &StopOutputParams{}
 }
 func (o *StopOutputParams) WithOutputName(x string) *StopOutputParams {
-	o.OutputName = x
+	o.OutputName = &x
 	return o
 }
 

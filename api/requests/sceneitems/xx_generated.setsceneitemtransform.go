@@ -7,20 +7,20 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 // Represents the request body for the SetSceneItemTransform request.
 type SetSceneItemTransformParams struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Object containing scene item transform info to update
 	SceneItemTransform *typedefs.SceneItemTransform `json:"sceneItemTransform,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewSetSceneItemTransformParams() *SetSceneItemTransformParams {
 	return &SetSceneItemTransformParams{}
 }
-func (o *SetSceneItemTransformParams) WithSceneItemId(x float64) *SetSceneItemTransformParams {
-	o.SceneItemId = x
+func (o *SetSceneItemTransformParams) WithSceneItemId(x int) *SetSceneItemTransformParams {
+	o.SceneItemId = &x
 	return o
 }
 
@@ -31,7 +31,7 @@ func (o *SetSceneItemTransformParams) WithSceneItemTransform(
 	return o
 }
 func (o *SetSceneItemTransformParams) WithSceneName(x string) *SetSceneItemTransformParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

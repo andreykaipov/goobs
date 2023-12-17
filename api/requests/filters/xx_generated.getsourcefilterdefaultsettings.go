@@ -5,14 +5,14 @@ package filters
 // Represents the request body for the GetSourceFilterDefaultSettings request.
 type GetSourceFilterDefaultSettingsParams struct {
 	// Filter kind to get the default settings for
-	FilterKind string `json:"filterKind,omitempty"`
+	FilterKind *string `json:"filterKind,omitempty"`
 }
 
 func NewGetSourceFilterDefaultSettingsParams() *GetSourceFilterDefaultSettingsParams {
 	return &GetSourceFilterDefaultSettingsParams{}
 }
 func (o *GetSourceFilterDefaultSettingsParams) WithFilterKind(x string) *GetSourceFilterDefaultSettingsParams {
-	o.FilterKind = x
+	o.FilterKind = &x
 	return o
 }
 

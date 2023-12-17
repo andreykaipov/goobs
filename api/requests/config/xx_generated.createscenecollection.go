@@ -5,14 +5,14 @@ package config
 // Represents the request body for the CreateSceneCollection request.
 type CreateSceneCollectionParams struct {
 	// Name for the new scene collection
-	SceneCollectionName string `json:"sceneCollectionName,omitempty"`
+	SceneCollectionName *string `json:"sceneCollectionName,omitempty"`
 }
 
 func NewCreateSceneCollectionParams() *CreateSceneCollectionParams {
 	return &CreateSceneCollectionParams{}
 }
 func (o *CreateSceneCollectionParams) WithSceneCollectionName(x string) *CreateSceneCollectionParams {
-	o.SceneCollectionName = x
+	o.SceneCollectionName = &x
 	return o
 }
 

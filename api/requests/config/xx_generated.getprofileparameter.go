@@ -5,21 +5,21 @@ package config
 // Represents the request body for the GetProfileParameter request.
 type GetProfileParameterParams struct {
 	// Category of the parameter to get
-	ParameterCategory string `json:"parameterCategory,omitempty"`
+	ParameterCategory *string `json:"parameterCategory,omitempty"`
 
 	// Name of the parameter to get
-	ParameterName string `json:"parameterName,omitempty"`
+	ParameterName *string `json:"parameterName,omitempty"`
 }
 
 func NewGetProfileParameterParams() *GetProfileParameterParams {
 	return &GetProfileParameterParams{}
 }
 func (o *GetProfileParameterParams) WithParameterCategory(x string) *GetProfileParameterParams {
-	o.ParameterCategory = x
+	o.ParameterCategory = &x
 	return o
 }
 func (o *GetProfileParameterParams) WithParameterName(x string) *GetProfileParameterParams {
-	o.ParameterName = x
+	o.ParameterName = &x
 	return o
 }
 

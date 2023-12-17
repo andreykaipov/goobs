@@ -5,14 +5,14 @@ package mediainputs
 // Represents the request body for the GetMediaInputStatus request.
 type GetMediaInputStatusParams struct {
 	// Name of the media input
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewGetMediaInputStatusParams() *GetMediaInputStatusParams {
 	return &GetMediaInputStatusParams{}
 }
 func (o *GetMediaInputStatusParams) WithInputName(x string) *GetMediaInputStatusParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

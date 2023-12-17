@@ -5,14 +5,14 @@ package outputs
 // Represents the request body for the GetOutputStatus request.
 type GetOutputStatusParams struct {
 	// Output name
-	OutputName string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitempty"`
 }
 
 func NewGetOutputStatusParams() *GetOutputStatusParams {
 	return &GetOutputStatusParams{}
 }
 func (o *GetOutputStatusParams) WithOutputName(x string) *GetOutputStatusParams {
-	o.OutputName = x
+	o.OutputName = &x
 	return o
 }
 

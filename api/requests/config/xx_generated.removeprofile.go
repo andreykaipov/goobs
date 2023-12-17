@@ -5,14 +5,14 @@ package config
 // Represents the request body for the RemoveProfile request.
 type RemoveProfileParams struct {
 	// Name of the profile to remove
-	ProfileName string `json:"profileName,omitempty"`
+	ProfileName *string `json:"profileName,omitempty"`
 }
 
 func NewRemoveProfileParams() *RemoveProfileParams {
 	return &RemoveProfileParams{}
 }
 func (o *RemoveProfileParams) WithProfileName(x string) *RemoveProfileParams {
-	o.ProfileName = x
+	o.ProfileName = &x
 	return o
 }
 

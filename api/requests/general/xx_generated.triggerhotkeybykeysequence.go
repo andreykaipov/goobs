@@ -7,7 +7,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 // Represents the request body for the TriggerHotkeyByKeySequence request.
 type TriggerHotkeyByKeySequenceParams struct {
 	// The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h
-	KeyId string `json:"keyId,omitempty"`
+	KeyId *string `json:"keyId,omitempty"`
 
 	// Object containing key modifiers to apply
 	KeyModifiers *typedefs.KeyModifiers `json:"keyModifiers,omitempty"`
@@ -17,7 +17,7 @@ func NewTriggerHotkeyByKeySequenceParams() *TriggerHotkeyByKeySequenceParams {
 	return &TriggerHotkeyByKeySequenceParams{}
 }
 func (o *TriggerHotkeyByKeySequenceParams) WithKeyId(x string) *TriggerHotkeyByKeySequenceParams {
-	o.KeyId = x
+	o.KeyId = &x
 	return o
 }
 

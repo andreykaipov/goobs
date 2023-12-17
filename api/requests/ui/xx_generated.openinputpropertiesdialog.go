@@ -5,14 +5,14 @@ package ui
 // Represents the request body for the OpenInputPropertiesDialog request.
 type OpenInputPropertiesDialogParams struct {
 	// Name of the input to open the dialog of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewOpenInputPropertiesDialogParams() *OpenInputPropertiesDialogParams {
 	return &OpenInputPropertiesDialogParams{}
 }
 func (o *OpenInputPropertiesDialogParams) WithInputName(x string) *OpenInputPropertiesDialogParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

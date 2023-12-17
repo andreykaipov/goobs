@@ -5,28 +5,28 @@ package filters
 // Represents the request body for the SetSourceFilterIndex request.
 type SetSourceFilterIndexParams struct {
 	// New index position of the filter
-	FilterIndex float64 `json:"filterIndex,omitempty"`
+	FilterIndex *int `json:"filterIndex,omitempty"`
 
 	// Name of the filter
-	FilterName string `json:"filterName,omitempty"`
+	FilterName *string `json:"filterName,omitempty"`
 
 	// Name of the source the filter is on
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
 }
 
 func NewSetSourceFilterIndexParams() *SetSourceFilterIndexParams {
 	return &SetSourceFilterIndexParams{}
 }
-func (o *SetSourceFilterIndexParams) WithFilterIndex(x float64) *SetSourceFilterIndexParams {
-	o.FilterIndex = x
+func (o *SetSourceFilterIndexParams) WithFilterIndex(x int) *SetSourceFilterIndexParams {
+	o.FilterIndex = &x
 	return o
 }
 func (o *SetSourceFilterIndexParams) WithFilterName(x string) *SetSourceFilterIndexParams {
-	o.FilterName = x
+	o.FilterName = &x
 	return o
 }
 func (o *SetSourceFilterIndexParams) WithSourceName(x string) *SetSourceFilterIndexParams {
-	o.SourceName = x
+	o.SourceName = &x
 	return o
 }
 

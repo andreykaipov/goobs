@@ -5,7 +5,7 @@ package inputs
 // Represents the request body for the SetInputSettings request.
 type SetInputSettingsParams struct {
 	// Name of the input to set the settings of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 
 	// Object of settings to apply
 	InputSettings map[string]interface{} `json:"inputSettings,omitempty"`
@@ -19,15 +19,15 @@ func NewSetInputSettingsParams() *SetInputSettingsParams {
 	return &SetInputSettingsParams{}
 }
 func (o *SetInputSettingsParams) WithInputName(x string) *SetInputSettingsParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 func (o *SetInputSettingsParams) WithInputSettings(x map[string]interface{}) *SetInputSettingsParams {
 	o.InputSettings = x
 	return o
 }
-func (o *SetInputSettingsParams) WithOverlay(x *bool) *SetInputSettingsParams {
-	o.Overlay = x
+func (o *SetInputSettingsParams) WithOverlay(x bool) *SetInputSettingsParams {
+	o.Overlay = &x
 	return o
 }
 

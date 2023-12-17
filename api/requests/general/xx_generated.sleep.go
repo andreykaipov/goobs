@@ -5,21 +5,21 @@ package general
 // Represents the request body for the Sleep request.
 type SleepParams struct {
 	// Number of frames to sleep for (if `SERIAL_FRAME` mode)
-	SleepFrames float64 `json:"sleepFrames,omitempty"`
+	SleepFrames *float64 `json:"sleepFrames,omitempty"`
 
 	// Number of milliseconds to sleep for (if `SERIAL_REALTIME` mode)
-	SleepMillis float64 `json:"sleepMillis,omitempty"`
+	SleepMillis *float64 `json:"sleepMillis,omitempty"`
 }
 
 func NewSleepParams() *SleepParams {
 	return &SleepParams{}
 }
 func (o *SleepParams) WithSleepFrames(x float64) *SleepParams {
-	o.SleepFrames = x
+	o.SleepFrames = &x
 	return o
 }
 func (o *SleepParams) WithSleepMillis(x float64) *SleepParams {
-	o.SleepMillis = x
+	o.SleepMillis = &x
 	return o
 }
 

@@ -5,14 +5,14 @@ package outputs
 // Represents the request body for the ToggleOutput request.
 type ToggleOutputParams struct {
 	// Output name
-	OutputName string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitempty"`
 }
 
 func NewToggleOutputParams() *ToggleOutputParams {
 	return &ToggleOutputParams{}
 }
 func (o *ToggleOutputParams) WithOutputName(x string) *ToggleOutputParams {
-	o.OutputName = x
+	o.OutputName = &x
 	return o
 }
 

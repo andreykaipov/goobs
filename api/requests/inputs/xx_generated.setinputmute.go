@@ -8,18 +8,18 @@ type SetInputMuteParams struct {
 	InputMuted *bool `json:"inputMuted,omitempty"`
 
 	// Name of the input to set the mute state of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewSetInputMuteParams() *SetInputMuteParams {
 	return &SetInputMuteParams{}
 }
-func (o *SetInputMuteParams) WithInputMuted(x *bool) *SetInputMuteParams {
-	o.InputMuted = x
+func (o *SetInputMuteParams) WithInputMuted(x bool) *SetInputMuteParams {
+	o.InputMuted = &x
 	return o
 }
 func (o *SetInputMuteParams) WithInputName(x string) *SetInputMuteParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

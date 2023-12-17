@@ -12,7 +12,7 @@ type SourceFilterCreated struct {
 	DefaultFilterSettings map[string]interface{} `json:"defaultFilterSettings,omitempty"`
 
 	// Index position of the filter
-	FilterIndex float64 `json:"filterIndex,omitempty"`
+	FilterIndex int `json:"filterIndex,omitempty"`
 
 	// The kind of the filter
 	FilterKind string `json:"filterKind,omitempty"`

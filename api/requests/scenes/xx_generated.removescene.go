@@ -5,14 +5,14 @@ package scenes
 // Represents the request body for the RemoveScene request.
 type RemoveSceneParams struct {
 	// Name of the scene to remove
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewRemoveSceneParams() *RemoveSceneParams {
 	return &RemoveSceneParams{}
 }
 func (o *RemoveSceneParams) WithSceneName(x string) *RemoveSceneParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

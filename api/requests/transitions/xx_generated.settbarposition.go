@@ -5,7 +5,7 @@ package transitions
 // Represents the request body for the SetTBarPosition request.
 type SetTBarPositionParams struct {
 	// New position
-	Position float64 `json:"position,omitempty"`
+	Position *float64 `json:"position,omitempty"`
 
 	// Whether to release the TBar. Only set `false` if you know that you will be sending another position update
 	Release *bool `json:"release,omitempty"`
@@ -15,11 +15,11 @@ func NewSetTBarPositionParams() *SetTBarPositionParams {
 	return &SetTBarPositionParams{}
 }
 func (o *SetTBarPositionParams) WithPosition(x float64) *SetTBarPositionParams {
-	o.Position = x
+	o.Position = &x
 	return o
 }
-func (o *SetTBarPositionParams) WithRelease(x *bool) *SetTBarPositionParams {
-	o.Release = x
+func (o *SetTBarPositionParams) WithRelease(x bool) *SetTBarPositionParams {
+	o.Release = &x
 	return o
 }
 

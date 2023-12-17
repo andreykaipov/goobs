@@ -5,21 +5,21 @@ package inputs
 // Represents the request body for the SetInputName request.
 type SetInputNameParams struct {
 	// Current input name
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 
 	// New name for the input
-	NewInputName string `json:"newInputName,omitempty"`
+	NewInputName *string `json:"newInputName,omitempty"`
 }
 
 func NewSetInputNameParams() *SetInputNameParams {
 	return &SetInputNameParams{}
 }
 func (o *SetInputNameParams) WithInputName(x string) *SetInputNameParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 func (o *SetInputNameParams) WithNewInputName(x string) *SetInputNameParams {
-	o.NewInputName = x
+	o.NewInputName = &x
 	return o
 }
 

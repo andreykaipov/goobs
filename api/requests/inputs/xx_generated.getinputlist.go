@@ -7,14 +7,14 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 // Represents the request body for the GetInputList request.
 type GetInputListParams struct {
 	// Restrict the array to only inputs of the specified kind
-	InputKind string `json:"inputKind,omitempty"`
+	InputKind *string `json:"inputKind,omitempty"`
 }
 
 func NewGetInputListParams() *GetInputListParams {
 	return &GetInputListParams{}
 }
 func (o *GetInputListParams) WithInputKind(x string) *GetInputListParams {
-	o.InputKind = x
+	o.InputKind = &x
 	return o
 }
 

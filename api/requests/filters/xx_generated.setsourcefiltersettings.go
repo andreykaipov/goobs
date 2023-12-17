@@ -5,7 +5,7 @@ package filters
 // Represents the request body for the SetSourceFilterSettings request.
 type SetSourceFilterSettingsParams struct {
 	// Name of the filter to set the settings of
-	FilterName string `json:"filterName,omitempty"`
+	FilterName *string `json:"filterName,omitempty"`
 
 	// Object of settings to apply
 	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
@@ -15,26 +15,26 @@ type SetSourceFilterSettingsParams struct {
 	Overlay *bool `json:"overlay,omitempty"`
 
 	// Name of the source the filter is on
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
 }
 
 func NewSetSourceFilterSettingsParams() *SetSourceFilterSettingsParams {
 	return &SetSourceFilterSettingsParams{}
 }
 func (o *SetSourceFilterSettingsParams) WithFilterName(x string) *SetSourceFilterSettingsParams {
-	o.FilterName = x
+	o.FilterName = &x
 	return o
 }
 func (o *SetSourceFilterSettingsParams) WithFilterSettings(x map[string]interface{}) *SetSourceFilterSettingsParams {
 	o.FilterSettings = x
 	return o
 }
-func (o *SetSourceFilterSettingsParams) WithOverlay(x *bool) *SetSourceFilterSettingsParams {
-	o.Overlay = x
+func (o *SetSourceFilterSettingsParams) WithOverlay(x bool) *SetSourceFilterSettingsParams {
+	o.Overlay = &x
 	return o
 }
 func (o *SetSourceFilterSettingsParams) WithSourceName(x string) *SetSourceFilterSettingsParams {
-	o.SourceName = x
+	o.SourceName = &x
 	return o
 }
 

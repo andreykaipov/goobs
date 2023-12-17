@@ -11,8 +11,8 @@ type GetInputKindListParams struct {
 func NewGetInputKindListParams() *GetInputKindListParams {
 	return &GetInputKindListParams{}
 }
-func (o *GetInputKindListParams) WithUnversioned(x *bool) *GetInputKindListParams {
-	o.Unversioned = x
+func (o *GetInputKindListParams) WithUnversioned(x bool) *GetInputKindListParams {
+	o.Unversioned = &x
 	return o
 }
 

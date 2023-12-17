@@ -5,21 +5,21 @@ package scenes
 // Represents the request body for the SetSceneName request.
 type SetSceneNameParams struct {
 	// New name for the scene
-	NewSceneName string `json:"newSceneName,omitempty"`
+	NewSceneName *string `json:"newSceneName,omitempty"`
 
 	// Name of the scene to be renamed
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewSetSceneNameParams() *SetSceneNameParams {
 	return &SetSceneNameParams{}
 }
 func (o *SetSceneNameParams) WithNewSceneName(x string) *SetSceneNameParams {
-	o.NewSceneName = x
+	o.NewSceneName = &x
 	return o
 }
 func (o *SetSceneNameParams) WithSceneName(x string) *SetSceneNameParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

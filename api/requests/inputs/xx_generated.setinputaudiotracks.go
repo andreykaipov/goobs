@@ -10,7 +10,7 @@ type SetInputAudioTracksParams struct {
 	InputAudioTracks *typedefs.InputAudioTracks `json:"inputAudioTracks,omitempty"`
 
 	// Name of the input
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewSetInputAudioTracksParams() *SetInputAudioTracksParams {
@@ -21,7 +21,7 @@ func (o *SetInputAudioTracksParams) WithInputAudioTracks(x *typedefs.InputAudioT
 	return o
 }
 func (o *SetInputAudioTracksParams) WithInputName(x string) *SetInputAudioTracksParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

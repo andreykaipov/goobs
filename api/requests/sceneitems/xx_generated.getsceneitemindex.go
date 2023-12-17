@@ -5,21 +5,21 @@ package sceneitems
 // Represents the request body for the GetSceneItemIndex request.
 type GetSceneItemIndexParams struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewGetSceneItemIndexParams() *GetSceneItemIndexParams {
 	return &GetSceneItemIndexParams{}
 }
-func (o *GetSceneItemIndexParams) WithSceneItemId(x float64) *GetSceneItemIndexParams {
-	o.SceneItemId = x
+func (o *GetSceneItemIndexParams) WithSceneItemId(x int) *GetSceneItemIndexParams {
+	o.SceneItemId = &x
 	return o
 }
 func (o *GetSceneItemIndexParams) WithSceneName(x string) *GetSceneItemIndexParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 
@@ -31,7 +31,7 @@ func (o *GetSceneItemIndexParams) GetRequestName() string {
 // Represents the response body for the GetSceneItemIndex request.
 type GetSceneItemIndexResponse struct {
 	// Index position of the scene item
-	SceneItemIndex float64 `json:"sceneItemIndex,omitempty"`
+	SceneItemIndex int `json:"sceneItemIndex,omitempty"`
 }
 
 /*

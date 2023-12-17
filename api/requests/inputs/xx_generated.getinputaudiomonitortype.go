@@ -5,14 +5,14 @@ package inputs
 // Represents the request body for the GetInputAudioMonitorType request.
 type GetInputAudioMonitorTypeParams struct {
 	// Name of the input to get the audio monitor type of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewGetInputAudioMonitorTypeParams() *GetInputAudioMonitorTypeParams {
 	return &GetInputAudioMonitorTypeParams{}
 }
 func (o *GetInputAudioMonitorTypeParams) WithInputName(x string) *GetInputAudioMonitorTypeParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

@@ -8,10 +8,10 @@ type CallVendorRequestParams struct {
 	RequestData map[string]interface{} `json:"requestData,omitempty"`
 
 	// The request type to call
-	RequestType string `json:"requestType,omitempty"`
+	RequestType *string `json:"requestType,omitempty"`
 
 	// Name of the vendor to use
-	VendorName string `json:"vendorName,omitempty"`
+	VendorName *string `json:"vendorName,omitempty"`
 }
 
 func NewCallVendorRequestParams() *CallVendorRequestParams {
@@ -22,11 +22,11 @@ func (o *CallVendorRequestParams) WithRequestData(x map[string]interface{}) *Cal
 	return o
 }
 func (o *CallVendorRequestParams) WithRequestType(x string) *CallVendorRequestParams {
-	o.RequestType = x
+	o.RequestType = &x
 	return o
 }
 func (o *CallVendorRequestParams) WithVendorName(x string) *CallVendorRequestParams {
-	o.VendorName = x
+	o.VendorName = &x
 	return o
 }
 

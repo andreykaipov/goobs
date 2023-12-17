@@ -7,14 +7,14 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 // Represents the request body for the GetSceneItemList request.
 type GetSceneItemListParams struct {
 	// Name of the scene to get the items of
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewGetSceneItemListParams() *GetSceneItemListParams {
 	return &GetSceneItemListParams{}
 }
 func (o *GetSceneItemListParams) WithSceneName(x string) *GetSceneItemListParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

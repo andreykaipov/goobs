@@ -5,14 +5,14 @@ package transitions
 // Represents the request body for the SetCurrentSceneTransition request.
 type SetCurrentSceneTransitionParams struct {
 	// Name of the transition to make active
-	TransitionName string `json:"transitionName,omitempty"`
+	TransitionName *string `json:"transitionName,omitempty"`
 }
 
 func NewSetCurrentSceneTransitionParams() *SetCurrentSceneTransitionParams {
 	return &SetCurrentSceneTransitionParams{}
 }
 func (o *SetCurrentSceneTransitionParams) WithTransitionName(x string) *SetCurrentSceneTransitionParams {
-	o.TransitionName = x
+	o.TransitionName = &x
 	return o
 }
 

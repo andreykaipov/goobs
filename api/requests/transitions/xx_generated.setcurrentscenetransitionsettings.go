@@ -14,8 +14,8 @@ type SetCurrentSceneTransitionSettingsParams struct {
 func NewSetCurrentSceneTransitionSettingsParams() *SetCurrentSceneTransitionSettingsParams {
 	return &SetCurrentSceneTransitionSettingsParams{}
 }
-func (o *SetCurrentSceneTransitionSettingsParams) WithOverlay(x *bool) *SetCurrentSceneTransitionSettingsParams {
-	o.Overlay = x
+func (o *SetCurrentSceneTransitionSettingsParams) WithOverlay(x bool) *SetCurrentSceneTransitionSettingsParams {
+	o.Overlay = &x
 	return o
 }
 

@@ -5,28 +5,28 @@ package ui
 // Represents the request body for the OpenSourceProjector request.
 type OpenSourceProjectorParams struct {
 	// Monitor index, use `GetMonitorList` to obtain index
-	MonitorIndex float64 `json:"monitorIndex,omitempty"`
+	MonitorIndex *int `json:"monitorIndex,omitempty"`
 
 	// Size/Position data for a windowed projector, in Qt Base64 encoded format. Mutually exclusive with `monitorIndex`
-	ProjectorGeometry string `json:"projectorGeometry,omitempty"`
+	ProjectorGeometry *string `json:"projectorGeometry,omitempty"`
 
 	// Name of the source to open a projector for
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
 }
 
 func NewOpenSourceProjectorParams() *OpenSourceProjectorParams {
 	return &OpenSourceProjectorParams{}
 }
-func (o *OpenSourceProjectorParams) WithMonitorIndex(x float64) *OpenSourceProjectorParams {
-	o.MonitorIndex = x
+func (o *OpenSourceProjectorParams) WithMonitorIndex(x int) *OpenSourceProjectorParams {
+	o.MonitorIndex = &x
 	return o
 }
 func (o *OpenSourceProjectorParams) WithProjectorGeometry(x string) *OpenSourceProjectorParams {
-	o.ProjectorGeometry = x
+	o.ProjectorGeometry = &x
 	return o
 }
 func (o *OpenSourceProjectorParams) WithSourceName(x string) *OpenSourceProjectorParams {
-	o.SourceName = x
+	o.SourceName = &x
 	return o
 }
 

@@ -5,14 +5,14 @@ package config
 // Represents the request body for the CreateProfile request.
 type CreateProfileParams struct {
 	// Name for the new profile
-	ProfileName string `json:"profileName,omitempty"`
+	ProfileName *string `json:"profileName,omitempty"`
 }
 
 func NewCreateProfileParams() *CreateProfileParams {
 	return &CreateProfileParams{}
 }
 func (o *CreateProfileParams) WithProfileName(x string) *CreateProfileParams {
-	o.ProfileName = x
+	o.ProfileName = &x
 	return o
 }
 

@@ -7,14 +7,14 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 // Represents the request body for the GetSourceFilterList request.
 type GetSourceFilterListParams struct {
 	// Name of the source
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
 }
 
 func NewGetSourceFilterListParams() *GetSourceFilterListParams {
 	return &GetSourceFilterListParams{}
 }
 func (o *GetSourceFilterListParams) WithSourceName(x string) *GetSourceFilterListParams {
-	o.SourceName = x
+	o.SourceName = &x
 	return o
 }
 

@@ -5,21 +5,21 @@ package config
 // Represents the request body for the GetPersistentData request.
 type GetPersistentDataParams struct {
 	// The data realm to select. `OBS_WEBSOCKET_DATA_REALM_GLOBAL` or `OBS_WEBSOCKET_DATA_REALM_PROFILE`
-	Realm string `json:"realm,omitempty"`
+	Realm *string `json:"realm,omitempty"`
 
 	// The name of the slot to retrieve data from
-	SlotName string `json:"slotName,omitempty"`
+	SlotName *string `json:"slotName,omitempty"`
 }
 
 func NewGetPersistentDataParams() *GetPersistentDataParams {
 	return &GetPersistentDataParams{}
 }
 func (o *GetPersistentDataParams) WithRealm(x string) *GetPersistentDataParams {
-	o.Realm = x
+	o.Realm = &x
 	return o
 }
 func (o *GetPersistentDataParams) WithSlotName(x string) *GetPersistentDataParams {
-	o.SlotName = x
+	o.SlotName = &x
 	return o
 }
 

@@ -5,14 +5,14 @@ package inputs
 // Represents the request body for the GetInputSettings request.
 type GetInputSettingsParams struct {
 	// Name of the input to get the settings of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewGetInputSettingsParams() *GetInputSettingsParams {
 	return &GetInputSettingsParams{}
 }
 func (o *GetInputSettingsParams) WithInputName(x string) *GetInputSettingsParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

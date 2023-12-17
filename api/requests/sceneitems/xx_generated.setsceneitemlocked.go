@@ -5,28 +5,28 @@ package sceneitems
 // Represents the request body for the SetSceneItemLocked request.
 type SetSceneItemLockedParams struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// New lock state of the scene item
 	SceneItemLocked *bool `json:"sceneItemLocked,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewSetSceneItemLockedParams() *SetSceneItemLockedParams {
 	return &SetSceneItemLockedParams{}
 }
-func (o *SetSceneItemLockedParams) WithSceneItemId(x float64) *SetSceneItemLockedParams {
-	o.SceneItemId = x
+func (o *SetSceneItemLockedParams) WithSceneItemId(x int) *SetSceneItemLockedParams {
+	o.SceneItemId = &x
 	return o
 }
-func (o *SetSceneItemLockedParams) WithSceneItemLocked(x *bool) *SetSceneItemLockedParams {
-	o.SceneItemLocked = x
+func (o *SetSceneItemLockedParams) WithSceneItemLocked(x bool) *SetSceneItemLockedParams {
+	o.SceneItemLocked = &x
 	return o
 }
 func (o *SetSceneItemLockedParams) WithSceneName(x string) *SetSceneItemLockedParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

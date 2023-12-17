@@ -5,21 +5,21 @@ package inputs
 // Represents the request body for the SetInputAudioBalance request.
 type SetInputAudioBalanceParams struct {
 	// New audio balance value
-	InputAudioBalance float64 `json:"inputAudioBalance,omitempty"`
+	InputAudioBalance *float64 `json:"inputAudioBalance,omitempty"`
 
 	// Name of the input to set the audio balance of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewSetInputAudioBalanceParams() *SetInputAudioBalanceParams {
 	return &SetInputAudioBalanceParams{}
 }
 func (o *SetInputAudioBalanceParams) WithInputAudioBalance(x float64) *SetInputAudioBalanceParams {
-	o.InputAudioBalance = x
+	o.InputAudioBalance = &x
 	return o
 }
 func (o *SetInputAudioBalanceParams) WithInputName(x string) *SetInputAudioBalanceParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

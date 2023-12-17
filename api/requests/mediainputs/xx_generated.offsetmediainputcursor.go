@@ -5,21 +5,21 @@ package mediainputs
 // Represents the request body for the OffsetMediaInputCursor request.
 type OffsetMediaInputCursorParams struct {
 	// Name of the media input
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 
 	// Value to offset the current cursor position by
-	MediaCursorOffset float64 `json:"mediaCursorOffset,omitempty"`
+	MediaCursorOffset *float64 `json:"mediaCursorOffset,omitempty"`
 }
 
 func NewOffsetMediaInputCursorParams() *OffsetMediaInputCursorParams {
 	return &OffsetMediaInputCursorParams{}
 }
 func (o *OffsetMediaInputCursorParams) WithInputName(x string) *OffsetMediaInputCursorParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 func (o *OffsetMediaInputCursorParams) WithMediaCursorOffset(x float64) *OffsetMediaInputCursorParams {
-	o.MediaCursorOffset = x
+	o.MediaCursorOffset = &x
 	return o
 }
 

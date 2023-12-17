@@ -5,14 +5,14 @@ package inputs
 // Represents the request body for the GetInputVolume request.
 type GetInputVolumeParams struct {
 	// Name of the input to get the volume of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 }
 
 func NewGetInputVolumeParams() *GetInputVolumeParams {
 	return &GetInputVolumeParams{}
 }
 func (o *GetInputVolumeParams) WithInputName(x string) *GetInputVolumeParams {
-	o.InputName = x
+	o.InputName = &x
 	return o
 }
 

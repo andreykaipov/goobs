@@ -5,21 +5,21 @@ package sceneitems
 // Represents the request body for the GetSceneItemEnabled request.
 type GetSceneItemEnabledParams struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewGetSceneItemEnabledParams() *GetSceneItemEnabledParams {
 	return &GetSceneItemEnabledParams{}
 }
-func (o *GetSceneItemEnabledParams) WithSceneItemId(x float64) *GetSceneItemEnabledParams {
-	o.SceneItemId = x
+func (o *GetSceneItemEnabledParams) WithSceneItemId(x int) *GetSceneItemEnabledParams {
+	o.SceneItemId = &x
 	return o
 }
 func (o *GetSceneItemEnabledParams) WithSceneName(x string) *GetSceneItemEnabledParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

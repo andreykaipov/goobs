@@ -5,7 +5,7 @@ package outputs
 // Represents the request body for the SetOutputSettings request.
 type SetOutputSettingsParams struct {
 	// Output name
-	OutputName string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitempty"`
 
 	// Output settings
 	OutputSettings map[string]interface{} `json:"outputSettings,omitempty"`
@@ -15,7 +15,7 @@ func NewSetOutputSettingsParams() *SetOutputSettingsParams {
 	return &SetOutputSettingsParams{}
 }
 func (o *SetOutputSettingsParams) WithOutputName(x string) *SetOutputSettingsParams {
-	o.OutputName = x
+	o.OutputName = &x
 	return o
 }
 func (o *SetOutputSettingsParams) WithOutputSettings(x map[string]interface{}) *SetOutputSettingsParams {

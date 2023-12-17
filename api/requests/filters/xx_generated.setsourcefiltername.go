@@ -5,28 +5,28 @@ package filters
 // Represents the request body for the SetSourceFilterName request.
 type SetSourceFilterNameParams struct {
 	// Current name of the filter
-	FilterName string `json:"filterName,omitempty"`
+	FilterName *string `json:"filterName,omitempty"`
 
 	// New name for the filter
-	NewFilterName string `json:"newFilterName,omitempty"`
+	NewFilterName *string `json:"newFilterName,omitempty"`
 
 	// Name of the source the filter is on
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
 }
 
 func NewSetSourceFilterNameParams() *SetSourceFilterNameParams {
 	return &SetSourceFilterNameParams{}
 }
 func (o *SetSourceFilterNameParams) WithFilterName(x string) *SetSourceFilterNameParams {
-	o.FilterName = x
+	o.FilterName = &x
 	return o
 }
 func (o *SetSourceFilterNameParams) WithNewFilterName(x string) *SetSourceFilterNameParams {
-	o.NewFilterName = x
+	o.NewFilterName = &x
 	return o
 }
 func (o *SetSourceFilterNameParams) WithSourceName(x string) *SetSourceFilterNameParams {
-	o.SourceName = x
+	o.SourceName = &x
 	return o
 }
 

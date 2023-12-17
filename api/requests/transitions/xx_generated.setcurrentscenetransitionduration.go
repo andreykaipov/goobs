@@ -5,7 +5,7 @@ package transitions
 // Represents the request body for the SetCurrentSceneTransitionDuration request.
 type SetCurrentSceneTransitionDurationParams struct {
 	// Duration in milliseconds
-	TransitionDuration float64 `json:"transitionDuration,omitempty"`
+	TransitionDuration *float64 `json:"transitionDuration,omitempty"`
 }
 
 func NewSetCurrentSceneTransitionDurationParams() *SetCurrentSceneTransitionDurationParams {
@@ -15,7 +15,7 @@ func NewSetCurrentSceneTransitionDurationParams() *SetCurrentSceneTransitionDura
 func (o *SetCurrentSceneTransitionDurationParams) WithTransitionDuration(
 	x float64,
 ) *SetCurrentSceneTransitionDurationParams {
-	o.TransitionDuration = x
+	o.TransitionDuration = &x
 	return o
 }
 

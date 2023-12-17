@@ -5,14 +5,14 @@ package config
 // Represents the request body for the SetCurrentSceneCollection request.
 type SetCurrentSceneCollectionParams struct {
 	// Name of the scene collection to switch to
-	SceneCollectionName string `json:"sceneCollectionName,omitempty"`
+	SceneCollectionName *string `json:"sceneCollectionName,omitempty"`
 }
 
 func NewSetCurrentSceneCollectionParams() *SetCurrentSceneCollectionParams {
 	return &SetCurrentSceneCollectionParams{}
 }
 func (o *SetCurrentSceneCollectionParams) WithSceneCollectionName(x string) *SetCurrentSceneCollectionParams {
-	o.SceneCollectionName = x
+	o.SceneCollectionName = &x
 	return o
 }
 

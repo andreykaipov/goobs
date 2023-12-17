@@ -8,25 +8,25 @@ type SetSceneItemEnabledParams struct {
 	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
 
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 }
 
 func NewSetSceneItemEnabledParams() *SetSceneItemEnabledParams {
 	return &SetSceneItemEnabledParams{}
 }
-func (o *SetSceneItemEnabledParams) WithSceneItemEnabled(x *bool) *SetSceneItemEnabledParams {
-	o.SceneItemEnabled = x
+func (o *SetSceneItemEnabledParams) WithSceneItemEnabled(x bool) *SetSceneItemEnabledParams {
+	o.SceneItemEnabled = &x
 	return o
 }
-func (o *SetSceneItemEnabledParams) WithSceneItemId(x float64) *SetSceneItemEnabledParams {
-	o.SceneItemId = x
+func (o *SetSceneItemEnabledParams) WithSceneItemId(x int) *SetSceneItemEnabledParams {
+	o.SceneItemId = &x
 	return o
 }
 func (o *SetSceneItemEnabledParams) WithSceneName(x string) *SetSceneItemEnabledParams {
-	o.SceneName = x
+	o.SceneName = &x
 	return o
 }
 

@@ -18,11 +18,11 @@ func main() {
 	}
 	defer client.Disconnect()
 
-	screenshot, err := client.Sources.GetSourceScreenshot(&sources.GetSourceScreenshotParams{
-		SourceName:              "Webcam",
-		ImageCompressionQuality: -1,
-		ImageFormat:             "png",
-	})
+	params := sources.NewGetSourceScreenshotParams().
+		WithSourceName("Webcam").
+		WithImageCompressionQuality(-1).
+		WithImageFormat("png")
+	screenshot, err := client.Sources.GetSourceScreenshot(params)
 	if err != nil {
 		log.Fatal(err)
 	}

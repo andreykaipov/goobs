@@ -41,11 +41,22 @@ func main() {
 	for _, v := range list.Inputs {
 		name := v.InputName
 
+		// we can use a builder pattern...
+		params := inputs.NewSetInputVolumeParams().
+			WithInputName(name).
+			WithInputVolumeMul(rand.Float64())
+		if _, err := client.Inputs.SetInputVolume(params); err != nil {
+			blue("%s doesn't support audio: %s", name, err)
+			continue
+		}
+
+		// ...or we can set the fields directly
+		volume := rand.Float64()
 		if _, err := client.Inputs.SetInputVolume(&inputs.SetInputVolumeParams{
-			InputName:      name,
-			InputVolumeMul: rand.Float64(),
+			InputName:      &name,
+			InputVolumeMul: &volume,
 		}); err != nil {
-			blue("%s doesn't support audio", name)
+			blue("%s doesn't support audio: %s", name, err)
 			continue
 		}
 	}

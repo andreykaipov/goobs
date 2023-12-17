@@ -17,15 +17,14 @@ func main() {
 
 	// this assumes you have the obs-shutdown-plugin installed
 	// see https://github.com/norihiro/obs-shutdown-plugin
-	//
-	resp, err := client.General.CallVendorRequest(&general.CallVendorRequestParams{
-		VendorName:  "obs-shutdown-plugin",
-		RequestType: "shutdown",
-		RequestData: map[string]interface{}{
+	params := general.NewCallVendorRequestParams().
+		WithVendorName("obs-shutdown-plugin").
+		WithRequestType("shutdown").
+		WithRequestData(map[string]interface{}{
 			"reason":      "cleaning up",
 			"support_url": "https://github.com/norihiro/obs-shutdown-plugin/issues",
 			"force":       true,
-		},
-	})
+		})
+	resp, err := client.General.CallVendorRequest(params)
 	fmt.Println(resp, err)
 }

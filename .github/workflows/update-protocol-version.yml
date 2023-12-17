@@ -24,6 +24,8 @@ jobs:
 
     - name: update version
       id: update
+      env:
+        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         ./script/bump-protocol-version.sh
         version=$(grep obs_websocket_protocol_version version.go | tr -dc '0-9.')

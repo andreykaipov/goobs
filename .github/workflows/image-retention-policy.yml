@@ -1,4 +1,4 @@
-name: image-retention-policy
+name: Image Retention Policy
 
 on:
   workflow_dispatch:

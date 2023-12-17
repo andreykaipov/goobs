@@ -41,7 +41,7 @@ func (o *SetSceneSceneTransitionOverrideParams) GetRequestName() string {
 // Represents the response body for the SetSceneSceneTransitionOverride request.
 type SetSceneSceneTransitionOverrideResponse struct{}
 
-// Gets the scene transition overridden for a scene.
+// Sets the scene transition overridden for a scene.
 func (c *Client) SetSceneSceneTransitionOverride(
 	params *SetSceneSceneTransitionOverrideParams,
 ) (*SetSceneSceneTransitionOverrideResponse, error) {

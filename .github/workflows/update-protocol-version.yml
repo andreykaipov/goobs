@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+      token: ${{ secrets.PAT }}
+      persist-credentials: false
 
     - uses: magnetikonline/action-golang-cache@v4
       with:

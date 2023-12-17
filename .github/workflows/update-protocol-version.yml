@@ -13,7 +13,9 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: update version
-      id: format
+      id: update
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: |
         ./script/bump-protocol-version.sh
         version=$(grep obs_websocket_protocol_version version.go | tr -dc '0-9.')
@@ -28,8 +30,8 @@ jobs:
     - name: create pr
       uses: peter-evans/create-pull-request@v5
       with:
-        title: ${{ steps.format.outputs.message }}
-        commit-message: ${{ steps.format.outputs.message }}
+        title: ${{ steps.update.outputs.message }}
+        commit-message: ${{ steps.update.outputs.message }}
         branch: feature/bump-protocol-version
         delete-branch: true
         labels: |
@@ -37,7 +39,7 @@ jobs:
         reviewers: |
           andreykaipov
         body: >
-          ${{ steps.format.outputs.link }}
+          ${{ steps.update.outputs.link }}
           <br>
 
           There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).

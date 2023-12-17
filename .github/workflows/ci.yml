@@ -3,22 +3,35 @@ name: ci
 on:
   pull_request:
     branches: [main]
-    paths:
-    - '**/*.go'
-    - go.mod
-    - go.sum
   push:
     branches: [main]
-    paths:
-    - '**/*.go'
-    - go.mod
-    - go.sum
   workflow_run:
     workflows: [image]
     types: [completed]
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.filter.outputs.go }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          go:
+          - '**/*.go'
+          - go.mod
+          - go.sum
+
   test:
+    needs: changes
+    if: ${{ needs.changes.outputs.go == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -26,7 +39,10 @@ jobs:
       with: {go-version-file: go.mod}
     - run: make test
     - run: go tool cover -func coverall.out
+
   generate:
+    needs: changes
+    if: ${{ needs.changes.outputs.go == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

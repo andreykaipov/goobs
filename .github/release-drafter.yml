@@ -7,8 +7,6 @@ autolabeler:
 - label: chore
   files:
   - '*.md'
-  - '*.yml'
-  - '*.yaml'
   - 'docker/*'
   - '*.sh'
   - Makefile

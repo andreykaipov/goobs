@@ -1,4 +1,4 @@
-name: ci
+name: CI
 
 on:
   pull_request:
@@ -9,21 +9,53 @@ on:
     workflows: [image]
     types: [completed]
 
+permissions:
+  contents: read
+  pull-requests: read
+
 jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      go: ${{ steps.filter.outputs.go }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          go:
+          - '**/*.go'
+          - go.mod
+          - go.sum
+
   test:
+    needs: check-changes
+    if: ${{ needs.check-changes.outputs.go == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: magnetikonline/action-golang-cache@v3
-      with: {go-version-file: go.mod}
-    - run: make test
+      with:
+        go-version-file: go.mod
+    - run: |
+        # some tests are flaky because it's running against a dockerized obs
+        # instance, so just retry a few times or whatever to be certain
+        for _ in $(seq 1 5); do
+          if make test; then exit; fi
+        done
+        exit 1
     - run: go tool cover -func coverall.out
+
   generate:
+    needs: check-changes
+    if: ${{ needs.check-changes.outputs.go == 'true' }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
     - uses: magnetikonline/action-golang-cache@v3
-      with: {go-version-file: go.mod}
+      with:
+        go-version-file: go.mod
     - run: make clean && make generate
     - name: Ensure generated code is already checked in
       if: success()

@@ -12,6 +12,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - uses: tibdex/github-app-token@v1
+      id: generate-token
+      with:
+        app_id: ${{ secrets.CATHY_CLOUD_APP_ID }}
+        private_key: ${{ secrets.CATHY_CLOUD_APP_PRIVATE_KEY }}
+
     - uses: magnetikonline/action-golang-cache@v4
       with:
         go-version-file: go.mod
@@ -19,7 +25,7 @@ jobs:
     - name: update version
       id: update
       env:
-        GH_TOKEN: ${{ github.token }}
+        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         ./script/bump-protocol-version.sh
         version=$(grep obs_websocket_protocol_version version.go | tr -dc '0-9.')
@@ -29,6 +35,7 @@ jobs:
     - name: create pr
       uses: peter-evans/create-pull-request@v5
       with:
+        token: ${{ steps.generate-token.outputs.token }}
         title: ${{ steps.update.outputs.message }}
         commit-message: ${{ steps.update.outputs.message }}
         branch: feature/bump-protocol-version

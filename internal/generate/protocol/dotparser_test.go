@@ -148,3 +148,17 @@ func Test_parseKeysAsJenStruct_embedded_1(t *testing.T) {
 
 	assertJenStruct(t, statement, err)
 }
+
+func Test_parseKeysAsJenStruct_builder_option(t *testing.T) {
+	statement, err := parseJenKeysAsStruct("GetSourcesTypesListResponse", map[string]keyInfo{
+		"Ids":               keyInfo{Type: jen.Index().Map(jen.String()).Interface(), ExposeBuilder: true},
+		"Ids.*.TypeId":      keyInfo{Type: jen.String()},
+		"Ids.*.DisplayName": keyInfo{Type: jen.String()},
+		"Ids.*.Type":        keyInfo{Type: jen.String()},
+		"Items":             keyInfo{Type: jen.Index().Map(jen.String()).Interface(), ExposeBuilder: true},
+		"Items[].Id":        keyInfo{Type: jen.Int()},
+		"Items[].Name":      keyInfo{Type: jen.String()},
+	})
+
+	assertJenStruct(t, statement, err)
+}

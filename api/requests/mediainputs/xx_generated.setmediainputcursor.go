@@ -2,13 +2,27 @@
 
 package mediainputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetMediaInputCursor request.
 type SetMediaInputCursorParams struct {
 	// Name of the media input
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
 
 	// New cursor position to set
-	MediaCursor float64 `json:"mediaCursor,omitempty"`
+	MediaCursor *float64 `json:"mediaCursor,omitempty"`
+}
+
+func NewSetMediaInputCursorParams() *SetMediaInputCursorParams {
+	return &SetMediaInputCursorParams{}
+}
+func (o *SetMediaInputCursorParams) WithInputName(x string) *SetMediaInputCursorParams {
+	o.InputName = &x
+	return o
+}
+func (o *SetMediaInputCursorParams) WithMediaCursor(x float64) *SetMediaInputCursorParams {
+	o.MediaCursor = &x
+	return o
 }
 
 // Returns the associated request.
@@ -17,7 +31,9 @@ func (o *SetMediaInputCursorParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetMediaInputCursor request.
-type SetMediaInputCursorResponse struct{}
+type SetMediaInputCursorResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Sets the cursor position of a media input.

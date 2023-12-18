@@ -2,16 +2,34 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the DuplicateSceneItem request.
 type DuplicateSceneItemParams struct {
 	// Name of the scene to create the duplicated item in
-	DestinationSceneName string `json:"destinationSceneName,omitempty"`
+	DestinationSceneName *string `json:"destinationSceneName,omitempty"`
 
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
+}
+
+func NewDuplicateSceneItemParams() *DuplicateSceneItemParams {
+	return &DuplicateSceneItemParams{}
+}
+func (o *DuplicateSceneItemParams) WithDestinationSceneName(x string) *DuplicateSceneItemParams {
+	o.DestinationSceneName = &x
+	return o
+}
+func (o *DuplicateSceneItemParams) WithSceneItemId(x int) *DuplicateSceneItemParams {
+	o.SceneItemId = &x
+	return o
+}
+func (o *DuplicateSceneItemParams) WithSceneName(x string) *DuplicateSceneItemParams {
+	o.SceneName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -21,8 +39,10 @@ func (o *DuplicateSceneItemParams) GetRequestName() string {
 
 // Represents the response body for the DuplicateSceneItem request.
 type DuplicateSceneItemResponse struct {
+	api.ResponseCommon
+
 	// Numeric ID of the duplicated scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId int `json:"sceneItemId,omitempty"`
 }
 
 /*

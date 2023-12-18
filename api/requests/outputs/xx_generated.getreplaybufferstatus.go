@@ -2,6 +2,8 @@
 
 package outputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetReplayBufferStatus request.
 type GetReplayBufferStatusParams struct{}
 
@@ -12,6 +14,8 @@ func (o *GetReplayBufferStatusParams) GetRequestName() string {
 
 // Represents the response body for the GetReplayBufferStatus request.
 type GetReplayBufferStatusResponse struct {
+	api.ResponseCommon
+
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 }

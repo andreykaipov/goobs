@@ -11,12 +11,13 @@ import (
 )
 
 type keyInfo struct {
-	Type      jen.Code
-	Comment   string
-	NoJSONTag bool
-	Embedded  bool
-	OmitEmpty bool
-	Field     Field
+	Type          jen.Code
+	Comment       string
+	NoJSONTag     bool
+	Embedded      bool
+	OmitEmpty     bool
+	Field         Field
+	ExposeBuilder bool
 }
 
 func parseJenKeysAsMap(lines map[string]keyInfo) (map[string]interface{}, error) {
@@ -97,6 +98,8 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 	// siblings with the original parent struct
 	anonymousStructs := []*jen.Statement{}
 
+	fieldToTypeBuilders := map[string]jen.Code{}
+
 	traverse = func(data interface{}, g *jen.Group, parent string) {
 		var idType jen.Code
 		id := pascal(parent)
@@ -162,6 +165,11 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 			panic("unhandled case idk")
 		}
 
+		// has to be outside the switch in case it's a nested struct
+		if info, ok := data.(keyInfo); ok && info.ExposeBuilder {
+			fieldToTypeBuilders[id] = idType
+		}
+
 		g.Id(id).Add(idType).Do(func(s *jen.Statement) {
 			if tag == "" {
 				return
@@ -175,7 +183,54 @@ func parseJenKeysAsStruct(name string, lines map[string]keyInfo) (*jen.Statement
 	for _, q := range anonymousStructs {
 		s.Line().Type().Add(q).Line()
 	}
+
+	if len(fieldToTypeBuilders) > 0 {
+		builders := generateBuilders(name, fieldToTypeBuilders)
+		s.Add(builders)
+	}
+
 	return s, nil
+}
+
+func generateBuilders(name string, fields map[string]jen.Code) *jen.Statement {
+	s := jen.Line()
+	s.Func().Id("New" + name).Params().Op("*").Id(name).BlockFunc(func(g *jen.Group) {
+		g.Return(jen.Op("&").Id(name).Values())
+	})
+	s.Line()
+
+	for _, key := range sortedKeys(fields) {
+		fType := fields[key]
+		fnName := fmt.Sprintf("With%s", pascal(key))
+
+		primitivePtr := false
+		fTypeStatement, ok := fType.(*jen.Statement)
+		if !ok {
+			panic("i'll eat my shorts if this is not a statement 🤔")
+		}
+
+		// avoid pointers to primitives in the param list for the builder
+		primitivePtr = false
+		params := jen.Id("x").Add(fType)
+		switch gostr := fTypeStatement.GoString(); gostr {
+		case "*string", "*int", "*int64", "*float64", "*bool":
+			primitivePtr = true
+			params = jen.Id("x").Id(strings.TrimPrefix(gostr, "*"))
+		}
+
+		s.Func().Params(jen.Id("o").Op("*").Id(name)).Id(fnName).Params(params).Op("*").Id(name).BlockFunc(func(g *jen.Group) {
+			rhs := jen.Id("x")
+			if primitivePtr {
+				rhs = jen.Op("&").Id("x")
+			}
+
+			g.Id("o").Dot(pascal(key)).Op("=").Add(rhs)
+			g.Return(jen.Id("o"))
+		})
+		s.Line()
+	}
+
+	return s
 }
 
 func pascal(text string) string {

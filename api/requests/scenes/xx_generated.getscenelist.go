@@ -2,7 +2,10 @@
 
 package scenes
 
-import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+import (
+	api "github.com/andreykaipov/goobs/api"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 // Represents the request body for the GetSceneList request.
 type GetSceneListParams struct{}
@@ -14,12 +17,15 @@ func (o *GetSceneListParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneList request.
 type GetSceneListResponse struct {
+	api.ResponseCommon
+
 	// Current preview scene. `null` if not in studio mode
 	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`
 
 	// Current program scene
 	CurrentProgramSceneName string `json:"currentProgramSceneName,omitempty"`
 
+	// Array of scenes
 	Scenes []*typedefs.Scene `json:"scenes,omitempty"`
 }
 

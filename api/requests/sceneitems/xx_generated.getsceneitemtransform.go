@@ -2,15 +2,30 @@
 
 package sceneitems
 
-import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+import (
+	api "github.com/andreykaipov/goobs/api"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 // Represents the request body for the GetSceneItemTransform request.
 type GetSceneItemTransformParams struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
+}
+
+func NewGetSceneItemTransformParams() *GetSceneItemTransformParams {
+	return &GetSceneItemTransformParams{}
+}
+func (o *GetSceneItemTransformParams) WithSceneItemId(x int) *GetSceneItemTransformParams {
+	o.SceneItemId = &x
+	return o
+}
+func (o *GetSceneItemTransformParams) WithSceneName(x string) *GetSceneItemTransformParams {
+	o.SceneName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -20,7 +35,9 @@ func (o *GetSceneItemTransformParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemTransform request.
 type GetSceneItemTransformResponse struct {
-	// Scene item transform info
+	api.ResponseCommon
+
+	// Object containing scene item transform info
 	SceneItemTransform *typedefs.SceneItemTransform `json:"sceneItemTransform,omitempty"`
 }
 

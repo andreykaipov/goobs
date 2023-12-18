@@ -2,6 +2,11 @@
 
 package outputs
 
+import (
+	api "github.com/andreykaipov/goobs/api"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
+
 // Represents the request body for the GetOutputList request.
 type GetOutputListParams struct{}
 
@@ -12,8 +17,10 @@ func (o *GetOutputListParams) GetRequestName() string {
 
 // Represents the response body for the GetOutputList request.
 type GetOutputListResponse struct {
+	api.ResponseCommon
+
 	// Array of outputs
-	Outputs []interface{} `json:"outputs,omitempty"`
+	Outputs []*typedefs.Output `json:"outputs,omitempty"`
 }
 
 // Gets the list of available outputs.

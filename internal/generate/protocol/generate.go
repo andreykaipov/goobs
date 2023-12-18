@@ -143,6 +143,11 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = name + "Response"
 	s.Commentf("Represents the response body for the %s request.", name).Line()
 
+	respf := &ResponseField{}
+	respf.ValueName = "ResponseCommon"
+	respf.ValueType = "~requests~" // internal type
+	request.ResponseFields = append(request.ResponseFields, respf)
+
 	if err := generateStructFromParams("response", s, structName, request.ResponseFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", name, category)
 	}
@@ -217,7 +222,7 @@ func generateEvents(events []*Event) {
 	f := NewFile("events")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 	f.Add(
-		Func().Id("GetType").Params(Id("name").String()).Interface().Block(
+		Func().Id("GetType").Params(Id("name").String()).Any().Block(
 			Switch(Id("name")).BlockFunc(func(g *Group) {
 				for _, e := range events {
 					g.Case(Lit(e.EventType))
@@ -340,45 +345,42 @@ func generateRequestStatuses(enums []*Enum, filter enumFilter) {
 	}
 }
 
-func generateStructFromParams(origin string, s *Statement, name string, fields interface{}) error {
-	var fs []Field
-
-	switch v := fields.(type) {
-	case []*DataField:
-		fs = make([]Field, len(v))
-		for i := range fs {
-			fs[i] = v[i]
-		}
-	case []*RequestField:
-		fs = make([]Field, len(v))
-		for i := range fs {
-			fs[i] = v[i]
-		}
-	case []*ResponseField:
-		fs = make([]Field, len(v))
-		for i := range fs {
-			fs[i] = v[i]
-		}
-	default:
-		panic("uh")
-	}
-
+func generateStructFromParams[F Field](origin string, s *Statement, name string, fields []F) error {
 	keysInfo := map[string]keyInfo{}
 
-	for _, f := range fs {
+	for _, f := range fields {
 		fvn := f.GetValueName()
 		fvt := f.GetValueType()
 		fvd := f.GetValueDescription()
+
+		// some fields document the type of the fields in the Object
+		// like keyModifiers.shift, but we handle these in our manually
+		// written typedefs
+		if strings.Contains(fvn, ".") {
+			fmt.Printf("generateStructFromParams for %s/%s: skipping %s\n", origin, name, fvn)
+			continue
+		}
+
 		embedded := false
 
 		var fieldType *Statement
 		switch fvt {
 		case "String":
-			fieldType = String()
-		case "Array<String>":
-			fieldType = Index().String()
+			switch origin {
+			case "request":
+				fieldType = Op("*").String()
+			default:
+				fieldType = String()
+			}
 		case "Number":
 			fieldType = Float64()
+			if strings.HasSuffix(fvn, "Id") || strings.HasSuffix(fvn, "Index") {
+				fieldType = Int()
+			}
+			switch origin {
+			case "request":
+				fieldType = Op("*").Add(fieldType)
+			}
 		case "Boolean":
 			switch origin {
 			case "request":
@@ -386,44 +388,32 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 			default:
 				fieldType = Bool()
 			}
+		case "Array<String>":
+			fieldType = Index().String()
+		case "Array<Number>":
+			fieldType = Index().Float64()
+		case "Array<Boolean>":
+			fieldType = Index().Bool()
 		case "Any":
-			fieldType = Interface()
+			fieldType = Any()
 		case "Object":
-			switch fvn {
-			case "inputSettings":
-				fallthrough
-			case "defaultInputSettings":
-				fallthrough
-			case "filterSettings":
-				fallthrough
-			case "defaultFilterSettings":
-				fallthrough
-			case "transitionSettings":
-				fieldType = Map(String()).Interface()
-			default:
-				fieldType = Interface()
-			}
+			fieldType = mapObject(origin, name, f)
 		case "Array<Object>":
-			switch fvn {
-			default:
-				fieldType = Index().Interface()
-			}
+			fieldType = mapArrayObject(origin, name, f)
+		case "~requests~":
+			fieldType = Qual(goobs+"/api", fvn)
+			embedded = true
 		default:
 			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, fvn, fvt))
 		}
 
-		if key, keyInfo := handleCommonObjects(origin, fvn, name); keyInfo != nil {
-			fmt.Printf("  > %-25s handled as (or part of) common struct %s\n", fvn, key)
-			keysInfo[key] = *keyInfo
-			continue
-		}
-
 		keysInfo[fvn] = keyInfo{
-			Type:      fieldType,
-			Comment:   fvd,
-			NoJSONTag: false,
-			Embedded:  embedded,
-			OmitEmpty: true,
+			Type:          fieldType,
+			Comment:       fvd,
+			NoJSONTag:     false,
+			Embedded:      embedded,
+			OmitEmpty:     true,
+			ExposeBuilder: origin == "request",
 		}
 	}
 
@@ -435,76 +425,4 @@ func generateStructFromParams(origin string, s *Statement, name string, fields i
 	s.Add(statement)
 
 	return nil
-}
-
-func handleCommonObjects(origin, fieldName, structName string) (string, *keyInfo) {
-	type nestedInfo struct {
-		Refer   string
-		Comment string
-		OnlyFor []string // additional requirement to allow us to use different types for the same key prefix
-	}
-
-	// key prefix to manually declared struct in typedefs package
-	lookup := map[string]nestedInfo{
-		"keyModifiers.":         {"KeyModifiers", "Key modifiers to apply", nil},
-		"streamServiceSettings": {"StreamServiceSettings", " ", nil},
-		"inputAudioTracks":      {"InputAudioTracks", "", nil},
-		"sceneItemTransform":    {"SceneItemTransform", "Scene item transform info", nil},
-		"monitors":              {"[]Monitor", "List of detected monitors", nil},
-		"scenes":                {"[]Scene", "", nil},
-		"sceneItems":            {"[]SceneItem", "", nil},
-		"inputs":                {"[]Input", "", nil},
-		"filters":               {"[]Filter", "", nil},
-		"transitions":           {"[]Transition", "", nil},
-		"propertyItems":         {"[]PropertyItem", "", nil},
-		// "settings.":             {"StreamSettings", " ", []string{"GetStreamSettings", "SetStreamSettings"}},
-		// "stream.settings.":      {"StreamSettings", " ", []string{}},
-	}
-
-	valid := func(i nestedInfo) bool {
-		if len(i.OnlyFor) == 0 {
-			return true
-		}
-
-		for _, v := range i.OnlyFor {
-			if strings.HasPrefix(structName, v) {
-				return true
-			}
-		}
-
-		return false
-	}
-
-	for k, info := range lookup {
-		if !valid(info) {
-			continue
-		}
-
-		if strings.HasPrefix(fieldName, k) {
-			k = strings.TrimSuffix(k, ".")
-
-			s := Null()
-			if strings.HasPrefix(info.Refer, "[]") {
-				s = Index()
-				info.Refer = strings.TrimPrefix(info.Refer, "[]")
-			}
-
-			s = s.Op("*").Qual(typedefQualifier(origin), info.Refer)
-
-			return k, &keyInfo{Type: s, Comment: info.Comment, OmitEmpty: true}
-		}
-	}
-
-	return "", nil
-}
-
-// If the origin of the generation is from a typedef, we don't actually need
-// a Qualifier. Saves us repeating this switch/case a bunch
-func typedefQualifier(origin string) string {
-	switch origin {
-	case "typedef":
-		return ""
-	default:
-		return goobs + "/api/typedefs"
-	}
 }

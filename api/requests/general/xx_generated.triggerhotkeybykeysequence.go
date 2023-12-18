@@ -2,15 +2,33 @@
 
 package general
 
-import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+import (
+	api "github.com/andreykaipov/goobs/api"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 // Represents the request body for the TriggerHotkeyByKeySequence request.
 type TriggerHotkeyByKeySequenceParams struct {
 	// The OBS key ID to use. See https://github.com/obsproject/obs-studio/blob/master/libobs/obs-hotkeys.h
-	KeyId string `json:"keyId,omitempty"`
+	KeyId *string `json:"keyId,omitempty"`
 
-	// Key modifiers to apply
+	// Object containing key modifiers to apply
 	KeyModifiers *typedefs.KeyModifiers `json:"keyModifiers,omitempty"`
+}
+
+func NewTriggerHotkeyByKeySequenceParams() *TriggerHotkeyByKeySequenceParams {
+	return &TriggerHotkeyByKeySequenceParams{}
+}
+func (o *TriggerHotkeyByKeySequenceParams) WithKeyId(x string) *TriggerHotkeyByKeySequenceParams {
+	o.KeyId = &x
+	return o
+}
+
+func (o *TriggerHotkeyByKeySequenceParams) WithKeyModifiers(
+	x *typedefs.KeyModifiers,
+) *TriggerHotkeyByKeySequenceParams {
+	o.KeyModifiers = x
+	return o
 }
 
 // Returns the associated request.
@@ -19,7 +37,9 @@ func (o *TriggerHotkeyByKeySequenceParams) GetRequestName() string {
 }
 
 // Represents the response body for the TriggerHotkeyByKeySequence request.
-type TriggerHotkeyByKeySequenceResponse struct{}
+type TriggerHotkeyByKeySequenceResponse struct {
+	api.ResponseCommon
+}
 
 // Triggers a hotkey using a sequence of keys.
 func (c *Client) TriggerHotkeyByKeySequence(

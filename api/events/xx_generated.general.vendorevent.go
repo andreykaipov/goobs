@@ -12,7 +12,7 @@ If a plugin or script implements vendor requests or events, documentation is exp
 */
 type VendorEvent struct {
 	// Vendor-provided event data. {} if event does not provide any data
-	EventData interface{} `json:"eventData,omitempty"`
+	EventData map[string]any `json:"eventData,omitempty"`
 
 	// Vendor-provided event typedef
 	EventType string `json:"eventType,omitempty"`

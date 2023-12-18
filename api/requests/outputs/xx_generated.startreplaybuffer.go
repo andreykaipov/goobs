@@ -2,6 +2,8 @@
 
 package outputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the StartReplayBuffer request.
 type StartReplayBufferParams struct{}
 
@@ -11,7 +13,9 @@ func (o *StartReplayBufferParams) GetRequestName() string {
 }
 
 // Represents the response body for the StartReplayBuffer request.
-type StartReplayBufferResponse struct{}
+type StartReplayBufferResponse struct {
+	api.ResponseCommon
+}
 
 // Starts the replay buffer output.
 func (c *Client) StartReplayBuffer(paramss ...*StartReplayBufferParams) (*StartReplayBufferResponse, error) {

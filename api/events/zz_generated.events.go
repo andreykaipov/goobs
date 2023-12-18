@@ -2,7 +2,7 @@
 
 package events
 
-func GetType(name string) interface{} {
+func GetType(name string) any {
 	switch name {
 	case "CurrentSceneCollectionChanging":
 		return &CurrentSceneCollectionChanging{}

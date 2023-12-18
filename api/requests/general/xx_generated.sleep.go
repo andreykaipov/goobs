@@ -2,13 +2,27 @@
 
 package general
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the Sleep request.
 type SleepParams struct {
 	// Number of frames to sleep for (if `SERIAL_FRAME` mode)
-	SleepFrames float64 `json:"sleepFrames,omitempty"`
+	SleepFrames *float64 `json:"sleepFrames,omitempty"`
 
 	// Number of milliseconds to sleep for (if `SERIAL_REALTIME` mode)
-	SleepMillis float64 `json:"sleepMillis,omitempty"`
+	SleepMillis *float64 `json:"sleepMillis,omitempty"`
+}
+
+func NewSleepParams() *SleepParams {
+	return &SleepParams{}
+}
+func (o *SleepParams) WithSleepFrames(x float64) *SleepParams {
+	o.SleepFrames = &x
+	return o
+}
+func (o *SleepParams) WithSleepMillis(x float64) *SleepParams {
+	o.SleepMillis = &x
+	return o
 }
 
 // Returns the associated request.
@@ -17,7 +31,9 @@ func (o *SleepParams) GetRequestName() string {
 }
 
 // Represents the response body for the Sleep request.
-type SleepResponse struct{}
+type SleepResponse struct {
+	api.ResponseCommon
+}
 
 // Sleeps for a time duration or number of frames. Only available in request batches with types `SERIAL_REALTIME` or
 // `SERIAL_FRAME`.

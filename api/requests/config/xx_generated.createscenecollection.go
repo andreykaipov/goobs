@@ -2,10 +2,20 @@
 
 package config
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the CreateSceneCollection request.
 type CreateSceneCollectionParams struct {
 	// Name for the new scene collection
-	SceneCollectionName string `json:"sceneCollectionName,omitempty"`
+	SceneCollectionName *string `json:"sceneCollectionName,omitempty"`
+}
+
+func NewCreateSceneCollectionParams() *CreateSceneCollectionParams {
+	return &CreateSceneCollectionParams{}
+}
+func (o *CreateSceneCollectionParams) WithSceneCollectionName(x string) *CreateSceneCollectionParams {
+	o.SceneCollectionName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -14,7 +24,9 @@ func (o *CreateSceneCollectionParams) GetRequestName() string {
 }
 
 // Represents the response body for the CreateSceneCollection request.
-type CreateSceneCollectionResponse struct{}
+type CreateSceneCollectionResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Creates a new scene collection, switching to it in the process.

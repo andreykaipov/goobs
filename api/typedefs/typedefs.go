@@ -6,23 +6,40 @@ type Input struct {
 	UnversionedInputKind string `json:"unversionedInputKind"`
 }
 
+type Output struct {
+	Name   string       `json:"outputName"`
+	Kind   string       `json:"outputKind"`
+	Width  int          `json:"outputWidth"`
+	Height int          `json:"outputHeight"`
+	Active bool         `json:"outputActive"`
+	Flags  *OutputFlags `json:"outputFlags"`
+}
+
+type OutputFlags struct {
+	Audio      bool `json:"OBS_OUTPUT_AUDIO"`
+	Video      bool `json:"OBS_OUTPUT_VIDEO"`
+	Encoded    bool `json:"OBS_OUTPUT_ENCODED"`
+	MultiTrack bool `json:"OBS_OUTPUT_MULTI_TRACK"`
+	Service    bool `json:"OBS_OUTPUT_SERVICE"`
+}
+
 type Scene struct {
 	SceneIndex int    `json:"sceneIndex"`
 	SceneName  string `json:"sceneName"`
 }
 
 type PropertyItem struct {
-	ItemName    string      `json:"itemName"`
-	ItemEnabled bool        `json:"itemEnabled"`
-	ItemValue   interface{} `json:"itemValue"`
+	ItemName    string `json:"itemName"`
+	ItemEnabled bool   `json:"itemEnabled"`
+	ItemValue   any    `json:"itemValue"`
 }
 
 type Filter struct {
-	FilterEnabled  bool                   `json:"filterEnabled"`
-	FilterIndex    int                    `json:"filterIndex"`
-	FilterKind     string                 `json:"filterKind"`
-	FilterName     string                 `json:"filterName"`
-	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
+	FilterEnabled  bool           `json:"filterEnabled"`
+	FilterIndex    int            `json:"filterIndex"`
+	FilterKind     string         `json:"filterKind"`
+	FilterName     string         `json:"filterName"`
+	FilterSettings map[string]any `json:"filterSettings,omitempty"`
 }
 
 type Transition struct {
@@ -91,4 +108,9 @@ type SceneItemTransform struct {
 	SourceHeight    float64 `json:"sourceHeight"`
 	SourceWidth     float64 `json:"sourceWidth"`
 	Width           float64 `json:"width"`
+}
+
+type InputVolumeMeter struct {
+	Name   string       `json:"inputName"`
+	Levels [][3]float64 `json:"inputLevelsMul"`
 }

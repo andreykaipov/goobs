@@ -1,6 +1,7 @@
 package goobs_test
 
 import (
+	"encoding/json"
 	"fmt"
 	"net"
 	"net/http"
@@ -48,6 +49,38 @@ func Test_client(t *testing.T) {
 		})
 		time.Sleep(1 * time.Second)
 	})
+}
+
+func Test_get_raw_response(t *testing.T) {
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
+	assert.NoError(t, err)
+	t.Cleanup(func() {
+		client.Disconnect()
+	})
+
+	resp, err := client.General.GetStats()
+	assert.NoError(t, err)
+
+	rawParsed := map[string]any{}
+	if err := json.Unmarshal(resp.GetRaw(), &rawParsed); err != nil {
+		panic(err)
+	}
+
+	assert.Equal(t, resp.ActiveFps, rawParsed["activeFps"])
+	assert.Equal(t, resp.AvailableDiskSpace, rawParsed["availableDiskSpace"])
+	assert.Equal(t, resp.AverageFrameRenderTime, rawParsed["averageFrameRenderTime"])
+	assert.Equal(t, resp.CpuUsage, rawParsed["cpuUsage"])
+	assert.Equal(t, resp.MemoryUsage, rawParsed["memoryUsage"])
+	assert.Equal(t, resp.OutputSkippedFrames, rawParsed["outputSkippedFrames"])
+	assert.Equal(t, resp.OutputTotalFrames, rawParsed["outputTotalFrames"])
+	assert.Equal(t, resp.RenderSkippedFrames, rawParsed["renderSkippedFrames"])
+	assert.Equal(t, resp.RenderTotalFrames, rawParsed["renderTotalFrames"])
+	assert.Equal(t, resp.WebSocketSessionIncomingMessages, rawParsed["webSocketSessionIncomingMessages"])
+	assert.Equal(t, resp.WebSocketSessionOutgoingMessages, rawParsed["webSocketSessionOutgoingMessages"])
 }
 
 func Test_multi_goroutine(t *testing.T) {

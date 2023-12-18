@@ -10,6 +10,7 @@ Represents the event body for the SceneItemListReindexed event.
 A scene's item list has been reindexed.
 */
 type SceneItemListReindexed struct {
+	// Array of scene item objects
 	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
 
 	// Name of the scene

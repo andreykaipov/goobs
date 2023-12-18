@@ -13,6 +13,18 @@ import (
 
 type Params interface{ GetRequestName() string }
 
+type RawMessage []byte
+
+type ResponseCommon struct{ raw json.RawMessage }
+
+func (o *ResponseCommon) setRaw(raw json.RawMessage) { o.raw = raw }
+func (o *ResponseCommon) GetRaw() json.RawMessage    { return o.raw }
+
+type Response interface {
+	setRaw(json.RawMessage)
+	GetRaw() json.RawMessage
+}
+
 // Client represents a requests client to the OBS websocket server. Its
 // intention is to provide a means of communication between the top-level client
 // and the category-level clients, so while its fields are exported, they should
@@ -21,7 +33,7 @@ type Client struct {
 	// The time we're willing to wait to receive a response from the server.
 	ResponseTimeout time.Duration
 
-	IncomingEvents    chan interface{}
+	IncomingEvents    chan any
 	IncomingResponses chan *opcodes.RequestResponse
 	Opcodes           chan opcodes.Opcode
 	Log               Logger
@@ -47,7 +59,7 @@ type Client struct {
 // It should be noted multiple connections to the server are totally fine.
 // Phrased differently, mesasge IDs are unique per client. Moreover, events will
 // be broadcast to every client.
-func (c *Client) SendRequest(requestBody Params, responseBody interface{}) error {
+func (c *Client) SendRequest(requestBody Params, responseBody Response) error {
 	uid, err := uuid.NewV4()
 	if err != nil {
 		return err
@@ -113,6 +125,8 @@ func (c *Client) SendRequest(requestBody Params, responseBody interface{}) error
 	if data == nil {
 		data = []byte("{}")
 	}
+
+	responseBody.setRaw(data)
 
 	if err := json.Unmarshal(data, responseBody); err != nil {
 		return fmt.Errorf(

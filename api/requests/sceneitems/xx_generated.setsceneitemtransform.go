@@ -2,18 +2,40 @@
 
 package sceneitems
 
-import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+import (
+	api "github.com/andreykaipov/goobs/api"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 // Represents the request body for the SetSceneItemTransform request.
 type SetSceneItemTransformParams struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
-	// Scene item transform info
+	// Object containing scene item transform info to update
 	SceneItemTransform *typedefs.SceneItemTransform `json:"sceneItemTransform,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
+}
+
+func NewSetSceneItemTransformParams() *SetSceneItemTransformParams {
+	return &SetSceneItemTransformParams{}
+}
+func (o *SetSceneItemTransformParams) WithSceneItemId(x int) *SetSceneItemTransformParams {
+	o.SceneItemId = &x
+	return o
+}
+
+func (o *SetSceneItemTransformParams) WithSceneItemTransform(
+	x *typedefs.SceneItemTransform,
+) *SetSceneItemTransformParams {
+	o.SceneItemTransform = x
+	return o
+}
+func (o *SetSceneItemTransformParams) WithSceneName(x string) *SetSceneItemTransformParams {
+	o.SceneName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -22,7 +44,9 @@ func (o *SetSceneItemTransformParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSceneItemTransform request.
-type SetSceneItemTransformResponse struct{}
+type SetSceneItemTransformResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the transform and crop info of a scene item.
 func (c *Client) SetSceneItemTransform(params *SetSceneItemTransformParams) (*SetSceneItemTransformResponse, error) {

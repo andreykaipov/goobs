@@ -2,10 +2,20 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetInputVolume request.
 type GetInputVolumeParams struct {
 	// Name of the input to get the volume of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
+}
+
+func NewGetInputVolumeParams() *GetInputVolumeParams {
+	return &GetInputVolumeParams{}
+}
+func (o *GetInputVolumeParams) WithInputName(x string) *GetInputVolumeParams {
+	o.InputName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -15,6 +25,8 @@ func (o *GetInputVolumeParams) GetRequestName() string {
 
 // Represents the response body for the GetInputVolume request.
 type GetInputVolumeResponse struct {
+	api.ResponseCommon
+
 	// Volume setting in dB
 	InputVolumeDb float64 `json:"inputVolumeDb,omitempty"`
 

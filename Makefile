@@ -13,7 +13,7 @@ test: test.unit test.functional
 test.unit:
 	cd internal; go test -v -count 1 ./...
 test.functional:
-	./test.sh
+	./script/test.sh
 
 generate: generate.protocol generate.tests
 	$(MAKE) format

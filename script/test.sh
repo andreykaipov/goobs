@@ -10,7 +10,7 @@ setup() {
         if [ "$obs" = running ]; then
                 echo "Main OBS container is already running"
         else
-                docker run --rm --detach --name obs -e vnc=1 -p 5900:5900 -p 4455:1234 ghcr.io/andreykaipov/goobs
+                docker run --rm --detach --name obs -e vnc=1 -p 5900:5900 -p 4455:1234 ghcr.io/andreykaipov/goobs:latest
                 sleep 3
         fi
 
@@ -18,8 +18,8 @@ setup() {
         # a clean OBS docker instance each time
 
         echo "Spinning up OBS instances for 'record' and 'stream' tests"
-        docker run --rm --detach --name obs-record -p 4456:1234 ghcr.io/andreykaipov/goobs
-        docker run --rm --detach --name obs-stream -p 4457:1234 ghcr.io/andreykaipov/goobs
+        docker run --rm --detach --name obs-record -p 4456:1234 ghcr.io/andreykaipov/goobs:latest
+        docker run --rm --detach --name obs-stream -p 4457:1234 ghcr.io/andreykaipov/goobs:latest
 
         covermode=count
         echo "mode: $covermode" >coverall.out

@@ -276,7 +276,7 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 					// this seems to only happen with highly concurrent clients reading from
 					// the websocket server simultaneously. but even then it's not really an
 					// issue, because the connection is already closed!
-					c.Log.Printf("[DEBUG] Tried to read from closed connection")
+					c.Log.Printf("[ERROR] Tried to read from closed connection")
 					return
 				default:
 					select {

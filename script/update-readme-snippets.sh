@@ -44,7 +44,7 @@ main() {
         printf '```go\n%s\n```' "$content" | replace_markdown README.md snippet-1
 
         content=$(cd _examples/basic && go run main.go)
-        printf '```console\n%s\n```' "❯ go run _examples/basic/main.go\n" "$content" | replace_markdown README.md snippet-2
+        printf '```console\n%s\n```' "❯ go run _examples/basic/main.go\n$content" | replace_markdown README.md snippet-2
 }
 
 main "$@"

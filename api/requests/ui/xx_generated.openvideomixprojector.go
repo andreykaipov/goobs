@@ -2,6 +2,8 @@
 
 package ui
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the OpenVideoMixProjector request.
 type OpenVideoMixProjectorParams struct {
 	// Monitor index, use `GetMonitorList` to obtain index
@@ -36,7 +38,9 @@ func (o *OpenVideoMixProjectorParams) GetRequestName() string {
 }
 
 // Represents the response body for the OpenVideoMixProjector request.
-type OpenVideoMixProjectorResponse struct{}
+type OpenVideoMixProjectorResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Opens a projector for a specific output video mix.

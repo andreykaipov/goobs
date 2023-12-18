@@ -2,6 +2,8 @@
 
 package ui
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the OpenInputInteractDialog request.
 type OpenInputInteractDialogParams struct {
 	// Name of the input to open the dialog of
@@ -22,7 +24,9 @@ func (o *OpenInputInteractDialogParams) GetRequestName() string {
 }
 
 // Represents the response body for the OpenInputInteractDialog request.
-type OpenInputInteractDialogResponse struct{}
+type OpenInputInteractDialogResponse struct {
+	api.ResponseCommon
+}
 
 // Opens the interact dialog of an input.
 func (c *Client) OpenInputInteractDialog(

@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the RemoveSceneItem request.
 type RemoveSceneItemParams struct {
 	// Numeric ID of the scene item
@@ -29,7 +31,9 @@ func (o *RemoveSceneItemParams) GetRequestName() string {
 }
 
 // Represents the response body for the RemoveSceneItem request.
-type RemoveSceneItemResponse struct{}
+type RemoveSceneItemResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Removes a scene item from a scene.

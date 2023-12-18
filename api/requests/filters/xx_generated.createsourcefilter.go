@@ -2,6 +2,8 @@
 
 package filters
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the CreateSourceFilter request.
 type CreateSourceFilterParams struct {
 	// The kind of filter to be created
@@ -11,7 +13,7 @@ type CreateSourceFilterParams struct {
 	FilterName *string `json:"filterName,omitempty"`
 
 	// Settings object to initialize the filter with
-	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
+	FilterSettings map[string]any `json:"filterSettings,omitempty"`
 
 	// Name of the source to add the filter to
 	SourceName *string `json:"sourceName,omitempty"`
@@ -28,7 +30,7 @@ func (o *CreateSourceFilterParams) WithFilterName(x string) *CreateSourceFilterP
 	o.FilterName = &x
 	return o
 }
-func (o *CreateSourceFilterParams) WithFilterSettings(x map[string]interface{}) *CreateSourceFilterParams {
+func (o *CreateSourceFilterParams) WithFilterSettings(x map[string]any) *CreateSourceFilterParams {
 	o.FilterSettings = x
 	return o
 }
@@ -43,7 +45,9 @@ func (o *CreateSourceFilterParams) GetRequestName() string {
 }
 
 // Represents the response body for the CreateSourceFilter request.
-type CreateSourceFilterResponse struct{}
+type CreateSourceFilterResponse struct {
+	api.ResponseCommon
+}
 
 // Creates a new filter, adding it to the specified source.
 func (c *Client) CreateSourceFilter(params *CreateSourceFilterParams) (*CreateSourceFilterResponse, error) {

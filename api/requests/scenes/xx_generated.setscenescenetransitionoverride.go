@@ -2,6 +2,8 @@
 
 package scenes
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSceneSceneTransitionOverride request.
 type SetSceneSceneTransitionOverrideParams struct {
 	// Name of the scene
@@ -39,7 +41,9 @@ func (o *SetSceneSceneTransitionOverrideParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSceneSceneTransitionOverride request.
-type SetSceneSceneTransitionOverrideResponse struct{}
+type SetSceneSceneTransitionOverrideResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the scene transition overridden for a scene.
 func (c *Client) SetSceneSceneTransitionOverride(

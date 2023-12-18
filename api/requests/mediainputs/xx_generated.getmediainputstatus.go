@@ -2,6 +2,8 @@
 
 package mediainputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetMediaInputStatus request.
 type GetMediaInputStatusParams struct {
 	// Name of the media input
@@ -23,6 +25,8 @@ func (o *GetMediaInputStatusParams) GetRequestName() string {
 
 // Represents the response body for the GetMediaInputStatus request.
 type GetMediaInputStatusResponse struct {
+	api.ResponseCommon
+
 	// Position of the cursor in milliseconds. `null` if not playing
 	MediaCursor float64 `json:"mediaCursor,omitempty"`
 

@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSceneItemBlendMode request.
 type SetSceneItemBlendModeParams struct {
 	// New blend mode
@@ -36,7 +38,9 @@ func (o *SetSceneItemBlendModeParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSceneItemBlendMode request.
-type SetSceneItemBlendModeResponse struct{}
+type SetSceneItemBlendModeResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Sets the blend mode of a scene item.

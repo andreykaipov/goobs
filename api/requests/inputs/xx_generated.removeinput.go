@@ -2,6 +2,8 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the RemoveInput request.
 type RemoveInputParams struct {
 	// Name of the input to remove
@@ -22,7 +24,9 @@ func (o *RemoveInputParams) GetRequestName() string {
 }
 
 // Represents the response body for the RemoveInput request.
-type RemoveInputResponse struct{}
+type RemoveInputResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Removes an existing input.

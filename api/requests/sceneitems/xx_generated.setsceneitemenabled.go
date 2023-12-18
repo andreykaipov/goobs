@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSceneItemEnabled request.
 type SetSceneItemEnabledParams struct {
 	// New enable state of the scene item
@@ -36,7 +38,9 @@ func (o *SetSceneItemEnabledParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSceneItemEnabled request.
-type SetSceneItemEnabledResponse struct{}
+type SetSceneItemEnabledResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Sets the enable state of a scene item.

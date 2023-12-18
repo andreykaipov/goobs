@@ -27,7 +27,7 @@ setup() {
 
 gotest() {
         category="$1"
-        go test -v -run="^Test_$category$" -coverprofile=cover.out -coverpkg=./... -covermode=$covermode ./...
+        go test -v -run="^Test_$category$" -count 1 -coverprofile=cover.out -coverpkg=./... -covermode=$covermode ./...
         awk 'NR>1' cover.out >>coverall.out
 }
 
@@ -42,6 +42,7 @@ main() {
         categories='
                 client
                 multi_goroutine
+                profile
                 config
                 filters
                 general

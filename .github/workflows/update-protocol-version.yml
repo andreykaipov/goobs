@@ -1,0 +1,50 @@
+name: Update OBS websocket protocol version
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  update:
+    name: update protocol version
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: tibdex/github-app-token@v2
+      id: generate-token
+      with:
+        app_id: ${{ secrets.CATHY_CLOUD_APP_ID }}
+        private_key: ${{ secrets.CATHY_CLOUD_APP_PRIVATE_KEY }}
+
+    - uses: magnetikonline/action-golang-cache@v4
+      with:
+        go-version-file: go.mod
+
+    - name: update version
+      id: update
+      env:
+        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+      run: |
+        ./script/bump-protocol-version.sh
+        version=$(grep obs_websocket_protocol_version version.go | tr -dc '0-9.')
+        message="Bump OBS websocket protocol to $version"
+        echo "message=$message" >>$GITHUB_OUTPUT
+
+    - name: create pr
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ steps.generate-token.outputs.token }}
+        title: ${{ steps.update.outputs.message }}
+        commit-message: ${{ steps.update.outputs.message }}
+        branch: feature/bump-protocol-version
+        delete-branch: true
+        labels: |
+          feature
+        reviewers: |
+          andreykaipov
+        body: |
+          There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
+
+          This PR may or may not contain any actual changes to the generated code.

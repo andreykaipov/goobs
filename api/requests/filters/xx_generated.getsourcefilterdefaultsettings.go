@@ -2,6 +2,8 @@
 
 package filters
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetSourceFilterDefaultSettings request.
 type GetSourceFilterDefaultSettingsParams struct {
 	// Filter kind to get the default settings for
@@ -23,8 +25,10 @@ func (o *GetSourceFilterDefaultSettingsParams) GetRequestName() string {
 
 // Represents the response body for the GetSourceFilterDefaultSettings request.
 type GetSourceFilterDefaultSettingsResponse struct {
+	api.ResponseCommon
+
 	// Object of default settings for the filter kind
-	DefaultFilterSettings map[string]interface{} `json:"defaultFilterSettings,omitempty"`
+	DefaultFilterSettings map[string]any `json:"defaultFilterSettings,omitempty"`
 }
 
 // Gets the default settings for a filter kind.

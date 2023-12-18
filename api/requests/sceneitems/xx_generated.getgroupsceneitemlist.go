@@ -2,7 +2,10 @@
 
 package sceneitems
 
-import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+import (
+	api "github.com/andreykaipov/goobs/api"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 // Represents the request body for the GetGroupSceneItemList request.
 type GetGroupSceneItemListParams struct {
@@ -25,7 +28,9 @@ func (o *GetGroupSceneItemListParams) GetRequestName() string {
 
 // Represents the response body for the GetGroupSceneItemList request.
 type GetGroupSceneItemListResponse struct {
-	// Array of scene items in the group
+	api.ResponseCommon
+
+  // Array of scene items in the group
 	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
 }
 

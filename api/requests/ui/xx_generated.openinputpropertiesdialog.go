@@ -2,6 +2,8 @@
 
 package ui
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the OpenInputPropertiesDialog request.
 type OpenInputPropertiesDialogParams struct {
 	// Name of the input to open the dialog of
@@ -22,7 +24,9 @@ func (o *OpenInputPropertiesDialogParams) GetRequestName() string {
 }
 
 // Represents the response body for the OpenInputPropertiesDialog request.
-type OpenInputPropertiesDialogResponse struct{}
+type OpenInputPropertiesDialogResponse struct {
+	api.ResponseCommon
+}
 
 // Opens the properties dialog of an input.
 func (c *Client) OpenInputPropertiesDialog(

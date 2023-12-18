@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetSceneItemEnabled request.
 type GetSceneItemEnabledParams struct {
 	// Numeric ID of the scene item
@@ -30,6 +32,8 @@ func (o *GetSceneItemEnabledParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemEnabled request.
 type GetSceneItemEnabledResponse struct {
+	api.ResponseCommon
+
 	// Whether the scene item is enabled. `true` for enabled, `false` for disabled
 	SceneItemEnabled bool `json:"sceneItemEnabled,omitempty"`
 }

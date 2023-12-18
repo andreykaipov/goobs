@@ -1,0 +1,68 @@
+---
+name-template: v$RESOLVED_VERSION 🌈
+tag-template: v$RESOLVED_VERSION
+tag-prefix: v
+
+autolabeler:
+- label: chore
+  files:
+  - '*.md'
+  - 'docker/*'
+  - '*.sh'
+  - Makefile
+  branch:
+  - /chore\/.+/
+  - /ci\/.+/
+  - /docs?\/.+/
+- label: bug
+  branch:
+  - /fix\/.+/
+  title:
+  - /fix/i
+- label: feature
+  branch:
+  - /feature\/.+/
+  files:
+  - version.go
+
+categories:
+- title: 🚨 Breaking Changes
+  labels:
+  - breaking
+- title: 🚀 Features
+  labels:
+  - enhancement
+  - feature
+- title: 🐛 Bug Fixes
+  labels:
+  - bug
+  - fix
+- title: 🔧 Maintenance
+  labels:
+  - chore
+  - documentation
+- title: 🤖 Dependencies
+  labels:
+  - dependencies
+
+version-resolver:
+  major:
+    labels:
+    - breaking
+  minor:
+    labels:
+    - enhancement
+    - feature
+  patch:
+    labels:
+    - bug
+    - chore
+    - dependencies
+    - documentation
+    - fix
+  default: patch
+
+template: |
+  ## Changes
+
+  $CHANGES

@@ -2,6 +2,8 @@
 
 package config
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetVideoSettings request.
 type SetVideoSettingsParams struct {
 	// Height of the base (canvas) resolution in pixels
@@ -57,7 +59,9 @@ func (o *SetVideoSettingsParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetVideoSettings request.
-type SetVideoSettingsResponse struct{}
+type SetVideoSettingsResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Sets the current video settings.

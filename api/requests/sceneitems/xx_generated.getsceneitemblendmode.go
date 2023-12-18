@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetSceneItemBlendMode request.
 type GetSceneItemBlendModeParams struct {
 	// Numeric ID of the scene item
@@ -30,6 +32,8 @@ func (o *GetSceneItemBlendModeParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemBlendMode request.
 type GetSceneItemBlendModeResponse struct {
+	api.ResponseCommon
+
 	// Current blend mode
 	SceneItemBlendMode string `json:"sceneItemBlendMode,omitempty"`
 }

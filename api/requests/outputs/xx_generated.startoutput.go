@@ -2,6 +2,8 @@
 
 package outputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the StartOutput request.
 type StartOutputParams struct {
 	// Output name
@@ -22,7 +24,9 @@ func (o *StartOutputParams) GetRequestName() string {
 }
 
 // Represents the response body for the StartOutput request.
-type StartOutputResponse struct{}
+type StartOutputResponse struct {
+	api.ResponseCommon
+}
 
 // Starts an output.
 func (c *Client) StartOutput(params *StartOutputParams) (*StartOutputResponse, error) {

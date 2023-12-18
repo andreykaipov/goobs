@@ -2,6 +2,8 @@
 
 package config
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the CreateProfile request.
 type CreateProfileParams struct {
 	// Name for the new profile
@@ -22,7 +24,9 @@ func (o *CreateProfileParams) GetRequestName() string {
 }
 
 // Represents the response body for the CreateProfile request.
-type CreateProfileResponse struct{}
+type CreateProfileResponse struct {
+	api.ResponseCommon
+}
 
 // Creates a new profile, switching to it in the process
 func (c *Client) CreateProfile(params *CreateProfileParams) (*CreateProfileResponse, error) {

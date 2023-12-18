@@ -2,13 +2,15 @@
 
 package filters
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSourceFilterSettings request.
 type SetSourceFilterSettingsParams struct {
 	// Name of the filter to set the settings of
 	FilterName *string `json:"filterName,omitempty"`
 
 	// Object of settings to apply
-	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
+	FilterSettings map[string]any `json:"filterSettings,omitempty"`
 
 	// True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply
 	// settings.
@@ -25,7 +27,8 @@ func (o *SetSourceFilterSettingsParams) WithFilterName(x string) *SetSourceFilte
 	o.FilterName = &x
 	return o
 }
-func (o *SetSourceFilterSettingsParams) WithFilterSettings(x map[string]interface{}) *SetSourceFilterSettingsParams {
+
+func (o *SetSourceFilterSettingsParams) WithFilterSettings(x map[string]any) *SetSourceFilterSettingsParams {
 	o.FilterSettings = x
 	return o
 }
@@ -44,7 +47,9 @@ func (o *SetSourceFilterSettingsParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSourceFilterSettings request.
-type SetSourceFilterSettingsResponse struct{}
+type SetSourceFilterSettingsResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the settings of a source filter.
 func (c *Client) SetSourceFilterSettings(

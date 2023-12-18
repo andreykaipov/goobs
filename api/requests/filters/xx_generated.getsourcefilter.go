@@ -2,6 +2,8 @@
 
 package filters
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetSourceFilter request.
 type GetSourceFilterParams struct {
 	// Name of the filter
@@ -30,6 +32,8 @@ func (o *GetSourceFilterParams) GetRequestName() string {
 
 // Represents the response body for the GetSourceFilter request.
 type GetSourceFilterResponse struct {
+	api.ResponseCommon
+
 	// Whether the filter is enabled
 	FilterEnabled bool `json:"filterEnabled,omitempty"`
 
@@ -40,7 +44,7 @@ type GetSourceFilterResponse struct {
 	FilterKind string `json:"filterKind,omitempty"`
 
 	// Settings object associated with the filter
-	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
+	FilterSettings map[string]any `json:"filterSettings,omitempty"`
 }
 
 // Gets the info for a specific source filter.

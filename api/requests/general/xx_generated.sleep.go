@@ -2,6 +2,8 @@
 
 package general
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the Sleep request.
 type SleepParams struct {
 	// Number of frames to sleep for (if `SERIAL_FRAME` mode)
@@ -29,7 +31,9 @@ func (o *SleepParams) GetRequestName() string {
 }
 
 // Represents the response body for the Sleep request.
-type SleepResponse struct{}
+type SleepResponse struct {
+	api.ResponseCommon
+}
 
 // Sleeps for a time duration or number of frames. Only available in request batches with types `SERIAL_REALTIME` or
 // `SERIAL_FRAME`.

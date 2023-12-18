@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the DuplicateSceneItem request.
 type DuplicateSceneItemParams struct {
 	// Name of the scene to create the duplicated item in
@@ -37,6 +39,8 @@ func (o *DuplicateSceneItemParams) GetRequestName() string {
 
 // Represents the response body for the DuplicateSceneItem request.
 type DuplicateSceneItemResponse struct {
+	api.ResponseCommon
+
 	// Numeric ID of the duplicated scene item
 	SceneItemId int `json:"sceneItemId,omitempty"`
 }

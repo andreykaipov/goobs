@@ -89,7 +89,7 @@ func ParseRawMessage(raw json.RawMessage) (Opcode, error) {
 // (e.g. we receive a message from server, process it, send back).
 //
 // Also see https://stackoverflow.com/q/33903552/4085283.
-func marshal(v interface{}) []byte {
+func marshal(v any) []byte {
 	b, err := json.Marshal(v)
 	if err != nil {
 		panic(fmt.Errorf("marshalling %#v: %w", v, err))
@@ -141,9 +141,9 @@ type Event struct {
 // client -> server
 // https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#request-opcode-6
 type Request struct {
-	Type string      `json:"requestType"`
-	ID   string      `json:"requestId"`
-	Data interface{} `json:"requestData,omitempty"`
+	Type string `json:"requestType"`
+	ID   string `json:"requestId"`
+	Data any    `json:"requestData,omitempty"`
 }
 
 // server -> client

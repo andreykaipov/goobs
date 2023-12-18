@@ -2,6 +2,8 @@
 
 package ui
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the OpenSourceProjector request.
 type OpenSourceProjectorParams struct {
 	// Monitor index, use `GetMonitorList` to obtain index
@@ -36,7 +38,9 @@ func (o *OpenSourceProjectorParams) GetRequestName() string {
 }
 
 // Represents the response body for the OpenSourceProjector request.
-type OpenSourceProjectorResponse struct{}
+type OpenSourceProjectorResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Opens a projector for a source.

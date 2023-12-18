@@ -2,6 +2,8 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetInputVolume request.
 type SetInputVolumeParams struct {
 	// Name of the input to set the volume of
@@ -36,7 +38,9 @@ func (o *SetInputVolumeParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetInputVolume request.
-type SetInputVolumeResponse struct{}
+type SetInputVolumeResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the volume setting of an input.
 func (c *Client) SetInputVolume(params *SetInputVolumeParams) (*SetInputVolumeResponse, error) {

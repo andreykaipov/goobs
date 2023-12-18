@@ -2,6 +2,8 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetSceneItemLocked request.
 type GetSceneItemLockedParams struct {
 	// Numeric ID of the scene item
@@ -30,6 +32,8 @@ func (o *GetSceneItemLockedParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemLocked request.
 type GetSceneItemLockedResponse struct {
+	api.ResponseCommon
+
 	// Whether the scene item is locked. `true` for locked, `false` for unlocked
 	SceneItemLocked bool `json:"sceneItemLocked,omitempty"`
 }

@@ -2,6 +2,8 @@
 
 package config
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetCurrentSceneCollection request.
 type SetCurrentSceneCollectionParams struct {
 	// Name of the scene collection to switch to
@@ -22,7 +24,9 @@ func (o *SetCurrentSceneCollectionParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetCurrentSceneCollection request.
-type SetCurrentSceneCollectionResponse struct{}
+type SetCurrentSceneCollectionResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Switches to a scene collection.

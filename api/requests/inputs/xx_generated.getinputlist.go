@@ -2,7 +2,10 @@
 
 package inputs
 
-import typedefs "github.com/andreykaipov/goobs/api/typedefs"
+import (
+	api "github.com/andreykaipov/goobs/api"
+	typedefs "github.com/andreykaipov/goobs/api/typedefs"
+)
 
 // Represents the request body for the GetInputList request.
 type GetInputListParams struct {
@@ -25,6 +28,8 @@ func (o *GetInputListParams) GetRequestName() string {
 
 // Represents the response body for the GetInputList request.
 type GetInputListResponse struct {
+	api.ResponseCommon
+
 	// Array of inputs
 	Inputs []*typedefs.Input `json:"inputs,omitempty"`
 }

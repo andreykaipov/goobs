@@ -2,6 +2,8 @@
 
 package outputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the StopVirtualCam request.
 type StopVirtualCamParams struct{}
 
@@ -11,7 +13,9 @@ func (o *StopVirtualCamParams) GetRequestName() string {
 }
 
 // Represents the response body for the StopVirtualCam request.
-type StopVirtualCamResponse struct{}
+type StopVirtualCamResponse struct {
+	api.ResponseCommon
+}
 
 // Stops the virtualcam output.
 func (c *Client) StopVirtualCam(paramss ...*StopVirtualCamParams) (*StopVirtualCamResponse, error) {

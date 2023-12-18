@@ -2,6 +2,8 @@
 
 package config
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetPersistentData request.
 type GetPersistentDataParams struct {
 	// The data realm to select. `OBS_WEBSOCKET_DATA_REALM_GLOBAL` or `OBS_WEBSOCKET_DATA_REALM_PROFILE`
@@ -30,8 +32,10 @@ func (o *GetPersistentDataParams) GetRequestName() string {
 
 // Represents the response body for the GetPersistentData request.
 type GetPersistentDataResponse struct {
+	api.ResponseCommon
+
 	// Value associated with the slot. `null` if not set
-	SlotValue interface{} `json:"slotValue,omitempty"`
+	SlotValue any `json:"slotValue,omitempty"`
 }
 
 // Gets the value of a "slot" from the selected persistent data realm.

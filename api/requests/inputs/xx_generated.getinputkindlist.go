@@ -2,6 +2,8 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetInputKindList request.
 type GetInputKindListParams struct {
 	// True == Return all kinds as unversioned, False == Return with version suffixes (if available)
@@ -23,6 +25,8 @@ func (o *GetInputKindListParams) GetRequestName() string {
 
 // Represents the response body for the GetInputKindList request.
 type GetInputKindListResponse struct {
+	api.ResponseCommon
+
 	// Array of input kinds
 	InputKinds []string `json:"inputKinds,omitempty"`
 }

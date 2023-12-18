@@ -2,6 +2,8 @@
 
 package outputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the StopOutput request.
 type StopOutputParams struct {
 	// Output name
@@ -22,7 +24,9 @@ func (o *StopOutputParams) GetRequestName() string {
 }
 
 // Represents the response body for the StopOutput request.
-type StopOutputResponse struct{}
+type StopOutputResponse struct {
+	api.ResponseCommon
+}
 
 // Stops an output.
 func (c *Client) StopOutput(params *StopOutputParams) (*StopOutputResponse, error) {

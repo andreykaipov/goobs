@@ -2,6 +2,8 @@
 
 package mediainputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the TriggerMediaInputAction request.
 type TriggerMediaInputActionParams struct {
 	// Name of the media input
@@ -29,7 +31,9 @@ func (o *TriggerMediaInputActionParams) GetRequestName() string {
 }
 
 // Represents the response body for the TriggerMediaInputAction request.
-type TriggerMediaInputActionResponse struct{}
+type TriggerMediaInputActionResponse struct {
+	api.ResponseCommon
+}
 
 // Triggers an action on a media input.
 func (c *Client) TriggerMediaInputAction(

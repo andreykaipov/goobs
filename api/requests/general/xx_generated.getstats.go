@@ -2,6 +2,8 @@
 
 package general
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetStats request.
 type GetStatsParams struct{}
 
@@ -12,6 +14,8 @@ func (o *GetStatsParams) GetRequestName() string {
 
 // Represents the response body for the GetStats request.
 type GetStatsResponse struct {
+	api.ResponseCommon
+
 	// Current FPS being rendered
 	ActiveFps float64 `json:"activeFps,omitempty"`
 

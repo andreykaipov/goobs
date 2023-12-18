@@ -2,6 +2,8 @@
 
 package scenes
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSceneName request.
 type SetSceneNameParams struct {
 	// New name for the scene
@@ -29,7 +31,9 @@ func (o *SetSceneNameParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSceneName request.
-type SetSceneNameResponse struct{}
+type SetSceneNameResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the name of a scene (rename).
 func (c *Client) SetSceneName(params *SetSceneNameParams) (*SetSceneNameResponse, error) {

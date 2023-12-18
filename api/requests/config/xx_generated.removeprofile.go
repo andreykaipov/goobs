@@ -2,6 +2,8 @@
 
 package config
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the RemoveProfile request.
 type RemoveProfileParams struct {
 	// Name of the profile to remove
@@ -22,7 +24,9 @@ func (o *RemoveProfileParams) GetRequestName() string {
 }
 
 // Represents the response body for the RemoveProfile request.
-type RemoveProfileResponse struct{}
+type RemoveProfileResponse struct {
+	api.ResponseCommon
+}
 
 // Removes a profile. If the current profile is chosen, it will change to a different profile first.
 func (c *Client) RemoveProfile(params *RemoveProfileParams) (*RemoveProfileResponse, error) {

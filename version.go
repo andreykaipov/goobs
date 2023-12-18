@@ -1,6 +1,6 @@
 package goobs
 
 const (
-	goobs_version                  = "0.13.0"
-	obs_websocket_protocol_version = "5.3.4"
+	goobs_version                  = "0.12.1"
+	obs_websocket_protocol_version = "5.1.0"
 )

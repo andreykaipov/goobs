@@ -2,6 +2,8 @@
 
 package filters
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the RemoveSourceFilter request.
 type RemoveSourceFilterParams struct {
 	// Name of the filter to remove
@@ -29,7 +31,9 @@ func (o *RemoveSourceFilterParams) GetRequestName() string {
 }
 
 // Represents the response body for the RemoveSourceFilter request.
-type RemoveSourceFilterResponse struct{}
+type RemoveSourceFilterResponse struct {
+	api.ResponseCommon
+}
 
 // Removes a filter from a source.
 func (c *Client) RemoveSourceFilter(params *RemoveSourceFilterParams) (*RemoveSourceFilterResponse, error) {

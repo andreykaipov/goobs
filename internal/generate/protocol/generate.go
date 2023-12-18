@@ -143,6 +143,11 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = name + "Response"
 	s.Commentf("Represents the response body for the %s request.", name).Line()
 
+	respf := &ResponseField{}
+	respf.ValueName = "ResponseCommon"
+	respf.ValueType = "~requests~" // internal type
+	request.ResponseFields = append(request.ResponseFields, respf)
+
 	if err := generateStructFromParams("response", s, structName, request.ResponseFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", name, category)
 	}
@@ -217,7 +222,7 @@ func generateEvents(events []*Event) {
 	f := NewFile("events")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 	f.Add(
-		Func().Id("GetType").Params(Id("name").String()).Interface().Block(
+		Func().Id("GetType").Params(Id("name").String()).Any().Block(
 			Switch(Id("name")).BlockFunc(func(g *Group) {
 				for _, e := range events {
 					g.Case(Lit(e.EventType))
@@ -356,6 +361,8 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 			continue
 		}
 
+		embedded := false
+
 		var fieldType *Statement
 		switch fvt {
 		case "String":
@@ -388,11 +395,14 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 		case "Array<Boolean>":
 			fieldType = Index().Bool()
 		case "Any":
-			fieldType = Interface()
+			fieldType = Any()
 		case "Object":
 			fieldType = mapObject(origin, name, f)
 		case "Array<Object>":
 			fieldType = mapArrayObject(origin, name, f)
+		case "~requests~":
+			fieldType = Qual(goobs+"/api", fvn)
+			embedded = true
 		default:
 			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, fvn, fvt))
 		}
@@ -401,7 +411,7 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 			Type:          fieldType,
 			Comment:       fvd,
 			NoJSONTag:     false,
-			Embedded:      false,
+			Embedded:      embedded,
 			OmitEmpty:     true,
 			ExposeBuilder: origin == "request",
 		}
@@ -415,69 +425,4 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 	s.Add(statement)
 
 	return nil
-}
-
-var typedefs = goobs + "/api/typedefs"
-
-func mapObject(origin, name string, field Field) *Statement {
-	fvn := field.GetValueName()
-
-	switch fvn {
-	case "inputAudioTracks":
-		return Op("*").Qual(typedefs, "InputAudioTracks")
-	case "streamServiceSettings":
-		return Op("*").Qual(typedefs, "StreamServiceSettings")
-	case "sceneItemTransform":
-		return Op("*").Qual(typedefs, "SceneItemTransform")
-	case "keyModifiers":
-		return Op("*").Qual(typedefs, "KeyModifiers")
-
-	// too many settings for individual inputs, filters, outputs, etc.
-	// makes sense to just use map[string]any
-	case "outputSettings":
-		fallthrough
-	case "inputSettings", "defaultInputSettings":
-		fallthrough
-	case "filterSettings", "defaultFilterSettings":
-		fallthrough
-	case "transitionSettings":
-		return Map(String()).Interface()
-
-	// from CallVendorRequest* and VendorEvent, CustomEvent
-	// the data here can be anything
-	case "requestData", "responseData", "eventData":
-		return Map(String()).Interface()
-
-	default:
-		fmt.Printf("!! unhandled Object type for field %s from %s:%s\n", fvn, origin, name)
-		return Map(String()).Interface()
-	}
-}
-
-func mapArrayObject(origin, name string, field Field) *Statement {
-	fvn := field.GetValueName()
-
-	switch {
-	case fvn == "filters":
-		return Index().Op("*").Qual(typedefs, "Filter")
-	case fvn == "inputs" && origin == "event" && name == "InputVolumeMeters":
-		return Index().Op("*").Qual(typedefs, "InputVolumeMeter")
-	case fvn == "inputs":
-		return Index().Op("*").Qual(typedefs, "Input")
-	case fvn == "outputs":
-		return Index().Op("*").Qual(typedefs, "Output")
-	case fvn == "sceneItems":
-		return Index().Op("*").Qual(typedefs, "SceneItem")
-	case fvn == "scenes":
-		return Index().Op("*").Qual(typedefs, "Scene")
-	case fvn == "propertyItems":
-		return Index().Op("*").Qual(typedefs, "PropertyItem")
-	case fvn == "transitions":
-		return Index().Op("*").Qual(typedefs, "Transition")
-	case fvn == "monitors":
-		return Index().Op("*").Qual(typedefs, "Monitor")
-	default:
-		fmt.Printf("!! unhandled Array<Object> type for field %s from %s:%s\n", fvn, origin, name)
-		return Index().Map(String()).Interface()
-	}
 }

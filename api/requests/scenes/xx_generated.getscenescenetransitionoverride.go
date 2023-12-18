@@ -2,6 +2,8 @@
 
 package scenes
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetSceneSceneTransitionOverride request.
 type GetSceneSceneTransitionOverrideParams struct {
 	// Name of the scene
@@ -23,6 +25,8 @@ func (o *GetSceneSceneTransitionOverrideParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneSceneTransitionOverride request.
 type GetSceneSceneTransitionOverrideResponse struct {
+	api.ResponseCommon
+
 	// Duration of the overridden scene transition, else `null`
 	TransitionDuration float64 `json:"transitionDuration,omitempty"`
 

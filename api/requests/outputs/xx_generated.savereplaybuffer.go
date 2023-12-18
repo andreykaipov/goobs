@@ -2,6 +2,8 @@
 
 package outputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SaveReplayBuffer request.
 type SaveReplayBufferParams struct{}
 
@@ -11,7 +13,9 @@ func (o *SaveReplayBufferParams) GetRequestName() string {
 }
 
 // Represents the response body for the SaveReplayBuffer request.
-type SaveReplayBufferResponse struct{}
+type SaveReplayBufferResponse struct {
+	api.ResponseCommon
+}
 
 // Saves the contents of the replay buffer output.
 func (c *Client) SaveReplayBuffer(paramss ...*SaveReplayBufferParams) (*SaveReplayBufferResponse, error) {

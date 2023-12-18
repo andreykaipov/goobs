@@ -2,6 +2,8 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the CreateInput request.
 type CreateInputParams struct {
 	// The kind of input to be created
@@ -11,7 +13,7 @@ type CreateInputParams struct {
 	InputName *string `json:"inputName,omitempty"`
 
 	// Settings object to initialize the input with
-	InputSettings map[string]interface{} `json:"inputSettings,omitempty"`
+	InputSettings map[string]any `json:"inputSettings,omitempty"`
 
 	// Whether to set the created scene item to enabled or disabled
 	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
@@ -31,7 +33,7 @@ func (o *CreateInputParams) WithInputName(x string) *CreateInputParams {
 	o.InputName = &x
 	return o
 }
-func (o *CreateInputParams) WithInputSettings(x map[string]interface{}) *CreateInputParams {
+func (o *CreateInputParams) WithInputSettings(x map[string]any) *CreateInputParams {
 	o.InputSettings = x
 	return o
 }
@@ -51,6 +53,8 @@ func (o *CreateInputParams) GetRequestName() string {
 
 // Represents the response body for the CreateInput request.
 type CreateInputResponse struct {
+	api.ResponseCommon
+
 	// ID of the newly created scene item
 	SceneItemId int `json:"sceneItemId,omitempty"`
 }

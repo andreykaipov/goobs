@@ -2,6 +2,8 @@
 
 package filters
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSourceFilterEnabled request.
 type SetSourceFilterEnabledParams struct {
 	// New enable state of the filter
@@ -36,7 +38,9 @@ func (o *SetSourceFilterEnabledParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSourceFilterEnabled request.
-type SetSourceFilterEnabledResponse struct{}
+type SetSourceFilterEnabledResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the enable state of a source filter.
 func (c *Client) SetSourceFilterEnabled(params *SetSourceFilterEnabledParams) (*SetSourceFilterEnabledResponse, error) {

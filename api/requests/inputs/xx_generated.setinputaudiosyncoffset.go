@@ -2,6 +2,8 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetInputAudioSyncOffset request.
 type SetInputAudioSyncOffsetParams struct {
 	// New audio sync offset in milliseconds
@@ -29,7 +31,9 @@ func (o *SetInputAudioSyncOffsetParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetInputAudioSyncOffset request.
-type SetInputAudioSyncOffsetResponse struct{}
+type SetInputAudioSyncOffsetResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the audio sync offset of an input.
 func (c *Client) SetInputAudioSyncOffset(

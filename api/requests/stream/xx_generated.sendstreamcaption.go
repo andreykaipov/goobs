@@ -2,6 +2,8 @@
 
 package stream
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SendStreamCaption request.
 type SendStreamCaptionParams struct {
 	// Caption text
@@ -22,7 +24,9 @@ func (o *SendStreamCaptionParams) GetRequestName() string {
 }
 
 // Represents the response body for the SendStreamCaption request.
-type SendStreamCaptionResponse struct{}
+type SendStreamCaptionResponse struct {
+	api.ResponseCommon
+}
 
 // Sends CEA-608 caption text over the stream output.
 func (c *Client) SendStreamCaption(params *SendStreamCaptionParams) (*SendStreamCaptionResponse, error) {

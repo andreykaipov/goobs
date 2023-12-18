@@ -143,6 +143,11 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = name + "Response"
 	s.Commentf("Represents the response body for the %s request.", name).Line()
 
+	respf := &ResponseField{}
+	respf.ValueName = "ResponseCommon"
+	respf.ValueType = "~requests~" // internal type
+	request.ResponseFields = append(request.ResponseFields, respf)
+
 	if err := generateStructFromParams("response", s, structName, request.ResponseFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", name, category)
 	}
@@ -356,6 +361,8 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 			continue
 		}
 
+		embedded := false
+
 		var fieldType *Statement
 		switch fvt {
 		case "String":
@@ -393,6 +400,9 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 			fieldType = mapObject(origin, name, f)
 		case "Array<Object>":
 			fieldType = mapArrayObject(origin, name, f)
+		case "~requests~":
+			fieldType = Qual(goobs+"/api", fvn)
+			embedded = true
 		default:
 			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, fvn, fvt))
 		}
@@ -401,7 +411,7 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 			Type:          fieldType,
 			Comment:       fvd,
 			NoJSONTag:     false,
-			Embedded:      false,
+			Embedded:      embedded,
 			OmitEmpty:     true,
 			ExposeBuilder: origin == "request",
 		}

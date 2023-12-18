@@ -2,6 +2,8 @@
 
 package config
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetProfileList request.
 type GetProfileListParams struct{}
 
@@ -12,6 +14,8 @@ func (o *GetProfileListParams) GetRequestName() string {
 
 // Represents the response body for the GetProfileList request.
 type GetProfileListResponse struct {
+	api.ResponseCommon
+
 	// The name of the current profile
 	CurrentProfileName string `json:"currentProfileName,omitempty"`
 

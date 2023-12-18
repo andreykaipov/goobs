@@ -2,16 +2,34 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSceneItemBlendMode request.
 type SetSceneItemBlendModeParams struct {
 	// New blend mode
-	SceneItemBlendMode string `json:"sceneItemBlendMode,omitempty"`
+	SceneItemBlendMode *string `json:"sceneItemBlendMode,omitempty"`
 
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
+}
+
+func NewSetSceneItemBlendModeParams() *SetSceneItemBlendModeParams {
+	return &SetSceneItemBlendModeParams{}
+}
+func (o *SetSceneItemBlendModeParams) WithSceneItemBlendMode(x string) *SetSceneItemBlendModeParams {
+	o.SceneItemBlendMode = &x
+	return o
+}
+func (o *SetSceneItemBlendModeParams) WithSceneItemId(x int) *SetSceneItemBlendModeParams {
+	o.SceneItemId = &x
+	return o
+}
+func (o *SetSceneItemBlendModeParams) WithSceneName(x string) *SetSceneItemBlendModeParams {
+	o.SceneName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -20,7 +38,9 @@ func (o *SetSceneItemBlendModeParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSceneItemBlendMode request.
-type SetSceneItemBlendModeResponse struct{}
+type SetSceneItemBlendModeResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Sets the blend mode of a scene item.

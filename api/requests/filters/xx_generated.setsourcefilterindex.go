@@ -2,16 +2,34 @@
 
 package filters
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSourceFilterIndex request.
 type SetSourceFilterIndexParams struct {
 	// New index position of the filter
-	FilterIndex float64 `json:"filterIndex,omitempty"`
+	FilterIndex *int `json:"filterIndex,omitempty"`
 
 	// Name of the filter
-	FilterName string `json:"filterName,omitempty"`
+	FilterName *string `json:"filterName,omitempty"`
 
 	// Name of the source the filter is on
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
+}
+
+func NewSetSourceFilterIndexParams() *SetSourceFilterIndexParams {
+	return &SetSourceFilterIndexParams{}
+}
+func (o *SetSourceFilterIndexParams) WithFilterIndex(x int) *SetSourceFilterIndexParams {
+	o.FilterIndex = &x
+	return o
+}
+func (o *SetSourceFilterIndexParams) WithFilterName(x string) *SetSourceFilterIndexParams {
+	o.FilterName = &x
+	return o
+}
+func (o *SetSourceFilterIndexParams) WithSourceName(x string) *SetSourceFilterIndexParams {
+	o.SourceName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -20,7 +38,9 @@ func (o *SetSourceFilterIndexParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSourceFilterIndex request.
-type SetSourceFilterIndexResponse struct{}
+type SetSourceFilterIndexResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the index position of a filter on a source.
 func (c *Client) SetSourceFilterIndex(params *SetSourceFilterIndexParams) (*SetSourceFilterIndexResponse, error) {

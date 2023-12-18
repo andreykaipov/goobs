@@ -2,10 +2,20 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetInputAudioMonitorType request.
 type GetInputAudioMonitorTypeParams struct {
 	// Name of the input to get the audio monitor type of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
+}
+
+func NewGetInputAudioMonitorTypeParams() *GetInputAudioMonitorTypeParams {
+	return &GetInputAudioMonitorTypeParams{}
+}
+func (o *GetInputAudioMonitorTypeParams) WithInputName(x string) *GetInputAudioMonitorTypeParams {
+	o.InputName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -15,6 +25,8 @@ func (o *GetInputAudioMonitorTypeParams) GetRequestName() string {
 
 // Represents the response body for the GetInputAudioMonitorType request.
 type GetInputAudioMonitorTypeResponse struct {
+	api.ResponseCommon
+
 	// Audio monitor type
 	MonitorType string `json:"monitorType,omitempty"`
 }

@@ -2,16 +2,34 @@
 
 package general
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the CallVendorRequest request.
 type CallVendorRequestParams struct {
 	// Object containing appropriate request data
-	RequestData interface{} `json:"requestData,omitempty"`
+	RequestData map[string]any `json:"requestData,omitempty"`
 
 	// The request type to call
-	RequestType string `json:"requestType,omitempty"`
+	RequestType *string `json:"requestType,omitempty"`
 
 	// Name of the vendor to use
-	VendorName string `json:"vendorName,omitempty"`
+	VendorName *string `json:"vendorName,omitempty"`
+}
+
+func NewCallVendorRequestParams() *CallVendorRequestParams {
+	return &CallVendorRequestParams{}
+}
+func (o *CallVendorRequestParams) WithRequestData(x map[string]any) *CallVendorRequestParams {
+	o.RequestData = x
+	return o
+}
+func (o *CallVendorRequestParams) WithRequestType(x string) *CallVendorRequestParams {
+	o.RequestType = &x
+	return o
+}
+func (o *CallVendorRequestParams) WithVendorName(x string) *CallVendorRequestParams {
+	o.VendorName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -21,11 +39,13 @@ func (o *CallVendorRequestParams) GetRequestName() string {
 
 // Represents the response body for the CallVendorRequest request.
 type CallVendorRequestResponse struct {
+	api.ResponseCommon
+
 	// Echoed of `requestType`
 	RequestType string `json:"requestType,omitempty"`
 
 	// Object containing appropriate response data. {} if request does not provide any response data
-	ResponseData interface{} `json:"responseData,omitempty"`
+	ResponseData map[string]any `json:"responseData,omitempty"`
 
 	// Echoed of `vendorName`
 	VendorName string `json:"vendorName,omitempty"`

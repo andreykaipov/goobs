@@ -2,10 +2,20 @@
 
 package ui
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the OpenInputInteractDialog request.
 type OpenInputInteractDialogParams struct {
 	// Name of the input to open the dialog of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
+}
+
+func NewOpenInputInteractDialogParams() *OpenInputInteractDialogParams {
+	return &OpenInputInteractDialogParams{}
+}
+func (o *OpenInputInteractDialogParams) WithInputName(x string) *OpenInputInteractDialogParams {
+	o.InputName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -14,7 +24,9 @@ func (o *OpenInputInteractDialogParams) GetRequestName() string {
 }
 
 // Represents the response body for the OpenInputInteractDialog request.
-type OpenInputInteractDialogResponse struct{}
+type OpenInputInteractDialogResponse struct {
+	api.ResponseCommon
+}
 
 // Opens the interact dialog of an input.
 func (c *Client) OpenInputInteractDialog(

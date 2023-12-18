@@ -2,6 +2,8 @@
 
 package scenes
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetCurrentPreviewScene request.
 type GetCurrentPreviewSceneParams struct{}
 
@@ -12,6 +14,8 @@ func (o *GetCurrentPreviewSceneParams) GetRequestName() string {
 
 // Represents the response body for the GetCurrentPreviewScene request.
 type GetCurrentPreviewSceneResponse struct {
+	api.ResponseCommon
+
 	// Current preview scene
 	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`
 }

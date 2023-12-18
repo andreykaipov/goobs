@@ -9,5 +9,5 @@ Custom event emitted by `BroadcastCustomEvent`.
 */
 type CustomEvent struct {
 	// Custom event data
-	EventData interface{} `json:"eventData,omitempty"`
+	EventData map[string]any `json:"eventData,omitempty"`
 }

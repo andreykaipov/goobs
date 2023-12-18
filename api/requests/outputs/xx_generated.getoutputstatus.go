@@ -2,10 +2,20 @@
 
 package outputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetOutputStatus request.
 type GetOutputStatusParams struct {
 	// Output name
-	OutputName string `json:"outputName,omitempty"`
+	OutputName *string `json:"outputName,omitempty"`
+}
+
+func NewGetOutputStatusParams() *GetOutputStatusParams {
+	return &GetOutputStatusParams{}
+}
+func (o *GetOutputStatusParams) WithOutputName(x string) *GetOutputStatusParams {
+	o.OutputName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -15,6 +25,8 @@ func (o *GetOutputStatusParams) GetRequestName() string {
 
 // Represents the response body for the GetOutputStatus request.
 type GetOutputStatusResponse struct {
+	api.ResponseCommon
+
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`
 

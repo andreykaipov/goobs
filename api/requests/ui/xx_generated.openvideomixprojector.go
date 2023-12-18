@@ -2,16 +2,34 @@
 
 package ui
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the OpenVideoMixProjector request.
 type OpenVideoMixProjectorParams struct {
 	// Monitor index, use `GetMonitorList` to obtain index
-	MonitorIndex float64 `json:"monitorIndex,omitempty"`
+	MonitorIndex *int `json:"monitorIndex,omitempty"`
 
 	// Size/Position data for a windowed projector, in Qt Base64 encoded format. Mutually exclusive with `monitorIndex`
-	ProjectorGeometry string `json:"projectorGeometry,omitempty"`
+	ProjectorGeometry *string `json:"projectorGeometry,omitempty"`
 
 	// Type of mix to open
-	VideoMixType string `json:"videoMixType,omitempty"`
+	VideoMixType *string `json:"videoMixType,omitempty"`
+}
+
+func NewOpenVideoMixProjectorParams() *OpenVideoMixProjectorParams {
+	return &OpenVideoMixProjectorParams{}
+}
+func (o *OpenVideoMixProjectorParams) WithMonitorIndex(x int) *OpenVideoMixProjectorParams {
+	o.MonitorIndex = &x
+	return o
+}
+func (o *OpenVideoMixProjectorParams) WithProjectorGeometry(x string) *OpenVideoMixProjectorParams {
+	o.ProjectorGeometry = &x
+	return o
+}
+func (o *OpenVideoMixProjectorParams) WithVideoMixType(x string) *OpenVideoMixProjectorParams {
+	o.VideoMixType = &x
+	return o
 }
 
 // Returns the associated request.
@@ -20,7 +38,9 @@ func (o *OpenVideoMixProjectorParams) GetRequestName() string {
 }
 
 // Represents the response body for the OpenVideoMixProjector request.
-type OpenVideoMixProjectorResponse struct{}
+type OpenVideoMixProjectorResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Opens a projector for a specific output video mix.

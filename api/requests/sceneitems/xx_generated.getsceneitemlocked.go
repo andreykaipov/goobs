@@ -2,13 +2,27 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetSceneItemLocked request.
 type GetSceneItemLockedParams struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
+}
+
+func NewGetSceneItemLockedParams() *GetSceneItemLockedParams {
+	return &GetSceneItemLockedParams{}
+}
+func (o *GetSceneItemLockedParams) WithSceneItemId(x int) *GetSceneItemLockedParams {
+	o.SceneItemId = &x
+	return o
+}
+func (o *GetSceneItemLockedParams) WithSceneName(x string) *GetSceneItemLockedParams {
+	o.SceneName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -18,6 +32,8 @@ func (o *GetSceneItemLockedParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemLocked request.
 type GetSceneItemLockedResponse struct {
+	api.ResponseCommon
+
 	// Whether the scene item is locked. `true` for locked, `false` for unlocked
 	SceneItemLocked bool `json:"sceneItemLocked,omitempty"`
 }

@@ -2,10 +2,20 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the ToggleInputMute request.
 type ToggleInputMuteParams struct {
 	// Name of the input to toggle the mute state of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
+}
+
+func NewToggleInputMuteParams() *ToggleInputMuteParams {
+	return &ToggleInputMuteParams{}
+}
+func (o *ToggleInputMuteParams) WithInputName(x string) *ToggleInputMuteParams {
+	o.InputName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -15,6 +25,8 @@ func (o *ToggleInputMuteParams) GetRequestName() string {
 
 // Represents the response body for the ToggleInputMute request.
 type ToggleInputMuteResponse struct {
+	api.ResponseCommon
+
 	// Whether the input has been muted or unmuted
 	InputMuted bool `json:"inputMuted,omitempty"`
 }

@@ -2,16 +2,34 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetSceneItemId request.
 type GetSceneItemIdParams struct {
 	// Name of the scene or group to search in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 
 	// Number of matches to skip during search. >= 0 means first forward. -1 means last (top) item
-	SearchOffset float64 `json:"searchOffset,omitempty"`
+	SearchOffset *float64 `json:"searchOffset,omitempty"`
 
 	// Name of the source to find
-	SourceName string `json:"sourceName,omitempty"`
+	SourceName *string `json:"sourceName,omitempty"`
+}
+
+func NewGetSceneItemIdParams() *GetSceneItemIdParams {
+	return &GetSceneItemIdParams{}
+}
+func (o *GetSceneItemIdParams) WithSceneName(x string) *GetSceneItemIdParams {
+	o.SceneName = &x
+	return o
+}
+func (o *GetSceneItemIdParams) WithSearchOffset(x float64) *GetSceneItemIdParams {
+	o.SearchOffset = &x
+	return o
+}
+func (o *GetSceneItemIdParams) WithSourceName(x string) *GetSceneItemIdParams {
+	o.SourceName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -21,8 +39,10 @@ func (o *GetSceneItemIdParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemId request.
 type GetSceneItemIdResponse struct {
+	api.ResponseCommon
+
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId int `json:"sceneItemId,omitempty"`
 }
 
 /*

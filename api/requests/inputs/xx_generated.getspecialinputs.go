@@ -2,6 +2,8 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetSpecialInputs request.
 type GetSpecialInputsParams struct{}
 
@@ -12,6 +14,8 @@ func (o *GetSpecialInputsParams) GetRequestName() string {
 
 // Represents the response body for the GetSpecialInputs request.
 type GetSpecialInputsResponse struct {
+	api.ResponseCommon
+
 	// Name of the Desktop Audio input
 	Desktop1 string `json:"desktop1,omitempty"`
 

@@ -2,10 +2,20 @@
 
 package config
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetCurrentSceneCollection request.
 type SetCurrentSceneCollectionParams struct {
 	// Name of the scene collection to switch to
-	SceneCollectionName string `json:"sceneCollectionName,omitempty"`
+	SceneCollectionName *string `json:"sceneCollectionName,omitempty"`
+}
+
+func NewSetCurrentSceneCollectionParams() *SetCurrentSceneCollectionParams {
+	return &SetCurrentSceneCollectionParams{}
+}
+func (o *SetCurrentSceneCollectionParams) WithSceneCollectionName(x string) *SetCurrentSceneCollectionParams {
+	o.SceneCollectionName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -14,7 +24,9 @@ func (o *SetCurrentSceneCollectionParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetCurrentSceneCollection request.
-type SetCurrentSceneCollectionResponse struct{}
+type SetCurrentSceneCollectionResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Switches to a scene collection.

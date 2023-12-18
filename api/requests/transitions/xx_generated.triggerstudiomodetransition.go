@@ -2,6 +2,8 @@
 
 package transitions
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the TriggerStudioModeTransition request.
 type TriggerStudioModeTransitionParams struct{}
 
@@ -11,7 +13,9 @@ func (o *TriggerStudioModeTransitionParams) GetRequestName() string {
 }
 
 // Represents the response body for the TriggerStudioModeTransition request.
-type TriggerStudioModeTransitionResponse struct{}
+type TriggerStudioModeTransitionResponse struct {
+	api.ResponseCommon
+}
 
 // Triggers the current scene transition. Same functionality as the `Transition` button in studio mode.
 func (c *Client) TriggerStudioModeTransition(

@@ -2,10 +2,20 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetInputAudioSyncOffset request.
 type GetInputAudioSyncOffsetParams struct {
 	// Name of the input to get the audio sync offset of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
+}
+
+func NewGetInputAudioSyncOffsetParams() *GetInputAudioSyncOffsetParams {
+	return &GetInputAudioSyncOffsetParams{}
+}
+func (o *GetInputAudioSyncOffsetParams) WithInputName(x string) *GetInputAudioSyncOffsetParams {
+	o.InputName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -15,6 +25,8 @@ func (o *GetInputAudioSyncOffsetParams) GetRequestName() string {
 
 // Represents the response body for the GetInputAudioSyncOffset request.
 type GetInputAudioSyncOffsetResponse struct {
+	api.ResponseCommon
+
 	// Audio sync offset in milliseconds
 	InputAudioSyncOffset float64 `json:"inputAudioSyncOffset,omitempty"`
 }

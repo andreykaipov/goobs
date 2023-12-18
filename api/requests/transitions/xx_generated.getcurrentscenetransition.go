@@ -2,6 +2,8 @@
 
 package transitions
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetCurrentSceneTransition request.
 type GetCurrentSceneTransitionParams struct{}
 
@@ -12,6 +14,8 @@ func (o *GetCurrentSceneTransitionParams) GetRequestName() string {
 
 // Represents the response body for the GetCurrentSceneTransition request.
 type GetCurrentSceneTransitionResponse struct {
+	api.ResponseCommon
+
 	// Whether the transition supports being configured
 	TransitionConfigurable bool `json:"transitionConfigurable,omitempty"`
 
@@ -28,7 +32,7 @@ type GetCurrentSceneTransitionResponse struct {
 	TransitionName string `json:"transitionName,omitempty"`
 
 	// Object of settings for the transition. `null` if transition is not configurable
-	TransitionSettings map[string]interface{} `json:"transitionSettings,omitempty"`
+	TransitionSettings map[string]any `json:"transitionSettings,omitempty"`
 }
 
 // Gets information about the current scene transition.

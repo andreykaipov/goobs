@@ -2,6 +2,8 @@
 
 package record
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the PauseRecord request.
 type PauseRecordParams struct{}
 
@@ -11,7 +13,9 @@ func (o *PauseRecordParams) GetRequestName() string {
 }
 
 // Represents the response body for the PauseRecord request.
-type PauseRecordResponse struct{}
+type PauseRecordResponse struct {
+	api.ResponseCommon
+}
 
 // Pauses the record output.
 func (c *Client) PauseRecord(paramss ...*PauseRecordParams) (*PauseRecordResponse, error) {

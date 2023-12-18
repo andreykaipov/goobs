@@ -11,7 +11,7 @@ This event is not emitted when the scene the item is in is removed.
 */
 type SceneItemRemoved struct {
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item was removed from
 	SceneName string `json:"sceneName,omitempty"`

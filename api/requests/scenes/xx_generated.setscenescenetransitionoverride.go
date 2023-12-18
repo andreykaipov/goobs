@@ -2,16 +2,37 @@
 
 package scenes
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSceneSceneTransitionOverride request.
 type SetSceneSceneTransitionOverrideParams struct {
 	// Name of the scene
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
 
 	// Duration to use for any overridden transition. Specify `null` to remove
-	TransitionDuration float64 `json:"transitionDuration,omitempty"`
+	TransitionDuration *float64 `json:"transitionDuration,omitempty"`
 
 	// Name of the scene transition to use as override. Specify `null` to remove
-	TransitionName string `json:"transitionName,omitempty"`
+	TransitionName *string `json:"transitionName,omitempty"`
+}
+
+func NewSetSceneSceneTransitionOverrideParams() *SetSceneSceneTransitionOverrideParams {
+	return &SetSceneSceneTransitionOverrideParams{}
+}
+func (o *SetSceneSceneTransitionOverrideParams) WithSceneName(x string) *SetSceneSceneTransitionOverrideParams {
+	o.SceneName = &x
+	return o
+}
+
+func (o *SetSceneSceneTransitionOverrideParams) WithTransitionDuration(
+	x float64,
+) *SetSceneSceneTransitionOverrideParams {
+	o.TransitionDuration = &x
+	return o
+}
+func (o *SetSceneSceneTransitionOverrideParams) WithTransitionName(x string) *SetSceneSceneTransitionOverrideParams {
+	o.TransitionName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -20,7 +41,9 @@ func (o *SetSceneSceneTransitionOverrideParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSceneSceneTransitionOverride request.
-type SetSceneSceneTransitionOverrideResponse struct{}
+type SetSceneSceneTransitionOverrideResponse struct {
+	api.ResponseCommon
+}
 
 // Gets the scene transition overridden for a scene.
 func (c *Client) SetSceneSceneTransitionOverride(

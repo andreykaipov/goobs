@@ -2,10 +2,20 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the GetInputDefaultSettings request.
 type GetInputDefaultSettingsParams struct {
 	// Input kind to get the default settings for
-	InputKind string `json:"inputKind,omitempty"`
+	InputKind *string `json:"inputKind,omitempty"`
+}
+
+func NewGetInputDefaultSettingsParams() *GetInputDefaultSettingsParams {
+	return &GetInputDefaultSettingsParams{}
+}
+func (o *GetInputDefaultSettingsParams) WithInputKind(x string) *GetInputDefaultSettingsParams {
+	o.InputKind = &x
+	return o
 }
 
 // Returns the associated request.
@@ -15,8 +25,10 @@ func (o *GetInputDefaultSettingsParams) GetRequestName() string {
 
 // Represents the response body for the GetInputDefaultSettings request.
 type GetInputDefaultSettingsResponse struct {
+	api.ResponseCommon
+
 	// Object of default settings for the input kind
-	DefaultInputSettings map[string]interface{} `json:"defaultInputSettings,omitempty"`
+	DefaultInputSettings map[string]any `json:"defaultInputSettings,omitempty"`
 }
 
 // Gets the default settings for an input kind.

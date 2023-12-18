@@ -2,13 +2,27 @@
 
 package scenes
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSceneName request.
 type SetSceneNameParams struct {
 	// New name for the scene
-	NewSceneName string `json:"newSceneName,omitempty"`
+	NewSceneName *string `json:"newSceneName,omitempty"`
 
 	// Name of the scene to be renamed
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
+}
+
+func NewSetSceneNameParams() *SetSceneNameParams {
+	return &SetSceneNameParams{}
+}
+func (o *SetSceneNameParams) WithNewSceneName(x string) *SetSceneNameParams {
+	o.NewSceneName = &x
+	return o
+}
+func (o *SetSceneNameParams) WithSceneName(x string) *SetSceneNameParams {
+	o.SceneName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -17,7 +31,9 @@ func (o *SetSceneNameParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSceneName request.
-type SetSceneNameResponse struct{}
+type SetSceneNameResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the name of a scene (rename).
 func (c *Client) SetSceneName(params *SetSceneNameParams) (*SetSceneNameResponse, error) {

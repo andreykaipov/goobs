@@ -9,10 +9,10 @@ A filter has been added to a source.
 */
 type SourceFilterCreated struct {
 	// The default settings for the filter
-	DefaultFilterSettings map[string]interface{} `json:"defaultFilterSettings,omitempty"`
+	DefaultFilterSettings map[string]any `json:"defaultFilterSettings,omitempty"`
 
 	// Index position of the filter
-	FilterIndex float64 `json:"filterIndex,omitempty"`
+	FilterIndex int `json:"filterIndex,omitempty"`
 
 	// The kind of the filter
 	FilterKind string `json:"filterKind,omitempty"`
@@ -21,7 +21,7 @@ type SourceFilterCreated struct {
 	FilterName string `json:"filterName,omitempty"`
 
 	// The settings configured to the filter when it was created
-	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
+	FilterSettings map[string]any `json:"filterSettings,omitempty"`
 
 	// Name of the source the filter was added to
 	SourceName string `json:"sourceName,omitempty"`

@@ -2,16 +2,34 @@
 
 package sceneitems
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetSceneItemEnabled request.
 type SetSceneItemEnabledParams struct {
 	// New enable state of the scene item
 	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
 
 	// Numeric ID of the scene item
-	SceneItemId float64 `json:"sceneItemId,omitempty"`
+	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
-	SceneName string `json:"sceneName,omitempty"`
+	SceneName *string `json:"sceneName,omitempty"`
+}
+
+func NewSetSceneItemEnabledParams() *SetSceneItemEnabledParams {
+	return &SetSceneItemEnabledParams{}
+}
+func (o *SetSceneItemEnabledParams) WithSceneItemEnabled(x bool) *SetSceneItemEnabledParams {
+	o.SceneItemEnabled = &x
+	return o
+}
+func (o *SetSceneItemEnabledParams) WithSceneItemId(x int) *SetSceneItemEnabledParams {
+	o.SceneItemId = &x
+	return o
+}
+func (o *SetSceneItemEnabledParams) WithSceneName(x string) *SetSceneItemEnabledParams {
+	o.SceneName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -20,7 +38,9 @@ func (o *SetSceneItemEnabledParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetSceneItemEnabled request.
-type SetSceneItemEnabledResponse struct{}
+type SetSceneItemEnabledResponse struct {
+	api.ResponseCommon
+}
 
 /*
 Sets the enable state of a scene item.

@@ -2,6 +2,8 @@
 
 package record
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the ToggleRecordPause request.
 type ToggleRecordPauseParams struct{}
 
@@ -11,7 +13,9 @@ func (o *ToggleRecordPauseParams) GetRequestName() string {
 }
 
 // Represents the response body for the ToggleRecordPause request.
-type ToggleRecordPauseResponse struct{}
+type ToggleRecordPauseResponse struct {
+	api.ResponseCommon
+}
 
 // Toggles pause on the record output.
 func (c *Client) ToggleRecordPause(paramss ...*ToggleRecordPauseParams) (*ToggleRecordPauseResponse, error) {

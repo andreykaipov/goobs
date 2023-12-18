@@ -2,13 +2,27 @@
 
 package inputs
 
+import api "github.com/andreykaipov/goobs/api"
+
 // Represents the request body for the SetInputMute request.
 type SetInputMuteParams struct {
 	// Whether to mute the input or not
 	InputMuted *bool `json:"inputMuted,omitempty"`
 
 	// Name of the input to set the mute state of
-	InputName string `json:"inputName,omitempty"`
+	InputName *string `json:"inputName,omitempty"`
+}
+
+func NewSetInputMuteParams() *SetInputMuteParams {
+	return &SetInputMuteParams{}
+}
+func (o *SetInputMuteParams) WithInputMuted(x bool) *SetInputMuteParams {
+	o.InputMuted = &x
+	return o
+}
+func (o *SetInputMuteParams) WithInputName(x string) *SetInputMuteParams {
+	o.InputName = &x
+	return o
 }
 
 // Returns the associated request.
@@ -17,7 +31,9 @@ func (o *SetInputMuteParams) GetRequestName() string {
 }
 
 // Represents the response body for the SetInputMute request.
-type SetInputMuteResponse struct{}
+type SetInputMuteResponse struct {
+	api.ResponseCommon
+}
 
 // Sets the audio mute state of an input.
 func (c *Client) SetInputMute(params *SetInputMuteParams) (*SetInputMuteResponse, error) {

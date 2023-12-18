@@ -199,7 +199,15 @@ func (c *Client) checkProtocolVersion() error {
 	if err != nil {
 		return err
 	}
-	defer conn.Close()
+	defer func() {
+		if err := conn.WriteMessage(
+			websocket.CloseMessage,
+			websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Protocol check"),
+		); err != nil {
+			c.Log.Printf("[ERROR] Force closing initial protocol check connection", err)
+			_ = conn.Close()
+		}
+	}()
 
 	_ = conn.WriteMessage(
 		websocket.TextMessage,

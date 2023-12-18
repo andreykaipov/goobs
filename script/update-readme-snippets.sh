@@ -9,15 +9,17 @@ replace_markdown() {
         markerprefix="$2"
         content=$(cat)
         awk -v content="$content" -v markerprefix="$markerprefix" '
-                /('"$markerprefix"'-begin)/,/('"$markerprefix"'-end)/ {p=1; next}
-                p {
-                        p=0
+                function replace() {
                         gsub(/\n"/, "\\n\"", content)
                         print "[//]: # (" markerprefix "-begin)"
                         print content
                         print "[//]: # (" markerprefix "-end)"
                 }
+
+                /('"$markerprefix"'-begin)/,/('"$markerprefix"'-end)/ {p=1; next}
+                p { p=0; replace() }
                 1
+                END { if (p) replace() }
         ' "$f" >"$f.tmp"
         mv "$f.tmp" "$f"
 }

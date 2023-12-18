@@ -1,6 +1,25 @@
 package goobs
 
-const (
-	goobs_version                  = "0.12.1"
-	obs_websocket_protocol_version = "5.1.0"
+import (
+	"runtime/debug"
+	"strings"
 )
+
+const lib = "github.com/andreykaipov/goobs"
+
+var ProtocolVersion = "5.1.0"
+
+var LibraryVersion = func() string {
+	bi, ok := debug.ReadBuildInfo()
+	if !ok {
+		return "unknown"
+	}
+
+	for _, dep := range bi.Deps {
+		if dep.Path == lib {
+			return strings.TrimPrefix(dep.Version, "v")
+		}
+	}
+
+	return "unknown"
+}()

@@ -117,7 +117,7 @@ func New(host string, opts ...Option) (*Client, error) {
 	c := &Client{
 		host:               host,
 		dialer:             websocket.DefaultDialer,
-		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + goobs_version}},
+		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + LibraryVersion}},
 		eventSubscriptions: subscriptions.All,
 		errors:             make(chan error),
 		disconnected:       make(chan bool, 1),

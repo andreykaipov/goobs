@@ -12,7 +12,7 @@ tags=$(
                 sort -Vr
 )
 
-current=$(grep obs_websocket_protocol_version version.go | tr -dc '0-9.')
+current=$(grep ProtocolVersion version.go | tr -dc '0-9.')
 next=$(echo "$tags" | sort -V | awk -v current="$current" '$0==current{getline;print;exit}')
 latest=$(echo "$tags" | sort -V | tail -n1)
 

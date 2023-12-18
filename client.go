@@ -33,6 +33,7 @@ type Client struct {
 	requestHeader      http.Header
 	eventSubscriptions int
 	errors             chan error
+	disconnected       chan bool
 	profiler           *profile.Profile
 }
 
@@ -89,6 +90,11 @@ close when your program terminates or interrupts. But here's a function anyways.
 */
 func (c *Client) Disconnect() error {
 	defer func() {
+		close(c.errors)
+		close(c.Opcodes)
+		close(c.IncomingEvents)
+		close(c.IncomingResponses)
+
 		if c.profiler != nil {
 			c.Log.Printf("[DEBUG] Ending profiling")
 			c.profiler.Stop()
@@ -96,6 +102,7 @@ func (c *Client) Disconnect() error {
 	}()
 
 	c.Log.Printf("[DEBUG] Sending disconnect message")
+	c.disconnected <- true
 	return c.conn.WriteMessage(
 		websocket.CloseMessage,
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Bye"),
@@ -113,6 +120,7 @@ func New(host string, opts ...Option) (*Client, error) {
 		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + goobs_version}},
 		eventSubscriptions: subscriptions.All,
 		errors:             make(chan error),
+		disconnected:       make(chan bool, 1),
 		Client: &api.Client{
 			IncomingEvents:    make(chan interface{}, 100),
 			IncomingResponses: make(chan *opcodes.RequestResponse),
@@ -254,23 +262,55 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 					c.Log.Printf("[INFO] Closing connection: %s", t.Text)
 					auth <- err
 				default:
-					c.errors <- fmt.Errorf("reading raw message: closed: %w", t)
+					c.Log.Printf("[ERROR] Unhandled close error: %s", t.Text)
+					select {
+					case <-c.disconnected:
+					default:
+						c.errors <- fmt.Errorf("Unhandled close error: %s", t.Text)
+					}
 				}
 				return
 			default:
-				c.errors <- fmt.Errorf("reading raw message from websocket connection: %w", t)
-				continue
+				switch t {
+				case websocket.ErrCloseSent:
+					// this seems to only happen with highly concurrent clients reading from
+					// the websocket server simultaneously. but even then it's not really an
+					// issue, because the connection is already closed!
+					c.Log.Printf("[DEBUG] Tried to read from closed connection")
+					return
+				default:
+					select {
+					case <-c.disconnected:
+						return
+					default:
+						c.errors <- fmt.Errorf("reading raw message from websocket connection: %w", t)
+						continue
+					}
+				}
 			}
 		}
 
 		c.Log.Printf("[TRACE] Raw server message: %s", raw)
 
-		opcode, err := opcodes.ParseRawMessage(raw)
-		if err != nil {
-			c.errors <- fmt.Errorf("parse raw message: %w", err)
-		}
+		select {
+		case <-c.disconnected:
+			// This might happen if the server sends messages to us
+			// after we've already disconnected, e.g.:
+			//
+			// 1. client sends ToggleRecordPause request
+			// 2. client gets the appropriate response for it
+			// 3. client sends disconnect message immediately after
+			// 4. client gets RecordStateChanged event
+			c.Log.Printf("[ERROR] Got %s from the server, but we've already disconnected!", raw)
+			return
+		default:
+			opcode, err := opcodes.ParseRawMessage(raw)
+			if err != nil {
+				c.errors <- fmt.Errorf("parse raw message: %w", err)
+			}
 
-		c.Opcodes <- opcode
+			c.Opcodes <- opcode
+		}
 	}
 }
 

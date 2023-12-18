@@ -29,17 +29,17 @@ type Scene struct {
 }
 
 type PropertyItem struct {
-	ItemName    string      `json:"itemName"`
-	ItemEnabled bool        `json:"itemEnabled"`
-	ItemValue   interface{} `json:"itemValue"`
+	ItemName    string `json:"itemName"`
+	ItemEnabled bool   `json:"itemEnabled"`
+	ItemValue   any    `json:"itemValue"`
 }
 
 type Filter struct {
-	FilterEnabled  bool                   `json:"filterEnabled"`
-	FilterIndex    int                    `json:"filterIndex"`
-	FilterKind     string                 `json:"filterKind"`
-	FilterName     string                 `json:"filterName"`
-	FilterSettings map[string]interface{} `json:"filterSettings,omitempty"`
+	FilterEnabled  bool           `json:"filterEnabled"`
+	FilterIndex    int            `json:"filterIndex"`
+	FilterKind     string         `json:"filterKind"`
+	FilterName     string         `json:"filterName"`
+	FilterSettings map[string]any `json:"filterSettings,omitempty"`
 }
 
 type Transition struct {

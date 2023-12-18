@@ -217,7 +217,7 @@ func generateEvents(events []*Event) {
 	f := NewFile("events")
 	f.HeaderComment("This file has been automatically generated. Don't edit it.")
 	f.Add(
-		Func().Id("GetType").Params(Id("name").String()).Interface().Block(
+		Func().Id("GetType").Params(Id("name").String()).Any().Block(
 			Switch(Id("name")).BlockFunc(func(g *Group) {
 				for _, e := range events {
 					g.Case(Lit(e.EventType))
@@ -388,7 +388,7 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 		case "Array<Boolean>":
 			fieldType = Index().Bool()
 		case "Any":
-			fieldType = Interface()
+			fieldType = Any()
 		case "Object":
 			fieldType = mapObject(origin, name, f)
 		case "Array<Object>":
@@ -432,8 +432,8 @@ func mapObject(origin, name string, field Field) *Statement {
 	case "keyModifiers":
 		return Op("*").Qual(typedefs, "KeyModifiers")
 
-	// too many settings for individual inputs, filters, outputs, etc.
-	// makes sense to just use map[string]any
+	// settings are generic enough to merit the use of map[string]any
+	// for individual inputs, filters, outputs, etc.
 	case "outputSettings":
 		fallthrough
 	case "inputSettings", "defaultInputSettings":
@@ -441,16 +441,16 @@ func mapObject(origin, name string, field Field) *Statement {
 	case "filterSettings", "defaultFilterSettings":
 		fallthrough
 	case "transitionSettings":
-		return Map(String()).Interface()
+		return Map(String()).Any()
 
 	// from CallVendorRequest* and VendorEvent, CustomEvent
-	// the data here can be anything
+	// same as above, the data here can be anything
 	case "requestData", "responseData", "eventData":
-		return Map(String()).Interface()
+		return Map(String()).Any()
 
 	default:
 		fmt.Printf("!! unhandled Object type for field %s from %s:%s\n", fvn, origin, name)
-		return Map(String()).Interface()
+		return Map(String()).Any()
 	}
 }
 
@@ -478,6 +478,6 @@ func mapArrayObject(origin, name string, field Field) *Statement {
 		return Index().Op("*").Qual(typedefs, "Monitor")
 	default:
 		fmt.Printf("!! unhandled Array<Object> type for field %s from %s:%s\n", fvn, origin, name)
-		return Index().Map(String()).Interface()
+		return Index().Map(String()).Any()
 	}
 }

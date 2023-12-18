@@ -122,7 +122,7 @@ func New(host string, opts ...Option) (*Client, error) {
 		errors:             make(chan error),
 		disconnected:       make(chan bool, 1),
 		Client: &api.Client{
-			IncomingEvents:    make(chan interface{}, 100),
+			IncomingEvents:    make(chan any, 100),
 			IncomingResponses: make(chan *opcodes.RequestResponse),
 			Opcodes:           make(chan opcodes.Opcode),
 			ResponseTimeout:   10000,
@@ -396,7 +396,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 // Since our events channel is buffered and might not necessarily be used, we
 // purge old events and write latest ones so that whenever somebody might want
 // to use it, they'll have the latest events available to them.
-func (c *Client) writeEvent(event interface{}) {
+func (c *Client) writeEvent(event any) {
 	select {
 	case c.IncomingEvents <- event:
 	default:
@@ -413,7 +413,7 @@ func (c *Client) writeEvent(event interface{}) {
 	}
 }
 
-func (c *Client) Listen(f func(interface{})) {
+func (c *Client) Listen(f func(any)) {
 	for event := range c.IncomingEvents {
 		f(event)
 	}

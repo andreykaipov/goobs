@@ -21,7 +21,7 @@ type Client struct {
 	// The time we're willing to wait to receive a response from the server.
 	ResponseTimeout time.Duration
 
-	IncomingEvents    chan interface{}
+	IncomingEvents    chan any
 	IncomingResponses chan *opcodes.RequestResponse
 	Opcodes           chan opcodes.Opcode
 	Log               Logger

@@ -187,9 +187,9 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 			val = Op("&").Index().Float64().Values(val).Index(Lit(0))
 		case "*bool":
 			val = Op("&").Index().Bool().Values(True()).Index(Lit(0))
-		case "interface{}":
+		case "any", "interface{}":
 			val = Lit("")
-		case "map[string]interface{}":
+		case "map[string]any", "map[string]interface{}":
 			val = Map(String()).Interface().Values(Dict{
 				Lit("test"): Lit("test"),
 			})

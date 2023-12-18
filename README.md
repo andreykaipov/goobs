@@ -30,57 +30,18 @@ after you've initialized your own:
 
 ## usage
 
-Here's a basic example, where we grab the version and print out the scenes.
-Check out the [examples](./examples) for more.
+Here's the [basic example](./_examples/basic), where we connect to the server and print out some versions.
+Check out the [other examples](./_examples) for more.
 
-```go
-package main
-
-import (
-	"fmt"
-	"log"
-
-	"github.com/andreykaipov/goobs"
-)
-
-func main() {
-	client, err := goobs.New("localhost:4455", goobs.WithPassword("goodpassword"))
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer client.Disconnect()
-
-	version, err := client.General.GetVersion()
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("OBS Studio version: %s\n", version.ObsVersion)
-	fmt.Printf("Websocket server version: %s\n", version.ObsWebSocketVersion)
-
-	resp, _ := client.Scenes.GetSceneList()
-	for _, v := range resp.Scenes {
-		fmt.Printf("%2d %s\n", v.SceneIndex, v.SceneName)
-	}
-}
-```
+[//]: # (snippet-1-begin)
+blah
+[//]: # (snippet-1-end)
 
 This outputs the following:
 
-```console
-❯ go run examples/basic/main.go
-OBS Studio version: 29.0.0
-Websocket server version: 5.1.0
- 1 Just Chatting
- 2 Intermission
- 3 Be Right Back 2
- 4 Be Right Back
- 5 Stream Starting Soon
- 6 Background
- 7 Camera Secondary
- 8 Camera Primary
- 9 Main 2
-10 Main
-```
+[//]: # (snippet-2-begin)
+blah
+[//]: # (snippet-2-end)
 
 ## advanced configuration
 

@@ -45,7 +45,7 @@ type SetSceneSceneTransitionOverrideResponse struct {
 	api.ResponseCommon
 }
 
-// Sets the scene transition overridden for a scene.
+// Gets the scene transition overridden for a scene.
 func (c *Client) SetSceneSceneTransitionOverride(
 	params *SetSceneSceneTransitionOverrideParams,
 ) (*SetSceneSceneTransitionOverrideResponse, error) {

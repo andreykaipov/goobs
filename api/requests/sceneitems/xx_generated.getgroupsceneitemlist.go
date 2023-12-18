@@ -30,7 +30,7 @@ func (o *GetGroupSceneItemListParams) GetRequestName() string {
 type GetGroupSceneItemListResponse struct {
 	api.ResponseCommon
 
-  // Array of scene items in the group
+	// Array of scene items in the group
 	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
 }
 

@@ -27,7 +27,6 @@ func (o *SetSourceFilterSettingsParams) WithFilterName(x string) *SetSourceFilte
 	o.FilterName = &x
 	return o
 }
-
 func (o *SetSourceFilterSettingsParams) WithFilterSettings(x map[string]any) *SetSourceFilterSettingsParams {
 	o.FilterSettings = x
 	return o

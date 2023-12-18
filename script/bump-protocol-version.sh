@@ -31,5 +31,5 @@ for v in "$current" "$next" "$latest"; do
         fi
 done
 
-sed -i "s/$current/$next/g" version.go
+sed -i "s/$current/$next/g" version.go README.md
 make generate

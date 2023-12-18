@@ -58,6 +58,7 @@ func main() {
 	generateEvents(data.Events)
 	generateEventSubscriptions(data.Enums, func(e *Enum) bool { return e.EnumType == "EventSubscription" })
 	generateRequestStatuses(data.Enums, func(e *Enum) bool { return e.EnumType == "RequestStatus" })
+	generateMarkdownTableMapping(data, fmt.Sprintf("%s/docs/request-mapping.md", root))
 }
 
 func run(cmd string) (string, error) {

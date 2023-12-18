@@ -120,7 +120,7 @@ func New(host string, opts ...Option) (*Client, error) {
 			ResponseTimeout:   10000,
 			Log: log.New(
 				&logutils.LevelFilter{
-					Levels:   []logutils.LogLevel{"DEBUG", "INFO", "ERROR", ""},
+					Levels:   []logutils.LogLevel{"TRACE", "DEBUG", "INFO", "ERROR", ""},
 					MinLevel: logutils.LogLevel(strings.ToUpper(os.Getenv("GOOBS_LOG"))),
 					Writer: api.LoggerWithWrite(func(p []byte) (int, error) {
 						return os.Stderr.WriteString(fmt.Sprintf("\033[36m%s\033[0m", p))
@@ -255,7 +255,7 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 			}
 		}
 
-		c.Log.Printf("[DEBUG] Raw server message: %s", raw)
+		c.Log.Printf("[TRACE] Raw server message: %s", raw)
 
 		opcode, err := opcodes.ParseRawMessage(raw)
 		if err != nil {
@@ -306,8 +306,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			// can't imagine we need this
 
 		case *opcodes.Event:
-			c.Log.Printf("[INFO] Got %s Event", val.Type)
-			c.Log.Printf("[DEBUG] Event Data: %s", val.Data)
+			c.Log.Printf("[TRACE] Got %s event: %s", val.Type, val.Data)
 
 			event := events.GetType(val.Type)
 
@@ -328,7 +327,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			c.writeEvent(event)
 
 		case *opcodes.Request:
-			c.Log.Printf("[DEBUG] Got %s Request with ID %s", val.Type, val.ID)
+			c.Log.Printf("[TRACE] Got %s Request with ID %s", val.Type, val.ID)
 
 			msg := opcodes.Wrap(val).Bytes()
 			if err := c.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
@@ -336,7 +335,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			}
 
 		case *opcodes.RequestResponse:
-			c.Log.Printf("[INFO] Got %s Response for ID %s (%d)", val.Type, val.ID, val.Status.Code)
+			c.Log.Printf("[TRACE] Got %s Response for ID %s (%d)", val.Type, val.ID, val.Status.Code)
 
 			c.IncomingResponses <- val
 

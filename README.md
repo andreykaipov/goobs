@@ -84,7 +84,7 @@ Websocket server version: 5.1.0
 
 ## advanced configuration
 
-- `GOOBS_LOG` can be set to `debug`, `info`, or `error` to better understand what our client is doing under the hood.
+- `GOOBS_LOG` can be set to `trace`, `debug`, `info`, or `error` to better understand what our client is doing under the hood.
 
 - `GOOBS_PROFILE` can be set to enable profiling.
   For example, the following will help us find unreleased memory:

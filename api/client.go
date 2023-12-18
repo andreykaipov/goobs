@@ -56,7 +56,7 @@ func (c *Client) SendRequest(requestBody Params, responseBody interface{}) error
 	name := requestBody.GetRequestName()
 	id := uid.String()
 
-	c.Log.Printf("[INFO] Sending %s Request with ID %s", name, id)
+	c.Log.Printf("[TRACE] Sending %s Request with ID %s", name, id)
 
 	c.mutex.Lock()
 	defer c.mutex.Unlock()

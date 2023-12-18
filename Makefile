@@ -10,6 +10,7 @@ help:
 test: test.unit test.functional
 test.unit:
 	cd internal; go test -v -count 1 ./...
+	cd internal/sample; go test -v -count 1 ./...
 test.functional:
 	./script/test.sh
 

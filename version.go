@@ -7,7 +7,7 @@ import (
 
 const lib = "github.com/andreykaipov/goobs"
 
-var ProtocolVersion = "5.2.1"
+var ProtocolVersion = "5.2.2"
 
 var LibraryVersion = func() string {
 	bi, ok := debug.ReadBuildInfo()

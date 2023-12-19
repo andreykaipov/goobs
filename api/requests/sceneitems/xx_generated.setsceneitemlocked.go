@@ -2,8 +2,6 @@
 
 package sceneitems
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetSceneItemLocked request.
 type SetSceneItemLockedParams struct {
 	// Numeric ID of the scene item
@@ -39,7 +37,7 @@ func (o *SetSceneItemLockedParams) GetRequestName() string {
 
 // Represents the response body for the SetSceneItemLocked request.
 type SetSceneItemLockedResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 /*

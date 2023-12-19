@@ -2,8 +2,6 @@
 
 package inputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetInputName request.
 type SetInputNameParams struct {
 	// Current input name
@@ -32,7 +30,7 @@ func (o *SetInputNameParams) GetRequestName() string {
 
 // Represents the response body for the SetInputName request.
 type SetInputNameResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the name of an input (rename).

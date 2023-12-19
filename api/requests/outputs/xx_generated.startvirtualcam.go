@@ -2,8 +2,6 @@
 
 package outputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the StartVirtualCam request.
 type StartVirtualCamParams struct{}
 
@@ -14,7 +12,7 @@ func (o *StartVirtualCamParams) GetRequestName() string {
 
 // Represents the response body for the StartVirtualCam request.
 type StartVirtualCamResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Starts the virtualcam output.

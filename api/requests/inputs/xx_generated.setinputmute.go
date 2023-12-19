@@ -2,8 +2,6 @@
 
 package inputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetInputMute request.
 type SetInputMuteParams struct {
 	// Whether to mute the input or not
@@ -32,7 +30,7 @@ func (o *SetInputMuteParams) GetRequestName() string {
 
 // Represents the response body for the SetInputMute request.
 type SetInputMuteResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the audio mute state of an input.

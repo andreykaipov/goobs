@@ -2,8 +2,6 @@
 
 package stream
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the StopStream request.
 type StopStreamParams struct{}
 
@@ -14,7 +12,7 @@ func (o *StopStreamParams) GetRequestName() string {
 
 // Represents the response body for the StopStream request.
 type StopStreamResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Stops the stream output.

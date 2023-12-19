@@ -2,8 +2,6 @@
 
 package outputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetOutputSettings request.
 type GetOutputSettingsParams struct {
 	// Output name
@@ -25,7 +23,7 @@ func (o *GetOutputSettingsParams) GetRequestName() string {
 
 // Represents the response body for the GetOutputSettings request.
 type GetOutputSettingsResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Output settings
 	OutputSettings map[string]any `json:"outputSettings,omitempty"`

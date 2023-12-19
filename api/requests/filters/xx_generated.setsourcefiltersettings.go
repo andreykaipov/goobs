@@ -2,8 +2,6 @@
 
 package filters
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetSourceFilterSettings request.
 type SetSourceFilterSettingsParams struct {
 	// Name of the filter to set the settings of
@@ -47,7 +45,7 @@ func (o *SetSourceFilterSettingsParams) GetRequestName() string {
 
 // Represents the response body for the SetSourceFilterSettings request.
 type SetSourceFilterSettingsResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the settings of a source filter.

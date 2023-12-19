@@ -4,6 +4,8 @@ package ui
 
 import api "github.com/andreykaipov/goobs/api"
 
+type _response = api.ResponseCommon
+
 // Client represents a client for 'ui' requests.
 type Client struct {
 	*api.Client

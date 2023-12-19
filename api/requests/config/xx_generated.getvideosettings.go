@@ -2,8 +2,6 @@
 
 package config
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetVideoSettings request.
 type GetVideoSettingsParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetVideoSettingsParams) GetRequestName() string {
 
 // Represents the response body for the GetVideoSettings request.
 type GetVideoSettingsResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Height of the base (canvas) resolution in pixels
 	BaseHeight float64 `json:"baseHeight,omitempty"`

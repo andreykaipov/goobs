@@ -2,8 +2,6 @@
 
 package transitions
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetTransitionKindList request.
 type GetTransitionKindListParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetTransitionKindListParams) GetRequestName() string {
 
 // Represents the response body for the GetTransitionKindList request.
 type GetTransitionKindListResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Array of transition kinds
 	TransitionKinds []string `json:"transitionKinds,omitempty"`

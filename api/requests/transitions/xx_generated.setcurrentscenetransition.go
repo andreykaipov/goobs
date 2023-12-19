@@ -2,8 +2,6 @@
 
 package transitions
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetCurrentSceneTransition request.
 type SetCurrentSceneTransitionParams struct {
 	// Name of the transition to make active
@@ -25,7 +23,7 @@ func (o *SetCurrentSceneTransitionParams) GetRequestName() string {
 
 // Represents the response body for the SetCurrentSceneTransition request.
 type SetCurrentSceneTransitionResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 /*

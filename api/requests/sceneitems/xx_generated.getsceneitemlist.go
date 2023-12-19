@@ -2,10 +2,7 @@
 
 package sceneitems
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetSceneItemList request.
 type GetSceneItemListParams struct {
@@ -28,7 +25,7 @@ func (o *GetSceneItemListParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemList request.
 type GetSceneItemListResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Array of scene items in the scene
 	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`

@@ -2,8 +2,6 @@
 
 package config
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetProfileParameter request.
 type GetProfileParameterParams struct {
 	// Category of the parameter to get
@@ -32,7 +30,7 @@ func (o *GetProfileParameterParams) GetRequestName() string {
 
 // Represents the response body for the GetProfileParameter request.
 type GetProfileParameterResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Default value associated with the parameter. `null` if no default
 	DefaultParameterValue string `json:"defaultParameterValue,omitempty"`

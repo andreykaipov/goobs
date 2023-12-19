@@ -4,6 +4,8 @@ package scenes
 
 import api "github.com/andreykaipov/goobs/api"
 
+type _response = api.ResponseCommon
+
 // Client represents a client for 'scenes' requests.
 type Client struct {
 	*api.Client

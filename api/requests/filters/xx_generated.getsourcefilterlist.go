@@ -2,10 +2,7 @@
 
 package filters
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetSourceFilterList request.
 type GetSourceFilterListParams struct {
@@ -28,7 +25,7 @@ func (o *GetSourceFilterListParams) GetRequestName() string {
 
 // Represents the response body for the GetSourceFilterList request.
 type GetSourceFilterListResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Array of filters
 	Filters []*typedefs.Filter `json:"filters,omitempty"`

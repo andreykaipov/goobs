@@ -2,8 +2,6 @@
 
 package scenes
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetCurrentProgramScene request.
 type SetCurrentProgramSceneParams struct {
 	// Scene to set as the current program scene
@@ -25,7 +23,7 @@ func (o *SetCurrentProgramSceneParams) GetRequestName() string {
 
 // Represents the response body for the SetCurrentProgramScene request.
 type SetCurrentProgramSceneResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the current program scene.

@@ -2,8 +2,6 @@
 
 package filters
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetSourceFilterName request.
 type SetSourceFilterNameParams struct {
 	// Current name of the filter
@@ -39,7 +37,7 @@ func (o *SetSourceFilterNameParams) GetRequestName() string {
 
 // Represents the response body for the SetSourceFilterName request.
 type SetSourceFilterNameResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the name of a source filter (rename).

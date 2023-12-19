@@ -2,8 +2,6 @@
 
 package record
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetRecordStatus request.
 type GetRecordStatusParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetRecordStatusParams) GetRequestName() string {
 
 // Represents the response body for the GetRecordStatus request.
 type GetRecordStatusResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

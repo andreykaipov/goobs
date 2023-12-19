@@ -4,6 +4,8 @@ package general
 
 import api "github.com/andreykaipov/goobs/api"
 
+type _response = api.ResponseCommon
+
 // Client represents a client for 'general' requests.
 type Client struct {
 	*api.Client

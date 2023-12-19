@@ -2,8 +2,6 @@
 
 package general
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the BroadcastCustomEvent request.
 type BroadcastCustomEventParams struct {
 	// Data payload to emit to all receivers
@@ -25,7 +23,7 @@ func (o *BroadcastCustomEventParams) GetRequestName() string {
 
 // Represents the response body for the BroadcastCustomEvent request.
 type BroadcastCustomEventResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Broadcasts a `CustomEvent` to all WebSocket clients. Receivers are clients which are identified and subscribed.

@@ -2,10 +2,7 @@
 
 package config
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the SetStreamServiceSettings request.
 type SetStreamServiceSettingsParams struct {
@@ -38,7 +35,7 @@ func (o *SetStreamServiceSettingsParams) GetRequestName() string {
 
 // Represents the response body for the SetStreamServiceSettings request.
 type SetStreamServiceSettingsResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 /*

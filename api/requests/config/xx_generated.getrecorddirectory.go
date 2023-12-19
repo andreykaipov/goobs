@@ -2,8 +2,6 @@
 
 package config
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetRecordDirectory request.
 type GetRecordDirectoryParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetRecordDirectoryParams) GetRequestName() string {
 
 // Represents the response body for the GetRecordDirectory request.
 type GetRecordDirectoryResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Output directory
 	RecordDirectory string `json:"recordDirectory,omitempty"`

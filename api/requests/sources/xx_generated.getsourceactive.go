@@ -2,8 +2,6 @@
 
 package sources
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetSourceActive request.
 type GetSourceActiveParams struct {
 	// Name of the source to get the active state of
@@ -25,7 +23,7 @@ func (o *GetSourceActiveParams) GetRequestName() string {
 
 // Represents the response body for the GetSourceActive request.
 type GetSourceActiveResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Whether the source is showing in Program
 	VideoActive bool `json:"videoActive,omitempty"`

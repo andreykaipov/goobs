@@ -2,8 +2,6 @@
 
 package mediainputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the OffsetMediaInputCursor request.
 type OffsetMediaInputCursorParams struct {
 	// Name of the media input
@@ -32,7 +30,7 @@ func (o *OffsetMediaInputCursorParams) GetRequestName() string {
 
 // Represents the response body for the OffsetMediaInputCursor request.
 type OffsetMediaInputCursorResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 /*

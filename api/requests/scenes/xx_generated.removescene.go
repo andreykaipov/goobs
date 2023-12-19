@@ -2,8 +2,6 @@
 
 package scenes
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the RemoveScene request.
 type RemoveSceneParams struct {
 	// Name of the scene to remove
@@ -25,7 +23,7 @@ func (o *RemoveSceneParams) GetRequestName() string {
 
 // Represents the response body for the RemoveScene request.
 type RemoveSceneResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Removes a scene from OBS.

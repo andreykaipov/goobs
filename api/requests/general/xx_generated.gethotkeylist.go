@@ -2,8 +2,6 @@
 
 package general
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetHotkeyList request.
 type GetHotkeyListParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetHotkeyListParams) GetRequestName() string {
 
 // Represents the response body for the GetHotkeyList request.
 type GetHotkeyListResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Array of hotkey names
 	Hotkeys []string `json:"hotkeys,omitempty"`

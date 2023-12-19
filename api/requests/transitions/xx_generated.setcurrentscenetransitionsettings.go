@@ -2,8 +2,6 @@
 
 package transitions
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetCurrentSceneTransitionSettings request.
 type SetCurrentSceneTransitionSettingsParams struct {
 	// Whether to overlay over the current settings or replace them
@@ -35,7 +33,7 @@ func (o *SetCurrentSceneTransitionSettingsParams) GetRequestName() string {
 
 // Represents the response body for the SetCurrentSceneTransitionSettings request.
 type SetCurrentSceneTransitionSettingsResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the settings of the current scene transition.

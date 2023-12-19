@@ -2,10 +2,7 @@
 
 package inputs
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the SetInputAudioTracks request.
 type SetInputAudioTracksParams struct {
@@ -35,7 +32,7 @@ func (o *SetInputAudioTracksParams) GetRequestName() string {
 
 // Represents the response body for the SetInputAudioTracks request.
 type SetInputAudioTracksResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the enable state of audio tracks of an input.

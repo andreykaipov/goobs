@@ -2,10 +2,7 @@
 
 package ui
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetMonitorList request.
 type GetMonitorListParams struct{}
@@ -17,7 +14,7 @@ func (o *GetMonitorListParams) GetRequestName() string {
 
 // Represents the response body for the GetMonitorList request.
 type GetMonitorListResponse struct {
-	api.ResponseCommon
+	_response
 
 	// a list of detected monitors with some information
 	Monitors []*typedefs.Monitor `json:"monitors,omitempty"`

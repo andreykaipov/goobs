@@ -2,8 +2,6 @@
 
 package scenes
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the CreateScene request.
 type CreateSceneParams struct {
 	// Name for the new scene
@@ -25,7 +23,7 @@ func (o *CreateSceneParams) GetRequestName() string {
 
 // Represents the response body for the CreateScene request.
 type CreateSceneResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Creates a new scene in OBS.

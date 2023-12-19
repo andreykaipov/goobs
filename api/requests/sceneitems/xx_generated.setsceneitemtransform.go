@@ -2,10 +2,7 @@
 
 package sceneitems
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the SetSceneItemTransform request.
 type SetSceneItemTransformParams struct {
@@ -45,7 +42,7 @@ func (o *SetSceneItemTransformParams) GetRequestName() string {
 
 // Represents the response body for the SetSceneItemTransform request.
 type SetSceneItemTransformResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the transform and crop info of a scene item.

@@ -2,10 +2,7 @@
 
 package inputs
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetInputAudioTracks request.
 type GetInputAudioTracksParams struct {
@@ -28,7 +25,7 @@ func (o *GetInputAudioTracksParams) GetRequestName() string {
 
 // Represents the response body for the GetInputAudioTracks request.
 type GetInputAudioTracksResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Object of audio tracks and associated enable states
 	InputAudioTracks *typedefs.InputAudioTracks `json:"inputAudioTracks,omitempty"`

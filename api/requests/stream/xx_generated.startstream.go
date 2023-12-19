@@ -2,8 +2,6 @@
 
 package stream
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the StartStream request.
 type StartStreamParams struct{}
 
@@ -14,7 +12,7 @@ func (o *StartStreamParams) GetRequestName() string {
 
 // Represents the response body for the StartStream request.
 type StartStreamResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Starts the stream output.

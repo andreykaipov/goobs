@@ -2,8 +2,6 @@
 
 package sceneitems
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetSceneItemIndex request.
 type GetSceneItemIndexParams struct {
 	// Numeric ID of the scene item
@@ -32,7 +30,7 @@ func (o *GetSceneItemIndexParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemIndex request.
 type GetSceneItemIndexResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Index position of the scene item
 	SceneItemIndex int `json:"sceneItemIndex,omitempty"`

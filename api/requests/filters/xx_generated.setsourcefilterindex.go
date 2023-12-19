@@ -2,8 +2,6 @@
 
 package filters
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetSourceFilterIndex request.
 type SetSourceFilterIndexParams struct {
 	// New index position of the filter
@@ -39,7 +37,7 @@ func (o *SetSourceFilterIndexParams) GetRequestName() string {
 
 // Represents the response body for the SetSourceFilterIndex request.
 type SetSourceFilterIndexResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the index position of a filter on a source.

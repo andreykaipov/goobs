@@ -2,8 +2,6 @@
 
 package transitions
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetCurrentSceneTransitionDuration request.
 type SetCurrentSceneTransitionDurationParams struct {
 	// Duration in milliseconds
@@ -28,7 +26,7 @@ func (o *SetCurrentSceneTransitionDurationParams) GetRequestName() string {
 
 // Represents the response body for the SetCurrentSceneTransitionDuration request.
 type SetCurrentSceneTransitionDurationResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the duration of the current scene transition, if it is not fixed.

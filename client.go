@@ -102,10 +102,14 @@ func (c *Client) Disconnect() error {
 
 	c.Log.Printf("[DEBUG] Sending disconnect message")
 	c.disconnected <- true
-	return c.conn.WriteMessage(
+	if err := c.conn.WriteMessage(
 		websocket.CloseMessage,
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Bye"),
-	)
+	); err != nil {
+		c.Log.Printf("[ERROR] Force closing connection", err)
+		return c.conn.Close()
+	}
+	return nil
 }
 
 /*

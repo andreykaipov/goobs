@@ -45,9 +45,9 @@ func WithPassword(x string) Option {
 	return func(o *Client) { o.password = x }
 }
 
-// WithEventSubscriptions specifies the events we'd like to susbcribe to via
-// `client.Listen()`. The value is a bitmask of any of the subscription values
-// specified in api/events/subscriptions. By default, all event categories are
+// WithEventSubscriptions specifies the events we'd like to subscribe to via
+// [Client.Listen]. The value is a bitmask of any of the subscription values
+// specified in [subscriptions]. By default, all event categories are
 // subscribed, except for events marked as high volume. High volume events must
 // be explicitly subscribed to.
 func WithEventSubscriptions(x int) Option {
@@ -60,11 +60,9 @@ func WithLogger(x api.Logger) Option {
 	return func(o *Client) { o.Log = x }
 }
 
-// WithDialer sets the underlying Gorilla WebSocket Dialer (see
-// https://pkg.go.dev/github.com/gorilla/websocket#Dialer), should one want to
+// WithDialer sets the underlying [gorilla/websocket.Dialer] should one want to
 // customize things like the handshake timeout or TLS configuration. If this is
-// not set, it'll use the provided DefaultDialer (see
-// https://pkg.go.dev/github.com/gorilla/websocket#pkg-variables).
+// not set, it'll use the provided [gorilla/websocket.DefaultDialer].
 func WithDialer(x *websocket.Dialer) Option {
 	return func(o *Client) { o.dialer = x }
 }
@@ -85,8 +83,9 @@ func WithResponseTimeout(x time.Duration) Option {
 
 /*
 Disconnect sends a message to the OBS websocket server to close the client's
-open connection. You don't really have to do this as any connections should
-close when your program terminates or interrupts. But here's a function anyways.
+open connection. You should defer a disconnection after creating your client to
+ensure program doesn't leave any lingering connections open and potentially leak
+memory.
 */
 func (c *Client) Disconnect() error {
 	defer func() {
@@ -103,10 +102,14 @@ func (c *Client) Disconnect() error {
 
 	c.Log.Printf("[DEBUG] Sending disconnect message")
 	c.disconnected <- true
-	return c.conn.WriteMessage(
+	if err := c.conn.WriteMessage(
 		websocket.CloseMessage,
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Bye"),
-	)
+	); err != nil {
+		c.Log.Printf("[ERROR] Force closing connection", err)
+		return c.conn.Close()
+	}
+	return nil
 }
 
 /*
@@ -117,7 +120,7 @@ func New(host string, opts ...Option) (*Client, error) {
 	c := &Client{
 		host:               host,
 		dialer:             websocket.DefaultDialer,
-		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + goobs_version}},
+		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + LibraryVersion}},
 		eventSubscriptions: subscriptions.All,
 		errors:             make(chan error),
 		disconnected:       make(chan bool, 1),
@@ -413,6 +416,20 @@ func (c *Client) writeEvent(event any) {
 	}
 }
 
+// Listen hooks into the incoming events from the server. You'll have to make
+// type assertions to ensure you're getting the right events, e.g.:
+//
+//	client.Listen(func(event any) {
+//		switch val := event.(type) {
+//		case *events.InputVolumeChanged:
+//			// event i was looking for
+//		default:
+//			// other events
+//		}
+//	})
+//
+// If looking for high volume events, make sure you've initialized the client
+// with the appropriate subscriptions with [WithEventSubscriptions].
 func (c *Client) Listen(f func(any)) {
 	for event := range c.IncomingEvents {
 		f(event)

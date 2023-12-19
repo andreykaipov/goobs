@@ -1,7 +1,5 @@
-goobs_version                  := $(shell grep obs_version                    version.go | cut -d= -f2 | tr -dc '[0-9.]')
-obs_websocket_protocol_version := $(shell grep obs_websocket_protocol_version version.go | cut -d= -f2 | tr -dc '[0-9.]')
+obs_websocket_protocol_version := $(shell grep ProtocolVersion version.go | tr -dc '[0-9.]')
 
-export goobs_version
 export obs_websocket_protocol_version
 
 help:
@@ -12,8 +10,9 @@ help:
 test: test.unit test.functional
 test.unit:
 	cd internal; go test -v -count 1 ./...
+	cd internal/sample; go test -v -count 1 ./...
 test.functional:
-	./test.sh
+	./script/test.sh
 
 generate: generate.protocol generate.tests
 	$(MAKE) format

@@ -12,7 +12,7 @@ tags=$(
                 sort -Vr
 )
 
-current=$(grep obs_websocket_protocol_version version.go | tr -dc '0-9.')
+current=$(grep ProtocolVersion version.go | tr -dc '0-9.')
 next=$(echo "$tags" | sort -V | awk -v current="$current" '$0==current{getline;print;exit}')
 latest=$(echo "$tags" | sort -V | tail -n1)
 
@@ -31,5 +31,5 @@ for v in "$current" "$next" "$latest"; do
         fi
 done
 
-sed -i "s/$current/$next/g" version.go
+sed -i "s/$current/$next/g" version.go README.md
 make generate

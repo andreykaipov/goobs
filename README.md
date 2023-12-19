@@ -14,31 +14,29 @@
 [goreport-img]: https://goreportcard.com/badge/github.com/andreykaipov/goobs?logo=go&logoColor=white&style=flat-square
 [goreport-url]: https://goreportcard.com/report/github.com/andreykaipov/goobs
 
-It's a Go client for
-[obsproject/obs-websocket](https://github.com/obsproject/obs-websocket),
-allowing us to interact with OBS Studio from Go!
+Interact with OBS Studio from Go!
 
 ## installation
 
-To add this library to your module, simply `go get` it like any other Go module
-after you've initialized your own:
+To use this library in your project, add it as a module after you've initialized your own:
 
 ```console
-❯ go mod init blah
+❯ go mod init github.com/beautifulperson/my-cool-obs-thing
 ❯ go get github.com/andreykaipov/goobs
 ```
 
 ## usage
 
-Here's a basic example, where we grab the version and print out the scenes.
-Check out the [examples](./examples) for more.
+The following example connects to the server and prints out some versions.
 
+Check out the [docs](./docs/README.md) for more info, or just jump right into the [other examples](./_examples)!
+
+[//]: # (snippet-1-begin)
 ```go
 package main
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/andreykaipov/goobs"
 )
@@ -46,52 +44,31 @@ import (
 func main() {
 	client, err := goobs.New("localhost:4455", goobs.WithPassword("goodpassword"))
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 	defer client.Disconnect()
 
 	version, err := client.General.GetVersion()
 	if err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
-	fmt.Printf("OBS Studio version: %s\n", version.ObsVersion)
-	fmt.Printf("Websocket server version: %s\n", version.ObsWebSocketVersion)
 
-	resp, _ := client.Scenes.GetSceneList()
-	for _, v := range resp.Scenes {
-		fmt.Printf("%2d %s\n", v.SceneIndex, v.SceneName)
-	}
+	fmt.Printf("OBS Studio version: %s\n", version.ObsVersion)
+	fmt.Printf("Server protocol version: %s\n", version.ObsWebSocketVersion)
+	fmt.Printf("Client library version: %s\n", goobs.LibraryVersion)
+	fmt.Printf("Client protocol version: %s\n", goobs.ProtocolVersion)
 }
 ```
+[//]: # (snippet-1-end)
 
-This outputs the following:
+The corresponding output:
 
+[//]: # (snippet-2-begin)
 ```console
-❯ go run examples/basic/main.go
-OBS Studio version: 29.0.0
-Websocket server version: 5.1.0
- 1 Just Chatting
- 2 Intermission
- 3 Be Right Back 2
- 4 Be Right Back
- 5 Stream Starting Soon
- 6 Background
- 7 Camera Secondary
- 8 Camera Primary
- 9 Main 2
-10 Main
+❯ go run _examples/basic/main.go
+OBS Studio version: 30.0.1
+Server protocol version: 5.3.4
+Client library version: 0.0.0-00010101000000-000000000000
+Client protocol version: 5.1.0
 ```
-
-## advanced configuration
-
-- `GOOBS_LOG` can be set to `trace`, `debug`, `info`, or `error` to better understand what our client is doing under the hood.
-
-- `GOOBS_PROFILE` can be set to enable profiling.
-  For example, the following will help us find unreleased memory:
-
-  ```console
-  ❯ GOOBS_PROFILE=memprofile=mem.out OBS_PORT=4455 go test -v -run=profile client_test.go
-  ❯ go tool pprof -top -sample_index=inuse_space mem.out
-  ```
-
-  Set `GOOBS_PROFILE=help` to see all the other available options.
+[//]: # (snippet-2-end)

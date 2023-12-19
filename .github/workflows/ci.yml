@@ -38,7 +38,8 @@ jobs:
     - uses: magnetikonline/action-golang-cache@v4
       with:
         go-version-file: go.mod
-    - run: |
+    - name: make test
+      run: |
         # some tests are flaky because it's running against a dockerized obs
         # instance, so just retry a few times or whatever to be certain
         for _ in $(seq 1 5); do

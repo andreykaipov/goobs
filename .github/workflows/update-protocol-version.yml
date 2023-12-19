@@ -28,7 +28,9 @@ jobs:
         GH_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         ./script/bump-protocol-version.sh
-        version=$(grep obs_websocket_protocol_version version.go | tr -dc '0-9.')
+        ./script/update-readme-snippets.sh
+
+        version=$(grep ProtocolVersion version.go | tr -dc '0-9.')
         message="Bump OBS websocket protocol to $version"
         echo "message=$message" >>$GITHUB_OUTPUT
 

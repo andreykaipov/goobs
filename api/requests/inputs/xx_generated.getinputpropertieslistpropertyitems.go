@@ -2,10 +2,7 @@
 
 package inputs
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetInputPropertiesListPropertyItems request.
 type GetInputPropertiesListPropertyItemsParams struct {
@@ -38,7 +35,7 @@ func (o *GetInputPropertiesListPropertyItemsParams) GetRequestName() string {
 
 // Represents the response body for the GetInputPropertiesListPropertyItems request.
 type GetInputPropertiesListPropertyItemsResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Array of items in the list property
 	PropertyItems []*typedefs.PropertyItem `json:"propertyItems,omitempty"`

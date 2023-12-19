@@ -2,8 +2,6 @@
 
 package inputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the CreateInput request.
 type CreateInputParams struct {
 	// The kind of input to be created
@@ -53,7 +51,7 @@ func (o *CreateInputParams) GetRequestName() string {
 
 // Represents the response body for the CreateInput request.
 type CreateInputResponse struct {
-	api.ResponseCommon
+	_response
 
 	// ID of the newly created scene item
 	SceneItemId int `json:"sceneItemId,omitempty"`

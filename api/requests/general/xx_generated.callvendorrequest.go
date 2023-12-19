@@ -2,8 +2,6 @@
 
 package general
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the CallVendorRequest request.
 type CallVendorRequestParams struct {
 	// Object containing appropriate request data
@@ -39,7 +37,7 @@ func (o *CallVendorRequestParams) GetRequestName() string {
 
 // Represents the response body for the CallVendorRequest request.
 type CallVendorRequestResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Echoed of `requestType`
 	RequestType string `json:"requestType,omitempty"`

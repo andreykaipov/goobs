@@ -2,8 +2,6 @@
 
 package outputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetLastReplayBufferReplay request.
 type GetLastReplayBufferReplayParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetLastReplayBufferReplayParams) GetRequestName() string {
 
 // Represents the response body for the GetLastReplayBufferReplay request.
 type GetLastReplayBufferReplayResponse struct {
-	api.ResponseCommon
+	_response
 
 	// File path
 	SavedReplayPath string `json:"savedReplayPath,omitempty"`

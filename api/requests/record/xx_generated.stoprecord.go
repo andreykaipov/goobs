@@ -2,8 +2,6 @@
 
 package record
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the StopRecord request.
 type StopRecordParams struct{}
 
@@ -14,7 +12,7 @@ func (o *StopRecordParams) GetRequestName() string {
 
 // Represents the response body for the StopRecord request.
 type StopRecordResponse struct {
-	api.ResponseCommon
+	_response
 
 	// File name for the saved recording
 	OutputPath string `json:"outputPath,omitempty"`

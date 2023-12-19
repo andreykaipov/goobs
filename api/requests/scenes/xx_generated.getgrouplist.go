@@ -2,8 +2,6 @@
 
 package scenes
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetGroupList request.
 type GetGroupListParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetGroupListParams) GetRequestName() string {
 
 // Represents the response body for the GetGroupList request.
 type GetGroupListResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Array of group names
 	Groups []string `json:"groups,omitempty"`

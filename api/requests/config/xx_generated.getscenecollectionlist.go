@@ -2,8 +2,6 @@
 
 package config
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetSceneCollectionList request.
 type GetSceneCollectionListParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetSceneCollectionListParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneCollectionList request.
 type GetSceneCollectionListResponse struct {
-	api.ResponseCommon
+	_response
 
 	// The name of the current scene collection
 	CurrentSceneCollectionName string `json:"currentSceneCollectionName,omitempty"`

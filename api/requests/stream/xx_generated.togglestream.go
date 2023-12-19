@@ -2,8 +2,6 @@
 
 package stream
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the ToggleStream request.
 type ToggleStreamParams struct{}
 
@@ -14,7 +12,7 @@ func (o *ToggleStreamParams) GetRequestName() string {
 
 // Represents the response body for the ToggleStream request.
 type ToggleStreamResponse struct {
-	api.ResponseCommon
+	_response
 
 	// New state of the stream output
 	OutputActive bool `json:"outputActive,omitempty"`

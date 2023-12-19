@@ -2,8 +2,6 @@
 
 package general
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetVersion request.
 type GetVersionParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetVersionParams) GetRequestName() string {
 
 // Represents the response body for the GetVersion request.
 type GetVersionResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Array of available RPC requests for the currently negotiated RPC version
 	AvailableRequests []string `json:"availableRequests,omitempty"`

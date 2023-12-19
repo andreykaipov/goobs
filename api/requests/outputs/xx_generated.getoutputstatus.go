@@ -2,8 +2,6 @@
 
 package outputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetOutputStatus request.
 type GetOutputStatusParams struct {
 	// Output name
@@ -25,7 +23,7 @@ func (o *GetOutputStatusParams) GetRequestName() string {
 
 // Represents the response body for the GetOutputStatus request.
 type GetOutputStatusResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

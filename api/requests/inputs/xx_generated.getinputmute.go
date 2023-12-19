@@ -2,8 +2,6 @@
 
 package inputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetInputMute request.
 type GetInputMuteParams struct {
 	// Name of input to get the mute state of
@@ -25,7 +23,7 @@ func (o *GetInputMuteParams) GetRequestName() string {
 
 // Represents the response body for the GetInputMute request.
 type GetInputMuteResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Whether the input is muted
 	InputMuted bool `json:"inputMuted,omitempty"`

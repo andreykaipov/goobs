@@ -2,10 +2,7 @@
 
 package sceneitems
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetSceneItemTransform request.
 type GetSceneItemTransformParams struct {
@@ -35,7 +32,7 @@ func (o *GetSceneItemTransformParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneItemTransform request.
 type GetSceneItemTransformResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Object containing scene item transform info
 	SceneItemTransform *typedefs.SceneItemTransform `json:"sceneItemTransform,omitempty"`

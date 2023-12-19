@@ -2,8 +2,6 @@
 
 package transitions
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetCurrentSceneTransitionCursor request.
 type GetCurrentSceneTransitionCursorParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetCurrentSceneTransitionCursorParams) GetRequestName() string {
 
 // Represents the response body for the GetCurrentSceneTransitionCursor request.
 type GetCurrentSceneTransitionCursorResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Cursor position, between 0.0 and 1.0
 	TransitionCursor float64 `json:"transitionCursor,omitempty"`

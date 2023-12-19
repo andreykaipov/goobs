@@ -2,8 +2,6 @@
 
 package inputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the PressInputPropertiesButton request.
 type PressInputPropertiesButtonParams struct {
 	// Name of the input
@@ -32,7 +30,7 @@ func (o *PressInputPropertiesButtonParams) GetRequestName() string {
 
 // Represents the response body for the PressInputPropertiesButton request.
 type PressInputPropertiesButtonResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 /*

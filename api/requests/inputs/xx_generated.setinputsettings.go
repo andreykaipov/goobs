@@ -2,8 +2,6 @@
 
 package inputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetInputSettings request.
 type SetInputSettingsParams struct {
 	// Name of the input to set the settings of
@@ -40,7 +38,7 @@ func (o *SetInputSettingsParams) GetRequestName() string {
 
 // Represents the response body for the SetInputSettings request.
 type SetInputSettingsResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the settings of an input.

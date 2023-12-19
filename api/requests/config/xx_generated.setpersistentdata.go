@@ -2,8 +2,6 @@
 
 package config
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetPersistentData request.
 type SetPersistentDataParams struct {
 	// The data realm to select. `OBS_WEBSOCKET_DATA_REALM_GLOBAL` or `OBS_WEBSOCKET_DATA_REALM_PROFILE`
@@ -39,7 +37,7 @@ func (o *SetPersistentDataParams) GetRequestName() string {
 
 // Represents the response body for the SetPersistentData request.
 type SetPersistentDataResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the value of a "slot" from the selected persistent data realm.

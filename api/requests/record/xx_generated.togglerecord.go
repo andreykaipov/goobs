@@ -2,8 +2,6 @@
 
 package record
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the ToggleRecord request.
 type ToggleRecordParams struct{}
 
@@ -14,7 +12,7 @@ func (o *ToggleRecordParams) GetRequestName() string {
 
 // Represents the response body for the ToggleRecord request.
 type ToggleRecordResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Toggles the status of the record output.

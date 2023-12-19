@@ -2,8 +2,6 @@
 
 package outputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the ToggleReplayBuffer request.
 type ToggleReplayBufferParams struct{}
 
@@ -14,7 +12,7 @@ func (o *ToggleReplayBufferParams) GetRequestName() string {
 
 // Represents the response body for the ToggleReplayBuffer request.
 type ToggleReplayBufferResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

@@ -2,8 +2,6 @@
 
 package ui
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetStudioModeEnabled request.
 type SetStudioModeEnabledParams struct {
 	// True == Enabled, False == Disabled
@@ -25,7 +23,7 @@ func (o *SetStudioModeEnabledParams) GetRequestName() string {
 
 // Represents the response body for the SetStudioModeEnabled request.
 type SetStudioModeEnabledResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Enables or disables studio mode

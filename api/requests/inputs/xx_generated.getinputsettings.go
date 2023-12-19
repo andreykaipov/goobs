@@ -2,8 +2,6 @@
 
 package inputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetInputSettings request.
 type GetInputSettingsParams struct {
 	// Name of the input to get the settings of
@@ -25,7 +23,7 @@ func (o *GetInputSettingsParams) GetRequestName() string {
 
 // Represents the response body for the GetInputSettings request.
 type GetInputSettingsResponse struct {
-	api.ResponseCommon
+	_response
 
 	// The kind of the input
 	InputKind string `json:"inputKind,omitempty"`

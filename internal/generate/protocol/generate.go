@@ -40,8 +40,11 @@ func generateRequests(requests []*Request) {
 		// Generate the category-level client
 		client := NewFile(categoryClaustrophic)
 		client.HeaderComment("This file has been automatically generated. Don't edit it.")
-		client.Commentf("Client represents a client for '%s' requests.", category)
 		client.Add(
+			Type().Id("_response").Op("=").Qual(goobs+"/api", "ResponseCommon"),
+			Line(),
+			Commentf("Client represents a client for '%s' requests.", category),
+			Line(),
 			Type().Id("Client").Struct(
 				Op("*").Qual(goobs+"/api", "Client"),
 			),
@@ -144,7 +147,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	s.Commentf("Represents the response body for the %s request.", name).Line()
 
 	respf := &ResponseField{}
-	respf.ValueName = "ResponseCommon"
+	respf.ValueName = "_response"
 	respf.ValueType = "~requests~" // internal type
 	request.ResponseFields = append(request.ResponseFields, respf)
 
@@ -401,7 +404,7 @@ func generateStructFromParams[F Field](origin string, s *Statement, name string,
 		case "Array<Object>":
 			fieldType = mapArrayObject(origin, name, f)
 		case "~requests~":
-			fieldType = Qual(goobs+"/api", fvn)
+			fieldType = Id(fvn)
 			embedded = true
 		default:
 			panic(fmt.Errorf("in struct %q, %q is of weird type %q", name, fvn, fvt))

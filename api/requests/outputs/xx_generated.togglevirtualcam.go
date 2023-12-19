@@ -2,8 +2,6 @@
 
 package outputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the ToggleVirtualCam request.
 type ToggleVirtualCamParams struct{}
 
@@ -14,7 +12,7 @@ func (o *ToggleVirtualCamParams) GetRequestName() string {
 
 // Represents the response body for the ToggleVirtualCam request.
 type ToggleVirtualCamResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

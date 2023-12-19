@@ -2,8 +2,6 @@
 
 package inputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetInputAudioBalance request.
 type SetInputAudioBalanceParams struct {
 	// New audio balance value
@@ -32,7 +30,7 @@ func (o *SetInputAudioBalanceParams) GetRequestName() string {
 
 // Represents the response body for the SetInputAudioBalance request.
 type SetInputAudioBalanceResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the audio balance of an input.

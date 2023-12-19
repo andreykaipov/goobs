@@ -2,8 +2,6 @@
 
 package inputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetInputAudioBalance request.
 type GetInputAudioBalanceParams struct {
 	// Name of the input to get the audio balance of
@@ -25,7 +23,7 @@ func (o *GetInputAudioBalanceParams) GetRequestName() string {
 
 // Represents the response body for the GetInputAudioBalance request.
 type GetInputAudioBalanceResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Audio balance value from 0.0-1.0
 	InputAudioBalance float64 `json:"inputAudioBalance,omitempty"`

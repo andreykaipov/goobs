@@ -2,8 +2,6 @@
 
 package record
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the ResumeRecord request.
 type ResumeRecordParams struct{}
 
@@ -14,7 +12,7 @@ func (o *ResumeRecordParams) GetRequestName() string {
 
 // Represents the response body for the ResumeRecord request.
 type ResumeRecordResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Resumes the record output.

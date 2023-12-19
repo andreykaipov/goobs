@@ -2,10 +2,7 @@
 
 package scenes
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetSceneList request.
 type GetSceneListParams struct{}
@@ -17,7 +14,7 @@ func (o *GetSceneListParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneList request.
 type GetSceneListResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Current preview scene. `null` if not in studio mode
 	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`

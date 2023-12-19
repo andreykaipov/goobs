@@ -2,8 +2,6 @@
 
 package sources
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SaveSourceScreenshot request.
 type SaveSourceScreenshotParams struct {
 	// Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use "default" (whatever that
@@ -61,7 +59,7 @@ func (o *SaveSourceScreenshotParams) GetRequestName() string {
 
 // Represents the response body for the SaveSourceScreenshot request.
 type SaveSourceScreenshotResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Base64-encoded screenshot
 	ImageData string `json:"imageData,omitempty"`

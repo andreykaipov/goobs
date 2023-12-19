@@ -2,8 +2,6 @@
 
 package outputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetVirtualCamStatus request.
 type GetVirtualCamStatusParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetVirtualCamStatusParams) GetRequestName() string {
 
 // Represents the response body for the GetVirtualCamStatus request.
 type GetVirtualCamStatusResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

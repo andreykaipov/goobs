@@ -2,10 +2,7 @@
 
 package general
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the TriggerHotkeyByKeySequence request.
 type TriggerHotkeyByKeySequenceParams struct {
@@ -38,7 +35,7 @@ func (o *TriggerHotkeyByKeySequenceParams) GetRequestName() string {
 
 // Represents the response body for the TriggerHotkeyByKeySequence request.
 type TriggerHotkeyByKeySequenceResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Triggers a hotkey using a sequence of keys.

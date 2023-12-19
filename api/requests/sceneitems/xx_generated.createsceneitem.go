@@ -2,8 +2,6 @@
 
 package sceneitems
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the CreateSceneItem request.
 type CreateSceneItemParams struct {
 	// Enable state to apply to the scene item on creation
@@ -39,7 +37,7 @@ func (o *CreateSceneItemParams) GetRequestName() string {
 
 // Represents the response body for the CreateSceneItem request.
 type CreateSceneItemResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Numeric ID of the scene item
 	SceneItemId int `json:"sceneItemId,omitempty"`

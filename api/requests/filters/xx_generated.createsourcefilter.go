@@ -2,8 +2,6 @@
 
 package filters
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the CreateSourceFilter request.
 type CreateSourceFilterParams struct {
 	// The kind of filter to be created
@@ -46,7 +44,7 @@ func (o *CreateSourceFilterParams) GetRequestName() string {
 
 // Represents the response body for the CreateSourceFilter request.
 type CreateSourceFilterResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Creates a new filter, adding it to the specified source.

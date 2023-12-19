@@ -2,8 +2,6 @@
 
 package config
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetProfileParameter request.
 type SetProfileParameterParams struct {
 	// Category of the parameter to set
@@ -39,7 +37,7 @@ func (o *SetProfileParameterParams) GetRequestName() string {
 
 // Represents the response body for the SetProfileParameter request.
 type SetProfileParameterResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the value of a parameter in the current profile's configuration.

@@ -2,8 +2,6 @@
 
 package scenes
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetCurrentPreviewScene request.
 type SetCurrentPreviewSceneParams struct {
 	// Scene to set as the current preview scene
@@ -25,7 +23,7 @@ func (o *SetCurrentPreviewSceneParams) GetRequestName() string {
 
 // Represents the response body for the SetCurrentPreviewScene request.
 type SetCurrentPreviewSceneResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 /*

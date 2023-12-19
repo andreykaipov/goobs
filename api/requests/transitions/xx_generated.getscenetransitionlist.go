@@ -2,10 +2,7 @@
 
 package transitions
 
-import (
-	api "github.com/andreykaipov/goobs/api"
-	typedefs "github.com/andreykaipov/goobs/api/typedefs"
-)
+import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetSceneTransitionList request.
 type GetSceneTransitionListParams struct{}
@@ -17,7 +14,7 @@ func (o *GetSceneTransitionListParams) GetRequestName() string {
 
 // Represents the response body for the GetSceneTransitionList request.
 type GetSceneTransitionListResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Kind of the current scene transition. Can be null
 	CurrentSceneTransitionKind string `json:"currentSceneTransitionKind,omitempty"`

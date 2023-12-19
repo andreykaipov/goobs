@@ -2,8 +2,6 @@
 
 package transitions
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetTBarPosition request.
 type SetTBarPositionParams struct {
 	// New position
@@ -32,7 +30,7 @@ func (o *SetTBarPositionParams) GetRequestName() string {
 
 // Represents the response body for the SetTBarPosition request.
 type SetTBarPositionResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 /*

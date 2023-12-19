@@ -2,8 +2,6 @@
 
 package record
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the StartRecord request.
 type StartRecordParams struct{}
 
@@ -14,7 +12,7 @@ func (o *StartRecordParams) GetRequestName() string {
 
 // Represents the response body for the StartRecord request.
 type StartRecordResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Starts the record output.

@@ -2,8 +2,6 @@
 
 package outputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the SetOutputSettings request.
 type SetOutputSettingsParams struct {
 	// Output name
@@ -32,7 +30,7 @@ func (o *SetOutputSettingsParams) GetRequestName() string {
 
 // Represents the response body for the SetOutputSettings request.
 type SetOutputSettingsResponse struct {
-	api.ResponseCommon
+	_response
 }
 
 // Sets the settings of an output.

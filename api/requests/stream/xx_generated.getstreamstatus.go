@@ -2,8 +2,6 @@
 
 package stream
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetStreamStatus request.
 type GetStreamStatusParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetStreamStatusParams) GetRequestName() string {
 
 // Represents the response body for the GetStreamStatus request.
 type GetStreamStatusResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

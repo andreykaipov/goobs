@@ -2,8 +2,6 @@
 
 package scenes
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the GetCurrentProgramScene request.
 type GetCurrentProgramSceneParams struct{}
 
@@ -14,7 +12,7 @@ func (o *GetCurrentProgramSceneParams) GetRequestName() string {
 
 // Represents the response body for the GetCurrentProgramScene request.
 type GetCurrentProgramSceneResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Current program scene
 	CurrentProgramSceneName string `json:"currentProgramSceneName,omitempty"`

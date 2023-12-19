@@ -4,6 +4,8 @@ package sources
 
 import api "github.com/andreykaipov/goobs/api"
 
+type _response = api.ResponseCommon
+
 // Client represents a client for 'sources' requests.
 type Client struct {
 	*api.Client

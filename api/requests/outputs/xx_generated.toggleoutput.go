@@ -2,8 +2,6 @@
 
 package outputs
 
-import api "github.com/andreykaipov/goobs/api"
-
 // Represents the request body for the ToggleOutput request.
 type ToggleOutputParams struct {
 	// Output name
@@ -25,7 +23,7 @@ func (o *ToggleOutputParams) GetRequestName() string {
 
 // Represents the response body for the ToggleOutput request.
 type ToggleOutputResponse struct {
-	api.ResponseCommon
+	_response
 
 	// Whether the output is active
 	OutputActive bool `json:"outputActive,omitempty"`

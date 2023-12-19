@@ -1,0 +1,28 @@
+name: Auto-merge bot PRs
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    if: github.actor == 'dependabot[bot]' || github.actor == 'cathy-cloud[bot]'
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: tibdex/github-app-token@v2
+      id: generate-token
+      with:
+        app_id: ${{ secrets.CATHY_CLOUD_APP_ID }}
+        private_key: ${{ secrets.CATHY_CLOUD_APP_PRIVATE_KEY }}
+
+    - name: automerge bot PRs
+      run: |
+        gh pr merge --squash --auto ${{ github.event.pull_request.number }}
+      env:
+        GH_TOKEN: ${{ steps.generate-token.outputs.token }}

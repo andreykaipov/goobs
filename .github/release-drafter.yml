@@ -6,14 +6,15 @@ tag-prefix: v
 autolabeler:
 - label: chore
   files:
-  - '*.md'
   - 'docker/*'
   - '*.sh'
   - Makefile
   branch:
   - /chore\/.+/
   - /ci\/.+/
-  - /docs?\/.+/
+  - /docs\/.+/
+  title:
+  - /docs/i
 - label: bug
   branch:
   - /fix\/.+/

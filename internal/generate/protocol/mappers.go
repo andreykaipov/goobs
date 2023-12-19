@@ -70,6 +70,8 @@ func mapArrayObject(origin, name string, field Field) *Statement {
 		return Index().Op("*").Qual(typedefs, "Input")
 	case fvn == "outputs":
 		return Index().Op("*").Qual(typedefs, "Output")
+	case fvn == "sceneItems" && origin == "event" && name == "SceneItemListReindexed":
+		return Index().Op("*").Qual(typedefs, "SceneItemBasic")
 	case fvn == "sceneItems":
 		return Index().Op("*").Qual(typedefs, "SceneItem")
 	case fvn == "scenes":

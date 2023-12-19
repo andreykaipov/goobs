@@ -49,6 +49,11 @@ type Transition struct {
 	TransitionName         string `json:"transitionName"`
 }
 
+type SceneItemBasic struct {
+	SceneItemID    int `json:"sceneItemId"`
+	SceneItemIndex int `json:"sceneItemIndex"`
+}
+
 type SceneItem struct {
 	InputKind          string             `json:"inputKind"`
 	IsGroup            bool               `json:"isGroup"`

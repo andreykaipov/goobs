@@ -11,7 +11,7 @@ A scene's item list has been reindexed.
 */
 type SceneItemListReindexed struct {
 	// Array of scene item objects
-	SceneItems []*typedefs.SceneItem `json:"sceneItems,omitempty"`
+	SceneItems []*typedefs.SceneItemBasic `json:"sceneItems,omitempty"`
 
 	// Name of the scene
 	SceneName string `json:"sceneName,omitempty"`

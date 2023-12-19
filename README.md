@@ -29,7 +29,7 @@ To use this library in your project, add it as a module after you've initialized
 
 The following example connects to the server and prints out some versions.
 
-Check out the [developer docs](./docs/README.md) for more info, or just jump right into the [other examples](./_examples)!
+Check out the [docs](./docs/README.md) for more info, or just jump right into the [other examples](./_examples)!
 
 [//]: # (snippet-1-begin)
 ```go

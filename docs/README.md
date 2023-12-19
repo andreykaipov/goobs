@@ -24,12 +24,12 @@ And connect!
 
 Note for Windows users: if your development environment is within WSL, but OBS is running on the Windows host, you'll have to point the address to the Windows host instead, i.e. `ip route show default | awk '{print $3}'`.
 
-The `goobs.WithPassword(...)` is an optional _option_ we can pass to `goobs.New(...)` to configure the client.
-Check the [Go docs](https://pkg.go.dev/github.com/andreykaipov/goobs#Option) for all the possible options.
+The `goobs.WithPassword(...)` is an option we can pass to `goobs.New(...)` to configure the client.
+Check the [Go docs](https://pkg.go.dev/github.com/andreykaipov/goobs#Option) for all the other possible options.
 
 ## making requests
 
-The [OBS websocket protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md) is pretty exhaustive, and it's recommended to look through the requests and events to see if any spark any ideas.
+The [OBS websocket protocol](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md) is pretty exhaustive, and it's recommended to look through the requests and events there to see if any spark any ideas.
 To help figure out how to perform a certain request with this library, a mapping between requests in the protocol to corresponding `goobs` requests is available at [request-mapping.md](/docs/request-mapping.md).
 
 This client library is in fact [generated from the same protocol documentation](/internal/generate/protocol/main.go), so using `goobs` should hopefully remain fairly consistent with what you see in the protocol with little surprises.
@@ -41,7 +41,6 @@ For example, consider the [CreateInput](https://github.com/obsproject/obs-websoc
 The following will add a new video capture input as a source into our specified scene:
 
 ```go
-        // assuming we've defined our client like above
         params := inputs.NewCreateInputParams().
                 WithSceneName("my scene").
                 WithInputName("new browser").
@@ -49,8 +48,18 @@ The following will add a new video capture input as a source into our specified 
         resp, err := client.Inputs.CreateInput(params)
 ```
 
-Note the use of the builder pattern to generate the parameter object for our request!
-This is the recommended way to pass parameters, but we could also have created an `&inputs.CreateInputParams{}` struct directly.
+This is one way to pass parameters, but we could also create the `&inputs.CreateInputParams{}` struct directly:
+
+```go
+        sceneName := "my scene"
+        inputName := "new browser"
+        inputKind := "dshow_input"
+        resp, err := client.Inputs.CreateInput(&inputs.CreateInputParams{
+                SceneName: &sceneName,
+                InputName: &inputName,
+                InputKind: &inputKind,
+        })
+```
 
 ### finding info
 
@@ -67,14 +76,11 @@ For example, we could use `client.Inputs.GetInputList()` to iterate over all the
         }
 ```
 
-We can also subscribe to events from the server, interact with OBS, and see what gets printed out, hoping it has the info we're looking for:
+We can also subscribe to the server events, interact with OBS, and see what gets printed out, hoping it has the info we're looking for:
 
 ```go
         client.Listen(func(event any) {
-                switch e := event.(type) {
-                default:
-                        fmt.Printf("got event: %#v\n", e)
-                }
+                fmt.Printf("got event: %#v\n", event)
         })
 ```
 
@@ -85,6 +91,19 @@ got event: &events.InputCreated{DefaultInputSettings:map[string]interface {}{"ac
 ```
 
 And in that blob of JSON, we'll find `InputKind:"dshow_input"`!
+
+Alternatively, we can also read from the `client.IncomingEvents` channel directly and use type assertion to filter through events:
+
+```go
+        for _, event := range c.IncomingEvents {
+                switch e := event.(type) {
+                case *events.SceneItemListReindexed:
+                        // event i wanted
+                default:
+                        // unhandled event
+                }
+        }
+```
 
 ### accessing the raw response
 
@@ -99,7 +118,7 @@ If you find the generated API to be incorrect, and the response for a request is
         fmt.Println(data["inputs"])
 ```
 
-And if this is the case please open up an issue!
+If you find yourself having to use this though, please open up an issue!
 
 ## advanced configuration
 

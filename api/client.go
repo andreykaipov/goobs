@@ -43,18 +43,15 @@ type Client struct {
 // SendRequest abstracts the logic every subclient uses to send a request and
 // receive the corresponding response.
 //
-// To get the response for a sent request, we can just read the next response
-// from our channel. This works fine in a single-threaded context, and the
-// message IDs of both the sent request and response should match. In
-// a concurrent context, this isn't necessarily true, but since
-// gorilla/websocket doesn't handle concurrency (it'll panic; see
-// https://github.com/gorilla/websocket/issues/119), who cares?
+// To get the response for a sent request, we simply read the next response
+// off our incoming responses channel. This works fine in a single-threaded
+// context, and the message IDs of both the sent request and response should
+// match.
 //
-// Technically a request ID and response ID mismatch could happen if the server
-// processes requests in a different order it received them (e.g. we should 1,
-// then 2; but it processes 2, and then 1), then yeah... there'll be an error.
-// We could add a mutex wrapping sending our request and reading from the
-// channel, but I personally haven't experienced this yet, so
+// A request ID and response ID mismatch could happen if the server processes
+// requests in a different order it received them (e.g. we should 1, then 2; but
+// it processes 2, and then 1). In this case there'll be an error, so note the
+// mutex lock and deferred unlock to prevent this from happening.
 //
 // It should be noted multiple connections to the server are totally fine.
 // Phrased differently, mesasge IDs are unique per client. Moreover, events will

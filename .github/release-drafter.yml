@@ -15,7 +15,7 @@ autolabeler:
   - /docs\/.+/
   title:
   - /docs/i
-- label: bug
+- label: fix
   branch:
   - /fix\/.+/
   title:

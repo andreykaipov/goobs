@@ -32,5 +32,5 @@ type GetInputMuteResponse struct {
 // Gets the audio mute state of an input.
 func (c *Client) GetInputMute(params *GetInputMuteParams) (*GetInputMuteResponse, error) {
 	data := &GetInputMuteResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

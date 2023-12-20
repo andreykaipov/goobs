@@ -27,5 +27,5 @@ func (c *Client) GetOutputList(paramss ...*GetOutputListParams) (*GetOutputListR
 	}
 	params := paramss[0]
 	data := &GetOutputListResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

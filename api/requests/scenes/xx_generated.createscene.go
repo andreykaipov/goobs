@@ -29,5 +29,5 @@ type CreateSceneResponse struct {
 // Creates a new scene in OBS.
 func (c *Client) CreateScene(params *CreateSceneParams) (*CreateSceneResponse, error) {
 	data := &CreateSceneResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

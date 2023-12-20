@@ -48,5 +48,5 @@ type SetSceneItemTransformResponse struct {
 // Sets the transform and crop info of a scene item.
 func (c *Client) SetSceneItemTransform(params *SetSceneItemTransformParams) (*SetSceneItemTransformResponse, error) {
 	data := &SetSceneItemTransformResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

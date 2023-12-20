@@ -22,5 +22,5 @@ func (c *Client) StartRecord(paramss ...*StartRecordParams) (*StartRecordRespons
 	}
 	params := paramss[0]
 	data := &StartRecordResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

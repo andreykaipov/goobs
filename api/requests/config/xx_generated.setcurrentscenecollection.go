@@ -35,5 +35,5 @@ func (c *Client) SetCurrentSceneCollection(
 	params *SetCurrentSceneCollectionParams,
 ) (*SetCurrentSceneCollectionResponse, error) {
 	data := &SetCurrentSceneCollectionResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

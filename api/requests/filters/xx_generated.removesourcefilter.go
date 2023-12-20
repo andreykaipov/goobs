@@ -36,5 +36,5 @@ type RemoveSourceFilterResponse struct {
 // Removes a filter from a source.
 func (c *Client) RemoveSourceFilter(params *RemoveSourceFilterParams) (*RemoveSourceFilterResponse, error) {
 	data := &RemoveSourceFilterResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

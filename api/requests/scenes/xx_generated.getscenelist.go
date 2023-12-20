@@ -33,5 +33,5 @@ func (c *Client) GetSceneList(paramss ...*GetSceneListParams) (*GetSceneListResp
 	}
 	params := paramss[0]
 	data := &GetSceneListResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

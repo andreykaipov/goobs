@@ -47,5 +47,5 @@ Scenes and Group
 */
 func (c *Client) SetSceneItemLocked(params *SetSceneItemLockedParams) (*SetSceneItemLockedResponse, error) {
 	data := &SetSceneItemLockedResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

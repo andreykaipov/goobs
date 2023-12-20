@@ -8,5 +8,10 @@ type _response = api.ResponseCommon
 
 // Client represents a client for 'scene items' requests.
 type Client struct {
-	*api.Client
+	client *api.Client
+}
+
+// NewSceneItems returns a new 'scene items' client.
+func NewClient(c *api.Client) *Client {
+	return &Client{client: c}
 }

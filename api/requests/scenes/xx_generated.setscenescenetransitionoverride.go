@@ -48,5 +48,5 @@ func (c *Client) SetSceneSceneTransitionOverride(
 	params *SetSceneSceneTransitionOverrideParams,
 ) (*SetSceneSceneTransitionOverrideResponse, error) {
 	data := &SetSceneSceneTransitionOverrideResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

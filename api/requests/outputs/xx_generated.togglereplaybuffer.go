@@ -25,5 +25,5 @@ func (c *Client) ToggleReplayBuffer(paramss ...*ToggleReplayBufferParams) (*Togg
 	}
 	params := paramss[0]
 	data := &ToggleReplayBufferResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

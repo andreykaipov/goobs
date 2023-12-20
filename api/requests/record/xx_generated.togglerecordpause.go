@@ -22,5 +22,5 @@ func (c *Client) ToggleRecordPause(paramss ...*ToggleRecordPauseParams) (*Toggle
 	}
 	params := paramss[0]
 	data := &ToggleRecordPauseResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

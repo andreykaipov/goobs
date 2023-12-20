@@ -53,5 +53,5 @@ type GetOutputStatusResponse struct {
 // Gets the status of an output.
 func (c *Client) GetOutputStatus(params *GetOutputStatusParams) (*GetOutputStatusResponse, error) {
 	data := &GetOutputStatusResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

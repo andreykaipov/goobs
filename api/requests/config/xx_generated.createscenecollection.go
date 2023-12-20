@@ -33,5 +33,5 @@ Note: This will block until the collection has finished changing.
 */
 func (c *Client) CreateSceneCollection(params *CreateSceneCollectionParams) (*CreateSceneCollectionResponse, error) {
 	data := &CreateSceneCollectionResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

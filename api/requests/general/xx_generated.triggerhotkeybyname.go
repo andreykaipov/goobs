@@ -29,5 +29,5 @@ type TriggerHotkeyByNameResponse struct {
 // Triggers a hotkey using its name. See `GetHotkeyList`
 func (c *Client) TriggerHotkeyByName(params *TriggerHotkeyByNameParams) (*TriggerHotkeyByNameResponse, error) {
 	data := &TriggerHotkeyByNameResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

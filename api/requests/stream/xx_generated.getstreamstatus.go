@@ -46,5 +46,5 @@ func (c *Client) GetStreamStatus(paramss ...*GetStreamStatusParams) (*GetStreamS
 	}
 	params := paramss[0]
 	data := &GetStreamStatusResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

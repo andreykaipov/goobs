@@ -36,5 +36,5 @@ type SetSceneNameResponse struct {
 // Sets the name of a scene (rename).
 func (c *Client) SetSceneName(params *SetSceneNameParams) (*SetSceneNameResponse, error) {
 	data := &SetSceneNameResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

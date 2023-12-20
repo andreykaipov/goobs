@@ -29,5 +29,5 @@ type StartOutputResponse struct {
 // Starts an output.
 func (c *Client) StartOutput(params *StartOutputParams) (*StartOutputResponse, error) {
 	data := &StartOutputResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

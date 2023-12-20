@@ -29,5 +29,5 @@ type RemoveSceneResponse struct {
 // Removes a scene from OBS.
 func (c *Client) RemoveScene(params *RemoveSceneParams) (*RemoveSceneResponse, error) {
 	data := &RemoveSceneResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

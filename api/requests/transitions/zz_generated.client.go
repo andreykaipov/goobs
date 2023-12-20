@@ -8,5 +8,10 @@ type _response = api.ResponseCommon
 
 // Client represents a client for 'transitions' requests.
 type Client struct {
-	*api.Client
+	client *api.Client
+}
+
+// NewTransitions returns a new 'transitions' client.
+func NewClient(c *api.Client) *Client {
+	return &Client{client: c}
 }

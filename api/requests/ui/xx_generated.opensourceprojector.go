@@ -47,5 +47,5 @@ Note: This request serves to provide feature parity with 4.x. It is very likely 
 */
 func (c *Client) OpenSourceProjector(params *OpenSourceProjectorParams) (*OpenSourceProjectorResponse, error) {
 	data := &OpenSourceProjectorResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

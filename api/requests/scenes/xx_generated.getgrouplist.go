@@ -29,5 +29,5 @@ func (c *Client) GetGroupList(paramss ...*GetGroupListParams) (*GetGroupListResp
 	}
 	params := paramss[0]
 	data := &GetGroupListResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

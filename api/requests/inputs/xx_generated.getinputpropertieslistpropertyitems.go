@@ -50,5 +50,5 @@ func (c *Client) GetInputPropertiesListPropertyItems(
 	params *GetInputPropertiesListPropertyItemsParams,
 ) (*GetInputPropertiesListPropertyItemsResponse, error) {
 	data := &GetInputPropertiesListPropertyItemsResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

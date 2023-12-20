@@ -42,5 +42,5 @@ type GetProfileParameterResponse struct {
 // Gets a parameter from the current profile's configuration.
 func (c *Client) GetProfileParameter(params *GetProfileParameterParams) (*GetProfileParameterResponse, error) {
 	data := &GetProfileParameterResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

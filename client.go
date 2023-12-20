@@ -24,8 +24,12 @@ import (
 
 // Client represents a client to an OBS websockets server.
 type Client struct {
-	*api.Client
+	// See [Client.Listen] for more information.
+	IncomingEvents chan any
+
+	client *api.Client
 	subclients
+
 	conn               *websocket.Conn
 	host               string
 	password           string
@@ -57,7 +61,7 @@ func WithEventSubscriptions(x int) Option {
 // WithLogger sets the logger this library will use. See the logger.Logger
 // interface. Should be compatible with most third-party loggers.
 func WithLogger(x api.Logger) Option {
-	return func(o *Client) { o.Log = x }
+	return func(o *Client) { o.client.Log = x }
 }
 
 // WithDialer sets the underlying [gorilla/websocket.Dialer] should one want to
@@ -78,7 +82,7 @@ func WithRequestHeader(x http.Header) Option {
 // from the server for any request, before responding with an error. It's in
 // milliseconds. The default timeout is 10 seconds.
 func WithResponseTimeout(x time.Duration) Option {
-	return func(o *Client) { o.ResponseTimeout = time.Duration(x) }
+	return func(o *Client) { o.client.ResponseTimeout = time.Duration(x) }
 }
 
 /*
@@ -90,23 +94,23 @@ memory.
 func (c *Client) Disconnect() error {
 	defer func() {
 		close(c.errors)
-		close(c.Opcodes)
 		close(c.IncomingEvents)
-		close(c.IncomingResponses)
+		close(c.client.IncomingResponses)
+		close(c.client.Opcodes)
 
 		if c.profiler != nil {
-			c.Log.Printf("[DEBUG] Ending profiling")
+			c.client.Log.Printf("[DEBUG] Ending profiling")
 			c.profiler.Stop()
 		}
 	}()
 
-	c.Log.Printf("[DEBUG] Sending disconnect message")
+	c.client.Log.Printf("[DEBUG] Sending disconnect message")
 	c.disconnected <- true
 	if err := c.conn.WriteMessage(
 		websocket.CloseMessage,
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Bye"),
 	); err != nil {
-		c.Log.Printf("[ERROR] Force closing connection", err)
+		c.client.Log.Printf("[ERROR] Force closing connection", err)
 		return c.conn.Close()
 	}
 	return nil
@@ -124,8 +128,7 @@ func New(host string, opts ...Option) (*Client, error) {
 		eventSubscriptions: subscriptions.All,
 		errors:             make(chan error),
 		disconnected:       make(chan bool, 1),
-		Client: &api.Client{
-			IncomingEvents:    make(chan any, 100),
+		client: &api.Client{
 			IncomingResponses: make(chan *opcodes.RequestResponse),
 			Opcodes:           make(chan opcodes.Opcode),
 			ResponseTimeout:   10000,
@@ -141,13 +144,14 @@ func New(host string, opts ...Option) (*Client, error) {
 				log.Ltime|log.Lshortfile,
 			),
 		},
+		IncomingEvents: make(chan any, 100),
 	}
 
 	if os.Getenv("GOOBS_PROFILE") != "" {
 		c.profiler = profile.Start(
 			profile.AllProfiles,
 			profile.ConfigEnvVar("GOOBS_PROFILE"),
-			profile.WithLogger(c.Log.(*log.Logger)),
+			profile.WithLogger(c.client.Log.(*log.Logger)),
 		)
 	}
 
@@ -171,7 +175,7 @@ func (c *Client) connect() (err error) {
 
 	u := url.URL{Scheme: "ws", Host: c.host}
 
-	c.Log.Printf("[INFO] Connecting to %s", u.String())
+	c.client.Log.Printf("[INFO] Connecting to %s", u.String())
 
 	if c.conn, _, err = c.dialer.Dial(u.String(), c.requestHeader); err != nil {
 		return err
@@ -183,13 +187,13 @@ func (c *Client) connect() (err error) {
 	go c.handleRawServerMessages(authComplete)
 	go c.handleOpcodes(authComplete)
 
-	timer := time.NewTimer(c.ResponseTimeout * time.Millisecond)
+	timer := time.NewTimer(c.client.ResponseTimeout * time.Millisecond)
 	defer timer.Stop()
 	select {
 	case a := <-authComplete:
 		return a
 	case <-timer.C:
-		return fmt.Errorf("timeout waiting for authentication: %dms", c.ResponseTimeout)
+		return fmt.Errorf("timeout waiting for authentication: %dms", c.client.ResponseTimeout)
 	}
 }
 
@@ -203,7 +207,7 @@ func (c *Client) connect() (err error) {
 // ref:
 // https://github.com/obsproject/obs-websocket/blob/5.0.0/src/websocketserver/WebSocketServer.cpp#L431-L439
 func (c *Client) checkProtocolVersion() error {
-	c.Log.Printf("[DEBUG] Checking correct protocol version")
+	c.client.Log.Printf("[DEBUG] Checking correct protocol version")
 
 	u := url.URL{Scheme: "ws", Host: c.host}
 	conn, _, err := c.dialer.Dial(u.String(), c.requestHeader)
@@ -215,7 +219,7 @@ func (c *Client) checkProtocolVersion() error {
 			websocket.CloseMessage,
 			websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Protocol check"),
 		); err != nil {
-			c.Log.Printf("[ERROR] Force closing initial protocol check connection", err)
+			c.client.Log.Printf("[ERROR] Force closing initial protocol check connection", err)
 			_ = conn.Close()
 		}
 	}()
@@ -227,7 +231,7 @@ func (c *Client) checkProtocolVersion() error {
 
 	raw := json.RawMessage{}
 	_ = conn.ReadJSON(&raw)
-	c.Log.Printf("[DEBUG] %s", raw)
+	c.client.Log.Printf("[DEBUG] %s", raw)
 
 	var val []byte
 	if val, _, _, _ = jsonparser.Get(raw, "authRequired"); val != nil {
@@ -244,7 +248,7 @@ func (c *Client) checkProtocolVersion() error {
 // expose errors as events 🤷
 func (c *Client) handleErrors() {
 	for err := range c.errors {
-		c.Log.Printf("[ERROR] %s", err)
+		c.client.Log.Printf("[ERROR] %s", err)
 		c.writeEvent(err)
 	}
 }
@@ -260,12 +264,12 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 				// https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#websocketclosecode
 				switch t.Code {
 				case websocket.CloseNormalClosure:
-					c.Log.Printf("[DEBUG] Closing connection: %s", t.Text)
+					c.client.Log.Printf("[DEBUG] Closing connection: %s", t.Text)
 				case 4009: // WebSocketCloseCode::AuthenticationFailed
-					c.Log.Printf("[INFO] Closing connection: %s", t.Text)
+					c.client.Log.Printf("[INFO] Closing connection: %s", t.Text)
 					auth <- err
 				default:
-					c.Log.Printf("[ERROR] Unhandled close error: %s", t.Text)
+					c.client.Log.Printf("[ERROR] Unhandled close error: %s", t.Text)
 					select {
 					case <-c.disconnected:
 					default:
@@ -279,7 +283,7 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 					// this seems to only happen with highly concurrent clients reading from
 					// the websocket server simultaneously. but even then it's not really an
 					// issue, because the connection is already closed!
-					c.Log.Printf("[ERROR] Tried to read from closed connection")
+					c.client.Log.Printf("[ERROR] Tried to read from closed connection")
 					return
 				default:
 					select {
@@ -293,7 +297,7 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 			}
 		}
 
-		c.Log.Printf("[TRACE] Raw server message: %s", raw)
+		c.client.Log.Printf("[TRACE] Raw server message: %s", raw)
 
 		select {
 		case <-c.disconnected:
@@ -304,7 +308,7 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 			// 2. client gets the appropriate response for it
 			// 3. client sends disconnect message immediately after
 			// 4. client gets RecordStateChanged event
-			c.Log.Printf("[ERROR] Got %s from the server, but we've already disconnected!", raw)
+			c.client.Log.Printf("[ERROR] Got %s from the server, but we've already disconnected!", raw)
 			return
 		default:
 			opcode, err := opcodes.ParseRawMessage(raw)
@@ -312,7 +316,7 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 				c.errors <- fmt.Errorf("parse raw message: %w", err)
 			}
 
-			c.Opcodes <- opcode
+			c.client.Opcodes <- opcode
 		}
 	}
 }
@@ -320,11 +324,11 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 // here's the meat of the operation
 // handles both server and client opcodes
 func (c *Client) handleOpcodes(auth chan<- error) {
-	for op := range c.Opcodes {
+	for op := range c.client.Opcodes {
 		switch val := op.(type) {
 
 		case *opcodes.Hello:
-			c.Log.Printf("[INFO] Hello; authenticating...")
+			c.client.Log.Printf("[INFO] Hello; authenticating...")
 
 			// we always try to auth; servers with auth
 			// disabled will just ignore it if anything
@@ -334,7 +338,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			authSecret := base64.StdEncoding.EncodeToString(authHash[:])
 
 			go func() {
-				c.Opcodes <- &opcodes.Identify{
+				c.client.Opcodes <- &opcodes.Identify{
 					RPCVersion:         val.RPCVersion,
 					Authentication:     authSecret,
 					EventSubscriptions: c.eventSubscriptions,
@@ -342,7 +346,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			}()
 
 		case *opcodes.Identify:
-			c.Log.Printf("[INFO] Identify;")
+			c.client.Log.Printf("[INFO] Identify;")
 
 			msg := opcodes.Wrap(val).Bytes()
 			if err := c.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
@@ -350,14 +354,14 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			}
 
 		case *opcodes.Identified:
-			c.Log.Printf("[INFO] Identified; negotiated RPC version: %d", val.NegotiatedRPCVersion)
+			c.client.Log.Printf("[INFO] Identified; negotiated RPC version: %d", val.NegotiatedRPCVersion)
 			auth <- nil
 
 		case *opcodes.Reidentify:
 			// can't imagine we need this
 
 		case *opcodes.Event:
-			c.Log.Printf("[TRACE] Got %s event: %s", val.Type, val.Data)
+			c.client.Log.Printf("[TRACE] Got %s event: %s", val.Type, val.Data)
 
 			event := events.GetType(val.Type)
 
@@ -378,7 +382,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			c.writeEvent(event)
 
 		case *opcodes.Request:
-			c.Log.Printf("[TRACE] Got %s Request with ID %s", val.Type, val.ID)
+			c.client.Log.Printf("[TRACE] Got %s Request with ID %s", val.Type, val.ID)
 
 			msg := opcodes.Wrap(val).Bytes()
 			if err := c.conn.WriteMessage(websocket.TextMessage, msg); err != nil {
@@ -386,9 +390,9 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 			}
 
 		case *opcodes.RequestResponse:
-			c.Log.Printf("[TRACE] Got %s Response for ID %s (%d)", val.Type, val.ID, val.Status.Code)
+			c.client.Log.Printf("[TRACE] Got %s Response for ID %s (%d)", val.Type, val.ID, val.Status.Code)
 
-			c.IncomingResponses <- val
+			c.client.IncomingResponses <- val
 
 		default:
 			c.errors <- fmt.Errorf("unhandled opcode %T", op)

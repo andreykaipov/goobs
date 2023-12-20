@@ -47,5 +47,5 @@ func (c *Client) TriggerHotkeyByKeySequence(
 	}
 	params := paramss[0]
 	data := &TriggerHotkeyByKeySequenceResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

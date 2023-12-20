@@ -27,5 +27,5 @@ func (c *Client) GetMonitorList(paramss ...*GetMonitorListParams) (*GetMonitorLi
 	}
 	params := paramss[0]
 	data := &GetMonitorListResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

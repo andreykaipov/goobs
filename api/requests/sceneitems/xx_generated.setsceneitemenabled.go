@@ -47,5 +47,5 @@ Scenes and Groups
 */
 func (c *Client) SetSceneItemEnabled(params *SetSceneItemEnabledParams) (*SetSceneItemEnabledResponse, error) {
 	data := &SetSceneItemEnabledResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

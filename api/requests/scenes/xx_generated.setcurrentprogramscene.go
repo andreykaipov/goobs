@@ -29,5 +29,5 @@ type SetCurrentProgramSceneResponse struct {
 // Sets the current program scene.
 func (c *Client) SetCurrentProgramScene(params *SetCurrentProgramSceneParams) (*SetCurrentProgramSceneResponse, error) {
 	data := &SetCurrentProgramSceneResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

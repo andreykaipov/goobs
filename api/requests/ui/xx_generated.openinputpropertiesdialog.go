@@ -31,5 +31,5 @@ func (c *Client) OpenInputPropertiesDialog(
 	params *OpenInputPropertiesDialogParams,
 ) (*OpenInputPropertiesDialogResponse, error) {
 	data := &OpenInputPropertiesDialogResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

@@ -43,5 +43,5 @@ type SetInputVolumeResponse struct {
 // Sets the volume setting of an input.
 func (c *Client) SetInputVolume(params *SetInputVolumeParams) (*SetInputVolumeResponse, error) {
 	data := &SetInputVolumeResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

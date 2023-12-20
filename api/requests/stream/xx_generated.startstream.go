@@ -22,5 +22,5 @@ func (c *Client) StartStream(paramss ...*StartStreamParams) (*StartStreamRespons
 	}
 	params := paramss[0]
 	data := &StartStreamResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

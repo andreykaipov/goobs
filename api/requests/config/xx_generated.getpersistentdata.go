@@ -39,5 +39,5 @@ type GetPersistentDataResponse struct {
 // Gets the value of a "slot" from the selected persistent data realm.
 func (c *Client) GetPersistentData(params *GetPersistentDataParams) (*GetPersistentDataResponse, error) {
 	data := &GetPersistentDataResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

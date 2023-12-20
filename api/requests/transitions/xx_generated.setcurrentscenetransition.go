@@ -35,5 +35,5 @@ func (c *Client) SetCurrentSceneTransition(
 	params *SetCurrentSceneTransitionParams,
 ) (*SetCurrentSceneTransitionResponse, error) {
 	data := &SetCurrentSceneTransitionResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

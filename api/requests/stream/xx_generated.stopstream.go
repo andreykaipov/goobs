@@ -22,5 +22,5 @@ func (c *Client) StopStream(paramss ...*StopStreamParams) (*StopStreamResponse, 
 	}
 	params := paramss[0]
 	data := &StopStreamResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

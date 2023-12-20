@@ -22,5 +22,5 @@ func (c *Client) StopReplayBuffer(paramss ...*StopReplayBufferParams) (*StopRepl
 	}
 	params := paramss[0]
 	data := &StopReplayBufferResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

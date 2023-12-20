@@ -38,5 +38,5 @@ func (c *Client) SetInputAudioMonitorType(
 	params *SetInputAudioMonitorTypeParams,
 ) (*SetInputAudioMonitorTypeResponse, error) {
 	data := &SetInputAudioMonitorTypeResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

@@ -29,5 +29,5 @@ type StopOutputResponse struct {
 // Stops an output.
 func (c *Client) StopOutput(params *StopOutputParams) (*StopOutputResponse, error) {
 	data := &StopOutputResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

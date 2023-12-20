@@ -29,5 +29,5 @@ type RemoveProfileResponse struct {
 // Removes a profile. If the current profile is chosen, it will change to a different profile first.
 func (c *Client) RemoveProfile(params *RemoveProfileParams) (*RemoveProfileResponse, error) {
 	data := &RemoveProfileResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

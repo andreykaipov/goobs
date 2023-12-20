@@ -22,5 +22,5 @@ func (c *Client) PauseRecord(paramss ...*PauseRecordParams) (*PauseRecordRespons
 	}
 	params := paramss[0]
 	data := &PauseRecordResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

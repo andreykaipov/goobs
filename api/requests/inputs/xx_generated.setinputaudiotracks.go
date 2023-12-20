@@ -38,5 +38,5 @@ type SetInputAudioTracksResponse struct {
 // Sets the enable state of audio tracks of an input.
 func (c *Client) SetInputAudioTracks(params *SetInputAudioTracksParams) (*SetInputAudioTracksResponse, error) {
 	data := &SetInputAudioTracksResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

@@ -38,5 +38,5 @@ func (c *Client) GetInputList(paramss ...*GetInputListParams) (*GetInputListResp
 	}
 	params := paramss[0]
 	data := &GetInputListResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

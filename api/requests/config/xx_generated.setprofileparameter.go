@@ -43,5 +43,5 @@ type SetProfileParameterResponse struct {
 // Sets the value of a parameter in the current profile's configuration.
 func (c *Client) SetProfileParameter(params *SetProfileParameterParams) (*SetProfileParameterResponse, error) {
 	data := &SetProfileParameterResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

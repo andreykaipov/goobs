@@ -35,17 +35,17 @@ type subclients struct {
 }
 
 func setClients(c *Client) {
-	c.Config = &config.Client{Client: c.Client}
-	c.Filters = &filters.Client{Client: c.Client}
-	c.General = &general.Client{Client: c.Client}
-	c.Inputs = &inputs.Client{Client: c.Client}
-	c.MediaInputs = &mediainputs.Client{Client: c.Client}
-	c.Outputs = &outputs.Client{Client: c.Client}
-	c.Record = &record.Client{Client: c.Client}
-	c.SceneItems = &sceneitems.Client{Client: c.Client}
-	c.Scenes = &scenes.Client{Client: c.Client}
-	c.Sources = &sources.Client{Client: c.Client}
-	c.Stream = &stream.Client{Client: c.Client}
-	c.Transitions = &transitions.Client{Client: c.Client}
-	c.Ui = &ui.Client{Client: c.Client}
+	c.Config = config.NewClient(c.client)
+	c.Filters = filters.NewClient(c.client)
+	c.General = general.NewClient(c.client)
+	c.Inputs = inputs.NewClient(c.client)
+	c.MediaInputs = mediainputs.NewClient(c.client)
+	c.Outputs = outputs.NewClient(c.client)
+	c.Record = record.NewClient(c.client)
+	c.SceneItems = sceneitems.NewClient(c.client)
+	c.Scenes = scenes.NewClient(c.client)
+	c.Sources = sources.NewClient(c.client)
+	c.Stream = stream.NewClient(c.client)
+	c.Transitions = transitions.NewClient(c.client)
+	c.Ui = ui.NewClient(c.client)
 }

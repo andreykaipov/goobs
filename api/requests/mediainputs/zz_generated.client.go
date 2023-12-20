@@ -8,5 +8,10 @@ type _response = api.ResponseCommon
 
 // Client represents a client for 'media inputs' requests.
 type Client struct {
-	*api.Client
+	client *api.Client
+}
+
+// NewMediaInputs returns a new 'media inputs' client.
+func NewClient(c *api.Client) *Client {
+	return &Client{client: c}
 }

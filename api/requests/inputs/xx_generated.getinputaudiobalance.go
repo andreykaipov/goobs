@@ -32,5 +32,5 @@ type GetInputAudioBalanceResponse struct {
 // Gets the audio balance of an input.
 func (c *Client) GetInputAudioBalance(params *GetInputAudioBalanceParams) (*GetInputAudioBalanceResponse, error) {
 	data := &GetInputAudioBalanceResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

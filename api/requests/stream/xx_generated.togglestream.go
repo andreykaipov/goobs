@@ -25,5 +25,5 @@ func (c *Client) ToggleStream(paramss ...*ToggleStreamParams) (*ToggleStreamResp
 	}
 	params := paramss[0]
 	data := &ToggleStreamResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

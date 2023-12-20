@@ -1,3 +1,7 @@
+// Package api is the intermediary API between the top-level goobs client and
+// the category-level subclients.
+//
+// Nothing in this package should be of interest to a user.
 package api
 
 import (
@@ -13,8 +17,6 @@ import (
 
 type Params interface{ GetRequestName() string }
 
-type RawMessage []byte
-
 type ResponseCommon struct{ raw json.RawMessage }
 
 func (o *ResponseCommon) setRaw(raw json.RawMessage) { o.raw = raw }
@@ -25,19 +27,22 @@ type Response interface {
 	GetRaw() json.RawMessage
 }
 
-// Client represents a requests client to the OBS websocket server. Its
-// intention is to provide a means of communication between the top-level client
-// and the category-level clients, so while its fields are exported, they should
-// be of no interest to consumers of this library.
+// Client represents a minimal client to the OBS websocket server.
 type Client struct {
 	// The time we're willing to wait to receive a response from the server.
 	ResponseTimeout time.Duration
 
-	IncomingEvents    chan any
+	// This client sends raw opcodes it got from the server to this channel.
+	Opcodes chan opcodes.Opcode
+
+	// Once the top-level has parsed the raw opcode, it sends the response
+	// to this channel.
 	IncomingResponses chan *opcodes.RequestResponse
-	Opcodes           chan opcodes.Opcode
-	Log               Logger
-	mutex             sync.Mutex
+
+	// Ya like logs?
+	Log Logger
+
+	mutex sync.Mutex
 }
 
 // SendRequest abstracts the logic every subclient uses to send a request and

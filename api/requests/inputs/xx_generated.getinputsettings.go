@@ -39,5 +39,5 @@ Note: Does not include defaults. To create the entire settings object, overlay `
 */
 func (c *Client) GetInputSettings(params *GetInputSettingsParams) (*GetInputSettingsResponse, error) {
 	data := &GetInputSettingsResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

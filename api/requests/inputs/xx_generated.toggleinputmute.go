@@ -32,5 +32,5 @@ type ToggleInputMuteResponse struct {
 // Toggles the audio mute state of an input.
 func (c *Client) ToggleInputMute(params *ToggleInputMuteParams) (*ToggleInputMuteResponse, error) {
 	data := &ToggleInputMuteResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

@@ -36,5 +36,5 @@ type SetInputNameResponse struct {
 // Sets the name of an input (rename).
 func (c *Client) SetInputName(params *SetInputNameParams) (*SetInputNameResponse, error) {
 	data := &SetInputNameResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

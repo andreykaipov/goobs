@@ -22,5 +22,5 @@ func (c *Client) ToggleRecord(paramss ...*ToggleRecordParams) (*ToggleRecordResp
 	}
 	params := paramss[0]
 	data := &ToggleRecordResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

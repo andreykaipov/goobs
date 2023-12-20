@@ -8,5 +8,10 @@ type _response = api.ResponseCommon
 
 // Client represents a client for 'filters' requests.
 type Client struct {
-	*api.Client
+	client *api.Client
+}
+
+// NewFilters returns a new 'filters' client.
+func NewClient(c *api.Client) *Client {
+	return &Client{client: c}
 }

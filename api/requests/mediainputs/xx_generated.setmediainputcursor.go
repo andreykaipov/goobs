@@ -40,5 +40,5 @@ This request does not perform bounds checking of the cursor position.
 */
 func (c *Client) SetMediaInputCursor(params *SetMediaInputCursorParams) (*SetMediaInputCursorResponse, error) {
 	data := &SetMediaInputCursorResponse{}
-	return data, c.SendRequest(params, data)
+	return data, c.client.SendRequest(params, data)
 }

@@ -304,6 +304,50 @@ func generateEventSubscriptions(enums []*Enum, filter enumFilter) {
 	}
 }
 
+func generateWebsocketCloseCodes(enums []*Enum, filter enumFilter) {
+	dir := fmt.Sprintf("%s/api/closecodes", root)
+	if err := os.MkdirAll(dir, 0777); err != nil {
+		panic(err)
+	}
+
+	s := Line()
+
+	for _, e := range enums {
+		if !filter(e) {
+			continue
+		}
+
+		f := NewFile("closecodes")
+		f.HeaderComment("This file has been automatically generated. Don't edit it.")
+		f.Add(s)
+
+		s.Const().DefsFunc(func(g *Group) {
+			for _, x := range e.EnumIdentifiers {
+				id := x.EnumIdentifier
+				fmt.Printf("WebSocketCloseCode %s\n", id)
+
+				val := ""
+				switch value := x.EnumValue.(type) {
+				case string:
+					val = value
+				default:
+					val = fmt.Sprintf("%v", value)
+				}
+
+				g.Comment(x.Description)
+				g.Id(id).Op("=").Id(val)
+				g.Line()
+			}
+		})
+
+		if err := f.Save(fmt.Sprintf("%s/xx_generated.closecodes.go", dir)); err != nil {
+			panic(err)
+		}
+
+		return
+	}
+}
+
 func generateRequestStatuses(enums []*Enum, filter enumFilter) {
 	dir := fmt.Sprintf("%s/api/requests", root)
 	if err := os.MkdirAll(dir, 0777); err != nil {

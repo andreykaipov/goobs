@@ -29,6 +29,13 @@ func GetStatusForCode(code int) string {
 	case 206:
 		// The request batch execution type is not supported.
 		return "UnsupportedRequestBatchExecutionType"
+	case 207:
+		/*
+		   The server is not ready to handle the request.
+
+		   Note: This usually occurs during OBS scene collection change or exit. Requests may be tried again after a delay if this code is given.
+		*/
+		return "NotReady"
 	case 300:
 		// A required request field is missing.
 		return "MissingRequestField"

@@ -38,6 +38,18 @@ ensure_obs() {
         fi
 }
 
+find_release() {
+        # our workflow passes this
+        release="$1"
+        if [ -z "$release" ]; then
+                release=$(gh release list | awk -F'\t' '/Draft/ {print $3}' | head -n1)
+                if [ -z "$release" ]; then
+                        release="x.x.x"
+                fi
+        fi
+        echo "$release" | tr -dc '0-9.'
+}
+
 main() {
         set -eu
         ensure_obs
@@ -45,13 +57,7 @@ main() {
         content=$(cat _examples/basic/main.go)
         printf '```go\n%s\n```' "$content" | replace_markdown README.md snippet-1
 
-        release="$1"
-        if [ -z "$release" ]; then
-                release=$(gh release list | awk -F'\t' '/Draft/ {print $3}' | tr -dc '0-9.' | head -n1)
-                if [ -z "$release" ]; then
-                        release="x.x.x"
-                fi
-        fi
+        release=$(find_release "$@")
         content=$(go run _examples/basic/main.go | sed "s/(devel)/$release/")
         printf '```console\n%s\n```' "❯ go run _examples/basic/main.go\n$content" | replace_markdown README.md snippet-2
 }

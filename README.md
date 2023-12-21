@@ -69,6 +69,6 @@ The corresponding output:
 OBS Studio version: 30.0.1
 Server protocol version: 5.3.4
 Client protocol version: 5.3.0
-Client library version: 1.0.0
+Client library version: 1.0.1
 ```
 [//]: # (snippet-2-end)

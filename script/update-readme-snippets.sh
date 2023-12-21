@@ -45,8 +45,14 @@ main() {
         content=$(cat _examples/basic/main.go)
         printf '```go\n%s\n```' "$content" | replace_markdown README.md snippet-1
 
-        draft_release=$(gh release list | awk -F'\t' '/Draft/ {print $3}' | tr -dc '0-9.' | head -n1)
-        content=$(go run _examples/basic/main.go | sed "s/(devel)/$draft_release/")
+        release="$1"
+        if [ -z "$release" ]; then
+                release=$(gh release list | awk -F'\t' '/Draft/ {print $3}' | tr -dc '0-9.' | head -n1)
+                if [ -z "$release" ]; then
+                        release="x.x.x"
+                fi
+        fi
+        content=$(go run _examples/basic/main.go | sed "s/(devel)/$release/")
         printf '```console\n%s\n```' "❯ go run _examples/basic/main.go\n$content" | replace_markdown README.md snippet-2
 }
 

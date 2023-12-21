@@ -28,11 +28,48 @@ jobs:
         GH_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         ./script/bump-protocol-version.sh
-        ./script/update-readme-snippets.sh
 
     - name: create pr
       id: create-pr
       if: steps.update-version.outcome == 'success'
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ steps.generate-token.outputs.token }}
+        title: ${{ steps.update-version.outputs.message }}
+        commit-message: ${{ steps.update-version.outputs.message }}
+        branch: ${{ steps.update-version.outputs.bump }}/bump-protocol-version
+        delete-branch: true
+        labels: |
+          ${{ steps.update-version.outputs.bump }}
+          protocol
+        reviewers: |
+          andreykaipov
+        body: |
+          There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
+
+          This PR may or may not contain any actual changes to the generated code.
+
+    # we invoke a draft release here to be able to fetch the expected resolved
+    # version so we can update the readme predictably :)
+    - name: draft release
+      id: draft-release
+      uses: release-drafter/release-drafter@v5
+      with:
+        config-name: release-drafter.yml
+        disable-autolabeler: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: update readme
+      id: update-readme
+      env:
+        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+      run: |
+        ./script/update-readme-snippets.sh "${{ steps.draft-release.outputs.name }}"
+
+    - name: update pr
+      id: update-pr
+      if: steps.update-readme.outcome == 'success'
       uses: peter-evans/create-pull-request@v5
       with:
         token: ${{ steps.generate-token.outputs.token }}

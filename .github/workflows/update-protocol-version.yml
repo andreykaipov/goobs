@@ -23,30 +23,38 @@ jobs:
         go-version-file: go.mod
 
     - name: update version
-      id: update
+      id: update-version
       env:
         GH_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         ./script/bump-protocol-version.sh
         ./script/update-readme-snippets.sh
 
-        version=$(grep ProtocolVersion version.go | tr -dc '0-9.')
-        message="Bump OBS websocket protocol to $version"
-        echo "message=$message" >>$GITHUB_OUTPUT
-
     - name: create pr
+      id: create-pr
+      if: steps.update-version.outcome == 'success'
       uses: peter-evans/create-pull-request@v5
       with:
         token: ${{ steps.generate-token.outputs.token }}
-        title: ${{ steps.update.outputs.message }}
-        commit-message: ${{ steps.update.outputs.message }}
-        branch: feature/bump-protocol-version
+        title: ${{ steps.update-version.outputs.message }}
+        commit-message: ${{ steps.update-version.outputs.message }}
+        branch: ${{ steps.update-version.outputs.bump }}/bump-protocol-version
         delete-branch: true
         labels: |
-          feature
+          ${{ steps.update-version.outputs.bump }}
+          protocol
         reviewers: |
           andreykaipov
         body: |
           There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
 
           This PR may or may not contain any actual changes to the generated code.
+
+    - uses: release-drafter/release-drafter@v5
+      if: steps.create-pr.outcome == 'success'
+      with:
+        config-name: release-drafter.yml
+        disable-autolabeler: true
+        publish: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,35 +1,33 @@
 ---
-name-template: v$RESOLVED_VERSION 🌈
+name-template: v$RESOLVED_VERSION
 tag-template: v$RESOLVED_VERSION
 tag-prefix: v
 
 autolabeler:
 - label: chore
-  files:
-  - 'docker/*'
-  - '*.sh'
-  - Makefile
-  branch:
-  - /chore\/.+/
-  - /ci\/.+/
-  - /docs\/.+/
-  title:
-  - /docs/i
+  branch: [/^chore\/.+/]
+- label: ci
+  branch: [/^ci\/.+/]
+- label: docs
+  branch: [/^docs\/.+/]
 - label: fix
-  branch:
-  - /fix\/.+/
-  title:
-  - /fix/i
+  branch: [/^fix\/.+/]
 - label: feature
-  branch:
-  - /feature\/.+/
-  files:
-  - version.go
+  branch: [/^feature\/.+/]
+- label: major
+  branch: [/^major\/.+/]
+- label: minor
+  branch: [/^minor\/.+/]
+- label: patch
+  branch: [/^patch\/.+/]
 
 categories:
 - title: 🚨 Breaking Changes
   labels:
   - breaking
+- title: 💻 Protocol Updates
+  labels:
+  - protocol
 - title: 🚀 Features
   labels:
   - enhancement
@@ -41,7 +39,8 @@ categories:
 - title: 🔧 Maintenance
   labels:
   - chore
-  - documentation
+  - ci
+  - docs
 - title: 🤖 Dependencies
   labels:
   - dependencies
@@ -50,17 +49,21 @@ version-resolver:
   major:
     labels:
     - breaking
+    - major
   minor:
     labels:
     - enhancement
     - feature
+    - minor
   patch:
     labels:
     - bug
     - chore
+    - ci
     - dependencies
-    - documentation
+    - docs
     - fix
+    - patch
   default: patch
 
 template: |

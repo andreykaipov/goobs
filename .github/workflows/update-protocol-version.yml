@@ -38,22 +38,26 @@ jobs:
         git add .
         git commit -m "$message"
         git push -fu origin "$branch"
-        if gh pr view "$branch"; then
-          pr=$(gh pr reopen "$branch")
-        else
-          pr=$(
-            gh pr create \
-              --base "${{ env.base }}" \
-              --title "$message" \
-              --label "$bump" \
-              --label protocol \
-              --body "
-                There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
 
-                This PR may or may not contain any actual changes to the generated code.
-              "
-          )
+        pr=$(gh pr list -s open -A 'cathy-cloud[bot]' -L 1 --json number,headRefName -q .[].number)
+        if [ -n "$pr" ]; then
+          echo "Open PR $pr for $branch already exists"
+          echo "pr=$pr" >>$GITHUB_OUTPUT
+          exit
         fi
+
+        pr=$(
+          gh pr create \
+            --base "${{ env.base }}" \
+            --title "$message" \
+            --label "$bump" \
+            --label protocol \
+            --body "
+              There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
+
+              This PR may or may not contain any actual changes to the generated code.
+            "
+        )
         echo "pr=$pr" >>$GITHUB_OUTPUT
 
     # we invoke a draft release here to be able to fetch the expected resolved

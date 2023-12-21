@@ -75,12 +75,3 @@ jobs:
           sleep 10
         done
         echo "PR was merged in!"
-
-    - name: publish release
-      uses: release-drafter/release-drafter@v5
-      with:
-        config-name: release-drafter.yml
-        disable-autolabeler: false
-        publish: true
-      env:
-        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}

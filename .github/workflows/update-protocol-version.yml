@@ -22,39 +22,65 @@ jobs:
       with:
         go-version-file: go.mod
 
-    - name: update version
-      id: update-version
+    - name: create bump version protocol PR
       env:
-        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        base: main
       run: |
         ./script/bump-protocol-version.sh
-        ./script/update-readme-snippets.sh
-
-    - name: create pr
-      id: create-pr
-      if: steps.update-version.outcome == 'success'
-      uses: peter-evans/create-pull-request@v5
-      with:
-        token: ${{ steps.generate-token.outputs.token }}
-        title: ${{ steps.update-version.outputs.message }}
-        commit-message: ${{ steps.update-version.outputs.message }}
-        branch: ${{ steps.update-version.outputs.bump }}/bump-protocol-version
-        delete-branch: true
-        labels: |
-          ${{ steps.update-version.outputs.bump }}
-          protocol
-        reviewers: |
-          andreykaipov
-        body: |
+        bump=$(cat /tmp/.goobs.protocol.bump)
+        next=$(cat /tmp/.goobs.protocol.next)
+        branch="bump-protocol-version"
+        message="Bump OBS websocket protocol to $next"
+        body='
           There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
 
           This PR may or may not contain any actual changes to the generated code.
+        '
 
-    - uses: release-drafter/release-drafter@v5
-      if: steps.create-pr.outcome == 'success'
+        git config --global user.name "cathy-cloud[bot]"
+        git config --global user.email "154095190+cathy-cloud[bot]@users.noreply.github.com"
+        git checkout -b "$branch"
+        git add .
+        git commit -m "$message"
+        git push -fu origin "$branch"
+
+        pr=$(gh pr list -s open -A 'cathy-cloud[bot]' -L 1 --json number,headRefName -q .[].number)
+        if [ -n "$pr" ]; then
+          echo "Open PR $pr for $branch already exists"
+        else
+          echo "Creating PR for $branch"
+          pr=$(
+            gh pr create \
+              --base "${{ env.base }}" \
+              --title "$message" \
+              --label "$bump" \
+              --label protocol \
+              --body "$body"
+          )
+        fi
+
+        echo "Trying to auto merge..."
+        attempt=0
+        while :; do
+          if [ "$attempt" -eq 10 ]; then exit 1; fi
+          if gh pr merge --squash --auto "$pr"; then break; fi
+          attempt=$((attempt+1))
+          sleep 10
+        done
+        echo "Waiting until it's merged in..."
+        while :; do
+          state=$(gh pr view "$pr" --json state -q .state)
+          if [ "$state" = MERGED ]; then break; fi
+          sleep 10
+        done
+        echo "PR was merged in!"
+
+    - name: publish release
+      uses: release-drafter/release-drafter@v5
       with:
         config-name: release-drafter.yml
-        disable-autolabeler: true
+        disable-autolabeler: false
         publish: true
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}

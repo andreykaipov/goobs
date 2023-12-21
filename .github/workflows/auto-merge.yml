@@ -1,4 +1,4 @@
-name: Auto-merge bot PRs
+name: Auto-merge dependabot PRs
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ permissions:
 jobs:
   automerge:
     runs-on: ubuntu-latest
-    if: github.actor == 'dependabot[bot]' || github.actor == 'cathy-cloud[bot]'
+    if: github.actor == 'dependabot[bot]'
     steps:
     - uses: actions/checkout@v4
 

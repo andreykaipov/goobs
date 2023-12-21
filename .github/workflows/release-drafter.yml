@@ -5,7 +5,9 @@ on:
   push:
     branches: [main]
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, closed]
+  pull_request_target:
+    types: [opened, reopened, synchronize, closed]
 
 permissions:
   contents: read
@@ -17,7 +19,8 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: release-drafter/release-drafter@v5
+      - name: draft release
+        uses: release-drafter/release-drafter@v5
         with:
           config-name: release-drafter.yml
           disable-autolabeler: false

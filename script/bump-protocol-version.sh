@@ -52,21 +52,14 @@ compare_versions() {
                 echo "Nothing to update"
                 exit 1
         fi
-
-        if [ -n "$GITHUB_ACTIONS" ]; then
-                echo "bump=$bump" >>"$GITHUB_OUTPUT"
-                echo "next=$next" >>"$GITHUB_OUTPUT"
-        fi
+        echo "$bump" >/tmp/.goobs.protocol.bump
+        echo "$next" >/tmp/.goobs.protocol.next
 }
 
 bump_versions() {
         sed -i "s/$current/$next/g" version.go README.md
         make generate
-
-        if [ -n "$GITHUB_ACTIONS" ]; then
-                message="Bump OBS websocket protocol to $next"
-                echo "message=$message" >>"$GITHUB_OUTPUT"
-        fi
+        ./script/update-readme-snippets.sh "$bump"
 }
 
 main() {

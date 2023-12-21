@@ -37,7 +37,7 @@ jobs:
         token: ${{ steps.generate-token.outputs.token }}
         title: ${{ steps.update.outputs.message }}
         commit-message: ${{ steps.update.outputs.message }}
-        branch: ${{ feature/bump-protocol-version }}
+        branch: feature/bump-protocol-version
         delete-branch: true
         labels: |
           ${{ steps.update.outputs.bump}}

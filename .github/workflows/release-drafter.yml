@@ -6,8 +6,6 @@ on:
     branches: [main]
   pull_request:
     types: [opened, reopened, synchronize, closed]
-  pull_request_target:
-    types: [opened, reopened, synchronize, closed]
 
 permissions:
   contents: read
@@ -18,11 +16,40 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
+    outputs:
+      release_name: ${{ steps.draft-release.outputs.name }}
     steps:
-      - name: draft release
-        uses: release-drafter/release-drafter@v5
-        with:
-          config-name: release-drafter.yml
-          disable-autolabeler: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: draft release
+      id: draft-release
+      uses: release-drafter/release-drafter@v5
+      with:
+        config-name: release-drafter.yml
+        disable-autolabeler: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # only when protocol changes
+  publish-release-draft:
+    needs: [update-release-draft]
+    if: |
+      github.event_name == 'pull_request' &&
+      github.event.action == 'closed' &&
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.user.login == 'cathy-cloud[bot]' &&
+      contains(github.event.pull_request.labels.*.name, 'protocol')
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: tibdex/github-app-token@v2
+      id: generate-token
+      with:
+        app_id: ${{ secrets.CATHY_CLOUD_APP_ID }}
+        private_key: ${{ secrets.CATHY_CLOUD_APP_PRIVATE_KEY }}
+    - name: publish release
+      env:
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+      run: |
+        gh release create ${{ needs.update-release-draft.outputs.name }}

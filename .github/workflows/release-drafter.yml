@@ -17,25 +17,10 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - name: draft release
-      uses: release-drafter/release-drafter@v5
-      with:
-        config-name: release-drafter.yml
-        disable-autolabeler: false
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: publish release when auto protocol PR is merged in
-      if: |
-        github.event_name == 'pull_request' &&
-        github.event.action == 'closed' &&
-        github.event.pull_request.merged == true &&
-        contains(github.event.pull_request.labels.*.name, 'protocol') &&
-        github.event.pull_request.user.login == 'cathy-cloud[bot]'
-      uses: release-drafter/release-drafter@v5
-      with:
-        config-name: release-drafter.yml
-        disable-autolabeler: false
-        publish: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: draft release
+        uses: release-drafter/release-drafter@v5
+        with:
+          config-name: release-drafter.yml
+          disable-autolabeler: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

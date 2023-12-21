@@ -38,6 +38,17 @@ ensure_obs() {
         fi
 }
 
+find_next_release() {
+        bump="$1"
+        latest=$(gh release list | awk -F'\t' '/Latest/ {print $3}' | head -n1 | tr -dc '0-9.')
+        echo "$latest" | awk -F. -vOFS=. -v bump="$bump" '{
+                if (bump=="major") { $(NF-2)++; $(NF-1)=0; $NF=0 }
+                if (bump=="minor") { $(NF-1)++; $NF=0 }
+                if (bump=="patch") { $NF++ }
+                print
+        }'
+}
+
 main() {
         set -eu
         ensure_obs
@@ -45,8 +56,9 @@ main() {
         content=$(cat _examples/basic/main.go)
         printf '```go\n%s\n```' "$content" | replace_markdown README.md snippet-1
 
-        draft_release=$(gh release list | awk -F'\t' '/Draft/ {print $3}' | tr -dc '0-9.' | head -n1)
-        content=$(go run _examples/basic/main.go | sed "s/(devel)/$draft_release/")
+        bump=$1
+        release=$(find_next_release "$bump")
+        content=$(go run _examples/basic/main.go | sed "s/(devel)/$release/")
         printf '```console\n%s\n```' "❯ go run _examples/basic/main.go\n$content" | replace_markdown README.md snippet-2
 }
 

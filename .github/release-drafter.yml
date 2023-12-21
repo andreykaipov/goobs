@@ -25,6 +25,9 @@ categories:
 - title: 🚨 Breaking Changes
   labels:
   - breaking
+- title: 💻 Protocol Updates
+  labels:
+  - protocol
 - title: 🚀 Features
   labels:
   - enhancement

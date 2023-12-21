@@ -42,6 +42,7 @@ jobs:
         delete-branch: true
         labels: |
           ${{ steps.update-version.outputs.bump }}
+          protocol
         reviewers: |
           andreykaipov
         body: |

@@ -21,8 +21,8 @@ jobs:
         app_id: ${{ secrets.CATHY_CLOUD_APP_ID }}
         private_key: ${{ secrets.CATHY_CLOUD_APP_PRIVATE_KEY }}
 
-    - name: automerge bot PRs
-      run: |
-        gh pr merge --squash --auto ${{ github.event.pull_request.number }}
-      env:
-        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          #- name: automerge bot PRs
+          #  run: |
+          #    gh pr merge --squash --auto ${{ github.event.pull_request.number }}
+          #  env:
+          #    GH_TOKEN: ${{ steps.generate-token.outputs.token }}

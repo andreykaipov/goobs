@@ -37,7 +37,7 @@ jobs:
         token: ${{ steps.generate-token.outputs.token }}
         title: ${{ steps.update.outputs.message }}
         commit-message: ${{ steps.update.outputs.message }}
-        branch: feature/bump-protocol-version
+        branch: bump-protocol-version
         delete-branch: true
         labels: |
           ${{ steps.update.outputs.bump}}
@@ -52,6 +52,7 @@ jobs:
       with:
         config-name: release-drafter.yml
         disable-autolabeler: true
-        name: $RESOLVED_VERSION for obs-websocket ${{ steps.update.outputs.next_version }}
+        name: $RESOLVED_VERSION for obs-websocket
+        #${{ steps.update.outputs.next_version }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

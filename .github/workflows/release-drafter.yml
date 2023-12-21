@@ -18,6 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: draft release
+      id: draft-release
       uses: release-drafter/release-drafter@v5
       with:
         config-name: release-drafter.yml
@@ -25,17 +26,40 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: publish release when auto protocol PR is merged in
+    - name: update protocol pr
       if: |
         github.event_name == 'pull_request' &&
-        github.event.action == 'closed' &&
-        github.event.pull_request.merged == true &&
-        contains(github.event.pull_request.labels.*.name, 'protocol') &&
-        github.event.pull_request.user.login == 'cathy-cloud[bot]'
-      uses: release-drafter/release-drafter@v5
+        github.event.action == 'open' &&
+        github.event.pull_request.user.login == 'cathy-cloud[bot]' &&
+        contains(github.event.pull_request.labels.*.name, 'protocol')
+      uses: peter-evans/create-pull-request@v5
       with:
-        config-name: release-drafter.yml
-        disable-autolabeler: false
-        publish: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ steps.generate-token.outputs.token }}
+        title: ${{ steps.update-version.outputs.message }}
+        commit-message: 'update readme'
+        branch: ${{ steps.update-version.outputs.bump }}/bump-protocol-version
+        delete-branch: true
+        labels: |
+          ${{ steps.update-version.outputs.bump }}
+          protocol
+        reviewers: |
+          andreykaipov
+        body: |
+          There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
+
+          This PR may or may not contain any actual changes to the generated code.
+
+#    - name: publish release when auto protocol PR is merged in
+#      if: |
+#        github.event_name == 'pull_request' &&
+#        github.event.action == 'closed' &&
+#        github.event.pull_request.merged == true &&
+#        contains(github.event.pull_request.labels.*.name, 'protocol') &&
+#        github.event.pull_request.user.login == 'cathy-cloud[bot]'
+#      uses: release-drafter/release-drafter@v5
+#      with:
+#        config-name: release-drafter.yml
+#        disable-autolabeler: false
+#        publish: true
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

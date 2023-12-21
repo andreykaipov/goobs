@@ -25,6 +25,7 @@ The following tables show how to make the appropriate `goobs` request for any gi
 | SetCurrentSceneCollection | `client.Config.SetCurrentSceneCollection(...)` |
 | SetPersistentData | `client.Config.SetPersistentData(...)` |
 | SetProfileParameter | `client.Config.SetProfileParameter(...)` |
+| SetRecordDirectory | `client.Config.SetRecordDirectory(...)` |
 | SetStreamServiceSettings | `client.Config.SetStreamServiceSettings(...)` |
 | SetVideoSettings | `client.Config.SetVideoSettings(...)` |
 

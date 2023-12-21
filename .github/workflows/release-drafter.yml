@@ -49,4 +49,4 @@ jobs:
         GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
         draft=$(gh release list | awk -F'\t' '/Draft/ {print $3}' | head -n1)
-        gh release create "$draft"
+        gh release edit "$draft" --draft=false

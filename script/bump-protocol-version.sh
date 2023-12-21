@@ -52,7 +52,6 @@ compare_versions() {
                 echo "Nothing to update"
                 exit 1
         fi
-
         echo "$bump" >/tmp/.goobs.protocol.bump
         echo "$next" >/tmp/.goobs.protocol.next
 }
@@ -60,6 +59,7 @@ compare_versions() {
 bump_versions() {
         sed -i "s/$current/$next/g" version.go README.md
         make generate
+        ./script/update-readme-snippets.sh "$bump"
 }
 
 main() {

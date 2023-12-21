@@ -27,56 +27,39 @@ jobs:
         GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         base: test
       run: |
-        git config --global user.name "cathy-cloud[bot]"
-        git config --global user.email "154095190+cathy-cloud[bot]@users.noreply.github.com"
         ./script/bump-protocol-version.sh
         bump=$(cat /tmp/.goobs.protocol.bump)
         next=$(cat /tmp/.goobs.protocol.next)
         branch="$bump/bump-protocol-version"
         message="Bump OBS websocket protocol to $next"
+        body='
+          There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
+
+          This PR may or may not contain any actual changes to the generated code.
+        '
+
+        git config --global user.name "cathy-cloud[bot]"
+        git config --global user.email "154095190+cathy-cloud[bot]@users.noreply.github.com"
         git checkout -b "$branch"
         git add .
         git commit -m "$message"
         git push -fu origin "$branch"
-        if gh pr view "$branch"; then
-          pr=$(gh pr reopen "$branch")
+
+        pr=$(gh pr list -s open -A 'cathy-cloud[bot]' -L 1 --json number,headRefName -q .[].number)
+        if [ -n "$pr" ]; then
+          echo "Open PR $pr for $branch already exists"
         else
+          echo "Creating PR for $branch"
           pr=$(
             gh pr create \
               --base "${{ env.base }}" \
               --title "$message" \
               --label "$bump" \
               --label protocol \
-              --body "
-                There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
-
-                This PR may or may not contain any actual changes to the generated code.
-              "
+              --body "$body"
           )
         fi
-        echo "pr=$pr" >>$GITHUB_OUTPUT
 
-    # we invoke a draft release here to be able to fetch the expected resolved
-    # version so we can update the readme predictably :)
-    - name: draft release
-      id: draft-release
-      uses: release-drafter/release-drafter@v5
-      with:
-        config-name: release-drafter.yml
-        disable-autolabeler: false
-      env:
-        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
-
-    - name: update pr
-      id: update-pr
-      env:
-        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
-      run: |
-        ./script/update-readme-snippets.sh "${{ steps.draft-release.outputs.name }}"
-        git add .
-        git commit -m "Update README.md"
-        branch=$(gh pr view "$pr" --json headRefName -q .headRefName)
-        git push origin "$branch"
         echo "Trying to auto merge..."
         attempt=0
         while :; do

@@ -2,10 +2,10 @@ name: Release Drafter
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
   pull_request:
-    types: [opened, reopened, synchronize]
+    types: [opened, reopened, synchronize, closed]
+  pull_request_target:
+    types: [opened, reopened, synchronize, closed]
 
 permissions:
   contents: read
@@ -17,9 +17,25 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: release-drafter/release-drafter@v5
-        with:
-          config-name: release-drafter.yml
-          disable-autolabeler: false
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: draft release
+      uses: release-drafter/release-drafter@v5
+      with:
+        config-name: release-drafter.yml
+        disable-autolabeler: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: publish release when auto protocol PR is merged in
+      if: |
+        github.event_name == 'pull_request' &&
+        github.event.action == 'closed' &&
+        github.event.pull_request.merged == true &&
+        contains(github.event.pull_request.labels.*.name, 'protocol') &&
+        github.event.pull_request.user.login == 'cathy-cloud[bot]'
+      uses: release-drafter/release-drafter@v5
+      with:
+        config-name: release-drafter.yml
+        disable-autolabeler: false
+        publish: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -49,12 +49,3 @@ jobs:
           There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
 
           This PR may or may not contain any actual changes to the generated code.
-
-    - uses: release-drafter/release-drafter@v5
-      if: steps.create-pr.outcome == 'success'
-      with:
-        config-name: release-drafter.yml
-        disable-autolabeler: true
-        publish: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

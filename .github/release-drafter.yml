@@ -5,26 +5,16 @@ tag-prefix: v
 
 autolabeler:
 - label: chore
-  files:
-  - 'docker/*'
-  - '*.sh'
-  - Makefile
   branch:
   - /chore\/.+/
   - /ci\/.+/
   - /docs\/.+/
-  title:
-  - /docs/i
 - label: fix
   branch:
   - /fix\/.+/
-  title:
-  - /fix/i
 - label: feature
   branch:
   - /feature\/.+/
-  files:
-  - version.go
 
 categories:
 - title: 🚨 Breaking Changes
@@ -50,10 +40,12 @@ version-resolver:
   major:
     labels:
     - breaking
+    - major
   minor:
     labels:
     - enhancement
     - feature
+    - minor
   patch:
     labels:
     - bug
@@ -61,6 +53,7 @@ version-resolver:
     - dependencies
     - documentation
     - fix
+    - patch
   default: patch
 
 template: |

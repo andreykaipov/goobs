@@ -22,32 +22,39 @@ jobs:
       with:
         go-version-file: go.mod
 
-    - name: update version
-      id: update-version
+    - name: create bump version protocol PR
       env:
-        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        base: test
       run: |
+        git config --global user.name "cathy-cloud[bot]"
+        git config --global user.email "154095190+cathy-cloud[bot]@users.noreply.github.com"
         ./script/bump-protocol-version.sh
+        bump=$(cat /tmp/.goobs.protocol.bump)
+        next=$(cat /tmp/.goobs.protocol.next)
+        branch="$bump/bump-protocol-version"
+        message="Bump OBS websocket protocol to $next"
+        git checkout -b "$branch"
+        git add .
+        git commit -m "$message"
+        git push -fu origin "$branch"
+        if gh pr view "$branch"; then
+          pr=$(gh pr reopen "$branch")
+        else
+          pr=$(
+            gh pr create \
+              --base "${{ env.base }}" \
+              --title "$message" \
+              --label "$bump" \
+              --label protocol \
+              --body "
+                There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
 
-    - name: create pr
-      id: create-pr
-      if: steps.update-version.outcome == 'success'
-      uses: peter-evans/create-pull-request@v5
-      with:
-        token: ${{ steps.generate-token.outputs.token }}
-        title: ${{ steps.update-version.outputs.message }}
-        commit-message: ${{ steps.update-version.outputs.message }}
-        branch: ${{ steps.update-version.outputs.bump }}/bump-protocol-version
-        delete-branch: true
-        labels: |
-          ${{ steps.update-version.outputs.bump }}
-          protocol
-        reviewers: |
-          andreykaipov
-        body: |
-          There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
-
-          This PR may or may not contain any actual changes to the generated code.
+                This PR may or may not contain any actual changes to the generated code.
+              "
+          )
+        fi
+        echo "pr=$pr" >>$GITHUB_OUTPUT
 
     # we invoke a draft release here to be able to fetch the expected resolved
     # version so we can update the readme predictably :)
@@ -58,31 +65,38 @@ jobs:
         config-name: release-drafter.yml
         disable-autolabeler: false
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: update readme
-      id: update-readme
-      env:
-        GH_TOKEN: ${{ steps.generate-token.outputs.token }}
-      run: |
-        ./script/update-readme-snippets.sh "${{ steps.draft-release.outputs.name }}"
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
 
     - name: update pr
       id: update-pr
-      if: steps.update-readme.outcome == 'success'
-      uses: peter-evans/create-pull-request@v5
-      with:
-        token: ${{ steps.generate-token.outputs.token }}
-        title: ${{ steps.update-version.outputs.message }}
-        commit-message: ${{ steps.update-version.outputs.message }}
-        branch: ${{ steps.update-version.outputs.bump }}/bump-protocol-version
-        delete-branch: true
-        labels: |
-          ${{ steps.update-version.outputs.bump }}
-          protocol
-        reviewers: |
-          andreykaipov
-        body: |
-          There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
+      env:
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+      run: |
+        ./script/update-readme-snippets.sh "${{ steps.draft-release.outputs.name }}"
+        git add .
+        git commit -m "Update README.md"
+        branch=$(gh pr view "$pr" --json headRefName -q .headRefName)
+        git push origin "$branch"
+        echo "Trying to auto merge..."
+        attempt=0
+        while :; do
+          if [ "$attempt" -eq 10 ]; then exit 1; fi
+          if gh pr merge --squash --auto "$pr"; then break; fi
+          attempt=$((attempt+1))
+          sleep 10
+        done
+        echo "Waiting until it's merged in..."
+        while :; do
+          state=$(gh pr view "$pr" --json state -q .state)
+          if [ "$state" = MERGED ]; then break; fi
+          sleep 10
+        done
+        echo "PR was merged in!"
 
-          This PR may or may not contain any actual changes to the generated code.
+    - name: publish release
+      uses: release-drafter/release-drafter@v5
+      with:
+        config-name: release-drafter.yml
+        disable-autolabeler: false
+      env:
+        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}

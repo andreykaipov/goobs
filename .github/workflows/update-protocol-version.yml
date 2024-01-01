@@ -27,7 +27,7 @@ jobs:
         GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
         base: main
       run: |
-        ./script/bump-protocol-version.sh
+        if ! ./script/bump-protocol-version.sh; then exit 0; fi
         bump=$(cat /tmp/.goobs.protocol.bump)
         next=$(cat /tmp/.goobs.protocol.next)
         branch="bump-protocol-version"

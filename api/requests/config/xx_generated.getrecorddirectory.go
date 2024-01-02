@@ -25,5 +25,5 @@ func (c *Client) GetRecordDirectory(paramss ...*GetRecordDirectoryParams) (*GetR
 	}
 	params := paramss[0]
 	data := &GetRecordDirectoryResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

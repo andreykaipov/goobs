@@ -32,5 +32,5 @@ func (c *Client) GetStreamServiceSettings(
 	}
 	params := paramss[0]
 	data := &GetStreamServiceSettingsResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

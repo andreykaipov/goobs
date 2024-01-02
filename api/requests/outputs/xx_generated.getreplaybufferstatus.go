@@ -27,5 +27,5 @@ func (c *Client) GetReplayBufferStatus(
 	}
 	params := paramss[0]
 	data := &GetReplayBufferStatusResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

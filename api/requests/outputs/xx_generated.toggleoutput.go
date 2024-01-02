@@ -32,5 +32,5 @@ type ToggleOutputResponse struct {
 // Toggles the status of an output.
 func (c *Client) ToggleOutput(params *ToggleOutputParams) (*ToggleOutputResponse, error) {
 	data := &ToggleOutputResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

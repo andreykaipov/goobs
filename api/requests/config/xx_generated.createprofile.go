@@ -29,5 +29,5 @@ type CreateProfileResponse struct {
 // Creates a new profile, switching to it in the process
 func (c *Client) CreateProfile(params *CreateProfileParams) (*CreateProfileResponse, error) {
 	data := &CreateProfileResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

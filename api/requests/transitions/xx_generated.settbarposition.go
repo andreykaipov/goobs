@@ -40,5 +40,5 @@ Sets the position of the TBar.
 */
 func (c *Client) SetTBarPosition(params *SetTBarPositionParams) (*SetTBarPositionResponse, error) {
 	data := &SetTBarPositionResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

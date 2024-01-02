@@ -7,11 +7,4 @@ import api "github.com/andreykaipov/goobs/api"
 type _response = api.ResponseCommon
 
 // Client represents a client for 'transitions' requests.
-type Client struct {
-	client *api.Client
-}
-
-// NewTransitions returns a new 'transitions' client.
-func NewClient(c *api.Client) *Client {
-	return &Client{client: c}
-}
+type Client api.Service

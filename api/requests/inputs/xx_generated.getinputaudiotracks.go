@@ -34,5 +34,5 @@ type GetInputAudioTracksResponse struct {
 // Gets the enable state of all audio tracks of an input.
 func (c *Client) GetInputAudioTracks(params *GetInputAudioTracksParams) (*GetInputAudioTracksResponse, error) {
 	data := &GetInputAudioTracksResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

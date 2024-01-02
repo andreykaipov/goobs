@@ -25,5 +25,5 @@ func (c *Client) ToggleVirtualCam(paramss ...*ToggleVirtualCamParams) (*ToggleVi
 	}
 	params := paramss[0]
 	data := &ToggleVirtualCamResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

@@ -31,5 +31,5 @@ func (c *Client) GetCurrentSceneTransitionCursor(
 	}
 	params := paramss[0]
 	data := &GetCurrentSceneTransitionCursorResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

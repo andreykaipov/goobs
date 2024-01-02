@@ -48,5 +48,5 @@ type GetSourceFilterResponse struct {
 // Gets the info for a specific source filter.
 func (c *Client) GetSourceFilter(params *GetSourceFilterParams) (*GetSourceFilterResponse, error) {
 	data := &GetSourceFilterResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

@@ -22,5 +22,5 @@ func (c *Client) ResumeRecord(paramss ...*ResumeRecordParams) (*ResumeRecordResp
 	}
 	params := paramss[0]
 	data := &ResumeRecordResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

@@ -55,5 +55,5 @@ func (c *Client) GetStats(paramss ...*GetStatsParams) (*GetStatsResponse, error)
 	}
 	params := paramss[0]
 	data := &GetStatsResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

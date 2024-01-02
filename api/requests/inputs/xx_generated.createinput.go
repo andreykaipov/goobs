@@ -60,5 +60,5 @@ type CreateInputResponse struct {
 // Creates a new input, adding it as a scene item to the specified scene.
 func (c *Client) CreateInput(params *CreateInputParams) (*CreateInputResponse, error) {
 	data := &CreateInputResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

@@ -29,5 +29,5 @@ type SendStreamCaptionResponse struct {
 // Sends CEA-608 caption text over the stream output.
 func (c *Client) SendStreamCaption(params *SendStreamCaptionParams) (*SendStreamCaptionResponse, error) {
 	data := &SendStreamCaptionResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

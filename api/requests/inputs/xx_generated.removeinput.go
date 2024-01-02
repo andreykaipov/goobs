@@ -33,5 +33,5 @@ Note: Will immediately remove all associated scene items.
 */
 func (c *Client) RemoveInput(params *RemoveInputParams) (*RemoveInputResponse, error) {
 	data := &RemoveInputResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

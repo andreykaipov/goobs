@@ -42,5 +42,5 @@ func (c *Client) GetCurrentSceneTransition(
 	}
 	params := paramss[0]
 	data := &GetCurrentSceneTransitionResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

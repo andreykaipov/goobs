@@ -27,5 +27,5 @@ func (c *Client) GetCurrentProgramScene(
 	}
 	params := paramss[0]
 	data := &GetCurrentProgramSceneResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

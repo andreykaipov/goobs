@@ -34,5 +34,5 @@ func (c *Client) GetInputDefaultSettings(
 	params *GetInputDefaultSettingsParams,
 ) (*GetInputDefaultSettingsResponse, error) {
 	data := &GetInputDefaultSettingsResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

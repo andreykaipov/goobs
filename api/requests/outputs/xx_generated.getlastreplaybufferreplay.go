@@ -27,5 +27,5 @@ func (c *Client) GetLastReplayBufferReplay(
 	}
 	params := paramss[0]
 	data := &GetLastReplayBufferReplayResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

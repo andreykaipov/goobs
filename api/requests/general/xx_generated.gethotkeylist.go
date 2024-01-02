@@ -25,5 +25,5 @@ func (c *Client) GetHotkeyList(paramss ...*GetHotkeyListParams) (*GetHotkeyListR
 	}
 	params := paramss[0]
 	data := &GetHotkeyListResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

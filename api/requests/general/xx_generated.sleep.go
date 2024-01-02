@@ -41,5 +41,5 @@ func (c *Client) Sleep(paramss ...*SleepParams) (*SleepResponse, error) {
 	}
 	params := paramss[0]
 	data := &SleepResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

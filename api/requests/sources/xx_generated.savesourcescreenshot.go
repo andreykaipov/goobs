@@ -75,5 +75,5 @@ If `imageWidth` and `imageHeight` are not specified, the compressed image will u
 */
 func (c *Client) SaveSourceScreenshot(params *SaveSourceScreenshotParams) (*SaveSourceScreenshotResponse, error) {
 	data := &SaveSourceScreenshotResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

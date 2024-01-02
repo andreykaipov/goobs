@@ -50,5 +50,5 @@ Scenes only
 */
 func (c *Client) CreateSceneItem(params *CreateSceneItemParams) (*CreateSceneItemResponse, error) {
 	data := &CreateSceneItemResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

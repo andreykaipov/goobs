@@ -43,5 +43,5 @@ type SetSourceFilterEnabledResponse struct {
 // Sets the enable state of a source filter.
 func (c *Client) SetSourceFilterEnabled(params *SetSourceFilterEnabledParams) (*SetSourceFilterEnabledResponse, error) {
 	data := &SetSourceFilterEnabledResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

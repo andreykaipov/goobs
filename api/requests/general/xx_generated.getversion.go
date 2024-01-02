@@ -43,5 +43,5 @@ func (c *Client) GetVersion(paramss ...*GetVersionParams) (*GetVersionResponse, 
 	}
 	params := paramss[0]
 	data := &GetVersionResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

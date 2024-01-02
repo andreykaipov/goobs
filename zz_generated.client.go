@@ -3,6 +3,7 @@
 package goobs
 
 import (
+	api "github.com/andreykaipov/goobs/api"
 	config "github.com/andreykaipov/goobs/api/requests/config"
 	filters "github.com/andreykaipov/goobs/api/requests/filters"
 	general "github.com/andreykaipov/goobs/api/requests/general"
@@ -35,17 +36,17 @@ type subclients struct {
 }
 
 func setClients(c *Client) {
-	c.Config = config.NewClient(c.client)
-	c.Filters = filters.NewClient(c.client)
-	c.General = general.NewClient(c.client)
-	c.Inputs = inputs.NewClient(c.client)
-	c.MediaInputs = mediainputs.NewClient(c.client)
-	c.Outputs = outputs.NewClient(c.client)
-	c.Record = record.NewClient(c.client)
-	c.SceneItems = sceneitems.NewClient(c.client)
-	c.Scenes = scenes.NewClient(c.client)
-	c.Sources = sources.NewClient(c.client)
-	c.Stream = stream.NewClient(c.client)
-	c.Transitions = transitions.NewClient(c.client)
-	c.Ui = ui.NewClient(c.client)
+	c.Config = (*config.Client)(&api.Service{Client: c.client})
+	c.Filters = (*filters.Client)(&api.Service{Client: c.client})
+	c.General = (*general.Client)(&api.Service{Client: c.client})
+	c.Inputs = (*inputs.Client)(&api.Service{Client: c.client})
+	c.MediaInputs = (*mediainputs.Client)(&api.Service{Client: c.client})
+	c.Outputs = (*outputs.Client)(&api.Service{Client: c.client})
+	c.Record = (*record.Client)(&api.Service{Client: c.client})
+	c.SceneItems = (*sceneitems.Client)(&api.Service{Client: c.client})
+	c.Scenes = (*scenes.Client)(&api.Service{Client: c.client})
+	c.Sources = (*sources.Client)(&api.Service{Client: c.client})
+	c.Stream = (*stream.Client)(&api.Service{Client: c.client})
+	c.Transitions = (*transitions.Client)(&api.Service{Client: c.client})
+	c.Ui = (*ui.Client)(&api.Service{Client: c.client})
 }

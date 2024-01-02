@@ -34,5 +34,5 @@ type GetSourceFilterListResponse struct {
 // Gets an array of all of a source's filters.
 func (c *Client) GetSourceFilterList(params *GetSourceFilterListParams) (*GetSourceFilterListResponse, error) {
 	data := &GetSourceFilterListResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

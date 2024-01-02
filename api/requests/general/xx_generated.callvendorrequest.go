@@ -57,5 +57,5 @@ If a plugin or script implements vendor requests or events, documentation is exp
 */
 func (c *Client) CallVendorRequest(params *CallVendorRequestParams) (*CallVendorRequestResponse, error) {
 	data := &CallVendorRequestResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

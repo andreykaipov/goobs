@@ -29,5 +29,5 @@ type SetRecordDirectoryResponse struct {
 // Sets the current directory that the record output writes files to.
 func (c *Client) SetRecordDirectory(params *SetRecordDirectoryParams) (*SetRecordDirectoryResponse, error) {
 	data := &SetRecordDirectoryResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

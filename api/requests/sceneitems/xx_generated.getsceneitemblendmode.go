@@ -53,5 +53,5 @@ Scenes and Groups
 */
 func (c *Client) GetSceneItemBlendMode(params *GetSceneItemBlendModeParams) (*GetSceneItemBlendModeResponse, error) {
 	data := &GetSceneItemBlendModeResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

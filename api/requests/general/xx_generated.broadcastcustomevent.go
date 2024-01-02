@@ -29,5 +29,5 @@ type BroadcastCustomEventResponse struct {
 // Broadcasts a `CustomEvent` to all WebSocket clients. Receivers are clients which are identified and subscribed.
 func (c *Client) BroadcastCustomEvent(params *BroadcastCustomEventParams) (*BroadcastCustomEventResponse, error) {
 	data := &BroadcastCustomEventResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

@@ -24,5 +24,5 @@ func (c *Client) TriggerStudioModeTransition(
 	}
 	params := paramss[0]
 	data := &TriggerStudioModeTransitionResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

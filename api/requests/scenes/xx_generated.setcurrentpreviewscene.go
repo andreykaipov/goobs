@@ -33,5 +33,5 @@ Only available when studio mode is enabled.
 */
 func (c *Client) SetCurrentPreviewScene(params *SetCurrentPreviewSceneParams) (*SetCurrentPreviewSceneResponse, error) {
 	data := &SetCurrentPreviewSceneResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

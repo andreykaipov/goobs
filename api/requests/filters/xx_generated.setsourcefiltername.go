@@ -43,5 +43,5 @@ type SetSourceFilterNameResponse struct {
 // Sets the name of a source filter (rename).
 func (c *Client) SetSourceFilterName(params *SetSourceFilterNameParams) (*SetSourceFilterNameResponse, error) {
 	data := &SetSourceFilterNameResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

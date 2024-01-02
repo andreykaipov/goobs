@@ -29,5 +29,5 @@ type SetStudioModeEnabledResponse struct {
 // Enables or disables studio mode
 func (c *Client) SetStudioModeEnabled(params *SetStudioModeEnabledParams) (*SetStudioModeEnabledResponse, error) {
 	data := &SetStudioModeEnabledResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

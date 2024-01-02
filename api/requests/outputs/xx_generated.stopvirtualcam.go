@@ -22,5 +22,5 @@ func (c *Client) StopVirtualCam(paramss ...*StopVirtualCamParams) (*StopVirtualC
 	}
 	params := paramss[0]
 	data := &StopVirtualCamResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

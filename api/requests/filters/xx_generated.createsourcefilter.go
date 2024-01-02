@@ -50,5 +50,5 @@ type CreateSourceFilterResponse struct {
 // Creates a new filter, adding it to the specified source.
 func (c *Client) CreateSourceFilter(params *CreateSourceFilterParams) (*CreateSourceFilterResponse, error) {
 	data := &CreateSourceFilterResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

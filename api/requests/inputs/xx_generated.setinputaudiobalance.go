@@ -36,5 +36,5 @@ type SetInputAudioBalanceResponse struct {
 // Sets the audio balance of an input.
 func (c *Client) SetInputAudioBalance(params *SetInputAudioBalanceParams) (*SetInputAudioBalanceResponse, error) {
 	data := &SetInputAudioBalanceResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

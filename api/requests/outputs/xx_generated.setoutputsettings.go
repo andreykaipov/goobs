@@ -36,5 +36,5 @@ type SetOutputSettingsResponse struct {
 // Sets the settings of an output.
 func (c *Client) SetOutputSettings(params *SetOutputSettingsParams) (*SetOutputSettingsResponse, error) {
 	data := &SetOutputSettingsResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

@@ -29,5 +29,5 @@ type OpenInputFiltersDialogResponse struct {
 // Opens the filters dialog of an input.
 func (c *Client) OpenInputFiltersDialog(params *OpenInputFiltersDialogParams) (*OpenInputFiltersDialogResponse, error) {
 	data := &OpenInputFiltersDialogResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

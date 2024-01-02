@@ -30,5 +30,5 @@ func (c *Client) GetSceneCollectionList(
 	}
 	params := paramss[0]
 	data := &GetSceneCollectionListResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

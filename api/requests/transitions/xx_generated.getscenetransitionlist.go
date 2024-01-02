@@ -35,5 +35,5 @@ func (c *Client) GetSceneTransitionList(
 	}
 	params := paramss[0]
 	data := &GetSceneTransitionListResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

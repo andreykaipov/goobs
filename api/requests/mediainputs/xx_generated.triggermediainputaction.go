@@ -38,5 +38,5 @@ func (c *Client) TriggerMediaInputAction(
 	params *TriggerMediaInputActionParams,
 ) (*TriggerMediaInputActionResponse, error) {
 	data := &TriggerMediaInputActionResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

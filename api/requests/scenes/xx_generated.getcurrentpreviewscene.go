@@ -31,5 +31,5 @@ func (c *Client) GetCurrentPreviewScene(
 	}
 	params := paramss[0]
 	data := &GetCurrentPreviewSceneResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

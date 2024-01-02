@@ -44,5 +44,5 @@ type SetInputSettingsResponse struct {
 // Sets the settings of an input.
 func (c *Client) SetInputSettings(params *SetInputSettingsParams) (*SetInputSettingsResponse, error) {
 	data := &SetInputSettingsResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

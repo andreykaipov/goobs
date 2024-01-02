@@ -45,5 +45,5 @@ Scenes and Groups
 */
 func (c *Client) GetSceneItemTransform(params *GetSceneItemTransformParams) (*GetSceneItemTransformResponse, error) {
 	data := &GetSceneItemTransformResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

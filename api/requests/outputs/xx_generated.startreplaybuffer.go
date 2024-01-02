@@ -22,5 +22,5 @@ func (c *Client) StartReplayBuffer(paramss ...*StartReplayBufferParams) (*StartR
 	}
 	params := paramss[0]
 	data := &StartReplayBufferResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

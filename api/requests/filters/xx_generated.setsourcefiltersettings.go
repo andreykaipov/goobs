@@ -53,5 +53,5 @@ func (c *Client) SetSourceFilterSettings(
 	params *SetSourceFilterSettingsParams,
 ) (*SetSourceFilterSettingsResponse, error) {
 	data := &SetSourceFilterSettingsResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

@@ -29,5 +29,5 @@ type SetCurrentProfileResponse struct {
 // Switches to a profile.
 func (c *Client) SetCurrentProfile(params *SetCurrentProfileParams) (*SetCurrentProfileResponse, error) {
 	data := &SetCurrentProfileResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

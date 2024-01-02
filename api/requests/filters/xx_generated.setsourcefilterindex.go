@@ -43,5 +43,5 @@ type SetSourceFilterIndexResponse struct {
 // Sets the index position of a filter on a source.
 func (c *Client) SetSourceFilterIndex(params *SetSourceFilterIndexParams) (*SetSourceFilterIndexResponse, error) {
 	data := &SetSourceFilterIndexResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

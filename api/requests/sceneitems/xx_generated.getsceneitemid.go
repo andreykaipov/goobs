@@ -50,5 +50,5 @@ Scenes and Groups
 */
 func (c *Client) GetSceneItemId(params *GetSceneItemIdParams) (*GetSceneItemIdResponse, error) {
 	data := &GetSceneItemIdResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

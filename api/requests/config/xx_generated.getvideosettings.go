@@ -44,5 +44,5 @@ func (c *Client) GetVideoSettings(paramss ...*GetVideoSettingsParams) (*GetVideo
 	}
 	params := paramss[0]
 	data := &GetVideoSettingsResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

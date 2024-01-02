@@ -37,5 +37,5 @@ func (c *Client) GetRecordStatus(paramss ...*GetRecordStatusParams) (*GetRecordS
 	}
 	params := paramss[0]
 	data := &GetRecordStatusResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

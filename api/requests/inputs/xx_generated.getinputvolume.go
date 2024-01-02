@@ -35,5 +35,5 @@ type GetInputVolumeResponse struct {
 // Gets the current volume setting of an input.
 func (c *Client) GetInputVolume(params *GetInputVolumeParams) (*GetInputVolumeResponse, error) {
 	data := &GetInputVolumeResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

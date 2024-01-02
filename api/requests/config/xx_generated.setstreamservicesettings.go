@@ -47,5 +47,5 @@ func (c *Client) SetStreamServiceSettings(
 	params *SetStreamServiceSettingsParams,
 ) (*SetStreamServiceSettingsResponse, error) {
 	data := &SetStreamServiceSettingsResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

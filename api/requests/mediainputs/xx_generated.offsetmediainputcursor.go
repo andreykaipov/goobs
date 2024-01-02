@@ -40,5 +40,5 @@ This request does not perform bounds checking of the cursor position.
 */
 func (c *Client) OffsetMediaInputCursor(params *OffsetMediaInputCursorParams) (*OffsetMediaInputCursorResponse, error) {
 	data := &OffsetMediaInputCursorResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

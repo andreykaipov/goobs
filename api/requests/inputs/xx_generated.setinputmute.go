@@ -36,5 +36,5 @@ type SetInputMuteResponse struct {
 // Sets the audio mute state of an input.
 func (c *Client) SetInputMute(params *SetInputMuteParams) (*SetInputMuteResponse, error) {
 	data := &SetInputMuteResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

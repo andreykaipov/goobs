@@ -43,5 +43,5 @@ type SetPersistentDataResponse struct {
 // Sets the value of a "slot" from the selected persistent data realm.
 func (c *Client) SetPersistentData(params *SetPersistentDataParams) (*SetPersistentDataResponse, error) {
 	data := &SetPersistentDataResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

@@ -22,5 +22,5 @@ func (c *Client) SaveReplayBuffer(paramss ...*SaveReplayBufferParams) (*SaveRepl
 	}
 	params := paramss[0]
 	data := &SaveReplayBufferResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

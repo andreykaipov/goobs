@@ -46,5 +46,5 @@ func (c *Client) PressInputPropertiesButton(
 	params *PressInputPropertiesButtonParams,
 ) (*PressInputPropertiesButtonResponse, error) {
 	data := &PressInputPropertiesButtonResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

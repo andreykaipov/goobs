@@ -40,5 +40,5 @@ Groups only
 */
 func (c *Client) GetGroupSceneItemList(params *GetGroupSceneItemListParams) (*GetGroupSceneItemListResponse, error) {
 	data := &GetGroupSceneItemListResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

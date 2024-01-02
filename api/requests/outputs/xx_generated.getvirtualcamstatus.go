@@ -25,5 +25,5 @@ func (c *Client) GetVirtualCamStatus(paramss ...*GetVirtualCamStatusParams) (*Ge
 	}
 	params := paramss[0]
 	data := &GetVirtualCamStatusResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

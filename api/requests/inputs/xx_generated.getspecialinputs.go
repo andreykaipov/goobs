@@ -40,5 +40,5 @@ func (c *Client) GetSpecialInputs(paramss ...*GetSpecialInputsParams) (*GetSpeci
 	}
 	params := paramss[0]
 	data := &GetSpecialInputsResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

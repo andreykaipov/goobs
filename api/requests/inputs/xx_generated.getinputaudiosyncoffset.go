@@ -38,5 +38,5 @@ func (c *Client) GetInputAudioSyncOffset(
 	params *GetInputAudioSyncOffsetParams,
 ) (*GetInputAudioSyncOffsetResponse, error) {
 	data := &GetInputAudioSyncOffsetResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

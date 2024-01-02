@@ -39,5 +39,5 @@ Gets the active and show state of a source.
 */
 func (c *Client) GetSourceActive(params *GetSourceActiveParams) (*GetSourceActiveResponse, error) {
 	data := &GetSourceActiveResponse{}
-	return data, c.client.SendRequest(params, data)
+	return data, c.SendRequest(params, data)
 }

@@ -27,6 +27,8 @@ type Response interface {
 	GetRaw() json.RawMessage
 }
 
+type Service struct{ *Client }
+
 // Client represents a minimal client to the OBS websocket server.
 type Client struct {
 	// The time we're willing to wait to receive a response from the server.

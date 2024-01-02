@@ -33,7 +33,11 @@ func generateRequests(requests []*Request) {
 		topClientFields = append(topClientFields, Id(categoryPascal).Op("*").Qual(qualifier, "Client"))
 		topClientSetters = append(
 			topClientSetters,
-			Id("c").Dot(categoryPascal).Op("=").Qual(qualifier, "NewClient").Call(Id("c").Dot("client")),
+			Id("c").Dot(categoryPascal).Op("=").Parens(
+				Op("*").Qual(qualifier, "Client"),
+			).Parens(
+				Op("&").Qual(goobs+"/api", "Service").Values(Id("Client").Op(":").Op("c").Dot("client")),
+			),
 		)
 
 		// Generate the category-level client
@@ -44,15 +48,7 @@ func generateRequests(requests []*Request) {
 			Line(),
 			Commentf("Client represents a client for '%s' requests.", category),
 			Line(),
-			Type().Id("Client").Struct(
-				Id("client").Op("*").Qual(goobs+"/api", "Client"),
-			),
-		)
-		client.Commentf("New%s returns a new '%s' client.", categoryPascal, category)
-		client.Func().Id("NewClient").Params(Id("c").Op("*").Qual(goobs+"/api", "Client")).Op("*").Id("Client").Block(
-			Return(Op("&").Id("Client").Values(Dict{
-				Id("client"): Id("c"),
-			})),
+			Type().Id("Client").Qual(goobs+"/api", "Service"),
 		)
 
 		// Write the category-level client
@@ -192,7 +188,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 			z.Id("params").Op(":=").Id("paramss").Index(Lit(0))
 		}),
 		Id("data").Op(":=").Op("&").Id(name+"Response").Values(),
-		Return().List(Id("data"), Id("c").Dot("client").Dot("SendRequest").Call(Id("params"), Id("data"))),
+		Return().List(Id("data"), Id("c").Dot("SendRequest").Call(Id("params"), Id("data"))),
 	)
 
 	return s, nil

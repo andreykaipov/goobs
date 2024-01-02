@@ -30,7 +30,7 @@ type Client struct {
 	IncomingEvents chan any
 
 	client *api.Client
-	subclients
+	Subclients
 
 	conn               *websocket.Conn
 	host               string

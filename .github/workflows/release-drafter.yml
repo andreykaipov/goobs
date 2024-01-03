@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   pull_request:
     types: [opened, reopened, synchronize, closed]
+  pull_request_target:
+    types: [opened, reopened, synchronize]
 
 permissions:
   contents: read
@@ -15,11 +17,6 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - uses: tibdex/github-app-token@v2
-      id: generate-token
-      with:
-        app_id: ${{ secrets.CATHY_CLOUD_APP_ID }}
-        private_key: ${{ secrets.CATHY_CLOUD_APP_PRIVATE_KEY }}
     - name: draft release
       id: draft-release
       uses: release-drafter/release-drafter@v5
@@ -27,7 +24,7 @@ jobs:
         config-name: release-drafter.yml
         disable-autolabeler: false
       env:
-        GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
+        GITHUB_TOKEN: ${{ github.token }}
 
   # only when protocol changes
   publish-release-draft:

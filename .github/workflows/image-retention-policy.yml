@@ -15,10 +15,12 @@ jobs:
         private_key: ${{ secrets.CATHY_CLOUD_APP_PRIVATE_KEY }}
 
     - name: Delete old images
-      uses: snok/container-retention-policy@main
+      uses: snok/container-retention-policy@v2
       with:
-        account-type: personal
+        account-type: org
+        org-name: andreykaipov
         token: ${{ steps.generate-token.outputs.token }}
+        token-type: github-token
         image-names: ${{ github.event.repository.name }}
         cut-off: one month ago EST
         untagged-only: true

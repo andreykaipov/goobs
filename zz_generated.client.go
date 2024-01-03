@@ -18,7 +18,7 @@ import (
 	ui "github.com/andreykaipov/goobs/api/requests/ui"
 )
 
-type subclients struct {
+type Categories struct {
 	Config      *config.Client
 	Filters     *filters.Client
 	General     *general.Client

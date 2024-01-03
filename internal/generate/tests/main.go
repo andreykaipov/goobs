@@ -92,7 +92,7 @@ func main() {
 		panic(err)
 	}
 
-	subclients := sortedKeys(structs["subclients"])
+	subclients := sortedKeys(structs["Categories"])
 
 	for _, subclient := range subclients {
 		category := strings.ToLower(subclient)

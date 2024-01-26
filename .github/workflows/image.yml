@@ -2,7 +2,6 @@ name: Image
 
 on:
   workflow_dispatch:
-  schedule: [{cron: '25 9 * * 3'}] # 9:25 on Wednesdays
   push:
     branches: [main]
     paths:

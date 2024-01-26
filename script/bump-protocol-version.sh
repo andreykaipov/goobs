@@ -56,6 +56,14 @@ compare_versions() {
         echo "$next" >/tmp/.goobs.protocol.next
 }
 
+build_image() {
+        if [ -z "$CI" ]; then return; fi
+        gh workflow run image.yml
+        sleep 3
+        id=$(gh run list --workflow image.yml --event workflow_dispatch --json databaseId --jq 'first|.databaseId')
+        gh run watch "$id" --interval 10
+}
+
 bump_versions() {
         sed -i "s/$current/$next/g" version.go README.md
         make generate
@@ -65,6 +73,7 @@ bump_versions() {
 main() {
         find_versions
         compare_versions
+        build_image
         bump_versions
 }
 

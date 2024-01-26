@@ -40,9 +40,7 @@ main() {
         # note: `scenes` and `transitions` must be ran after `ui`
         #
         categories='
-                client
-                multi_goroutine
-                profile
+                (client|client_repeat|get_raw_response|multi_goroutine|profile)
                 config
                 filters
                 general

@@ -51,6 +51,19 @@ func Test_client(t *testing.T) {
 	})
 }
 
+func Test_client_repeat(t *testing.T) {
+	for i := 1; i <= 5_000; i++ {
+		client, err := goobs.New(
+			"localhost:"+os.Getenv("OBS_PORT"),
+			goobs.WithPassword("goodpassword"),
+			goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+		)
+		assert.NoError(t, err)
+		err = client.Disconnect()
+		assert.NoError(t, err)
+	}
+}
+
 func Test_get_raw_response(t *testing.T) {
 	client, err := goobs.New(
 		"localhost:"+os.Getenv("OBS_PORT"),

@@ -7,6 +7,9 @@ type OffsetMediaInputCursorParams struct {
 	// Name of the media input
 	InputName *string `json:"inputName,omitempty"`
 
+	// UUID of the media input
+	InputUuid *string `json:"inputUuid,omitempty"`
+
 	// Value to offset the current cursor position by
 	MediaCursorOffset *float64 `json:"mediaCursorOffset,omitempty"`
 }
@@ -16,6 +19,10 @@ func NewOffsetMediaInputCursorParams() *OffsetMediaInputCursorParams {
 }
 func (o *OffsetMediaInputCursorParams) WithInputName(x string) *OffsetMediaInputCursorParams {
 	o.InputName = &x
+	return o
+}
+func (o *OffsetMediaInputCursorParams) WithInputUuid(x string) *OffsetMediaInputCursorParams {
+	o.InputUuid = &x
 	return o
 }
 func (o *OffsetMediaInputCursorParams) WithMediaCursorOffset(x float64) *OffsetMediaInputCursorParams {

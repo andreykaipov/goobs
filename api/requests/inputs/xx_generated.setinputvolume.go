@@ -7,6 +7,9 @@ type SetInputVolumeParams struct {
 	// Name of the input to set the volume of
 	InputName *string `json:"inputName,omitempty"`
 
+	// UUID of the input to set the volume of
+	InputUuid *string `json:"inputUuid,omitempty"`
+
 	// Volume setting in dB
 	InputVolumeDb *float64 `json:"inputVolumeDb,omitempty"`
 
@@ -19,6 +22,10 @@ func NewSetInputVolumeParams() *SetInputVolumeParams {
 }
 func (o *SetInputVolumeParams) WithInputName(x string) *SetInputVolumeParams {
 	o.InputName = &x
+	return o
+}
+func (o *SetInputVolumeParams) WithInputUuid(x string) *SetInputVolumeParams {
+	o.InputUuid = &x
 	return o
 }
 func (o *SetInputVolumeParams) WithInputVolumeDb(x float64) *SetInputVolumeParams {
@@ -41,7 +48,11 @@ type SetInputVolumeResponse struct {
 }
 
 // Sets the volume setting of an input.
-func (c *Client) SetInputVolume(params *SetInputVolumeParams) (*SetInputVolumeResponse, error) {
+func (c *Client) SetInputVolume(paramss ...*SetInputVolumeParams) (*SetInputVolumeResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*SetInputVolumeParams{{}}
+	}
+	params := paramss[0]
 	data := &SetInputVolumeResponse{}
 	return data, c.client.SendRequest(params, data)
 }

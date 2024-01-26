@@ -19,6 +19,9 @@ type GetSourceScreenshotParams struct {
 
 	// Name of the source to take a screenshot of
 	SourceName *string `json:"sourceName,omitempty"`
+
+	// UUID of the source to take a screenshot of
+	SourceUuid *string `json:"sourceUuid,omitempty"`
 }
 
 func NewGetSourceScreenshotParams() *GetSourceScreenshotParams {
@@ -42,6 +45,10 @@ func (o *GetSourceScreenshotParams) WithImageWidth(x float64) *GetSourceScreensh
 }
 func (o *GetSourceScreenshotParams) WithSourceName(x string) *GetSourceScreenshotParams {
 	o.SourceName = &x
+	return o
+}
+func (o *GetSourceScreenshotParams) WithSourceUuid(x string) *GetSourceScreenshotParams {
+	o.SourceUuid = &x
 	return o
 }
 

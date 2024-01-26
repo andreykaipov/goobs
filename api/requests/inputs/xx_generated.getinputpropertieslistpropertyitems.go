@@ -9,6 +9,9 @@ type GetInputPropertiesListPropertyItemsParams struct {
 	// Name of the input
 	InputName *string `json:"inputName,omitempty"`
 
+	// UUID of the input
+	InputUuid *string `json:"inputUuid,omitempty"`
+
 	// Name of the list property to get the items of
 	PropertyName *string `json:"propertyName,omitempty"`
 }
@@ -18,6 +21,10 @@ func NewGetInputPropertiesListPropertyItemsParams() *GetInputPropertiesListPrope
 }
 func (o *GetInputPropertiesListPropertyItemsParams) WithInputName(x string) *GetInputPropertiesListPropertyItemsParams {
 	o.InputName = &x
+	return o
+}
+func (o *GetInputPropertiesListPropertyItemsParams) WithInputUuid(x string) *GetInputPropertiesListPropertyItemsParams {
+	o.InputUuid = &x
 	return o
 }
 

@@ -22,6 +22,9 @@ type SaveSourceScreenshotParams struct {
 
 	// Name of the source to take a screenshot of
 	SourceName *string `json:"sourceName,omitempty"`
+
+	// UUID of the source to take a screenshot of
+	SourceUuid *string `json:"sourceUuid,omitempty"`
 }
 
 func NewSaveSourceScreenshotParams() *SaveSourceScreenshotParams {
@@ -51,6 +54,10 @@ func (o *SaveSourceScreenshotParams) WithSourceName(x string) *SaveSourceScreens
 	o.SourceName = &x
 	return o
 }
+func (o *SaveSourceScreenshotParams) WithSourceUuid(x string) *SaveSourceScreenshotParams {
+	o.SourceUuid = &x
+	return o
+}
 
 // Returns the associated request.
 func (o *SaveSourceScreenshotParams) GetRequestName() string {
@@ -60,9 +67,6 @@ func (o *SaveSourceScreenshotParams) GetRequestName() string {
 // Represents the response body for the SaveSourceScreenshot request.
 type SaveSourceScreenshotResponse struct {
 	_response
-
-	// Base64-encoded screenshot
-	ImageData string `json:"imageData,omitempty"`
 }
 
 /*

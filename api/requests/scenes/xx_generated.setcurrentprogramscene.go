@@ -4,8 +4,11 @@ package scenes
 
 // Represents the request body for the SetCurrentProgramScene request.
 type SetCurrentProgramSceneParams struct {
-	// Scene to set as the current program scene
+	// Scene name to set as the current program scene
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// Scene UUID to set as the current program scene
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewSetCurrentProgramSceneParams() *SetCurrentProgramSceneParams {
@@ -13,6 +16,10 @@ func NewSetCurrentProgramSceneParams() *SetCurrentProgramSceneParams {
 }
 func (o *SetCurrentProgramSceneParams) WithSceneName(x string) *SetCurrentProgramSceneParams {
 	o.SceneName = &x
+	return o
+}
+func (o *SetCurrentProgramSceneParams) WithSceneUuid(x string) *SetCurrentProgramSceneParams {
+	o.SceneUuid = &x
 	return o
 }
 
@@ -27,7 +34,13 @@ type SetCurrentProgramSceneResponse struct {
 }
 
 // Sets the current program scene.
-func (c *Client) SetCurrentProgramScene(params *SetCurrentProgramSceneParams) (*SetCurrentProgramSceneResponse, error) {
+func (c *Client) SetCurrentProgramScene(
+	paramss ...*SetCurrentProgramSceneParams,
+) (*SetCurrentProgramSceneResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*SetCurrentProgramSceneParams{{}}
+	}
+	params := paramss[0]
 	data := &SetCurrentProgramSceneResponse{}
 	return data, c.client.SendRequest(params, data)
 }

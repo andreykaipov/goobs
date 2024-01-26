@@ -7,6 +7,9 @@ type GetSceneItemIdParams struct {
 	// Name of the scene or group to search in
 	SceneName *string `json:"sceneName,omitempty"`
 
+	// UUID of the scene or group to search in
+	SceneUuid *string `json:"sceneUuid,omitempty"`
+
 	// Number of matches to skip during search. >= 0 means first forward. -1 means last (top) item
 	SearchOffset *float64 `json:"searchOffset,omitempty"`
 
@@ -19,6 +22,10 @@ func NewGetSceneItemIdParams() *GetSceneItemIdParams {
 }
 func (o *GetSceneItemIdParams) WithSceneName(x string) *GetSceneItemIdParams {
 	o.SceneName = &x
+	return o
+}
+func (o *GetSceneItemIdParams) WithSceneUuid(x string) *GetSceneItemIdParams {
+	o.SceneUuid = &x
 	return o
 }
 func (o *GetSceneItemIdParams) WithSearchOffset(x float64) *GetSceneItemIdParams {

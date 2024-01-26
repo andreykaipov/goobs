@@ -8,6 +8,9 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 type GetSourceFilterListParams struct {
 	// Name of the source
 	SourceName *string `json:"sourceName,omitempty"`
+
+	// UUID of the source
+	SourceUuid *string `json:"sourceUuid,omitempty"`
 }
 
 func NewGetSourceFilterListParams() *GetSourceFilterListParams {
@@ -15,6 +18,10 @@ func NewGetSourceFilterListParams() *GetSourceFilterListParams {
 }
 func (o *GetSourceFilterListParams) WithSourceName(x string) *GetSourceFilterListParams {
 	o.SourceName = &x
+	return o
+}
+func (o *GetSourceFilterListParams) WithSourceUuid(x string) *GetSourceFilterListParams {
+	o.SourceUuid = &x
 	return o
 }
 
@@ -32,7 +39,11 @@ type GetSourceFilterListResponse struct {
 }
 
 // Gets an array of all of a source's filters.
-func (c *Client) GetSourceFilterList(params *GetSourceFilterListParams) (*GetSourceFilterListResponse, error) {
+func (c *Client) GetSourceFilterList(paramss ...*GetSourceFilterListParams) (*GetSourceFilterListResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetSourceFilterListParams{{}}
+	}
+	params := paramss[0]
 	data := &GetSourceFilterListResponse{}
 	return data, c.client.SendRequest(params, data)
 }

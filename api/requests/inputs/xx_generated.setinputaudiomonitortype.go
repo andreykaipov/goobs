@@ -7,6 +7,9 @@ type SetInputAudioMonitorTypeParams struct {
 	// Name of the input to set the audio monitor type of
 	InputName *string `json:"inputName,omitempty"`
 
+	// UUID of the input to set the audio monitor type of
+	InputUuid *string `json:"inputUuid,omitempty"`
+
 	// Audio monitor type
 	MonitorType *string `json:"monitorType,omitempty"`
 }
@@ -16,6 +19,10 @@ func NewSetInputAudioMonitorTypeParams() *SetInputAudioMonitorTypeParams {
 }
 func (o *SetInputAudioMonitorTypeParams) WithInputName(x string) *SetInputAudioMonitorTypeParams {
 	o.InputName = &x
+	return o
+}
+func (o *SetInputAudioMonitorTypeParams) WithInputUuid(x string) *SetInputAudioMonitorTypeParams {
+	o.InputUuid = &x
 	return o
 }
 func (o *SetInputAudioMonitorTypeParams) WithMonitorType(x string) *SetInputAudioMonitorTypeParams {

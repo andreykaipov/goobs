@@ -7,6 +7,9 @@ type SetMediaInputCursorParams struct {
 	// Name of the media input
 	InputName *string `json:"inputName,omitempty"`
 
+	// UUID of the media input
+	InputUuid *string `json:"inputUuid,omitempty"`
+
 	// New cursor position to set
 	MediaCursor *float64 `json:"mediaCursor,omitempty"`
 }
@@ -16,6 +19,10 @@ func NewSetMediaInputCursorParams() *SetMediaInputCursorParams {
 }
 func (o *SetMediaInputCursorParams) WithInputName(x string) *SetMediaInputCursorParams {
 	o.InputName = &x
+	return o
+}
+func (o *SetMediaInputCursorParams) WithInputUuid(x string) *SetMediaInputCursorParams {
+	o.InputUuid = &x
 	return o
 }
 func (o *SetMediaInputCursorParams) WithMediaCursor(x float64) *SetMediaInputCursorParams {

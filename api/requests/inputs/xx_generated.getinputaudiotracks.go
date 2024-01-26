@@ -8,6 +8,9 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 type GetInputAudioTracksParams struct {
 	// Name of the input
 	InputName *string `json:"inputName,omitempty"`
+
+	// UUID of the input
+	InputUuid *string `json:"inputUuid,omitempty"`
 }
 
 func NewGetInputAudioTracksParams() *GetInputAudioTracksParams {
@@ -15,6 +18,10 @@ func NewGetInputAudioTracksParams() *GetInputAudioTracksParams {
 }
 func (o *GetInputAudioTracksParams) WithInputName(x string) *GetInputAudioTracksParams {
 	o.InputName = &x
+	return o
+}
+func (o *GetInputAudioTracksParams) WithInputUuid(x string) *GetInputAudioTracksParams {
+	o.InputUuid = &x
 	return o
 }
 
@@ -32,7 +39,11 @@ type GetInputAudioTracksResponse struct {
 }
 
 // Gets the enable state of all audio tracks of an input.
-func (c *Client) GetInputAudioTracks(params *GetInputAudioTracksParams) (*GetInputAudioTracksResponse, error) {
+func (c *Client) GetInputAudioTracks(paramss ...*GetInputAudioTracksParams) (*GetInputAudioTracksResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetInputAudioTracksParams{{}}
+	}
+	params := paramss[0]
 	data := &GetInputAudioTracksResponse{}
 	return data, c.client.SendRequest(params, data)
 }

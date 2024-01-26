@@ -11,6 +11,9 @@ type SetInputAudioTracksParams struct {
 
 	// Name of the input
 	InputName *string `json:"inputName,omitempty"`
+
+	// UUID of the input
+	InputUuid *string `json:"inputUuid,omitempty"`
 }
 
 func NewSetInputAudioTracksParams() *SetInputAudioTracksParams {
@@ -22,6 +25,10 @@ func (o *SetInputAudioTracksParams) WithInputAudioTracks(x *typedefs.InputAudioT
 }
 func (o *SetInputAudioTracksParams) WithInputName(x string) *SetInputAudioTracksParams {
 	o.InputName = &x
+	return o
+}
+func (o *SetInputAudioTracksParams) WithInputUuid(x string) *SetInputAudioTracksParams {
+	o.InputUuid = &x
 	return o
 }
 

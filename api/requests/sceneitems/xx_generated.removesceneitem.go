@@ -9,6 +9,9 @@ type RemoveSceneItemParams struct {
 
 	// Name of the scene the item is in
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// UUID of the scene the item is in
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewRemoveSceneItemParams() *RemoveSceneItemParams {
@@ -20,6 +23,10 @@ func (o *RemoveSceneItemParams) WithSceneItemId(x int) *RemoveSceneItemParams {
 }
 func (o *RemoveSceneItemParams) WithSceneName(x string) *RemoveSceneItemParams {
 	o.SceneName = &x
+	return o
+}
+func (o *RemoveSceneItemParams) WithSceneUuid(x string) *RemoveSceneItemParams {
+	o.SceneUuid = &x
 	return o
 }
 

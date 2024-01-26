@@ -11,6 +11,9 @@ type InputAudioBalanceChanged struct {
 	// New audio balance value of the input
 	InputAudioBalance float64 `json:"inputAudioBalance,omitempty"`
 
-	// Name of the affected input
+	// Name of the input
 	InputName string `json:"inputName,omitempty"`
+
+	// UUID of the input
+	InputUuid string `json:"inputUuid,omitempty"`
 }

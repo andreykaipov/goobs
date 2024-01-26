@@ -6,6 +6,9 @@ package scenes
 type RemoveSceneParams struct {
 	// Name of the scene to remove
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// UUID of the scene to remove
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewRemoveSceneParams() *RemoveSceneParams {
@@ -13,6 +16,10 @@ func NewRemoveSceneParams() *RemoveSceneParams {
 }
 func (o *RemoveSceneParams) WithSceneName(x string) *RemoveSceneParams {
 	o.SceneName = &x
+	return o
+}
+func (o *RemoveSceneParams) WithSceneUuid(x string) *RemoveSceneParams {
+	o.SceneUuid = &x
 	return o
 }
 
@@ -27,7 +34,11 @@ type RemoveSceneResponse struct {
 }
 
 // Removes a scene from OBS.
-func (c *Client) RemoveScene(params *RemoveSceneParams) (*RemoveSceneResponse, error) {
+func (c *Client) RemoveScene(paramss ...*RemoveSceneParams) (*RemoveSceneResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*RemoveSceneParams{{}}
+	}
+	params := paramss[0]
 	data := &RemoveSceneResponse{}
 	return data, c.client.SendRequest(params, data)
 }

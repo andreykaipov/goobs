@@ -13,4 +13,7 @@ type SceneItemSelected struct {
 
 	// Name of the scene the item is in
 	SceneName string `json:"sceneName,omitempty"`
+
+	// UUID of the scene the item is in
+	SceneUuid string `json:"sceneUuid,omitempty"`
 }

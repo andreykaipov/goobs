@@ -16,6 +16,9 @@ type SetSourceFilterSettingsParams struct {
 
 	// Name of the source the filter is on
 	SourceName *string `json:"sourceName,omitempty"`
+
+	// UUID of the source the filter is on
+	SourceUuid *string `json:"sourceUuid,omitempty"`
 }
 
 func NewSetSourceFilterSettingsParams() *SetSourceFilterSettingsParams {
@@ -35,6 +38,10 @@ func (o *SetSourceFilterSettingsParams) WithOverlay(x bool) *SetSourceFilterSett
 }
 func (o *SetSourceFilterSettingsParams) WithSourceName(x string) *SetSourceFilterSettingsParams {
 	o.SourceName = &x
+	return o
+}
+func (o *SetSourceFilterSettingsParams) WithSourceUuid(x string) *SetSourceFilterSettingsParams {
+	o.SourceUuid = &x
 	return o
 }
 

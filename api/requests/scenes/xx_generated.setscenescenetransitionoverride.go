@@ -7,6 +7,9 @@ type SetSceneSceneTransitionOverrideParams struct {
 	// Name of the scene
 	SceneName *string `json:"sceneName,omitempty"`
 
+	// UUID of the scene
+	SceneUuid *string `json:"sceneUuid,omitempty"`
+
 	// Duration to use for any overridden transition. Specify `null` to remove
 	TransitionDuration *float64 `json:"transitionDuration,omitempty"`
 
@@ -19,6 +22,10 @@ func NewSetSceneSceneTransitionOverrideParams() *SetSceneSceneTransitionOverride
 }
 func (o *SetSceneSceneTransitionOverrideParams) WithSceneName(x string) *SetSceneSceneTransitionOverrideParams {
 	o.SceneName = &x
+	return o
+}
+func (o *SetSceneSceneTransitionOverrideParams) WithSceneUuid(x string) *SetSceneSceneTransitionOverrideParams {
+	o.SceneUuid = &x
 	return o
 }
 
@@ -45,8 +52,12 @@ type SetSceneSceneTransitionOverrideResponse struct {
 
 // Sets the scene transition overridden for a scene.
 func (c *Client) SetSceneSceneTransitionOverride(
-	params *SetSceneSceneTransitionOverrideParams,
+	paramss ...*SetSceneSceneTransitionOverrideParams,
 ) (*SetSceneSceneTransitionOverrideResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*SetSceneSceneTransitionOverrideParams{{}}
+	}
+	params := paramss[0]
 	data := &SetSceneSceneTransitionOverrideResponse{}
 	return data, c.client.SendRequest(params, data)
 }

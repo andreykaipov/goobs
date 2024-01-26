@@ -14,6 +14,9 @@ type SetSceneItemTransformParams struct {
 
 	// Name of the scene the item is in
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// UUID of the scene the item is in
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewSetSceneItemTransformParams() *SetSceneItemTransformParams {
@@ -32,6 +35,10 @@ func (o *SetSceneItemTransformParams) WithSceneItemTransform(
 }
 func (o *SetSceneItemTransformParams) WithSceneName(x string) *SetSceneItemTransformParams {
 	o.SceneName = &x
+	return o
+}
+func (o *SetSceneItemTransformParams) WithSceneUuid(x string) *SetSceneItemTransformParams {
+	o.SceneUuid = &x
 	return o
 }
 

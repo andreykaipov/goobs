@@ -9,6 +9,9 @@ type GetSceneItemIndexParams struct {
 
 	// Name of the scene the item is in
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// UUID of the scene the item is in
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewGetSceneItemIndexParams() *GetSceneItemIndexParams {
@@ -20,6 +23,10 @@ func (o *GetSceneItemIndexParams) WithSceneItemId(x int) *GetSceneItemIndexParam
 }
 func (o *GetSceneItemIndexParams) WithSceneName(x string) *GetSceneItemIndexParams {
 	o.SceneName = &x
+	return o
+}
+func (o *GetSceneItemIndexParams) WithSceneUuid(x string) *GetSceneItemIndexParams {
+	o.SceneUuid = &x
 	return o
 }
 

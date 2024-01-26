@@ -10,6 +10,9 @@ type SetInputSettingsParams struct {
 	// Object of settings to apply
 	InputSettings map[string]any `json:"inputSettings,omitempty"`
 
+	// UUID of the input to set the settings of
+	InputUuid *string `json:"inputUuid,omitempty"`
+
 	// True == apply the settings on top of existing ones, False == reset the input to its defaults, then apply
 	// settings.
 	Overlay *bool `json:"overlay,omitempty"`
@@ -24,6 +27,10 @@ func (o *SetInputSettingsParams) WithInputName(x string) *SetInputSettingsParams
 }
 func (o *SetInputSettingsParams) WithInputSettings(x map[string]any) *SetInputSettingsParams {
 	o.InputSettings = x
+	return o
+}
+func (o *SetInputSettingsParams) WithInputUuid(x string) *SetInputSettingsParams {
+	o.InputUuid = &x
 	return o
 }
 func (o *SetInputSettingsParams) WithOverlay(x bool) *SetInputSettingsParams {

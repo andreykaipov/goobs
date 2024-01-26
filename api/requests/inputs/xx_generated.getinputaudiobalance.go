@@ -6,6 +6,9 @@ package inputs
 type GetInputAudioBalanceParams struct {
 	// Name of the input to get the audio balance of
 	InputName *string `json:"inputName,omitempty"`
+
+	// UUID of the input to get the audio balance of
+	InputUuid *string `json:"inputUuid,omitempty"`
 }
 
 func NewGetInputAudioBalanceParams() *GetInputAudioBalanceParams {
@@ -13,6 +16,10 @@ func NewGetInputAudioBalanceParams() *GetInputAudioBalanceParams {
 }
 func (o *GetInputAudioBalanceParams) WithInputName(x string) *GetInputAudioBalanceParams {
 	o.InputName = &x
+	return o
+}
+func (o *GetInputAudioBalanceParams) WithInputUuid(x string) *GetInputAudioBalanceParams {
+	o.InputUuid = &x
 	return o
 }
 
@@ -30,7 +37,11 @@ type GetInputAudioBalanceResponse struct {
 }
 
 // Gets the audio balance of an input.
-func (c *Client) GetInputAudioBalance(params *GetInputAudioBalanceParams) (*GetInputAudioBalanceResponse, error) {
+func (c *Client) GetInputAudioBalance(paramss ...*GetInputAudioBalanceParams) (*GetInputAudioBalanceResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetInputAudioBalanceParams{{}}
+	}
+	params := paramss[0]
 	data := &GetInputAudioBalanceResponse{}
 	return data, c.client.SendRequest(params, data)
 }

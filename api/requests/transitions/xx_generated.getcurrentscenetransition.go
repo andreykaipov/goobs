@@ -31,6 +31,9 @@ type GetCurrentSceneTransitionResponse struct {
 
 	// Object of settings for the transition. `null` if transition is not configurable
 	TransitionSettings map[string]any `json:"transitionSettings,omitempty"`
+
+	// UUID of the transition
+	TransitionUuid string `json:"transitionUuid,omitempty"`
 }
 
 // Gets information about the current scene transition.

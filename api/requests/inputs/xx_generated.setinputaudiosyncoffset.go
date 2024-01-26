@@ -9,6 +9,9 @@ type SetInputAudioSyncOffsetParams struct {
 
 	// Name of the input to set the audio sync offset of
 	InputName *string `json:"inputName,omitempty"`
+
+	// UUID of the input to set the audio sync offset of
+	InputUuid *string `json:"inputUuid,omitempty"`
 }
 
 func NewSetInputAudioSyncOffsetParams() *SetInputAudioSyncOffsetParams {
@@ -20,6 +23,10 @@ func (o *SetInputAudioSyncOffsetParams) WithInputAudioSyncOffset(x float64) *Set
 }
 func (o *SetInputAudioSyncOffsetParams) WithInputName(x string) *SetInputAudioSyncOffsetParams {
 	o.InputName = &x
+	return o
+}
+func (o *SetInputAudioSyncOffsetParams) WithInputUuid(x string) *SetInputAudioSyncOffsetParams {
+	o.InputUuid = &x
 	return o
 }
 

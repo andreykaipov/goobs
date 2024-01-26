@@ -6,6 +6,9 @@ package inputs
 type GetInputMuteParams struct {
 	// Name of input to get the mute state of
 	InputName *string `json:"inputName,omitempty"`
+
+	// UUID of input to get the mute state of
+	InputUuid *string `json:"inputUuid,omitempty"`
 }
 
 func NewGetInputMuteParams() *GetInputMuteParams {
@@ -13,6 +16,10 @@ func NewGetInputMuteParams() *GetInputMuteParams {
 }
 func (o *GetInputMuteParams) WithInputName(x string) *GetInputMuteParams {
 	o.InputName = &x
+	return o
+}
+func (o *GetInputMuteParams) WithInputUuid(x string) *GetInputMuteParams {
+	o.InputUuid = &x
 	return o
 }
 
@@ -30,7 +37,11 @@ type GetInputMuteResponse struct {
 }
 
 // Gets the audio mute state of an input.
-func (c *Client) GetInputMute(params *GetInputMuteParams) (*GetInputMuteResponse, error) {
+func (c *Client) GetInputMute(paramss ...*GetInputMuteParams) (*GetInputMuteResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetInputMuteParams{{}}
+	}
+	params := paramss[0]
 	data := &GetInputMuteResponse{}
 	return data, c.client.SendRequest(params, data)
 }

@@ -10,4 +10,7 @@ A scene transition has started.
 type SceneTransitionStarted struct {
 	// Scene transition name
 	TransitionName string `json:"transitionName,omitempty"`
+
+	// Scene transition UUID
+	TransitionUuid string `json:"transitionUuid,omitempty"`
 }

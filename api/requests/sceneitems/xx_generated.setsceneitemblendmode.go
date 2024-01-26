@@ -12,6 +12,9 @@ type SetSceneItemBlendModeParams struct {
 
 	// Name of the scene the item is in
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// UUID of the scene the item is in
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewSetSceneItemBlendModeParams() *SetSceneItemBlendModeParams {
@@ -27,6 +30,10 @@ func (o *SetSceneItemBlendModeParams) WithSceneItemId(x int) *SetSceneItemBlendM
 }
 func (o *SetSceneItemBlendModeParams) WithSceneName(x string) *SetSceneItemBlendModeParams {
 	o.SceneName = &x
+	return o
+}
+func (o *SetSceneItemBlendModeParams) WithSceneUuid(x string) *SetSceneItemBlendModeParams {
+	o.SceneUuid = &x
 	return o
 }
 

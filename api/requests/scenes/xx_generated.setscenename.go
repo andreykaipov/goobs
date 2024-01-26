@@ -9,6 +9,9 @@ type SetSceneNameParams struct {
 
 	// Name of the scene to be renamed
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// UUID of the scene to be renamed
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewSetSceneNameParams() *SetSceneNameParams {
@@ -20,6 +23,10 @@ func (o *SetSceneNameParams) WithNewSceneName(x string) *SetSceneNameParams {
 }
 func (o *SetSceneNameParams) WithSceneName(x string) *SetSceneNameParams {
 	o.SceneName = &x
+	return o
+}
+func (o *SetSceneNameParams) WithSceneUuid(x string) *SetSceneNameParams {
+	o.SceneUuid = &x
 	return o
 }
 

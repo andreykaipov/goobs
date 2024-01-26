@@ -7,6 +7,9 @@ type PressInputPropertiesButtonParams struct {
 	// Name of the input
 	InputName *string `json:"inputName,omitempty"`
 
+	// UUID of the input
+	InputUuid *string `json:"inputUuid,omitempty"`
+
 	// Name of the button property to press
 	PropertyName *string `json:"propertyName,omitempty"`
 }
@@ -16,6 +19,10 @@ func NewPressInputPropertiesButtonParams() *PressInputPropertiesButtonParams {
 }
 func (o *PressInputPropertiesButtonParams) WithInputName(x string) *PressInputPropertiesButtonParams {
 	o.InputName = &x
+	return o
+}
+func (o *PressInputPropertiesButtonParams) WithInputUuid(x string) *PressInputPropertiesButtonParams {
+	o.InputUuid = &x
 	return o
 }
 func (o *PressInputPropertiesButtonParams) WithPropertyName(x string) *PressInputPropertiesButtonParams {

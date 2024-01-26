@@ -12,6 +12,9 @@ type OpenSourceProjectorParams struct {
 
 	// Name of the source to open a projector for
 	SourceName *string `json:"sourceName,omitempty"`
+
+	// UUID of the source to open a projector for
+	SourceUuid *string `json:"sourceUuid,omitempty"`
 }
 
 func NewOpenSourceProjectorParams() *OpenSourceProjectorParams {
@@ -27,6 +30,10 @@ func (o *OpenSourceProjectorParams) WithProjectorGeometry(x string) *OpenSourceP
 }
 func (o *OpenSourceProjectorParams) WithSourceName(x string) *OpenSourceProjectorParams {
 	o.SourceName = &x
+	return o
+}
+func (o *OpenSourceProjectorParams) WithSourceUuid(x string) *OpenSourceProjectorParams {
+	o.SourceUuid = &x
 	return o
 }
 
@@ -45,7 +52,11 @@ Opens a projector for a source.
 
 Note: This request serves to provide feature parity with 4.x. It is very likely to be changed/deprecated in a future release.
 */
-func (c *Client) OpenSourceProjector(params *OpenSourceProjectorParams) (*OpenSourceProjectorResponse, error) {
+func (c *Client) OpenSourceProjector(paramss ...*OpenSourceProjectorParams) (*OpenSourceProjectorResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*OpenSourceProjectorParams{{}}
+	}
+	params := paramss[0]
 	data := &OpenSourceProjectorResponse{}
 	return data, c.client.SendRequest(params, data)
 }

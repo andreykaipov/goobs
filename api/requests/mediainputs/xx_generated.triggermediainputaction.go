@@ -7,6 +7,9 @@ type TriggerMediaInputActionParams struct {
 	// Name of the media input
 	InputName *string `json:"inputName,omitempty"`
 
+	// UUID of the media input
+	InputUuid *string `json:"inputUuid,omitempty"`
+
 	// Identifier of the `ObsMediaInputAction` enum
 	MediaAction *string `json:"mediaAction,omitempty"`
 }
@@ -16,6 +19,10 @@ func NewTriggerMediaInputActionParams() *TriggerMediaInputActionParams {
 }
 func (o *TriggerMediaInputActionParams) WithInputName(x string) *TriggerMediaInputActionParams {
 	o.InputName = &x
+	return o
+}
+func (o *TriggerMediaInputActionParams) WithInputUuid(x string) *TriggerMediaInputActionParams {
+	o.InputUuid = &x
 	return o
 }
 func (o *TriggerMediaInputActionParams) WithMediaAction(x string) *TriggerMediaInputActionParams {

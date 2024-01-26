@@ -6,6 +6,9 @@ package sources
 type GetSourceActiveParams struct {
 	// Name of the source to get the active state of
 	SourceName *string `json:"sourceName,omitempty"`
+
+	// UUID of the source to get the active state of
+	SourceUuid *string `json:"sourceUuid,omitempty"`
 }
 
 func NewGetSourceActiveParams() *GetSourceActiveParams {
@@ -13,6 +16,10 @@ func NewGetSourceActiveParams() *GetSourceActiveParams {
 }
 func (o *GetSourceActiveParams) WithSourceName(x string) *GetSourceActiveParams {
 	o.SourceName = &x
+	return o
+}
+func (o *GetSourceActiveParams) WithSourceUuid(x string) *GetSourceActiveParams {
+	o.SourceUuid = &x
 	return o
 }
 
@@ -37,7 +44,11 @@ Gets the active and show state of a source.
 
 **Compatible with inputs and scenes.**
 */
-func (c *Client) GetSourceActive(params *GetSourceActiveParams) (*GetSourceActiveResponse, error) {
+func (c *Client) GetSourceActive(paramss ...*GetSourceActiveParams) (*GetSourceActiveResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetSourceActiveParams{{}}
+	}
+	params := paramss[0]
 	data := &GetSourceActiveResponse{}
 	return data, c.client.SendRequest(params, data)
 }

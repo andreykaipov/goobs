@@ -6,6 +6,9 @@ package inputs
 type GetInputVolumeParams struct {
 	// Name of the input to get the volume of
 	InputName *string `json:"inputName,omitempty"`
+
+	// UUID of the input to get the volume of
+	InputUuid *string `json:"inputUuid,omitempty"`
 }
 
 func NewGetInputVolumeParams() *GetInputVolumeParams {
@@ -13,6 +16,10 @@ func NewGetInputVolumeParams() *GetInputVolumeParams {
 }
 func (o *GetInputVolumeParams) WithInputName(x string) *GetInputVolumeParams {
 	o.InputName = &x
+	return o
+}
+func (o *GetInputVolumeParams) WithInputUuid(x string) *GetInputVolumeParams {
+	o.InputUuid = &x
 	return o
 }
 
@@ -33,7 +40,11 @@ type GetInputVolumeResponse struct {
 }
 
 // Gets the current volume setting of an input.
-func (c *Client) GetInputVolume(params *GetInputVolumeParams) (*GetInputVolumeResponse, error) {
+func (c *Client) GetInputVolume(paramss ...*GetInputVolumeParams) (*GetInputVolumeResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*GetInputVolumeParams{{}}
+	}
+	params := paramss[0]
 	data := &GetInputVolumeResponse{}
 	return data, c.client.SendRequest(params, data)
 }

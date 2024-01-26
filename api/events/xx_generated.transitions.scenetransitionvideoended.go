@@ -15,4 +15,7 @@ Note: Appears to be called by every transition, regardless of relevance.
 type SceneTransitionVideoEnded struct {
 	// Scene transition name
 	TransitionName string `json:"transitionName,omitempty"`
+
+	// Scene transition UUID
+	TransitionUuid string `json:"transitionUuid,omitempty"`
 }

@@ -13,4 +13,7 @@ type SceneRemoved struct {
 
 	// Name of the removed scene
 	SceneName string `json:"sceneName,omitempty"`
+
+	// UUID of the removed scene
+	SceneUuid string `json:"sceneUuid,omitempty"`
 }

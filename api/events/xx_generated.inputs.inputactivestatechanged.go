@@ -13,6 +13,9 @@ type InputActiveStateChanged struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`
 
+	// UUID of the input
+	InputUuid string `json:"inputUuid,omitempty"`
+
 	// Whether the input is active
 	VideoActive bool `json:"videoActive,omitempty"`
 }

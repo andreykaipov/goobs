@@ -10,4 +10,7 @@ The current preview scene has changed.
 type CurrentPreviewSceneChanged struct {
 	// Name of the scene that was switched to
 	SceneName string `json:"sceneName,omitempty"`
+
+	// UUID of the scene that was switched to
+	SceneUuid string `json:"sceneUuid,omitempty"`
 }

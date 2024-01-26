@@ -7,6 +7,9 @@ type SetInputNameParams struct {
 	// Current input name
 	InputName *string `json:"inputName,omitempty"`
 
+	// Current input UUID
+	InputUuid *string `json:"inputUuid,omitempty"`
+
 	// New name for the input
 	NewInputName *string `json:"newInputName,omitempty"`
 }
@@ -16,6 +19,10 @@ func NewSetInputNameParams() *SetInputNameParams {
 }
 func (o *SetInputNameParams) WithInputName(x string) *SetInputNameParams {
 	o.InputName = &x
+	return o
+}
+func (o *SetInputNameParams) WithInputUuid(x string) *SetInputNameParams {
+	o.InputUuid = &x
 	return o
 }
 func (o *SetInputNameParams) WithNewInputName(x string) *SetInputNameParams {

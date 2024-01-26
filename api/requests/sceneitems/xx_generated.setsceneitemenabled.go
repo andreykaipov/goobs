@@ -12,6 +12,9 @@ type SetSceneItemEnabledParams struct {
 
 	// Name of the scene the item is in
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// UUID of the scene the item is in
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewSetSceneItemEnabledParams() *SetSceneItemEnabledParams {
@@ -27,6 +30,10 @@ func (o *SetSceneItemEnabledParams) WithSceneItemId(x int) *SetSceneItemEnabledP
 }
 func (o *SetSceneItemEnabledParams) WithSceneName(x string) *SetSceneItemEnabledParams {
 	o.SceneName = &x
+	return o
+}
+func (o *SetSceneItemEnabledParams) WithSceneUuid(x string) *SetSceneItemEnabledParams {
+	o.SceneUuid = &x
 	return o
 }
 

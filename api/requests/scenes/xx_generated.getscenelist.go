@@ -16,11 +16,17 @@ func (o *GetSceneListParams) GetRequestName() string {
 type GetSceneListResponse struct {
 	_response
 
-	// Current preview scene. `null` if not in studio mode
+	// Current preview scene name. `null` if not in studio mode
 	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`
 
-	// Current program scene
+	// Current preview scene UUID. `null` if not in studio mode
+	CurrentPreviewSceneUuid string `json:"currentPreviewSceneUuid,omitempty"`
+
+	// Current program scene name. Can be `null` if internal state desync
 	CurrentProgramSceneName string `json:"currentProgramSceneName,omitempty"`
+
+	// Current program scene UUID. Can be `null` if internal state desync
+	CurrentProgramSceneUuid string `json:"currentProgramSceneUuid,omitempty"`
 
 	// Array of scenes
 	Scenes []*typedefs.Scene `json:"scenes,omitempty"`

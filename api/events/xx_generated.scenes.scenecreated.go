@@ -13,4 +13,7 @@ type SceneCreated struct {
 
 	// Name of the new scene
 	SceneName string `json:"sceneName,omitempty"`
+
+	// UUID of the new scene
+	SceneUuid string `json:"sceneUuid,omitempty"`
 }

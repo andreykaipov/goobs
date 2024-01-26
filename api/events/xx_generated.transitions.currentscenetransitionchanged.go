@@ -10,4 +10,7 @@ The current scene transition has changed.
 type CurrentSceneTransitionChanged struct {
 	// Name of the new transition
 	TransitionName string `json:"transitionName,omitempty"`
+
+	// UUID of the new transition
+	TransitionUuid string `json:"transitionUuid,omitempty"`
 }

@@ -9,6 +9,9 @@ type RemoveSourceFilterParams struct {
 
 	// Name of the source the filter is on
 	SourceName *string `json:"sourceName,omitempty"`
+
+	// UUID of the source the filter is on
+	SourceUuid *string `json:"sourceUuid,omitempty"`
 }
 
 func NewRemoveSourceFilterParams() *RemoveSourceFilterParams {
@@ -20,6 +23,10 @@ func (o *RemoveSourceFilterParams) WithFilterName(x string) *RemoveSourceFilterP
 }
 func (o *RemoveSourceFilterParams) WithSourceName(x string) *RemoveSourceFilterParams {
 	o.SourceName = &x
+	return o
+}
+func (o *RemoveSourceFilterParams) WithSourceUuid(x string) *RemoveSourceFilterParams {
+	o.SourceUuid = &x
 	return o
 }
 

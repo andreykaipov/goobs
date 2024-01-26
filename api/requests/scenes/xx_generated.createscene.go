@@ -24,6 +24,9 @@ func (o *CreateSceneParams) GetRequestName() string {
 // Represents the response body for the CreateScene request.
 type CreateSceneResponse struct {
 	_response
+
+	// UUID of the created scene
+	SceneUuid string `json:"sceneUuid,omitempty"`
 }
 
 // Creates a new scene in OBS.

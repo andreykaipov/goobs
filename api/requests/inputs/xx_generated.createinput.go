@@ -18,6 +18,9 @@ type CreateInputParams struct {
 
 	// Name of the scene to add the input to as a scene item
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// UUID of the scene to add the input to as a scene item
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewCreateInputParams() *CreateInputParams {
@@ -43,6 +46,10 @@ func (o *CreateInputParams) WithSceneName(x string) *CreateInputParams {
 	o.SceneName = &x
 	return o
 }
+func (o *CreateInputParams) WithSceneUuid(x string) *CreateInputParams {
+	o.SceneUuid = &x
+	return o
+}
 
 // Returns the associated request.
 func (o *CreateInputParams) GetRequestName() string {
@@ -52,6 +59,9 @@ func (o *CreateInputParams) GetRequestName() string {
 // Represents the response body for the CreateInput request.
 type CreateInputResponse struct {
 	_response
+
+	// UUID of the newly created input
+	InputUuid string `json:"inputUuid,omitempty"`
 
 	// ID of the newly created scene item
 	SceneItemId int `json:"sceneItemId,omitempty"`

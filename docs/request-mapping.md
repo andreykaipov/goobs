@@ -35,6 +35,7 @@ The following tables show how to make the appropriate `goobs` request for any gi
 | CreateSourceFilter | `client.Filters.CreateSourceFilter(...)` |
 | GetSourceFilter | `client.Filters.GetSourceFilter(...)` |
 | GetSourceFilterDefaultSettings | `client.Filters.GetSourceFilterDefaultSettings(...)` |
+| GetSourceFilterKindList | `client.Filters.GetSourceFilterKindList(...)` |
 | GetSourceFilterList | `client.Filters.GetSourceFilterList(...)` |
 | RemoveSourceFilter | `client.Filters.RemoveSourceFilter(...)` |
 | SetSourceFilterEnabled | `client.Filters.SetSourceFilterEnabled(...)` |
@@ -134,6 +135,7 @@ The following tables show how to make the appropriate `goobs` request for any gi
 | GetSceneItemIndex | `client.SceneItems.GetSceneItemIndex(...)` |
 | GetSceneItemList | `client.SceneItems.GetSceneItemList(...)` |
 | GetSceneItemLocked | `client.SceneItems.GetSceneItemLocked(...)` |
+| GetSceneItemSource | `client.SceneItems.GetSceneItemSource(...)` |
 | GetSceneItemTransform | `client.SceneItems.GetSceneItemTransform(...)` |
 | RemoveSceneItem | `client.SceneItems.RemoveSceneItem(...)` |
 | SetSceneItemBlendMode | `client.SceneItems.SetSceneItemBlendMode(...)` |

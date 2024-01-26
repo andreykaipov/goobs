@@ -9,6 +9,9 @@ type SetInputAudioBalanceParams struct {
 
 	// Name of the input to set the audio balance of
 	InputName *string `json:"inputName,omitempty"`
+
+	// UUID of the input to set the audio balance of
+	InputUuid *string `json:"inputUuid,omitempty"`
 }
 
 func NewSetInputAudioBalanceParams() *SetInputAudioBalanceParams {
@@ -20,6 +23,10 @@ func (o *SetInputAudioBalanceParams) WithInputAudioBalance(x float64) *SetInputA
 }
 func (o *SetInputAudioBalanceParams) WithInputName(x string) *SetInputAudioBalanceParams {
 	o.InputName = &x
+	return o
+}
+func (o *SetInputAudioBalanceParams) WithInputUuid(x string) *SetInputAudioBalanceParams {
+	o.InputUuid = &x
 	return o
 }
 

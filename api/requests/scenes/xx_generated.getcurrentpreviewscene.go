@@ -14,14 +14,25 @@ func (o *GetCurrentPreviewSceneParams) GetRequestName() string {
 type GetCurrentPreviewSceneResponse struct {
 	_response
 
-	// Current preview scene
+	// Current preview scene name
 	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`
+
+	// Current preview scene UUID
+	CurrentPreviewSceneUuid string `json:"currentPreviewSceneUuid,omitempty"`
+
+	// Current preview scene name
+	SceneName string `json:"sceneName,omitempty"`
+
+	// Current preview scene UUID
+	SceneUuid string `json:"sceneUuid,omitempty"`
 }
 
 /*
 Gets the current preview scene.
 
 Only available when studio mode is enabled.
+
+Note: This request is slated to have the `currentPreview`-prefixed fields removed from in an upcoming RPC version.
 */
 func (c *Client) GetCurrentPreviewScene(
 	paramss ...*GetCurrentPreviewSceneParams,

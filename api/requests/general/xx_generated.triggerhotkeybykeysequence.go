@@ -38,7 +38,11 @@ type TriggerHotkeyByKeySequenceResponse struct {
 	_response
 }
 
-// Triggers a hotkey using a sequence of keys.
+/*
+Triggers a hotkey using a sequence of keys.
+
+Note: Hotkey functionality in obs-websocket comes as-is, and we do not guarantee support if things are broken. In 9/10 usages of hotkey requests, there exists a better, more reliable method via other requests.
+*/
 func (c *Client) TriggerHotkeyByKeySequence(
 	paramss ...*TriggerHotkeyByKeySequenceParams,
 ) (*TriggerHotkeyByKeySequenceResponse, error) {

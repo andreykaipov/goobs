@@ -13,6 +13,9 @@ func (o *ToggleRecordParams) GetRequestName() string {
 // Represents the response body for the ToggleRecord request.
 type ToggleRecordResponse struct {
 	_response
+
+	// The new active state of the output
+	OutputActive bool `json:"outputActive,omitempty"`
 }
 
 // Toggles the status of the record output.

@@ -11,6 +11,9 @@ type InputNameChanged struct {
 	// New name of the input
 	InputName string `json:"inputName,omitempty"`
 
+	// UUID of the input
+	InputUuid string `json:"inputUuid,omitempty"`
+
 	// Old name of the input
 	OldInputName string `json:"oldInputName,omitempty"`
 }

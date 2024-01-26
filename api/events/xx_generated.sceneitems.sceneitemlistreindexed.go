@@ -15,4 +15,7 @@ type SceneItemListReindexed struct {
 
 	// Name of the scene
 	SceneName string `json:"sceneName,omitempty"`
+
+	// UUID of the scene
+	SceneUuid string `json:"sceneUuid,omitempty"`
 }

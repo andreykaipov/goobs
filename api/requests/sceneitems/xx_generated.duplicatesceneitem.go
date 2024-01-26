@@ -7,11 +7,17 @@ type DuplicateSceneItemParams struct {
 	// Name of the scene to create the duplicated item in
 	DestinationSceneName *string `json:"destinationSceneName,omitempty"`
 
+	// UUID of the scene to create the duplicated item in
+	DestinationSceneUuid *string `json:"destinationSceneUuid,omitempty"`
+
 	// Numeric ID of the scene item
 	SceneItemId *int `json:"sceneItemId,omitempty"`
 
 	// Name of the scene the item is in
 	SceneName *string `json:"sceneName,omitempty"`
+
+	// UUID of the scene the item is in
+	SceneUuid *string `json:"sceneUuid,omitempty"`
 }
 
 func NewDuplicateSceneItemParams() *DuplicateSceneItemParams {
@@ -21,12 +27,20 @@ func (o *DuplicateSceneItemParams) WithDestinationSceneName(x string) *Duplicate
 	o.DestinationSceneName = &x
 	return o
 }
+func (o *DuplicateSceneItemParams) WithDestinationSceneUuid(x string) *DuplicateSceneItemParams {
+	o.DestinationSceneUuid = &x
+	return o
+}
 func (o *DuplicateSceneItemParams) WithSceneItemId(x int) *DuplicateSceneItemParams {
 	o.SceneItemId = &x
 	return o
 }
 func (o *DuplicateSceneItemParams) WithSceneName(x string) *DuplicateSceneItemParams {
 	o.SceneName = &x
+	return o
+}
+func (o *DuplicateSceneItemParams) WithSceneUuid(x string) *DuplicateSceneItemParams {
+	o.SceneUuid = &x
 	return o
 }
 

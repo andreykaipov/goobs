@@ -15,6 +15,9 @@ type CreateSourceFilterParams struct {
 
 	// Name of the source to add the filter to
 	SourceName *string `json:"sourceName,omitempty"`
+
+	// UUID of the source to add the filter to
+	SourceUuid *string `json:"sourceUuid,omitempty"`
 }
 
 func NewCreateSourceFilterParams() *CreateSourceFilterParams {
@@ -34,6 +37,10 @@ func (o *CreateSourceFilterParams) WithFilterSettings(x map[string]any) *CreateS
 }
 func (o *CreateSourceFilterParams) WithSourceName(x string) *CreateSourceFilterParams {
 	o.SourceName = &x
+	return o
+}
+func (o *CreateSourceFilterParams) WithSourceUuid(x string) *CreateSourceFilterParams {
+	o.SourceUuid = &x
 	return o
 }
 

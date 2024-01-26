@@ -11,6 +11,9 @@ type MediaInputActionTriggered struct {
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`
 
+	// UUID of the input
+	InputUuid string `json:"inputUuid,omitempty"`
+
 	// Action performed on the input. See `ObsMediaInputAction` enum
 	MediaAction string `json:"mediaAction,omitempty"`
 }

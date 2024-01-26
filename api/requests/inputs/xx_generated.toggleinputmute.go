@@ -6,6 +6,9 @@ package inputs
 type ToggleInputMuteParams struct {
 	// Name of the input to toggle the mute state of
 	InputName *string `json:"inputName,omitempty"`
+
+	// UUID of the input to toggle the mute state of
+	InputUuid *string `json:"inputUuid,omitempty"`
 }
 
 func NewToggleInputMuteParams() *ToggleInputMuteParams {
@@ -13,6 +16,10 @@ func NewToggleInputMuteParams() *ToggleInputMuteParams {
 }
 func (o *ToggleInputMuteParams) WithInputName(x string) *ToggleInputMuteParams {
 	o.InputName = &x
+	return o
+}
+func (o *ToggleInputMuteParams) WithInputUuid(x string) *ToggleInputMuteParams {
+	o.InputUuid = &x
 	return o
 }
 
@@ -30,7 +37,11 @@ type ToggleInputMuteResponse struct {
 }
 
 // Toggles the audio mute state of an input.
-func (c *Client) ToggleInputMute(params *ToggleInputMuteParams) (*ToggleInputMuteResponse, error) {
+func (c *Client) ToggleInputMute(paramss ...*ToggleInputMuteParams) (*ToggleInputMuteResponse, error) {
+	if len(paramss) == 0 {
+		paramss = []*ToggleInputMuteParams{{}}
+	}
+	params := paramss[0]
 	data := &ToggleInputMuteResponse{}
 	return data, c.client.SendRequest(params, data)
 }

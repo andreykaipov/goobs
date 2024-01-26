@@ -1,11 +1,10 @@
 FROM ubuntu:latest AS build
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-config dump | grep -E 'Install-(Recommends|Suggests)' | sed s/1/0 | tee /etc/apt/apt.conf.d/999norecommend
 RUN apt-get update -y
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository -y ppa:obsproject/obs-studio
-RUN apt-get update -y
-RUN apt-get install -y obs-studio
+COPY *.deb /tmp/obs.deb
+RUN dpkg -i /tmp/obs.deb || :
+RUN apt-get install -y --fix-broken
+RUN apt-get install -y qt6-wayland qt6-qpa-plugins
 RUN apt-get install -y xvfb x11vnc
 RUN apt-get install -y netcat
 RUN rm -rf /var/lib/apt/lists/*

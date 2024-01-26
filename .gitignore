@@ -1,3 +1,4 @@
 cover*.out
 cover*.html
 example.png
+docker/*.deb

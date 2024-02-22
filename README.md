@@ -5,8 +5,8 @@
 [![Build Status][build-img]][build-url]
 [![Go Report][goreport-img]][goreport-url]
 
-[protocol-img]: https://img.shields.io/badge/obs--websocket-v5.4.0-blue?logo=obs-studio&style=flat-square
-[protocol-url]: https://github.com/obsproject/obs-websocket/blob/5.4.0/docs/generated/protocol.md
+[protocol-img]: https://img.shields.io/badge/obs--websocket-v5.4.1-blue?logo=obs-studio&style=flat-square
+[protocol-url]: https://github.com/obsproject/obs-websocket/blob/5.4.1/docs/generated/protocol.md
 [doc-img]: https://img.shields.io/badge/pkg.go.dev-reference-blue?logo=go&logoColor=white&style=flat-square
 [doc-url]: https://pkg.go.dev/github.com/andreykaipov/goobs
 [build-img]: https://img.shields.io/github/actions/workflow/status/andreykaipov/goobs/ci.yml?logo=github&style=flat-square&branch=main
@@ -66,9 +66,9 @@ The corresponding output:
 [//]: # (snippet-2-begin)
 ```console
 ❯ go run _examples/basic/main.go
-OBS Studio version: 30.0.2
-Server protocol version: 5.4.0
-Client protocol version: 5.4.0
-Client library version: 1.2.0
+OBS Studio version: 30.1.0
+Server protocol version: 5.4.2
+Client protocol version: 5.4.1
+Client library version: 1.2.1
 ```
 [//]: # (snippet-2-end)

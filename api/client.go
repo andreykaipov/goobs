@@ -42,6 +42,8 @@ type Client struct {
 	// Ya like logs?
 	Log Logger
 
+	Disconnected chan bool
+
 	mutex sync.Mutex
 }
 
@@ -75,10 +77,15 @@ func (c *Client) SendRequest(requestBody Params, responseBody Response) error {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
-	c.Opcodes <- &opcodes.Request{
-		Type: name,
-		ID:   id,
-		Data: requestBody,
+	select {
+	case <-c.Disconnected:
+		return fmt.Errorf("request %s: client already disconnected", name)
+	default:
+		c.Opcodes <- &opcodes.Request{
+			Type: name,
+			ID:   id,
+			Data: requestBody,
+		}
 	}
 
 	var response *opcodes.RequestResponse

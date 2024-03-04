@@ -37,7 +37,6 @@ type Client struct {
 	dialer             *websocket.Dialer
 	requestHeader      http.Header
 	eventSubscriptions int
-	disconnected       chan bool
 	profiler           *profile.Profile
 	once               sync.Once
 }
@@ -123,7 +122,7 @@ func (c *Client) Disconnect() error {
 func (c *Client) markDisconnected() {
 	c.once.Do(func() {
 		select {
-		case c.disconnected <- true:
+		case c.client.Disconnected <- true:
 		default:
 		}
 
@@ -131,7 +130,7 @@ func (c *Client) markDisconnected() {
 		close(c.IncomingEvents)
 		close(c.client.Opcodes)
 		close(c.client.IncomingResponses)
-		close(c.disconnected)
+		close(c.client.Disconnected)
 	})
 }
 
@@ -145,8 +144,8 @@ func New(host string, opts ...Option) (*Client, error) {
 		dialer:             websocket.DefaultDialer,
 		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + LibraryVersion}},
 		eventSubscriptions: subscriptions.All,
-		disconnected:       make(chan bool),
 		client: &api.Client{
+			Disconnected:      make(chan bool),
 			IncomingResponses: make(chan *opcodes.RequestResponse),
 			Opcodes:           make(chan opcodes.Opcode),
 			ResponseTimeout:   10000,
@@ -248,7 +247,7 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 					c.markDisconnected()
 				default:
 					select {
-					case <-c.disconnected:
+					case <-c.client.Disconnected:
 					default:
 						c.client.Log.Printf("[ERROR] Unhandled error: %s", t)
 					}
@@ -260,7 +259,7 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 		c.client.Log.Printf("[TRACE] Raw server message: %s", raw)
 
 		select {
-		case <-c.disconnected:
+		case <-c.client.Disconnected:
 			// This might happen if the server sends messages to us
 			// after we've already disconnected, e.g.:
 			//
@@ -362,7 +361,7 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 // to use it, they'll have the latest events available to them.
 func (c *Client) writeEvent(event any) {
 	select {
-	case <-c.disconnected:
+	case <-c.client.Disconnected:
 	case c.IncomingEvents <- event:
 	default:
 		if len(c.IncomingEvents) == cap(c.IncomingEvents) {

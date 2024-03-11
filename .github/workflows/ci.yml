@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: magnetikonline/action-golang-cache@v4
+    - uses: magnetikonline/action-golang-cache@v5
       with:
         go-version-file: go.mod
     - name: make test
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - uses: magnetikonline/action-golang-cache@v4
+    - uses: magnetikonline/action-golang-cache@v5
       with:
         go-version-file: go.mod
     - run: make clean && make generate

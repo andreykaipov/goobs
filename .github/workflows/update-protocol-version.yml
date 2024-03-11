@@ -18,7 +18,7 @@ jobs:
         app_id: ${{ secrets.CATHY_CLOUD_APP_ID }}
         private_key: ${{ secrets.CATHY_CLOUD_APP_PRIVATE_KEY }}
 
-    - uses: magnetikonline/action-golang-cache@v4
+    - uses: magnetikonline/action-golang-cache@v5
       with:
         go-version-file: go.mod
 

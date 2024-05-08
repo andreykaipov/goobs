@@ -26,6 +26,7 @@ setup() {
 }
 
 gotest() {
+        export GOOBS_LOG=error
         category="$1"
         go test -v -run="^Test_$category$" -count 1 -coverprofile=cover.out -coverpkg=./... -covermode=$covermode ./...
         awk 'NR>1' cover.out >>coverall.out

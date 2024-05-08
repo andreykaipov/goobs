@@ -1,6 +1,7 @@
 package typedefs
 
 type Input struct {
+	InputUuid            string `json:"inputUuid"`
 	InputName            string `json:"inputName"`
 	InputKind            string `json:"inputKind"`
 	UnversionedInputKind string `json:"unversionedInputKind"`
@@ -24,6 +25,7 @@ type OutputFlags struct {
 }
 
 type Scene struct {
+	SceneUuid  string `json:"sceneUuid"`
 	SceneIndex int    `json:"sceneIndex"`
 	SceneName  string `json:"sceneName"`
 }
@@ -43,6 +45,7 @@ type Filter struct {
 }
 
 type Transition struct {
+	TransitionUuid         string `json:"transitionUuid"`
 	TransitionConfigurable bool   `json:"transitionConfigurable"`
 	TransitionFixed        bool   `json:"transitionFixed"`
 	TransitionKind         string `json:"transitionKind"`
@@ -63,6 +66,7 @@ type SceneItem struct {
 	SceneItemIndex     int                `json:"sceneItemIndex"`
 	SceneItemLocked    bool               `json:"sceneItemLocked"`
 	SceneItemTransform SceneItemTransform `json:"sceneItemTransform"`
+	SourceUuid         string             `json:"sourceUuid"`
 	SourceName         string             `json:"sourceName"`
 	SourceType         string             `json:"sourceType"`
 }

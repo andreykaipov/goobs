@@ -13,6 +13,8 @@ func (o *ToggleRecordPauseParams) GetRequestName() string {
 // Represents the response body for the ToggleRecordPause request.
 type ToggleRecordPauseResponse struct {
 	_response
+
+	OutputPaused bool `json:"outputPaused,omitempty"`
 }
 
 // Toggles pause on the record output.

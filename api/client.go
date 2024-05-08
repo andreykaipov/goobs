@@ -7,11 +7,13 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 	"sync"
 	"time"
 
 	"github.com/andreykaipov/goobs/api/opcodes"
 	"github.com/andreykaipov/goobs/api/requests"
+	"github.com/mitchellh/mapstructure"
 	uuid "github.com/nu7hatch/gouuid"
 )
 
@@ -137,9 +139,9 @@ func (c *Client) SendRequest(requestBody Params, responseBody Response) error {
 
 	responseBody.setRaw(data)
 
-	if err := json.Unmarshal(data, responseBody); err != nil {
+	if err := c.decodeResponse(data, responseBody); err != nil {
 		return fmt.Errorf(
-			"request %s: unmarshalling `%s` into type %T: %s",
+			"request %s: decoding `%s` into type %T: %s",
 			name,
 			data,
 			responseBody,
@@ -148,4 +150,30 @@ func (c *Client) SendRequest(requestBody Params, responseBody Response) error {
 	}
 
 	return nil
+}
+
+func (c *Client) decodeResponse(data json.RawMessage, responseBody Response) error {
+	// no need for mapstructure if we're not debugging since it's slower
+	if os.Getenv("GOOBS_LOG") == "" {
+		return json.Unmarshal(data, responseBody)
+	}
+
+	dataParsed := map[string]any{}
+	if err := json.Unmarshal(data, &dataParsed); err != nil {
+		return fmt.Errorf("unmarshalling `%s` into map: %s", data, err)
+	}
+
+	// decoding with mapstructure, specifically erroring on unused fields,
+	// will find fields on manually maintained structs that i've forgetten
+	// to update whenever obs-websocket updates its API
+	decoder, err := mapstructure.NewDecoder(&mapstructure.DecoderConfig{
+		Result:      responseBody,
+		ErrorUnused: true,
+		TagName:     "json",
+	})
+	if err != nil {
+		return fmt.Errorf("creating decoder: %s", err)
+	}
+
+	return decoder.Decode(dataParsed)
 }

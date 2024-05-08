@@ -151,10 +151,7 @@ func generateRequest(request *Request) (s *Statement, err error) {
 	structName = name + "Response"
 	s.Commentf("Represents the response body for the %s request.", name).Line()
 
-	respf := &ResponseField{}
-	respf.ValueName = "_response"
-	respf.ValueType = "~requests~" // internal type
-	request.ResponseFields = append(request.ResponseFields, respf)
+	augmentStructFromProtocol(structName, request)
 
 	if err := generateStructFromParams("response", s, structName, request.ResponseFields); err != nil {
 		return nil, fmt.Errorf("Failed parsing 'Returns' for request %q in category %q", name, category)
@@ -394,6 +391,24 @@ func generateRequestStatuses(enums []*Enum, filter enumFilter) {
 		}
 
 		return
+	}
+}
+
+func augmentStructFromProtocol(name string, request *Request) {
+	if strings.HasSuffix(name, "Response") {
+		respf := &ResponseField{}
+		respf.ValueName = "_response"
+		respf.ValueType = "~requests~" // internal type
+		request.ResponseFields = append(request.ResponseFields, respf)
+	}
+
+	// the protocol sometimes omits fields that are returned by the server
+	switch name {
+	case "ToggleRecordPauseResponse":
+		f := &ResponseField{}
+		f.ValueName = "outputPaused"
+		f.ValueType = "Boolean"
+		request.ResponseFields = append(request.ResponseFields, f)
 	}
 }
 

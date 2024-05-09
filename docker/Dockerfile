@@ -3,6 +3,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update -y
 COPY *.deb /tmp/obs.deb
 RUN dpkg -i /tmp/obs.deb || :
+RUN dpkg --configure -a || :
 RUN apt-get install -y --fix-broken
 RUN apt-get install -y qt6-wayland qt6-qpa-plugins
 RUN apt-get install -y xvfb x11vnc

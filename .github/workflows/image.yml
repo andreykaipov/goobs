@@ -3,6 +3,7 @@ name: Image
 
 on:
   workflow_dispatch:
+  schedule: [{ cron: "25 9 1,15 * *" }] # 9:25 on the 1st and 15th of the month
   push:
     branches: [main]
     paths:

@@ -6,7 +6,7 @@ RUN dpkg -i /tmp/obs.deb || :
 RUN apt-get install -y --fix-broken
 RUN apt-get install -y qt6-wayland qt6-qpa-plugins
 RUN apt-get install -y xvfb x11vnc
-RUN apt-get install -y netcat
+RUN apt-get install -y netcat-traditional
 RUN rm -rf /var/lib/apt/lists/*
 
 # effectively always run with --init as xvfb-run needs signal propagation

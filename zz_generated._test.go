@@ -693,6 +693,11 @@ func Test_record(t *testing.T) {
 		client.Disconnect()
 	})
 
+	_, err = client.Record.CreateRecordChapter(&record.CreateRecordChapterParams{ChapterName: &[]string{"test"}[0]})
+	if err != nil {
+		t.Logf("%s", err)
+	}
+	assert.Error(t, err)
 	_, err = client.Record.GetRecordStatus(&record.GetRecordStatusParams{})
 	if err != nil {
 		t.Logf("%s", err)
@@ -704,6 +709,11 @@ func Test_record(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Record.ResumeRecord(&record.ResumeRecordParams{})
+	if err != nil {
+		t.Logf("%s", err)
+	}
+	assert.Error(t, err)
+	_, err = client.Record.SplitRecordFile(&record.SplitRecordFileParams{})
 	if err != nil {
 		t.Logf("%s", err)
 	}

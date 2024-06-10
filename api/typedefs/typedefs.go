@@ -104,6 +104,7 @@ type SceneItemTransform struct {
 	BoundsHeight    float64 `json:"boundsHeight"`
 	BoundsType      string  `json:"boundsType"`
 	BoundsWidth     float64 `json:"boundsWidth"`
+	CropToBounds    bool    `json:"cropToBounds"`
 	CropBottom      float64 `json:"cropBottom"`
 	CropLeft        float64 `json:"cropLeft"`
 	CropRight       float64 `json:"cropRight"`

@@ -48,6 +48,8 @@ var (
 		// run at the end of all others
 		"record.ResumeRecord",
 		"record.StopRecord",
+		"record.CreateRecordChapter",
+		"record.SplitRecordFile",
 	}
 )
 

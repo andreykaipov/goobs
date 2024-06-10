@@ -115,9 +115,11 @@ The following tables show how to make the appropriate `goobs` request for any gi
 ## record
 | obs-websocket | goobs |
 | --- | --- |
+| CreateRecordChapter | `client.Record.CreateRecordChapter(...)` |
 | GetRecordStatus | `client.Record.GetRecordStatus(...)` |
 | PauseRecord | `client.Record.PauseRecord(...)` |
 | ResumeRecord | `client.Record.ResumeRecord(...)` |
+| SplitRecordFile | `client.Record.SplitRecordFile(...)` |
 | StartRecord | `client.Record.StartRecord(...)` |
 | StopRecord | `client.Record.StopRecord(...)` |
 | ToggleRecord | `client.Record.ToggleRecord(...)` |

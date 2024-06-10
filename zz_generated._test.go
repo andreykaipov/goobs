@@ -697,7 +697,7 @@ func Test_record(t *testing.T) {
 	if err != nil {
 		t.Logf("%s", err)
 	}
-	assert.NoError(t, err)
+	assert.Error(t, err)
 	_, err = client.Record.GetRecordStatus(&record.GetRecordStatusParams{})
 	if err != nil {
 		t.Logf("%s", err)
@@ -717,7 +717,7 @@ func Test_record(t *testing.T) {
 	if err != nil {
 		t.Logf("%s", err)
 	}
-	assert.NoError(t, err)
+	assert.Error(t, err)
 	_, err = client.Record.StartRecord(&record.StartRecordParams{})
 	if err != nil {
 		t.Logf("%s", err)

@@ -1,13 +1,11 @@
 FROM ubuntu:latest AS build
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update -y
+RUN apt update -y
 COPY *.deb /tmp/obs.deb
-RUN dpkg -i /tmp/obs.deb || :
-RUN dpkg --configure -a || :
-RUN apt-get install -y --fix-broken
-RUN apt-get install -y qt6-wayland qt6-qpa-plugins
-RUN apt-get install -y xvfb x11vnc
-RUN apt-get install -y netcat-traditional
+RUN apt install /tmp/obs.deb -y
+RUN apt install -y qt6-wayland qt6-qpa-plugins
+RUN apt install -y xvfb x11vnc
+RUN apt install -y netcat-traditional
 RUN rm -rf /var/lib/apt/lists/*
 
 # effectively always run with --init as xvfb-run needs signal propagation

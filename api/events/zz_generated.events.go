@@ -66,6 +66,8 @@ func GetType(name string) any {
 		return &StreamStateChanged{}
 	case "RecordStateChanged":
 		return &RecordStateChanged{}
+	case "RecordFileChanged":
+		return &RecordFileChanged{}
 	case "ReplayBufferStateChanged":
 		return &ReplayBufferStateChanged{}
 	case "VirtualcamStateChanged":

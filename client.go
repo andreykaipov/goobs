@@ -32,6 +32,7 @@ type Client struct {
 	Categories
 
 	conn               *websocket.Conn
+	scheme             string
 	host               string
 	password           string
 	dialer             *websocket.Dialer
@@ -83,6 +84,17 @@ func WithRequestHeader(x http.Header) Option {
 // milliseconds. The default timeout is 10 seconds.
 func WithResponseTimeout(x time.Duration) Option {
 	return func(o *Client) { o.client.ResponseTimeout = time.Duration(x) }
+}
+
+// WithScheme sets the protocol scheme to use when connecting to the server,
+// e.g. "ws" or "wss". The default is "ws". Please note however that the
+// obs-websocket server does not currently support connecting over wss (ref:
+// https://github.com/obsproject/obs-websocket/issues/26). To be able to
+// connect over wss, you'll need to firest set up a reverse proxy in front of
+// the server. The obs-websocket folks have a guide here:
+// https://github.com/obsproject/obs-websocket/wiki/SSL-Tunneling.
+func WithScheme(x string) Option {
+	return func(o *Client) { o.scheme = x }
 }
 
 /*
@@ -140,6 +152,7 @@ It also opens up a connection, so be sure to check the error.
 */
 func New(host string, opts ...Option) (*Client, error) {
 	c := &Client{
+		scheme:             "ws",
 		host:               host,
 		dialer:             websocket.DefaultDialer,
 		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + LibraryVersion}},
@@ -186,7 +199,7 @@ func New(host string, opts ...Option) (*Client, error) {
 }
 
 func (c *Client) connect() (err error) {
-	u := url.URL{Scheme: "ws", Host: c.host}
+	u := url.URL{Scheme: c.scheme, Host: c.host}
 
 	c.client.Log.Printf("[INFO] Connecting to %s", u.String())
 

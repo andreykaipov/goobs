@@ -1,6 +1,8 @@
 module github.com/andreykaipov/goobs/internal
 
-go 1.18
+go 1.22.0
+
+toolchain go1.22.5
 
 require (
 	github.com/dave/jennifer v1.7.1

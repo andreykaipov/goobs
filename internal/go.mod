@@ -6,7 +6,7 @@ require (
 	github.com/dave/jennifer v1.7.1
 	github.com/fatih/structtag v1.2.0
 	github.com/stretchr/testify v1.9.0
-	golang.org/x/tools v0.25.0
+	golang.org/x/tools v0.26.0
 )
 
 require (

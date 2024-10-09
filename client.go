@@ -141,7 +141,6 @@ func (c *Client) markDisconnected() {
 		c.client.Log.Printf("[TRACE] Closing internal channels")
 		close(c.IncomingEvents)
 		close(c.client.Opcodes)
-		close(c.client.IncomingResponses)
 		close(c.client.Disconnected)
 	})
 }
@@ -210,7 +209,10 @@ func (c *Client) connect() (err error) {
 	authComplete := make(chan error)
 
 	go c.handleRawServerMessages(authComplete)
-	go c.handleOpcodes(authComplete)
+	go func() {
+		c.handleOpcodes(authComplete)
+		close(c.client.IncomingResponses)
+	}()
 
 	timer := time.NewTimer(c.client.ResponseTimeout * time.Millisecond)
 	defer timer.Stop()

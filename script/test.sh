@@ -48,8 +48,8 @@ main() {
         # note: `scenes` and `transitions` must be ran after `ui`
         #
         # (client|client_repeat|get_raw_response|multi_goroutine|profile)
-        # config
         categories='
+                config
                 filters
                 general
                 inputs

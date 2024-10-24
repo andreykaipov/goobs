@@ -22,6 +22,8 @@ var (
 	// I am just too lazy to get them to not error.
 	//
 	requestsTestsAssertingErrors = []string{
+		"config.CreateProfile",                       // docker profile already exists in image configs
+		"config.RemoveProfile",                       // can't remove the only profile
 		"config.CreateSceneCollection",               // we start with a `SceneCollectionName` collection already
 		"filters.SetSourceFilterName",                // not idempotent
 		"general.CallVendorRequest",                  // no other third party plugins in my obs image
@@ -121,6 +123,8 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 		case "*string":
 			lit := ""
 			switch field {
+			case "ProfileName":
+				lit = "docker"
 			case "Realm":
 				lit = "OBS_WEBSOCKET_DATA_REALM_GLOBAL"
 			case "MediaAction":
@@ -225,7 +229,7 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 			})),
 		),
 		Qual(assert, "NoError").Call(Id("t"), Id("err")),
-		//Defer().Id("client").Dot("Disconnect").Call(),
+		// Defer().Id("client").Dot("Disconnect").Call(),
 
 		Id("t").Dot("Cleanup").Call(Func().Call().Block(
 			Id("client").Dot("Disconnect").Call(),

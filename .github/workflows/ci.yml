@@ -1,6 +1,7 @@
 name: CI
 
 on:
+  workflow_dispatch:
   pull_request:
     branches: [main]
   push:
@@ -33,6 +34,16 @@ jobs:
     needs: check-changes
     if: ${{ needs.check-changes.outputs.go == 'true' }}
     runs-on: ubuntu-latest
+    services:
+      obs:
+        image: ghcr.io/andreykaipov/goobs:latest
+        ports: [4455:1234]
+      obs-record:
+        image: ghcr.io/andreykaipov/goobs:latest
+        ports: [4456:1234]
+      obs-stream:
+        image: ghcr.io/andreykaipov/goobs:latest
+        ports: [4457:1234]
     steps:
     - uses: actions/checkout@v4
     - uses: magnetikonline/action-golang-cache@v5

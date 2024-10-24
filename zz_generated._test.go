@@ -36,11 +36,11 @@ func Test_config(t *testing.T) {
 		client.Disconnect()
 	})
 
-	_, err = client.Config.CreateProfile(&config.CreateProfileParams{ProfileName: &[]string{"test"}[0]})
+	_, err = client.Config.CreateProfile(&config.CreateProfileParams{ProfileName: &[]string{"docker"}[0]})
 	if err != nil {
 		t.Logf("%s", err)
 	}
-	assert.NoError(t, err)
+	assert.Error(t, err)
 	_, err = client.Config.CreateSceneCollection(
 		&config.CreateSceneCollectionParams{SceneCollectionName: &[]string{"test"}[0]},
 	)
@@ -89,7 +89,7 @@ func Test_config(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
-	_, err = client.Config.SetCurrentProfile(&config.SetCurrentProfileParams{ProfileName: &[]string{"test"}[0]})
+	_, err = client.Config.SetCurrentProfile(&config.SetCurrentProfileParams{ProfileName: &[]string{"docker"}[0]})
 	if err != nil {
 		t.Logf("%s", err)
 	}
@@ -144,11 +144,11 @@ func Test_config(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
-	_, err = client.Config.RemoveProfile(&config.RemoveProfileParams{ProfileName: &[]string{"test"}[0]})
+	_, err = client.Config.RemoveProfile(&config.RemoveProfileParams{ProfileName: &[]string{"docker"}[0]})
 	if err != nil {
 		t.Logf("%s", err)
 	}
-	assert.NoError(t, err)
+	assert.Error(t, err)
 }
 
 func Test_filters(t *testing.T) {

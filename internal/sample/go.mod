@@ -1,6 +1,6 @@
 module github.com/andreykaipov/goobs/internal/sample
 
-go 1.20
+go 1.23
 
 require (
 	github.com/andreykaipov/goobs v0.0.0

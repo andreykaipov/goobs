@@ -121,8 +121,8 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 		case "*string":
 			lit := ""
 			switch field {
-			case "ProfileName":
-				lit = "docker"
+			// case "ProfileName":
+			// 	lit = "docker"
 			case "Realm":
 				lit = "OBS_WEBSOCKET_DATA_REALM_GLOBAL"
 			case "MediaAction":

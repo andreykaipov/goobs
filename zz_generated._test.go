@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"testing"
+	"time"
 
 	goobs "github.com/andreykaipov/goobs"
 	config "github.com/andreykaipov/goobs/api/requests/config"
@@ -89,6 +90,7 @@ func Test_config(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
+	time.Sleep(10 * time.Second)
 	_, err = client.Config.SetCurrentProfile(&config.SetCurrentProfileParams{ProfileName: &[]string{"test"}[0]})
 	if err != nil {
 		t.Logf("%s", err)

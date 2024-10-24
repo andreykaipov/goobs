@@ -1,6 +1,9 @@
 #!/bin/sh
 
-cleanup() { docker stop obs-record obs-stream; }
+cleanup() {
+        if [ -n "$CI" ]; then return; fi
+        docker stop obs-record obs-stream
+}
 
 setup_docker() {
         echo "Setting up OBS instances for functional tests..."
@@ -23,7 +26,7 @@ setup_docker() {
 }
 
 setup() {
-        if [ -z "${CI-}" ]; then setup_docker; fi
+        if [ -z "$CI" ]; then setup_docker; fi
         covermode=count
         echo "mode: $covermode" >coverall.out
 }
@@ -36,6 +39,7 @@ gotest() {
 }
 
 main() {
+        : "${CI=}"
         set -eu
         trap cleanup EXIT
         setup

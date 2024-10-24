@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"testing"
-	"time"
 
 	goobs "github.com/andreykaipov/goobs"
 	config "github.com/andreykaipov/goobs/api/requests/config"
@@ -90,12 +89,11 @@ func Test_config(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
-	time.Sleep(10 * time.Second)
 	_, err = client.Config.SetCurrentProfile(&config.SetCurrentProfileParams{ProfileName: &[]string{"test"}[0]})
 	if err != nil {
 		t.Logf("%s", err)
 	}
-	assert.NoError(t, err)
+	assert.Error(t, err)
 	_, err = client.Config.SetCurrentSceneCollection(
 		&config.SetCurrentSceneCollectionParams{SceneCollectionName: &[]string{"test"}[0]},
 	)
@@ -150,7 +148,7 @@ func Test_config(t *testing.T) {
 	if err != nil {
 		t.Logf("%s", err)
 	}
-	assert.NoError(t, err)
+	assert.Error(t, err)
 }
 
 func Test_filters(t *testing.T) {

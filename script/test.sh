@@ -2,7 +2,7 @@
 
 cleanup() { docker stop obs-record obs-stream; }
 
-setup() {
+setup_docker() {
         echo "Setting up OBS instances for functional tests..."
 
         obs="$(docker container inspect -f '{{.State.Status}}' obs || true)"
@@ -20,7 +20,10 @@ setup() {
         echo "Spinning up OBS instances for 'record' and 'stream' tests"
         docker run --rm --detach --name obs-record -p 4456:1234 ghcr.io/andreykaipov/goobs:latest
         docker run --rm --detach --name obs-stream -p 4457:1234 ghcr.io/andreykaipov/goobs:latest
+}
 
+setup() {
+        setup_docker
         covermode=count
         echo "mode: $covermode" >coverall.out
 }
@@ -34,9 +37,10 @@ gotest() {
 
 main() {
         set -eu
-        trap cleanup EXIT
-        setup
-        sleep 10
+        if [ -z "${CI-}" ]; then
+                trap cleanup EXIT
+                setup
+        fi
         export OBS_PORT
 
         # note: `scenes` and `transitions` must be ran after `ui`

@@ -36,6 +36,7 @@ main() {
         set -eu
         trap cleanup EXIT
         setup
+        sleep 10
         export OBS_PORT
 
         # note: `scenes` and `transitions` must be ran after `ui`

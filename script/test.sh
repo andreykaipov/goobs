@@ -23,7 +23,7 @@ setup_docker() {
 }
 
 setup() {
-        setup_docker
+        if [ -z "${CI-}" ]; then setup_docker; fi
         covermode=count
         echo "mode: $covermode" >coverall.out
 }
@@ -37,10 +37,8 @@ gotest() {
 
 main() {
         set -eu
-        if [ -z "${CI-}" ]; then
-                trap cleanup EXIT
-                setup
-        fi
+        trap cleanup EXIT
+        setup
         export OBS_PORT
 
         # note: `scenes` and `transitions` must be ran after `ui`

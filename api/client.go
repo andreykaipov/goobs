@@ -44,9 +44,20 @@ type Client struct {
 	// Ya like logs?
 	Log Logger
 
-	Disconnected chan bool
+	Disconnected chan struct{}
 
-	mutex sync.Mutex
+	mutex     sync.Mutex
+	closeOnce sync.Once
+}
+
+func (c *Client) Close() {
+	c.closeOnce.Do(func() {
+		c.mutex.Lock()
+		defer c.mutex.Unlock()
+
+		close(c.Disconnected)
+		close(c.Opcodes)
+	})
 }
 
 // SendRequest abstracts the logic every subclient uses to send a request and

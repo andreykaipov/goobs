@@ -144,16 +144,9 @@ func (c *Client) writeMessage(messageType int, data []byte) error {
 
 func (c *Client) markDisconnected() {
 	c.once.Do(func() {
-		select {
-		case c.client.Disconnected <- true:
-		default:
-		}
-
 		c.client.Log.Printf("[TRACE] Closing internal channels")
+		c.client.Close()
 		close(c.IncomingEvents)
-		close(c.client.Opcodes)
-		close(c.client.IncomingResponses)
-		close(c.client.Disconnected)
 	})
 }
 
@@ -169,7 +162,7 @@ func New(host string, opts ...Option) (*Client, error) {
 		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + LibraryVersion}},
 		eventSubscriptions: subscriptions.All,
 		client: &api.Client{
-			Disconnected:      make(chan bool),
+			Disconnected:      make(chan struct{}),
 			IncomingResponses: make(chan *opcodes.RequestResponse),
 			Opcodes:           make(chan opcodes.Opcode),
 			ResponseTimeout:   10000,
@@ -221,7 +214,24 @@ func (c *Client) connect() (err error) {
 	authComplete := make(chan error)
 
 	go c.handleRawServerMessages(authComplete)
-	go c.handleOpcodes(authComplete)
+	go func() {
+		c.handleOpcodes(authComplete)
+
+		// we write to IncomingResponses only from one place:
+		// * c.handleOpcodes
+		// and we also read from it in:
+		// * c.client.SendRequest
+		// thus the `close` must happen only after c.handleOpcodes finished,
+		// and is desired to happen after c.client.SendRequest will stop
+		// using the channel as well (to avoid handling nil Responses).
+		//
+		// This line right here:
+		// * it is after c.handleOpcodes.
+		// * this place is reachable only after c.client.Opcodes is closed,
+		//   which is possible only when c.client.Disconnected is closed,
+		//   which means c.client.SendRequest would not write into c.client.IncomingResponses.
+		close(c.client.IncomingResponses)
+	}()
 
 	timer := time.NewTimer(c.client.ResponseTimeout * time.Millisecond)
 	defer timer.Stop()

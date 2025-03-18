@@ -1,6 +1,7 @@
 module github.com/andreykaipov/goobs/internal
 
-go 1.23
+go 1.23.0
+
 require (
 	github.com/dave/jennifer v1.7.1
 	github.com/fatih/structtag v1.2.0

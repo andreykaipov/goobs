@@ -74,10 +74,10 @@ type SceneItem struct {
 type InputAudioTracks map[string]bool
 
 type KeyModifiers struct {
-	Shift   string `json:"face"`
-	Control int    `json:"flags"`
-	Alt     int    `json:"size"`
-	Command string `json:"style"`
+	Shift   bool `json:"shift"`
+	Control bool `json:"control"`
+	Alt     bool `json:"alt"`
+	Command bool `json:"command"`
 }
 
 type Monitor struct {

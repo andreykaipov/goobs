@@ -14,6 +14,9 @@ type InputCreated struct {
 	// The kind of the input
 	InputKind string `json:"inputKind,omitempty"`
 
+	// Bitflag value for the caps that an input supports. See obs_source_info.output_flags in the libobs docs
+	InputKindCaps float64 `json:"inputKindCaps,omitempty"`
+
 	// Name of the input
 	InputName string `json:"inputName,omitempty"`
 

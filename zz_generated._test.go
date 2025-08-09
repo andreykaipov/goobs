@@ -384,6 +384,22 @@ func Test_inputs(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
+	_, err = client.Inputs.GetInputDeinterlaceFieldOrder(&inputs.GetInputDeinterlaceFieldOrderParams{
+		InputName: &[]string{"test2"}[0],
+		InputUuid: &[]string{"test2"}[0],
+	})
+	if err != nil {
+		t.Logf("%s", err)
+	}
+	assert.NoError(t, err)
+	_, err = client.Inputs.GetInputDeinterlaceMode(&inputs.GetInputDeinterlaceModeParams{
+		InputName: &[]string{"test2"}[0],
+		InputUuid: &[]string{"test2"}[0],
+	})
+	if err != nil {
+		t.Logf("%s", err)
+	}
+	assert.NoError(t, err)
 	_, err = client.Inputs.GetInputKindList(&inputs.GetInputKindListParams{Unversioned: &[]bool{true}[0]})
 	if err != nil {
 		t.Logf("%s", err)
@@ -472,6 +488,24 @@ func Test_inputs(t *testing.T) {
 		InputAudioTracks: &typedefs.InputAudioTracks{"test": true},
 		InputName:        &[]string{"test2"}[0],
 		InputUuid:        &[]string{"test2"}[0],
+	})
+	if err != nil {
+		t.Logf("%s", err)
+	}
+	assert.NoError(t, err)
+	_, err = client.Inputs.SetInputDeinterlaceFieldOrder(&inputs.SetInputDeinterlaceFieldOrderParams{
+		InputDeinterlaceFieldOrder: &[]string{"test2"}[0],
+		InputName:                  &[]string{"test2"}[0],
+		InputUuid:                  &[]string{"test2"}[0],
+	})
+	if err != nil {
+		t.Logf("%s", err)
+	}
+	assert.NoError(t, err)
+	_, err = client.Inputs.SetInputDeinterlaceMode(&inputs.SetInputDeinterlaceModeParams{
+		InputDeinterlaceMode: &[]string{"test2"}[0],
+		InputName:            &[]string{"test2"}[0],
+		InputUuid:            &[]string{"test2"}[0],
 	})
 	if err != nil {
 		t.Logf("%s", err)

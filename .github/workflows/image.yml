@@ -17,7 +17,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - run: ./script/get-latest-obs.sh docker/obs.deb
         env:
           GITHUB_TOKEN: ${{ github.token }}

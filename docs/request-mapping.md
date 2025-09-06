@@ -64,6 +64,8 @@ The following tables show how to make the appropriate `goobs` request for any gi
 | GetInputAudioSyncOffset | `client.Inputs.GetInputAudioSyncOffset(...)` |
 | GetInputAudioTracks | `client.Inputs.GetInputAudioTracks(...)` |
 | GetInputDefaultSettings | `client.Inputs.GetInputDefaultSettings(...)` |
+| GetInputDeinterlaceFieldOrder | `client.Inputs.GetInputDeinterlaceFieldOrder(...)` |
+| GetInputDeinterlaceMode | `client.Inputs.GetInputDeinterlaceMode(...)` |
 | GetInputKindList | `client.Inputs.GetInputKindList(...)` |
 | GetInputList | `client.Inputs.GetInputList(...)` |
 | GetInputMute | `client.Inputs.GetInputMute(...)` |
@@ -77,6 +79,8 @@ The following tables show how to make the appropriate `goobs` request for any gi
 | SetInputAudioMonitorType | `client.Inputs.SetInputAudioMonitorType(...)` |
 | SetInputAudioSyncOffset | `client.Inputs.SetInputAudioSyncOffset(...)` |
 | SetInputAudioTracks | `client.Inputs.SetInputAudioTracks(...)` |
+| SetInputDeinterlaceFieldOrder | `client.Inputs.SetInputDeinterlaceFieldOrder(...)` |
+| SetInputDeinterlaceMode | `client.Inputs.SetInputDeinterlaceMode(...)` |
 | SetInputMute | `client.Inputs.SetInputMute(...)` |
 | SetInputName | `client.Inputs.SetInputName(...)` |
 | SetInputSettings | `client.Inputs.SetInputSettings(...)` |

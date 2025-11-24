@@ -40,7 +40,7 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: tibdex/github-app-token@v2
       id: generate-token
       with:

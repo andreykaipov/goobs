@@ -20,7 +20,7 @@ jobs:
     outputs:
       go: ${{ steps.filter.outputs.go }}
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: dorny/paths-filter@v3
       id: filter
       with:
@@ -45,7 +45,7 @@ jobs:
         image: ghcr.io/andreykaipov/goobs:latest
         ports: [4457:1234]
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: magnetikonline/action-golang-cache@v5
       with:
         go-version-file: go.mod
@@ -65,7 +65,7 @@ jobs:
     if: ${{ needs.check-changes.outputs.go == 'true' }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: magnetikonline/action-golang-cache@v5
       with:
         go-version-file: go.mod

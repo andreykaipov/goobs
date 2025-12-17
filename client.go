@@ -84,8 +84,24 @@ func WithRequestHeader(x http.Header) Option {
 // WithResponseTimeout sets the time we're willing to wait to receive a response
 // from the server for any request, before responding with an error. It's in
 // milliseconds. The default timeout is 10 seconds.
+//
+// Deprecated: WithResponseTimeout interprets its argument as milliseconds, even
+// though it is typed as [time.Duration]. Prefer WithResponseTimeoutDuration,
+// which takes a proper [time.Duration] value.
 func WithResponseTimeout(x time.Duration) Option {
-	return func(o *Client) { o.client.ResponseTimeout = time.Duration(x) }
+	return WithResponseTimeoutDuration(x * time.Millisecond)
+}
+
+// WithResponseTimeoutDuration sets the time we're willing to wait to receive a
+// response from the server for any request, before responding with an error.
+func WithResponseTimeoutDuration(x time.Duration) Option {
+	if x <= 0 {
+		x = 10 * time.Second
+	}
+
+	return func(o *Client) {
+		o.client.ResponseTimeout = x
+	}
 }
 
 // WithScheme sets the protocol scheme to use when connecting to the server,
@@ -165,7 +181,7 @@ func New(host string, opts ...Option) (*Client, error) {
 			Disconnected:      make(chan struct{}),
 			IncomingResponses: make(chan *opcodes.RequestResponse),
 			Opcodes:           make(chan opcodes.Opcode),
-			ResponseTimeout:   10000,
+			ResponseTimeout:   10 * time.Second,
 			Log: log.New(
 				&logutils.LevelFilter{
 					Levels:   []logutils.LogLevel{"TRACE", "DEBUG", "INFO", "ERROR", ""},
@@ -233,7 +249,7 @@ func (c *Client) connect() (err error) {
 		close(c.client.IncomingResponses)
 	}()
 
-	timer := time.NewTimer(c.client.ResponseTimeout * time.Millisecond)
+	timer := time.NewTimer(c.client.ResponseTimeout)
 	defer timer.Stop()
 	select {
 	case a := <-authComplete:

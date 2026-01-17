@@ -42,6 +42,7 @@ type Client struct {
 	eventSubscriptions int
 	profiler           *profile.Profile
 	once               sync.Once
+	eventsMu           sync.RWMutex // Protects IncomingEvents from being closed while we send
 }
 
 // Option represents a functional option of a Client.
@@ -161,7 +162,13 @@ func (c *Client) writeMessage(messageType int, data []byte) error {
 func (c *Client) markDisconnected() {
 	c.once.Do(func() {
 		c.client.Log.Printf("[TRACE] Closing internal channels")
+		// Close Disconnected and Opcodes first - this will cause handleOpcodes
+		// to exit its loop, preventing further calls to writeEvent
 		c.client.Close()
+		// Acquire write lock to ensure no writeEvent is currently sending
+		c.eventsMu.Lock()
+		defer c.eventsMu.Unlock()
+		// Now safe to close IncomingEvents
 		close(c.IncomingEvents)
 	})
 }
@@ -416,10 +423,24 @@ func (c *Client) handleOpcodes(auth chan<- error) {
 // purge old events and write latest ones so that whenever somebody might want
 // to use it, they'll have the latest events available to them.
 func (c *Client) writeEvent(event any) {
+	// Quick check if disconnected - avoid unnecessary lock acquisition
 	select {
 	case <-c.client.Disconnected:
-	case c.IncomingEvents <- event:
+		return
 	default:
+	}
+
+	// Acquire read lock to prevent markDisconnected() from closing the channel
+	// while we're sending. This ensures we never send to a closed channel.
+	c.eventsMu.RLock()
+	defer c.eventsMu.RUnlock()
+
+	// Try to send - use select to handle full channel
+	select {
+	case c.IncomingEvents <- event:
+		return
+	default:
+		// Channel is full, try to make room
 		if len(c.IncomingEvents) == cap(c.IncomingEvents) {
 			// incoming events was full (but might not be by now),
 			// so safely read off the oldest, and write the latest
@@ -428,6 +449,7 @@ func (c *Client) writeEvent(event any) {
 			default:
 			}
 
+			// Channel is guaranteed to be open while we hold the lock
 			c.IncomingEvents <- event
 		}
 	}

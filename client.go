@@ -139,20 +139,19 @@ func (c *Client) Disconnect() error {
 	c.client.Log.Printf("[DEBUG] Sending disconnect message")
 	c.markDisconnected()
 
-	// Always close the connection to ensure goroutines exit
-	// This forces readJSON() in handleRawServerMessages to return an error
-	defer func() {
-		if c.conn != nil {
-			c.conn.Close()
-		}
-	}()
+	// CRITICAL: Close connection IMMEDIATELY (not in defer) to force goroutines to exit
+	// This forces readJSON() in handleRawServerMessages to return an error immediately
+	// Closing before writeMessage ensures goroutines see the closed connection right away
+	if c.conn != nil {
+		c.conn.Close()
+	}
 
+	// Try to send close message, but don't worry if it fails (connection is already closed)
 	if err := c.writeMessage(
 		websocket.CloseMessage,
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Bye"),
 	); err != nil {
-		c.client.Log.Printf("[ERROR] Error sending close message: %s", err)
-		// Connection will be closed by defer
+		c.client.Log.Printf("[DEBUG] Error sending close message (connection already closed): %s", err)
 	}
 
 	return nil

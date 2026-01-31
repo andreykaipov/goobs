@@ -139,12 +139,20 @@ func (c *Client) Disconnect() error {
 	c.client.Log.Printf("[DEBUG] Sending disconnect message")
 	c.markDisconnected()
 
+	// Always close the connection to ensure goroutines exit
+	// This forces readJSON() in handleRawServerMessages to return an error
+	defer func() {
+		if c.conn != nil {
+			c.conn.Close()
+		}
+	}()
+
 	if err := c.writeMessage(
 		websocket.CloseMessage,
 		websocket.FormatCloseMessage(websocket.CloseNormalClosure, "Bye"),
 	); err != nil {
-		c.client.Log.Printf("[ERROR] Force closing connection: %s", err)
-		return c.conn.Close()
+		c.client.Log.Printf("[ERROR] Error sending close message: %s", err)
+		// Connection will be closed by defer
 	}
 
 	return nil
@@ -277,6 +285,14 @@ func (c *Client) handleRawServerMessages(auth chan<- error) {
 	defer c.client.Log.Printf("[TRACE] Finished handling raw server messages")
 
 	for {
+		// Check if disconnected before blocking on readJSON
+		select {
+		case <-c.client.Disconnected:
+			c.client.Log.Printf("[DEBUG] Disconnected, exiting handleRawServerMessages")
+			return
+		default:
+		}
+
 		raw := json.RawMessage{}
 		if err := c.readJSON(&raw); err != nil {
 			switch t := err.(type) {

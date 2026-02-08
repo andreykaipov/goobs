@@ -233,8 +233,20 @@ func New(host string, opts ...Option) (*Client, error) {
 }
 
 func (c *Client) connect() (err error) {
-	u := url.URL{Scheme: c.scheme, Host: c.host}
-
+	endpoint := strings.TrimSpace(c.host)
+	if endpoint == "" {
+		return fmt.Errorf("empty host")
+	}
+	if !strings.Contains(endpoint, "://") {
+		endpoint = c.scheme + "://" + endpoint
+	}
+	u, err := url.Parse(endpoint)
+	if err != nil {
+		return err
+	}
+	if u.Host == "" {
+		return fmt.Errorf("invalid endpoint %q (missing host)", c.host)
+	}
 	c.client.Log.Printf("[INFO] Connecting to %s", u.String())
 
 	if c.conn, _, err = c.dialer.Dial(u.String(), c.requestHeader); err != nil {

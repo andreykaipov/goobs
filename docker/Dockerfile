@@ -5,7 +5,9 @@ RUN apt-get update -y && \
     dpkg -i /tmp/obs.deb || true && \
     apt-get install -f -y && \
     apt-get install -y qt6-wayland qt6-qpa-plugins xvfb x11vnc netcat-traditional && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    obs --version && \
+    echo "OBS installation verified successfully"
 
 # effectively always run with --init as xvfb-run needs signal propagation
 ENV tini_version=v0.19.0

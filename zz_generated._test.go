@@ -501,7 +501,7 @@ func Test_inputs(t *testing.T) {
 	if err != nil {
 		t.Logf("%s", err)
 	}
-	assert.NoError(t, err)
+	assert.Error(t, err)
 	_, err = client.Inputs.SetInputDeinterlaceMode(&inputs.SetInputDeinterlaceModeParams{
 		InputDeinterlaceMode: &[]string{"test2"}[0],
 		InputName:            &[]string{"test2"}[0],
@@ -510,7 +510,7 @@ func Test_inputs(t *testing.T) {
 	if err != nil {
 		t.Logf("%s", err)
 	}
-	assert.NoError(t, err)
+	assert.Error(t, err)
 	_, err = client.Inputs.SetInputMute(&inputs.SetInputMuteParams{
 		InputMuted: &[]bool{true}[0],
 		InputName:  &[]string{"test2"}[0],

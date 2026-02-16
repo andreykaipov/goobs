@@ -103,7 +103,7 @@ func (c *Client) SendRequest(requestBody Params, responseBody Response) error {
 
 	var response *opcodes.RequestResponse
 
-	timer := time.NewTimer(c.ResponseTimeout * time.Millisecond)
+	timer := time.NewTimer(c.ResponseTimeout)
 	defer timer.Stop()
 	select {
 	case response = <-c.IncomingResponses:

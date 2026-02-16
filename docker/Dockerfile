@@ -1,4 +1,4 @@
-FROM ubuntu:24.04 AS build
+FROM ubuntu:latest AS build
 ENV DEBIAN_FRONTEND=noninteractive
 COPY *.deb /tmp/obs.deb
 RUN apt-get update -y && \

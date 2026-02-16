@@ -55,7 +55,7 @@ jobs:
         # some tests are flaky because it's running against a dockerized obs
         # instance, so just retry a few times or whatever to be certain
         for _ in $(seq 1 5); do
-          if make test.functional; then exit; fi
+          if make test.functional; then exit 0; fi
         done
         exit 1
     - run: go tool cover -func coverall.out

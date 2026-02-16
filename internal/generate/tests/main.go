@@ -23,7 +23,6 @@ var (
 	//
 	requestsTestsAssertingErrors = []string{
 		"config.CreateProfile",                       // docker profile already exists in image configs
-		"config.RemoveProfile",                       // can't remove the only profile
 		"config.CreateSceneCollection",               // we start with a `SceneCollectionName` collection already
 		"filters.SetSourceFilterName",                // not idempotent
 		"general.CallVendorRequest",                  // no other third party plugins in my obs image
@@ -31,6 +30,8 @@ var (
 		"inputs.GetInputPropertiesListPropertyItems", // idk what properties are
 		"inputs.PressInputPropertiesButton",          // idk what properties are
 		"inputs.SetInputAudioMonitorType",            // audio monitoring not available on this platform
+		"inputs.SetInputDeinterlaceFieldOrder",       // test value is not a valid deinterlace field order
+		"inputs.SetInputDeinterlaceMode",             // test value is not a valid deinterlace mode
 		"inputs.SetInputName",                        // not idempotent
 		"inputs.SetInputVolume",                      // too tricky to remove one of the two volume fields
 		"!outputs.GetOutputList",

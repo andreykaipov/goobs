@@ -2,6 +2,7 @@ FROM ubuntu:latest AS build
 ENV DEBIAN_FRONTEND=noninteractive
 COPY *.deb /tmp/obs.deb
 RUN apt-get update -y && \
+    apt-get upgrade -y && \
     apt-get install -y /tmp/obs.deb qt6-wayland qt6-qpa-plugins xvfb x11vnc netcat-traditional && \
     rm -rf /var/lib/apt/lists/*
 

@@ -1,15 +1,17 @@
 FROM ubuntu:latest AS build
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt update -y
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update -y
 COPY *.deb /tmp/obs.deb
-RUN apt install /tmp/obs.deb -y
-RUN apt install -y qt6-wayland qt6-qpa-plugins
-RUN apt install -y xvfb x11vnc
-RUN apt install -y netcat-traditional
+RUN dpkg -i /tmp/obs.deb || true
+RUN apt-get install -f -y
+RUN apt-get install -y qt6-wayland qt6-qpa-plugins
+RUN apt-get install -y xvfb x11vnc
+RUN apt-get install -y netcat-traditional
 RUN rm -rf /var/lib/apt/lists/*
+RUN obs --version && echo "OBS installation verified successfully"
 
 # effectively always run with --init as xvfb-run needs signal propagation
-ENV tini_version v0.19.0
+ENV tini_version=v0.19.0
 ADD https://github.com/krallin/tini/releases/download/${tini_version}/tini-static /tini
 RUN chmod +x /tini
 ENTRYPOINT ["/tini", "--"]

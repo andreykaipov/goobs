@@ -1,10 +1,11 @@
 package typedefs
 
 type Input struct {
-	InputUuid            string `json:"inputUuid"`
-	InputName            string `json:"inputName"`
-	InputKind            string `json:"inputKind"`
-	UnversionedInputKind string `json:"unversionedInputKind"`
+	InputUuid            string  `json:"inputUuid"`
+	InputName            string  `json:"inputName"`
+	InputKind            string  `json:"inputKind"`
+	InputKindCaps        float64 `json:"inputKindCaps,omitempty"`
+	UnversionedInputKind string  `json:"unversionedInputKind"`
 }
 
 type Output struct {

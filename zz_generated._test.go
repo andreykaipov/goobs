@@ -148,7 +148,7 @@ func Test_config(t *testing.T) {
 	if err != nil {
 		t.Logf("%s", err)
 	}
-	assert.Error(t, err)
+	assert.NoError(t, err)
 }
 
 func Test_filters(t *testing.T) {

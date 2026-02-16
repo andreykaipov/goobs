@@ -1,9 +1,10 @@
-FROM ubuntu:latest AS build
+FROM ubuntu:24.04 AS build
 ENV DEBIAN_FRONTEND=noninteractive
 COPY *.deb /tmp/obs.deb
 RUN apt-get update -y && \
-    apt-get upgrade -y && \
-    apt-get install -y /tmp/obs.deb qt6-wayland qt6-qpa-plugins xvfb x11vnc netcat-traditional && \
+    dpkg -i /tmp/obs.deb || true && \
+    apt-get install -f -y && \
+    apt-get install -y qt6-wayland qt6-qpa-plugins xvfb x11vnc netcat-traditional && \
     rm -rf /var/lib/apt/lists/*
 
 # effectively always run with --init as xvfb-run needs signal propagation

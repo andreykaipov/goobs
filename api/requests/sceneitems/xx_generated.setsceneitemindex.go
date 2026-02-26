@@ -4,6 +4,12 @@ package sceneitems
 
 // Represents the request body for the SetSceneItemIndex request.
 type SetSceneItemIndexParams struct {
+	// Name of the canvas the scene is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scene is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// Numeric ID of the scene item
 	SceneItemId *int `json:"sceneItemId,omitempty"`
 
@@ -19,6 +25,14 @@ type SetSceneItemIndexParams struct {
 
 func NewSetSceneItemIndexParams() *SetSceneItemIndexParams {
 	return &SetSceneItemIndexParams{}
+}
+func (o *SetSceneItemIndexParams) WithCanvasName(x string) *SetSceneItemIndexParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *SetSceneItemIndexParams) WithCanvasUuid(x string) *SetSceneItemIndexParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *SetSceneItemIndexParams) WithSceneItemId(x int) *SetSceneItemIndexParams {
 	o.SceneItemId = &x

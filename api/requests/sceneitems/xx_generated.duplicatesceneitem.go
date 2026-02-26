@@ -4,6 +4,12 @@ package sceneitems
 
 // Represents the request body for the DuplicateSceneItem request.
 type DuplicateSceneItemParams struct {
+	// Name of the canvas the scene is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scene is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// Name of the scene to create the duplicated item in
 	DestinationSceneName *string `json:"destinationSceneName,omitempty"`
 
@@ -22,6 +28,14 @@ type DuplicateSceneItemParams struct {
 
 func NewDuplicateSceneItemParams() *DuplicateSceneItemParams {
 	return &DuplicateSceneItemParams{}
+}
+func (o *DuplicateSceneItemParams) WithCanvasName(x string) *DuplicateSceneItemParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *DuplicateSceneItemParams) WithCanvasUuid(x string) *DuplicateSceneItemParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *DuplicateSceneItemParams) WithDestinationSceneName(x string) *DuplicateSceneItemParams {
 	o.DestinationSceneName = &x

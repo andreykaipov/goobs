@@ -4,6 +4,12 @@ package sceneitems
 
 // Represents the request body for the SetSceneItemLocked request.
 type SetSceneItemLockedParams struct {
+	// Name of the canvas the scene is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scene is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// Numeric ID of the scene item
 	SceneItemId *int `json:"sceneItemId,omitempty"`
 
@@ -19,6 +25,14 @@ type SetSceneItemLockedParams struct {
 
 func NewSetSceneItemLockedParams() *SetSceneItemLockedParams {
 	return &SetSceneItemLockedParams{}
+}
+func (o *SetSceneItemLockedParams) WithCanvasName(x string) *SetSceneItemLockedParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *SetSceneItemLockedParams) WithCanvasUuid(x string) *SetSceneItemLockedParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *SetSceneItemLockedParams) WithSceneItemId(x int) *SetSceneItemLockedParams {
 	o.SceneItemId = &x

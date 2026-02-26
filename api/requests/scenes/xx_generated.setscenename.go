@@ -4,6 +4,12 @@ package scenes
 
 // Represents the request body for the SetSceneName request.
 type SetSceneNameParams struct {
+	// Name of the canvas the scene is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scene is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// New name for the scene
 	NewSceneName *string `json:"newSceneName,omitempty"`
 
@@ -16,6 +22,14 @@ type SetSceneNameParams struct {
 
 func NewSetSceneNameParams() *SetSceneNameParams {
 	return &SetSceneNameParams{}
+}
+func (o *SetSceneNameParams) WithCanvasName(x string) *SetSceneNameParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *SetSceneNameParams) WithCanvasUuid(x string) *SetSceneNameParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *SetSceneNameParams) WithNewSceneName(x string) *SetSceneNameParams {
 	o.NewSceneName = &x

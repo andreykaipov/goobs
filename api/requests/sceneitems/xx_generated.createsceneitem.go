@@ -4,6 +4,12 @@ package sceneitems
 
 // Represents the request body for the CreateSceneItem request.
 type CreateSceneItemParams struct {
+	// Name of the canvas the scene is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scene is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// Enable state to apply to the scene item on creation
 	SceneItemEnabled *bool `json:"sceneItemEnabled,omitempty"`
 
@@ -22,6 +28,14 @@ type CreateSceneItemParams struct {
 
 func NewCreateSceneItemParams() *CreateSceneItemParams {
 	return &CreateSceneItemParams{}
+}
+func (o *CreateSceneItemParams) WithCanvasName(x string) *CreateSceneItemParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *CreateSceneItemParams) WithCanvasUuid(x string) *CreateSceneItemParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *CreateSceneItemParams) WithSceneItemEnabled(x bool) *CreateSceneItemParams {
 	o.SceneItemEnabled = &x

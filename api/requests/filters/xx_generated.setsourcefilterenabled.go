@@ -4,6 +4,12 @@ package filters
 
 // Represents the request body for the SetSourceFilterEnabled request.
 type SetSourceFilterEnabledParams struct {
+	// Name of the canvas the source is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the source is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// New enable state of the filter
 	FilterEnabled *bool `json:"filterEnabled,omitempty"`
 
@@ -19,6 +25,14 @@ type SetSourceFilterEnabledParams struct {
 
 func NewSetSourceFilterEnabledParams() *SetSourceFilterEnabledParams {
 	return &SetSourceFilterEnabledParams{}
+}
+func (o *SetSourceFilterEnabledParams) WithCanvasName(x string) *SetSourceFilterEnabledParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *SetSourceFilterEnabledParams) WithCanvasUuid(x string) *SetSourceFilterEnabledParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *SetSourceFilterEnabledParams) WithFilterEnabled(x bool) *SetSourceFilterEnabledParams {
 	o.FilterEnabled = &x

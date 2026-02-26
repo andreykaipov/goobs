@@ -4,6 +4,12 @@ package filters
 
 // Represents the request body for the CreateSourceFilter request.
 type CreateSourceFilterParams struct {
+	// Name of the canvas the source is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the source is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// The kind of filter to be created
 	FilterKind *string `json:"filterKind,omitempty"`
 
@@ -22,6 +28,14 @@ type CreateSourceFilterParams struct {
 
 func NewCreateSourceFilterParams() *CreateSourceFilterParams {
 	return &CreateSourceFilterParams{}
+}
+func (o *CreateSourceFilterParams) WithCanvasName(x string) *CreateSourceFilterParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *CreateSourceFilterParams) WithCanvasUuid(x string) *CreateSourceFilterParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *CreateSourceFilterParams) WithFilterKind(x string) *CreateSourceFilterParams {
 	o.FilterKind = &x

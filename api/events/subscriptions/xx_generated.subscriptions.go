@@ -39,8 +39,11 @@ const (
 	// Subscription value to receive events in the `Ui` category.
 	Ui = (1 << 10)
 
+	// Subscription value to receive events in the `Canvases` category.
+	Canvases = (1 << 11)
+
 	// Helper to receive all non-high-volume events.
-	All = (General | Config | Scenes | Inputs | Transitions | Filters | Outputs | SceneItems | MediaInputs | Vendors | Ui)
+	All = (General | Config | Scenes | Inputs | Transitions | Filters | Outputs | SceneItems | MediaInputs | Vendors | Ui | Canvases)
 
 	// Subscription value to receive the `InputVolumeMeters` high-volume event.
 	InputVolumeMeters = (1 << 16)

@@ -4,6 +4,12 @@ package scenes
 
 // Represents the request body for the SetSceneSceneTransitionOverride request.
 type SetSceneSceneTransitionOverrideParams struct {
+	// Name of the canvas the scene is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scene is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// Name of the scene
 	SceneName *string `json:"sceneName,omitempty"`
 
@@ -19,6 +25,14 @@ type SetSceneSceneTransitionOverrideParams struct {
 
 func NewSetSceneSceneTransitionOverrideParams() *SetSceneSceneTransitionOverrideParams {
 	return &SetSceneSceneTransitionOverrideParams{}
+}
+func (o *SetSceneSceneTransitionOverrideParams) WithCanvasName(x string) *SetSceneSceneTransitionOverrideParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *SetSceneSceneTransitionOverrideParams) WithCanvasUuid(x string) *SetSceneSceneTransitionOverrideParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *SetSceneSceneTransitionOverrideParams) WithSceneName(x string) *SetSceneSceneTransitionOverrideParams {
 	o.SceneName = &x

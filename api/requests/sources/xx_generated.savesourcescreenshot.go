@@ -4,6 +4,12 @@ package sources
 
 // Represents the request body for the SaveSourceScreenshot request.
 type SaveSourceScreenshotParams struct {
+	// Name of the canvas the source is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the source is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use "default" (whatever that
 	// means, idk)
 	ImageCompressionQuality *float64 `json:"imageCompressionQuality,omitempty"`
@@ -29,6 +35,14 @@ type SaveSourceScreenshotParams struct {
 
 func NewSaveSourceScreenshotParams() *SaveSourceScreenshotParams {
 	return &SaveSourceScreenshotParams{}
+}
+func (o *SaveSourceScreenshotParams) WithCanvasName(x string) *SaveSourceScreenshotParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *SaveSourceScreenshotParams) WithCanvasUuid(x string) *SaveSourceScreenshotParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *SaveSourceScreenshotParams) WithImageCompressionQuality(x float64) *SaveSourceScreenshotParams {
 	o.ImageCompressionQuality = &x

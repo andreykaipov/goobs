@@ -5,7 +5,25 @@ package scenes
 import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetSceneList request.
-type GetSceneListParams struct{}
+type GetSceneListParams struct {
+	// Name of the canvas the scenes are in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scenes are in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+}
+
+func NewGetSceneListParams() *GetSceneListParams {
+	return &GetSceneListParams{}
+}
+func (o *GetSceneListParams) WithCanvasName(x string) *GetSceneListParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *GetSceneListParams) WithCanvasUuid(x string) *GetSceneListParams {
+	o.CanvasUuid = &x
+	return o
+}
 
 // Returns the associated request.
 func (o *GetSceneListParams) GetRequestName() string {
@@ -32,7 +50,7 @@ type GetSceneListResponse struct {
 	Scenes []*typedefs.Scene `json:"scenes,omitempty"`
 }
 
-// Gets an array of all scenes in OBS.
+// Gets an array of scenes in OBS.
 func (c *Client) GetSceneList(paramss ...*GetSceneListParams) (*GetSceneListResponse, error) {
 	if len(paramss) == 0 {
 		paramss = []*GetSceneListParams{{}}

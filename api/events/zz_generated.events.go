@@ -4,6 +4,12 @@ package events
 
 func GetType(name string) any {
 	switch name {
+	case "CanvasCreated":
+		return &CanvasCreated{}
+	case "CanvasRemoved":
+		return &CanvasRemoved{}
+	case "CanvasNameChanged":
+		return &CanvasNameChanged{}
 	case "CurrentSceneCollectionChanging":
 		return &CurrentSceneCollectionChanging{}
 	case "CurrentSceneCollectionChanged":

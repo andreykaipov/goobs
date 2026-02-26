@@ -4,6 +4,12 @@ package sceneitems
 
 // Represents the request body for the SetSceneItemBlendMode request.
 type SetSceneItemBlendModeParams struct {
+	// Name of the canvas the scene is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scene is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// New blend mode
 	SceneItemBlendMode *string `json:"sceneItemBlendMode,omitempty"`
 
@@ -19,6 +25,14 @@ type SetSceneItemBlendModeParams struct {
 
 func NewSetSceneItemBlendModeParams() *SetSceneItemBlendModeParams {
 	return &SetSceneItemBlendModeParams{}
+}
+func (o *SetSceneItemBlendModeParams) WithCanvasName(x string) *SetSceneItemBlendModeParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *SetSceneItemBlendModeParams) WithCanvasUuid(x string) *SetSceneItemBlendModeParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *SetSceneItemBlendModeParams) WithSceneItemBlendMode(x string) *SetSceneItemBlendModeParams {
 	o.SceneItemBlendMode = &x

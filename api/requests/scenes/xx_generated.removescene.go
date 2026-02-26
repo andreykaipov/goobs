@@ -4,6 +4,12 @@ package scenes
 
 // Represents the request body for the RemoveScene request.
 type RemoveSceneParams struct {
+	// Name of the canvas the scene is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scene is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// Name of the scene to remove
 	SceneName *string `json:"sceneName,omitempty"`
 
@@ -13,6 +19,14 @@ type RemoveSceneParams struct {
 
 func NewRemoveSceneParams() *RemoveSceneParams {
 	return &RemoveSceneParams{}
+}
+func (o *RemoveSceneParams) WithCanvasName(x string) *RemoveSceneParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *RemoveSceneParams) WithCanvasUuid(x string) *RemoveSceneParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *RemoveSceneParams) WithSceneName(x string) *RemoveSceneParams {
 	o.SceneName = &x

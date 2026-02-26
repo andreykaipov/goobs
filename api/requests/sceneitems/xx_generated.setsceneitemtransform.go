@@ -6,6 +6,12 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the SetSceneItemTransform request.
 type SetSceneItemTransformParams struct {
+	// Name of the canvas the scene is in
+	CanvasName *string `json:"canvasName,omitempty"`
+
+	// UUID of the canvas the scene is in
+	CanvasUuid *string `json:"canvasUuid,omitempty"`
+
 	// Numeric ID of the scene item
 	SceneItemId *int `json:"sceneItemId,omitempty"`
 
@@ -21,6 +27,14 @@ type SetSceneItemTransformParams struct {
 
 func NewSetSceneItemTransformParams() *SetSceneItemTransformParams {
 	return &SetSceneItemTransformParams{}
+}
+func (o *SetSceneItemTransformParams) WithCanvasName(x string) *SetSceneItemTransformParams {
+	o.CanvasName = &x
+	return o
+}
+func (o *SetSceneItemTransformParams) WithCanvasUuid(x string) *SetSceneItemTransformParams {
+	o.CanvasUuid = &x
+	return o
 }
 func (o *SetSceneItemTransformParams) WithSceneItemId(x int) *SetSceneItemTransformParams {
 	o.SceneItemId = &x

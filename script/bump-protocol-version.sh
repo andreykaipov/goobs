@@ -66,7 +66,7 @@ build_image() {
 
 bump_versions() {
         sed -i "s/$current/$next/g" version.go README.md
-        make generate
+        make clean && make generate
         ./script/update-readme-snippets.sh "$bump"
 }
 

@@ -52,7 +52,10 @@ jobs:
 
         pr=$(gh pr list -s open -A 'cathy-cloud[bot]' -L 1 --json number,headRefName -q .[].number)
         if [ -n "$pr" ]; then
-          echo "Open PR $pr for $branch already exists"
+          echo "Updating existing PR $pr"
+          gh pr edit "$pr" \
+            --title "$message" \
+            --body "$body"
         else
           echo "Creating PR for $branch"
           pr=$(

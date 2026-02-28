@@ -30,18 +30,23 @@ jobs:
         if ! ./script/bump-protocol-version.sh; then exit 0; fi
         bump=$(cat /tmp/.goobs.protocol.bump)
         next=$(cat /tmp/.goobs.protocol.next)
+        current=$(cat /tmp/.goobs.protocol.current)
         branch="bump-protocol-version"
         message="Bump OBS websocket protocol to $next"
-        body='
-          There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
-
-          This PR may or may not contain any actual changes to the generated code.
-        '
 
         git config --global user.name "cathy-cloud[bot]"
         git config --global user.email "154095190+cathy-cloud[bot]@users.noreply.github.com"
         git checkout -b "$branch"
         git add .
+
+        protocol_diff=$(./script/protocol-diff.sh "$current" "$next")
+        body="$(cat <<EOF
+        There was a new v5 tag in [obsproject/obs-websocket](https://github.com/obsproject/obs-websocket).
+
+        $protocol_diff
+        EOF
+        )"
+
         git commit -m "$message"
         git push -fu origin "$branch"
 

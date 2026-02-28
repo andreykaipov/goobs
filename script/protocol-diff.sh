@@ -10,13 +10,13 @@ set -eu
 old_version="$1"
 new_version="$2"
 
-base_url="https://raw.githubusercontent.com/obsproject/obs-websocket"
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 
-# Fetch and sanitize JSON (strip control chars that choke jq)
+# Fetch protocol JSON from GitHub Contents API
 fetch() {
-        curl -sf "$base_url/$1/docs/generated/protocol.json" | tr -d '\000-\011\013-\037' > "$2"
+        gh api "/repos/obsproject/obs-websocket/contents/docs/generated/protocol.json?ref=$1" \
+                --jq .content | base64 -d > "$2"
 }
 fetch "$old_version" "$tmpdir/old.json"
 fetch "$new_version" "$tmpdir/new.json"

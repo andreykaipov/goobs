@@ -33,14 +33,31 @@ diff_lists() {
 
 section() {
         header="$1"
-        items="$2"
+        added="$2"
+        removed="$3"
+        if [ -z "$added" ] && [ -z "$removed" ]; then return; fi
+        echo
+        echo "@@' $header '@@"
+        if [ -n "$added" ]; then
+                echo "$added" | while IFS= read -r item; do
+                        echo "+ $item"
+                done
+        fi
+        if [ -n "$removed" ]; then
+                echo "$removed" | while IFS= read -r item; do
+                        echo "- $item"
+                done
+        fi
+}
+
+dep_section() {
+        items="$1"
         if [ -z "$items" ]; then return; fi
-        echo "### $header"
         echo
+        echo "@@' Deprecated '@@"
         echo "$items" | while IFS= read -r item; do
-                echo "- $item"
+                echo "! $item"
         done
-        echo
 }
 
 old="$tmpdir/old.json"
@@ -102,17 +119,14 @@ fi
 
 echo "## Protocol diff: \`$old_version\` → \`$new_version\`"
 echo
+echo '```diff'
 
-section "New request categories" "$added_req_cat"
-section "Removed request categories" "$removed_req_cat"
-section "New requests" "$added_req"
-section "Removed requests" "$removed_req"
-section "New event categories" "$added_evt_cat"
-section "Removed event categories" "$removed_evt_cat"
-section "New events" "$added_evt"
-section "Removed events" "$removed_evt"
-section "New enum types" "$added_enum"
-section "Removed enum types" "$removed_enum"
-section "New enum values" "$added_enumv"
-section "Removed enum values" "$removed_enumv"
-section "Newly deprecated" "$newly_dep"
+section "Request categories" "$added_req_cat" "$removed_req_cat"
+section "Requests" "$added_req" "$removed_req"
+section "Event categories" "$added_evt_cat" "$removed_evt_cat"
+section "Events" "$added_evt" "$removed_evt"
+section "Enum types" "$added_enum" "$removed_enum"
+section "Enum values" "$added_enumv" "$removed_enumv"
+dep_section "$newly_dep"
+
+echo '```'

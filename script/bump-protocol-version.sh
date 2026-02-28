@@ -54,6 +54,7 @@ compare_versions() {
         fi
         echo "$bump" >/tmp/.goobs.protocol.bump
         echo "$next" >/tmp/.goobs.protocol.next
+        echo "$current" >/tmp/.goobs.protocol.current
 }
 
 build_image() {

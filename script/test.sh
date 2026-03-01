@@ -2,7 +2,7 @@
 
 cleanup() {
         if [ -n "$CI" ]; then return; fi
-        docker stop obs-record obs-stream
+        docker stop obs-record obs-stream 2>/dev/null || true
 }
 
 setup_docker() {

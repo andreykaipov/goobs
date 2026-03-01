@@ -24,6 +24,7 @@ var (
 	requestsTestsAssertingErrors = []string{
 		"config.CreateProfile",                       // docker profile already exists in image configs
 		"config.CreateSceneCollection",               // we start with a `SceneCollectionName` collection already
+		"config.RemoveProfile",                       // can't remove the only profile
 		"filters.SetSourceFilterName",                // not idempotent
 		"general.CallVendorRequest",                  // no other third party plugins in my obs image
 		"general.Sleep",                              // only available in request batches and i don't wanna do that
@@ -162,6 +163,11 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 			case "ProjectorGeometry":
 				return Nil()
 			default:
+				// UUID fields should be omitted - they take precedence over
+				// name-based lookups and "test" is not a valid UUID
+				if strings.HasSuffix(field, "Uuid") {
+					return Nil()
+				}
 				switch category {
 				case "inputs":
 					lit = "test2"

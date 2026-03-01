@@ -3,6 +3,10 @@
 package goobs_test
 
 import (
+	"net/http"
+	"os"
+	"testing"
+
 	goobs "github.com/andreykaipov/goobs"
 	canvas "github.com/andreykaipov/goobs/api/requests/canvas"
 	config "github.com/andreykaipov/goobs/api/requests/config"
@@ -20,13 +24,14 @@ import (
 	ui "github.com/andreykaipov/goobs/api/requests/ui"
 	typedefs "github.com/andreykaipov/goobs/api/typedefs"
 	assert "github.com/stretchr/testify/assert"
-	"net/http"
-	"os"
-	"testing"
 )
 
 func Test_canvas(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -40,7 +45,11 @@ func Test_canvas(t *testing.T) {
 }
 
 func Test_config(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -51,7 +60,9 @@ func Test_config(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.Error(t, err)
-	_, err = client.Config.CreateSceneCollection(&config.CreateSceneCollectionParams{SceneCollectionName: &[]string{"test"}[0]})
+	_, err = client.Config.CreateSceneCollection(
+		&config.CreateSceneCollectionParams{SceneCollectionName: &[]string{"test"}[0]},
+	)
 	if err != nil {
 		t.Logf("%s", err)
 	}
@@ -102,7 +113,9 @@ func Test_config(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
-	_, err = client.Config.SetCurrentSceneCollection(&config.SetCurrentSceneCollectionParams{SceneCollectionName: &[]string{"test"}[0]})
+	_, err = client.Config.SetCurrentSceneCollection(
+		&config.SetCurrentSceneCollectionParams{SceneCollectionName: &[]string{"test"}[0]},
+	)
 	if err != nil {
 		t.Logf("%s", err)
 	}
@@ -158,7 +171,11 @@ func Test_config(t *testing.T) {
 }
 
 func Test_filters(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -177,7 +194,9 @@ func Test_filters(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
-	_, err = client.Filters.GetSourceFilterDefaultSettings(&filters.GetSourceFilterDefaultSettingsParams{FilterKind: &[]string{"scroll_filter"}[0]})
+	_, err = client.Filters.GetSourceFilterDefaultSettings(
+		&filters.GetSourceFilterDefaultSettingsParams{FilterKind: &[]string{"scroll_filter"}[0]},
+	)
 	if err != nil {
 		t.Logf("%s", err)
 	}
@@ -271,13 +290,19 @@ func Test_filters(t *testing.T) {
 }
 
 func Test_general(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
 	})
 
-	_, err = client.General.BroadcastCustomEvent(&general.BroadcastCustomEventParams{EventData: map[string]interface{}{"test": "test"}})
+	_, err = client.General.BroadcastCustomEvent(
+		&general.BroadcastCustomEventParams{EventData: map[string]interface{}{"test": "test"}},
+	)
 	if err != nil {
 		t.Logf("%s", err)
 	}
@@ -333,7 +358,11 @@ func Test_general(t *testing.T) {
 }
 
 func Test_inputs(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -385,7 +414,9 @@ func Test_inputs(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
-	_, err = client.Inputs.GetInputDefaultSettings(&inputs.GetInputDefaultSettingsParams{InputKind: &[]string{"ffmpeg_source"}[0]})
+	_, err = client.Inputs.GetInputDefaultSettings(
+		&inputs.GetInputDefaultSettingsParams{InputKind: &[]string{"ffmpeg_source"}[0]},
+	)
 	if err != nil {
 		t.Logf("%s", err)
 	}
@@ -574,7 +605,11 @@ func Test_inputs(t *testing.T) {
 }
 
 func Test_mediainputs(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -618,7 +653,11 @@ func Test_mediainputs(t *testing.T) {
 }
 
 func Test_outputs(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -715,7 +754,11 @@ func Test_outputs(t *testing.T) {
 }
 
 func Test_record(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -766,7 +809,11 @@ func Test_record(t *testing.T) {
 }
 
 func Test_sceneitems(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -974,7 +1021,11 @@ func Test_sceneitems(t *testing.T) {
 }
 
 func Test_scenes(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -1070,7 +1121,11 @@ func Test_scenes(t *testing.T) {
 }
 
 func Test_sources(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -1118,7 +1173,11 @@ func Test_sources(t *testing.T) {
 }
 
 func Test_stream(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -1152,7 +1211,11 @@ func Test_stream(t *testing.T) {
 }
 
 func Test_transitions(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()
@@ -1178,12 +1241,16 @@ func Test_transitions(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
-	_, err = client.Transitions.SetCurrentSceneTransitionDuration(&transitions.SetCurrentSceneTransitionDurationParams{TransitionDuration: &[]float64{50.0}[0]})
+	_, err = client.Transitions.SetCurrentSceneTransitionDuration(
+		&transitions.SetCurrentSceneTransitionDurationParams{TransitionDuration: &[]float64{50.0}[0]},
+	)
 	if err != nil {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
-	_, err = client.Transitions.SetCurrentSceneTransition(&transitions.SetCurrentSceneTransitionParams{TransitionName: &[]string{"Cut"}[0]})
+	_, err = client.Transitions.SetCurrentSceneTransition(
+		&transitions.SetCurrentSceneTransitionParams{TransitionName: &[]string{"Cut"}[0]},
+	)
 	if err != nil {
 		t.Logf("%s", err)
 	}
@@ -1212,7 +1279,11 @@ func Test_transitions(t *testing.T) {
 }
 
 func Test_ui(t *testing.T) {
-	client, err := goobs.New("localhost:"+os.Getenv("OBS_PORT"), goobs.WithPassword("goodpassword"), goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}))
+	client, err := goobs.New(
+		"localhost:"+os.Getenv("OBS_PORT"),
+		goobs.WithPassword("goodpassword"),
+		goobs.WithRequestHeader(http.Header{"User-Agent": []string{"goobs-e2e/0.0.0"}}),
+	)
 	assert.NoError(t, err)
 	t.Cleanup(func() {
 		client.Disconnect()

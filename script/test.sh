@@ -2,27 +2,19 @@
 
 cleanup() {
         if [ -n "$CI" ]; then return; fi
-        docker stop obs-record obs-stream
+        docker stop obs obs-record obs-stream 2>/dev/null || true
 }
 
 setup_docker() {
         echo "Setting up OBS instances for functional tests..."
 
-        obs="$(docker container inspect -f '{{.State.Status}}' obs || true)"
+        docker stop obs obs-record obs-stream 2>/dev/null || true
+        sleep 1
 
-        if [ "$obs" = running ]; then
-                echo "Main OBS container is already running"
-        else
-                docker run --rm --detach --name obs -e vnc=1 -p 5900:5900 -p 4455:1234 ghcr.io/andreykaipov/goobs:latest
-                sleep 3
-        fi
-
-        # record and stream categories aren't totally idempotent so we need
-        # a clean OBS docker instance each time
-
-        echo "Spinning up OBS instances for 'record' and 'stream' tests"
+        docker run --rm --detach --name obs -e vnc=1 -p 5900:5900 -p 4455:1234 ghcr.io/andreykaipov/goobs:latest
         docker run --rm --detach --name obs-record -p 4456:1234 ghcr.io/andreykaipov/goobs:latest
         docker run --rm --detach --name obs-stream -p 4457:1234 ghcr.io/andreykaipov/goobs:latest
+        sleep 3
 }
 
 setup() {

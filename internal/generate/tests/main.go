@@ -24,9 +24,11 @@ var (
 	requestsTestsAssertingErrors = []string{
 		"config.CreateProfile",                       // docker profile already exists in image configs
 		"config.CreateSceneCollection",               // we start with a `SceneCollectionName` collection already
+		"config.RemoveProfile",                       // can't remove the only profile
 		"filters.SetSourceFilterName",                // not idempotent
 		"general.CallVendorRequest",                  // no other third party plugins in my obs image
 		"general.Sleep",                              // only available in request batches and i don't wanna do that
+		"inputs.CreateInput",                         // test2 source already exists in scene file
 		"inputs.GetInputPropertiesListPropertyItems", // idk what properties are
 		"inputs.PressInputPropertiesButton",          // idk what properties are
 		"inputs.SetInputAudioMonitorType",            // audio monitoring not available on this platform
@@ -161,7 +163,27 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 				lit = "OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW"
 			case "ProjectorGeometry":
 				return Nil()
+			case "CanvasName":
+				return Nil()
 			default:
+				// Most UUID fields should be omitted since "test" is not a
+				// valid UUID. However, SourceUuid and InputUuid must be
+				// provided because OBS 32.x canvas-aware source lookups
+				// by name are broken.
+				if field == "SourceUuid" || field == "InputUuid" {
+					switch category {
+					case "inputs":
+						lit = "351fb47e-a68a-49c5-8b34-82ca3d4f2cb2" // test2
+					default:
+						lit = "d0a8e2e7-f9ac-4862-a407-08a4ced5b0ec" // test
+					}
+					val := Lit(lit)
+					val = Op("&").Index().String().Values(val).Index(Lit(0))
+					return val
+				}
+				if strings.HasSuffix(field, "Uuid") {
+					return Nil()
+				}
 				switch category {
 				case "inputs":
 					lit = "test2"

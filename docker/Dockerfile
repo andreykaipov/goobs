@@ -19,7 +19,8 @@ COPY cmd.sh /opt
 CMD ["/opt/cmd.sh"]
 
 COPY config/global.ini                      /root/.config/obs-studio/
-COPY config/obsWebSocketPersistentData.json /root/.config/obs-studio/
+COPY config/user.ini                        /root/.config/obs-studio/
+COPY config/obsWebSocketConfig.json         /root/.config/obs-studio/plugin_config/obs-websocket/config.json
 COPY config/basic.ini                       /root/.config/obs-studio/basic/profiles/docker/
 COPY config/service.json                    /root/.config/obs-studio/basic/profiles/docker/
 COPY config/scenes.json                     /root/.config/obs-studio/basic/scenes/test.json

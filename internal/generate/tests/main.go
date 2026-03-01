@@ -28,6 +28,7 @@ var (
 		"filters.SetSourceFilterName",                // not idempotent
 		"general.CallVendorRequest",                  // no other third party plugins in my obs image
 		"general.Sleep",                              // only available in request batches and i don't wanna do that
+		"inputs.CreateInput",                         // test2 source already exists in scene file
 		"inputs.GetInputPropertiesListPropertyItems", // idk what properties are
 		"inputs.PressInputPropertiesButton",          // idk what properties are
 		"inputs.SetInputAudioMonitorType",            // audio monitoring not available on this platform
@@ -161,6 +162,8 @@ func generateRequestTest(subclient, category string, structs map[string]StructFi
 			case "VideoMixType":
 				lit = "OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW"
 			case "ProjectorGeometry":
+				return Nil()
+			case "CanvasName":
 				return Nil()
 			default:
 				// UUID fields should be omitted - they take precedence over

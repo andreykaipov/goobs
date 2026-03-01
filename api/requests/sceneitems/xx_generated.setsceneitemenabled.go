@@ -4,10 +4,7 @@ package sceneitems
 
 // Represents the request body for the SetSceneItemEnabled request.
 type SetSceneItemEnabledParams struct {
-	// Name of the canvas the scene is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the scene is in
+	// UUID of the canvas the scene is in, if using the sceneName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// New enable state of the scene item
@@ -25,10 +22,6 @@ type SetSceneItemEnabledParams struct {
 
 func NewSetSceneItemEnabledParams() *SetSceneItemEnabledParams {
 	return &SetSceneItemEnabledParams{}
-}
-func (o *SetSceneItemEnabledParams) WithCanvasName(x string) *SetSceneItemEnabledParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *SetSceneItemEnabledParams) WithCanvasUuid(x string) *SetSceneItemEnabledParams {
 	o.CanvasUuid = &x

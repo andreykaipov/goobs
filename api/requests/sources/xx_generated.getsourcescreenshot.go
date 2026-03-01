@@ -4,10 +4,7 @@ package sources
 
 // Represents the request body for the GetSourceScreenshot request.
 type GetSourceScreenshotParams struct {
-	// Name of the canvas the source is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the source is in
+	// UUID of the canvas the source is in, if using sourceName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// Compression quality to use. 0 for high compression, 100 for uncompressed. -1 to use "default" (whatever that
@@ -32,10 +29,6 @@ type GetSourceScreenshotParams struct {
 
 func NewGetSourceScreenshotParams() *GetSourceScreenshotParams {
 	return &GetSourceScreenshotParams{}
-}
-func (o *GetSourceScreenshotParams) WithCanvasName(x string) *GetSourceScreenshotParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *GetSourceScreenshotParams) WithCanvasUuid(x string) *GetSourceScreenshotParams {
 	o.CanvasUuid = &x

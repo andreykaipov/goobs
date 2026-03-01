@@ -6,19 +6,12 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetSceneList request.
 type GetSceneListParams struct {
-	// Name of the canvas the scenes are in
-	CanvasName *string `json:"canvasName,omitempty"`
-
 	// UUID of the canvas the scenes are in
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 }
 
 func NewGetSceneListParams() *GetSceneListParams {
 	return &GetSceneListParams{}
-}
-func (o *GetSceneListParams) WithCanvasName(x string) *GetSceneListParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *GetSceneListParams) WithCanvasUuid(x string) *GetSceneListParams {
 	o.CanvasUuid = &x
@@ -34,16 +27,16 @@ func (o *GetSceneListParams) GetRequestName() string {
 type GetSceneListResponse struct {
 	_response
 
-	// Current preview scene name. `null` if not in studio mode
+	// Current preview scene name. `null` if not in studio mode or non-main canvas
 	CurrentPreviewSceneName string `json:"currentPreviewSceneName,omitempty"`
 
-	// Current preview scene UUID. `null` if not in studio mode
+	// Current preview scene UUID. `null` if not in studio mode or non-main canvas
 	CurrentPreviewSceneUuid string `json:"currentPreviewSceneUuid,omitempty"`
 
-	// Current program scene name. Can be `null` if internal state desync
+	// Current program scene name. Can be `null` if non-main canvas or internal state desync
 	CurrentProgramSceneName string `json:"currentProgramSceneName,omitempty"`
 
-	// Current program scene UUID. Can be `null` if internal state desync
+	// Current program scene UUID. Can be `null` if non-main canvas or internal state desync
 	CurrentProgramSceneUuid string `json:"currentProgramSceneUuid,omitempty"`
 
 	// Array of scenes

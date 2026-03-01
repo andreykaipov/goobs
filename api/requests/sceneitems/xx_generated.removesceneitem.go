@@ -4,10 +4,7 @@ package sceneitems
 
 // Represents the request body for the RemoveSceneItem request.
 type RemoveSceneItemParams struct {
-	// Name of the canvas the scene is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the scene is in
+	// UUID of the canvas the scene is in, if using the sceneName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// Numeric ID of the scene item
@@ -22,10 +19,6 @@ type RemoveSceneItemParams struct {
 
 func NewRemoveSceneItemParams() *RemoveSceneItemParams {
 	return &RemoveSceneItemParams{}
-}
-func (o *RemoveSceneItemParams) WithCanvasName(x string) *RemoveSceneItemParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *RemoveSceneItemParams) WithCanvasUuid(x string) *RemoveSceneItemParams {
 	o.CanvasUuid = &x

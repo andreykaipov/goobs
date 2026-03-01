@@ -30,7 +30,9 @@ type GetCurrentProgramSceneResponse struct {
 /*
 Gets the current program scene.
 
-Note: This request is slated to have the `currentProgram`-prefixed fields removed from in an upcoming RPC version.
+Note 1: This request is slated to have the `currentProgram`-prefixed fields removed from in an upcoming RPC version.
+
+Note 2: Canvases do not have any concept of a program or preview scene, so this request does not support canvases.
 */
 func (c *Client) GetCurrentProgramScene(
 	paramss ...*GetCurrentProgramSceneParams,

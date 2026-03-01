@@ -6,10 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetSceneItemList request.
 type GetSceneItemListParams struct {
-	// Name of the canvas the scene is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the scene is in
+	// UUID of the canvas the scene is in, if using the sceneName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// Name of the scene to get the items of
@@ -21,10 +18,6 @@ type GetSceneItemListParams struct {
 
 func NewGetSceneItemListParams() *GetSceneItemListParams {
 	return &GetSceneItemListParams{}
-}
-func (o *GetSceneItemListParams) WithCanvasName(x string) *GetSceneItemListParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *GetSceneItemListParams) WithCanvasUuid(x string) *GetSceneItemListParams {
 	o.CanvasUuid = &x

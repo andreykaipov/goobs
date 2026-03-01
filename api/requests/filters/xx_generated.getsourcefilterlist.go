@@ -6,10 +6,7 @@ import typedefs "github.com/andreykaipov/goobs/api/typedefs"
 
 // Represents the request body for the GetSourceFilterList request.
 type GetSourceFilterListParams struct {
-	// Name of the canvas the source is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the source is in
+	// UUID of the canvas the source is in, if using the sourceName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// Name of the source
@@ -21,10 +18,6 @@ type GetSourceFilterListParams struct {
 
 func NewGetSourceFilterListParams() *GetSourceFilterListParams {
 	return &GetSourceFilterListParams{}
-}
-func (o *GetSourceFilterListParams) WithCanvasName(x string) *GetSourceFilterListParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *GetSourceFilterListParams) WithCanvasUuid(x string) *GetSourceFilterListParams {
 	o.CanvasUuid = &x

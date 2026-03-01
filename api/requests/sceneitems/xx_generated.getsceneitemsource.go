@@ -4,10 +4,7 @@ package sceneitems
 
 // Represents the request body for the GetSceneItemSource request.
 type GetSceneItemSourceParams struct {
-	// Name of the canvas the scene is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the scene is in
+	// UUID of the canvas the scene is in, if using the sceneName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// Numeric ID of the scene item
@@ -22,10 +19,6 @@ type GetSceneItemSourceParams struct {
 
 func NewGetSceneItemSourceParams() *GetSceneItemSourceParams {
 	return &GetSceneItemSourceParams{}
-}
-func (o *GetSceneItemSourceParams) WithCanvasName(x string) *GetSceneItemSourceParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *GetSceneItemSourceParams) WithCanvasUuid(x string) *GetSceneItemSourceParams {
 	o.CanvasUuid = &x

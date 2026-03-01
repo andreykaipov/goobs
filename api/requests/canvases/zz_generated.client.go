@@ -1,17 +1,17 @@
 // This file has been automatically generated. Don't edit it.
 
-package canvas
+package canvases
 
 import api "github.com/andreykaipov/goobs/api"
 
 type _response = api.ResponseCommon
 
-// Client represents a client for 'canvas' requests.
+// Client represents a client for 'canvases' requests.
 type Client struct {
 	client *api.Client
 }
 
-// NewCanvas returns a new 'canvas' client.
+// NewCanvases returns a new 'canvases' client.
 func NewClient(c *api.Client) *Client {
 	return &Client{client: c}
 }

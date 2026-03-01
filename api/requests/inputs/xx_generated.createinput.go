@@ -4,10 +4,7 @@ package inputs
 
 // Represents the request body for the CreateInput request.
 type CreateInputParams struct {
-	// Name of the canvas the scene is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the scene is in
+	// UUID of the canvas the scene is in, if using the sceneName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// The kind of input to be created
@@ -31,10 +28,6 @@ type CreateInputParams struct {
 
 func NewCreateInputParams() *CreateInputParams {
 	return &CreateInputParams{}
-}
-func (o *CreateInputParams) WithCanvasName(x string) *CreateInputParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *CreateInputParams) WithCanvasUuid(x string) *CreateInputParams {
 	o.CanvasUuid = &x

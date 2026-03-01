@@ -3,7 +3,7 @@
 package goobs
 
 import (
-	canvas "github.com/andreykaipov/goobs/api/requests/canvas"
+	canvases "github.com/andreykaipov/goobs/api/requests/canvases"
 	config "github.com/andreykaipov/goobs/api/requests/config"
 	filters "github.com/andreykaipov/goobs/api/requests/filters"
 	general "github.com/andreykaipov/goobs/api/requests/general"
@@ -20,7 +20,7 @@ import (
 )
 
 type Categories struct {
-	Canvas      *canvas.Client
+	Canvases    *canvases.Client
 	Config      *config.Client
 	Filters     *filters.Client
 	General     *general.Client
@@ -37,7 +37,7 @@ type Categories struct {
 }
 
 func setClients(c *Client) {
-	c.Canvas = canvas.NewClient(c.client)
+	c.Canvases = canvases.NewClient(c.client)
 	c.Config = config.NewClient(c.client)
 	c.Filters = filters.NewClient(c.client)
 	c.General = general.NewClient(c.client)

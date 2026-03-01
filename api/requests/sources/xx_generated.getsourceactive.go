@@ -4,10 +4,7 @@ package sources
 
 // Represents the request body for the GetSourceActive request.
 type GetSourceActiveParams struct {
-	// Name of the canvas the source is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the source is in
+	// UUID of the canvas the source is in, if using sourceName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// Name of the source to get the active state of
@@ -19,10 +16,6 @@ type GetSourceActiveParams struct {
 
 func NewGetSourceActiveParams() *GetSourceActiveParams {
 	return &GetSourceActiveParams{}
-}
-func (o *GetSourceActiveParams) WithCanvasName(x string) *GetSourceActiveParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *GetSourceActiveParams) WithCanvasUuid(x string) *GetSourceActiveParams {
 	o.CanvasUuid = &x

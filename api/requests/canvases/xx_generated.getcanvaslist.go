@@ -1,6 +1,6 @@
 // This file has been automatically generated. Don't edit it.
 
-package canvas
+package canvases
 
 // Represents the request body for the GetCanvasList request.
 type GetCanvasListParams struct{}

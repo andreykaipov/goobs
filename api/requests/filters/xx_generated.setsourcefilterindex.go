@@ -4,10 +4,7 @@ package filters
 
 // Represents the request body for the SetSourceFilterIndex request.
 type SetSourceFilterIndexParams struct {
-	// Name of the canvas the source is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the source is in
+	// UUID of the canvas the source is in, if using the sourceName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// New index position of the filter
@@ -25,10 +22,6 @@ type SetSourceFilterIndexParams struct {
 
 func NewSetSourceFilterIndexParams() *SetSourceFilterIndexParams {
 	return &SetSourceFilterIndexParams{}
-}
-func (o *SetSourceFilterIndexParams) WithCanvasName(x string) *SetSourceFilterIndexParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *SetSourceFilterIndexParams) WithCanvasUuid(x string) *SetSourceFilterIndexParams {
 	o.CanvasUuid = &x

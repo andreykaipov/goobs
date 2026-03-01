@@ -4,10 +4,7 @@ package filters
 
 // Represents the request body for the RemoveSourceFilter request.
 type RemoveSourceFilterParams struct {
-	// Name of the canvas the source is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the source is in
+	// UUID of the canvas the source is in, if using the sourceName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// Name of the filter to remove
@@ -22,10 +19,6 @@ type RemoveSourceFilterParams struct {
 
 func NewRemoveSourceFilterParams() *RemoveSourceFilterParams {
 	return &RemoveSourceFilterParams{}
-}
-func (o *RemoveSourceFilterParams) WithCanvasName(x string) *RemoveSourceFilterParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *RemoveSourceFilterParams) WithCanvasUuid(x string) *RemoveSourceFilterParams {
 	o.CanvasUuid = &x

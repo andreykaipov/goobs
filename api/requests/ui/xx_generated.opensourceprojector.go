@@ -4,10 +4,7 @@ package ui
 
 // Represents the request body for the OpenSourceProjector request.
 type OpenSourceProjectorParams struct {
-	// Name of the canvas the source is in
-	CanvasName *string `json:"canvasName,omitempty"`
-
-	// UUID of the canvas the source is in
+	// UUID of the canvas the source is in, if using the sourceName field
 	CanvasUuid *string `json:"canvasUuid,omitempty"`
 
 	// Monitor index, use `GetMonitorList` to obtain index
@@ -25,10 +22,6 @@ type OpenSourceProjectorParams struct {
 
 func NewOpenSourceProjectorParams() *OpenSourceProjectorParams {
 	return &OpenSourceProjectorParams{}
-}
-func (o *OpenSourceProjectorParams) WithCanvasName(x string) *OpenSourceProjectorParams {
-	o.CanvasName = &x
-	return o
 }
 func (o *OpenSourceProjectorParams) WithCanvasUuid(x string) *OpenSourceProjectorParams {
 	o.CanvasUuid = &x

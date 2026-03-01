@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	goobs "github.com/andreykaipov/goobs"
-	canvas "github.com/andreykaipov/goobs/api/requests/canvas"
+	canvases "github.com/andreykaipov/goobs/api/requests/canvases"
 	config "github.com/andreykaipov/goobs/api/requests/config"
 	filters "github.com/andreykaipov/goobs/api/requests/filters"
 	general "github.com/andreykaipov/goobs/api/requests/general"
@@ -26,7 +26,7 @@ import (
 	assert "github.com/stretchr/testify/assert"
 )
 
-func Test_canvas(t *testing.T) {
+func Test_canvases(t *testing.T) {
 	client, err := goobs.New(
 		"localhost:"+os.Getenv("OBS_PORT"),
 		goobs.WithPassword("goodpassword"),
@@ -37,7 +37,7 @@ func Test_canvas(t *testing.T) {
 		client.Disconnect()
 	})
 
-	_, err = client.Canvas.GetCanvasList(&canvas.GetCanvasListParams{})
+	_, err = client.Canvases.GetCanvasList(&canvases.GetCanvasListParams{})
 	if err != nil {
 		t.Logf("%s", err)
 	}
@@ -182,7 +182,6 @@ func Test_filters(t *testing.T) {
 	})
 
 	_, err = client.Filters.CreateSourceFilter(&filters.CreateSourceFilterParams{
-		CanvasName:     nil,
 		CanvasUuid:     nil,
 		FilterKind:     &[]string{"scroll_filter"}[0],
 		FilterName:     &[]string{"test"}[0],
@@ -207,7 +206,6 @@ func Test_filters(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.GetSourceFilterList(&filters.GetSourceFilterListParams{
-		CanvasName: nil,
 		CanvasUuid: nil,
 		SourceName: &[]string{"test"}[0],
 		SourceUuid: &[]string{"d0a8e2e7-f9ac-4862-a407-08a4ced5b0ec"}[0],
@@ -217,7 +215,6 @@ func Test_filters(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.GetSourceFilter(&filters.GetSourceFilterParams{
-		CanvasName: nil,
 		CanvasUuid: nil,
 		FilterName: &[]string{"test"}[0],
 		SourceName: &[]string{"test"}[0],
@@ -228,7 +225,6 @@ func Test_filters(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.SetSourceFilterEnabled(&filters.SetSourceFilterEnabledParams{
-		CanvasName:    nil,
 		CanvasUuid:    nil,
 		FilterEnabled: &[]bool{true}[0],
 		FilterName:    &[]string{"test"}[0],
@@ -240,7 +236,6 @@ func Test_filters(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.SetSourceFilterIndex(&filters.SetSourceFilterIndexParams{
-		CanvasName:  nil,
 		CanvasUuid:  nil,
 		FilterIndex: &[]int{1}[0],
 		FilterName:  &[]string{"test"}[0],
@@ -252,7 +247,6 @@ func Test_filters(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.SetSourceFilterName(&filters.SetSourceFilterNameParams{
-		CanvasName:    nil,
 		CanvasUuid:    nil,
 		FilterName:    &[]string{"test"}[0],
 		NewFilterName: &[]string{"test"}[0],
@@ -264,7 +258,6 @@ func Test_filters(t *testing.T) {
 	}
 	assert.Error(t, err)
 	_, err = client.Filters.SetSourceFilterSettings(&filters.SetSourceFilterSettingsParams{
-		CanvasName:     nil,
 		CanvasUuid:     nil,
 		FilterName:     &[]string{"test"}[0],
 		FilterSettings: map[string]interface{}{"test": "test"},
@@ -277,7 +270,6 @@ func Test_filters(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Filters.RemoveSourceFilter(&filters.RemoveSourceFilterParams{
-		CanvasName: nil,
 		CanvasUuid: nil,
 		FilterName: &[]string{"test"}[0],
 		SourceName: &[]string{"test"}[0],
@@ -369,7 +361,6 @@ func Test_inputs(t *testing.T) {
 	})
 
 	_, err = client.Inputs.CreateInput(&inputs.CreateInputParams{
-		CanvasName:       nil,
 		CanvasUuid:       nil,
 		InputKind:        &[]string{"ffmpeg_source"}[0],
 		InputName:        &[]string{"test2"}[0],
@@ -820,7 +811,6 @@ func Test_sceneitems(t *testing.T) {
 	})
 
 	_, err = client.SceneItems.CreateSceneItem(&sceneitems.CreateSceneItemParams{
-		CanvasName:       nil,
 		CanvasUuid:       nil,
 		SceneItemEnabled: &[]bool{true}[0],
 		SceneName:        &[]string{"Scene"}[0],
@@ -833,7 +823,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.DuplicateSceneItem(&sceneitems.DuplicateSceneItemParams{
-		CanvasName:           nil,
 		CanvasUuid:           nil,
 		DestinationSceneName: &[]string{"test"}[0],
 		DestinationSceneUuid: nil,
@@ -846,7 +835,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.Error(t, err)
 	_, err = client.SceneItems.GetGroupSceneItemList(&sceneitems.GetGroupSceneItemListParams{
-		CanvasName: nil,
 		CanvasUuid: nil,
 		SceneName:  &[]string{"Scene"}[0],
 		SceneUuid:  nil,
@@ -856,7 +844,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.Error(t, err)
 	_, err = client.SceneItems.GetSceneItemBlendMode(&sceneitems.GetSceneItemBlendModeParams{
-		CanvasName:  nil,
 		CanvasUuid:  nil,
 		SceneItemId: &[]int{1}[0],
 		SceneName:   &[]string{"Scene"}[0],
@@ -867,7 +854,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemEnabled(&sceneitems.GetSceneItemEnabledParams{
-		CanvasName:  nil,
 		CanvasUuid:  nil,
 		SceneItemId: &[]int{1}[0],
 		SceneName:   &[]string{"Scene"}[0],
@@ -878,7 +864,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemId(&sceneitems.GetSceneItemIdParams{
-		CanvasName:   nil,
 		CanvasUuid:   nil,
 		SceneName:    &[]string{"Scene"}[0],
 		SceneUuid:    nil,
@@ -890,7 +875,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemIndex(&sceneitems.GetSceneItemIndexParams{
-		CanvasName:  nil,
 		CanvasUuid:  nil,
 		SceneItemId: &[]int{1}[0],
 		SceneName:   &[]string{"Scene"}[0],
@@ -901,7 +885,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemList(&sceneitems.GetSceneItemListParams{
-		CanvasName: nil,
 		CanvasUuid: nil,
 		SceneName:  &[]string{"Scene"}[0],
 		SceneUuid:  nil,
@@ -911,7 +894,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemLocked(&sceneitems.GetSceneItemLockedParams{
-		CanvasName:  nil,
 		CanvasUuid:  nil,
 		SceneItemId: &[]int{1}[0],
 		SceneName:   &[]string{"Scene"}[0],
@@ -922,7 +904,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemSource(&sceneitems.GetSceneItemSourceParams{
-		CanvasName:  nil,
 		CanvasUuid:  nil,
 		SceneItemId: &[]int{1}[0],
 		SceneName:   &[]string{"Scene"}[0],
@@ -933,7 +914,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.GetSceneItemTransform(&sceneitems.GetSceneItemTransformParams{
-		CanvasName:  nil,
 		CanvasUuid:  nil,
 		SceneItemId: &[]int{1}[0],
 		SceneName:   &[]string{"Scene"}[0],
@@ -944,7 +924,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemBlendMode(&sceneitems.SetSceneItemBlendModeParams{
-		CanvasName:         nil,
 		CanvasUuid:         nil,
 		SceneItemBlendMode: &[]string{"OBS_BLEND_NORMAL"}[0],
 		SceneItemId:        &[]int{1}[0],
@@ -956,7 +935,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemEnabled(&sceneitems.SetSceneItemEnabledParams{
-		CanvasName:       nil,
 		CanvasUuid:       nil,
 		SceneItemEnabled: &[]bool{true}[0],
 		SceneItemId:      &[]int{1}[0],
@@ -968,7 +946,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemIndex(&sceneitems.SetSceneItemIndexParams{
-		CanvasName:     nil,
 		CanvasUuid:     nil,
 		SceneItemId:    &[]int{1}[0],
 		SceneItemIndex: &[]int{1}[0],
@@ -980,7 +957,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemLocked(&sceneitems.SetSceneItemLockedParams{
-		CanvasName:      nil,
 		CanvasUuid:      nil,
 		SceneItemId:     &[]int{1}[0],
 		SceneItemLocked: &[]bool{true}[0],
@@ -992,7 +968,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.SetSceneItemTransform(&sceneitems.SetSceneItemTransformParams{
-		CanvasName:  nil,
 		CanvasUuid:  nil,
 		SceneItemId: &[]int{1}[0],
 		SceneItemTransform: &typedefs.SceneItemTransform{
@@ -1008,7 +983,6 @@ func Test_sceneitems(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.SceneItems.RemoveSceneItem(&sceneitems.RemoveSceneItemParams{
-		CanvasName:  nil,
 		CanvasUuid:  nil,
 		SceneItemId: &[]int{1}[0],
 		SceneName:   &[]string{"nonexistent"}[0],
@@ -1031,7 +1005,10 @@ func Test_scenes(t *testing.T) {
 		client.Disconnect()
 	})
 
-	_, err = client.Scenes.CreateScene(&scenes.CreateSceneParams{SceneName: &[]string{"Scene"}[0]})
+	_, err = client.Scenes.CreateScene(&scenes.CreateSceneParams{
+		CanvasUuid: nil,
+		SceneName:  &[]string{"Scene"}[0],
+	})
 	if err != nil {
 		t.Logf("%s", err)
 	}
@@ -1051,16 +1028,12 @@ func Test_scenes(t *testing.T) {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
-	_, err = client.Scenes.GetSceneList(&scenes.GetSceneListParams{
-		CanvasName: nil,
-		CanvasUuid: nil,
-	})
+	_, err = client.Scenes.GetSceneList(&scenes.GetSceneListParams{CanvasUuid: nil})
 	if err != nil {
 		t.Logf("%s", err)
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.GetSceneSceneTransitionOverride(&scenes.GetSceneSceneTransitionOverrideParams{
-		CanvasName: nil,
 		CanvasUuid: nil,
 		SceneName:  &[]string{"Scene"}[0],
 		SceneUuid:  nil,
@@ -1086,7 +1059,6 @@ func Test_scenes(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.SetSceneName(&scenes.SetSceneNameParams{
-		CanvasName:   nil,
 		CanvasUuid:   nil,
 		NewSceneName: &[]string{"Scene"}[0],
 		SceneName:    &[]string{"Scene"}[0],
@@ -1097,7 +1069,6 @@ func Test_scenes(t *testing.T) {
 	}
 	assert.Error(t, err)
 	_, err = client.Scenes.SetSceneSceneTransitionOverride(&scenes.SetSceneSceneTransitionOverrideParams{
-		CanvasName:         nil,
 		CanvasUuid:         nil,
 		SceneName:          &[]string{"Scene"}[0],
 		SceneUuid:          nil,
@@ -1109,7 +1080,6 @@ func Test_scenes(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Scenes.RemoveScene(&scenes.RemoveSceneParams{
-		CanvasName: nil,
 		CanvasUuid: nil,
 		SceneName:  &[]string{"nonexistent"}[0],
 		SceneUuid:  nil,
@@ -1132,7 +1102,6 @@ func Test_sources(t *testing.T) {
 	})
 
 	_, err = client.Sources.GetSourceActive(&sources.GetSourceActiveParams{
-		CanvasName: nil,
 		CanvasUuid: nil,
 		SourceName: &[]string{"test"}[0],
 		SourceUuid: &[]string{"d0a8e2e7-f9ac-4862-a407-08a4ced5b0ec"}[0],
@@ -1142,7 +1111,6 @@ func Test_sources(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Sources.GetSourceScreenshot(&sources.GetSourceScreenshotParams{
-		CanvasName:              nil,
 		CanvasUuid:              nil,
 		ImageCompressionQuality: &[]float64{8.0}[0],
 		ImageFormat:             &[]string{"png"}[0],
@@ -1156,7 +1124,6 @@ func Test_sources(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Sources.SaveSourceScreenshot(&sources.SaveSourceScreenshotParams{
-		CanvasName:              nil,
 		CanvasUuid:              nil,
 		ImageCompressionQuality: &[]float64{8.0}[0],
 		ImageFilePath:           &[]string{"test"}[0],
@@ -1324,7 +1291,6 @@ func Test_ui(t *testing.T) {
 	}
 	assert.NoError(t, err)
 	_, err = client.Ui.OpenSourceProjector(&ui.OpenSourceProjectorParams{
-		CanvasName:        nil,
 		CanvasUuid:        nil,
 		MonitorIndex:      &[]int{1}[0],
 		ProjectorGeometry: nil,

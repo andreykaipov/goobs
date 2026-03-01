@@ -8,10 +8,10 @@ client, err := goobs.New("localhost:4455", goobs.WithPassword("whatever"))
 
 The following tables show how to make the appropriate `goobs` request for any given any [obs-websocket request](https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md#requests):
 
-## canvas
+## canvases
 | obs-websocket | goobs |
 | --- | --- |
-| GetCanvasList | `client.Canvas.GetCanvasList(...)` |
+| GetCanvasList | `client.Canvases.GetCanvasList(...)` |
 
 ## config
 | obs-websocket | goobs |

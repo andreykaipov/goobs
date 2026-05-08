@@ -25,6 +25,7 @@ jobs:
       with:
         config-name: release-drafter.yml
         disable-autolabeler: false
+        commitish: main
       env:
         GITHUB_TOKEN: ${{ github.token }}
 

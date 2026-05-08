@@ -16,6 +16,8 @@ jobs:
       contents: write
       pull-requests: write
     runs-on: ubuntu-latest
+    outputs:
+      tag_name: ${{ steps.draft-release.outputs.tag_name }}
     steps:
     - name: draft release
       id: draft-release
@@ -50,5 +52,4 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
       run: |
-        draft=$(gh release list | awk -F'\t' '/Draft/ {print $3}' | head -n1)
-        gh release edit "$draft" --draft=false
+        gh release edit "${{ needs.update-release-draft.outputs.tag_name }}" --draft=false

@@ -21,10 +21,11 @@ jobs:
     steps:
     - name: draft release
       id: draft-release
-      uses: release-drafter/release-drafter@v6
+      uses: release-drafter/release-drafter@v7
       with:
         config-name: release-drafter.yml
         disable-autolabeler: false
+        commitish: main
       env:
         GITHUB_TOKEN: ${{ github.token }}
 

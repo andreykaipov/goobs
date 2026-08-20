@@ -16,6 +16,13 @@ concurrency:
 
 jobs:
   update-release-draft:
+    # Fork PRs get a read-only GITHUB_TOKEN on the `pull_request` trigger, so
+    # release-drafter's "Create a release" API call 403s. The `pull_request_target`
+    # trigger already handles fork PRs with the base repo's write token, so the
+    # `pull_request` run is redundant and only produces noise. Skip it for forks.
+    if: >
+      github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name == github.repository
     permissions:
       contents: write
       pull-requests: write

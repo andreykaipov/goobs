@@ -43,6 +43,7 @@ type Client struct {
 	profiler           *profile.Profile
 	once               sync.Once
 	eventsMu           sync.RWMutex // Protects IncomingEvents from being closed while we send
+	writeTimeout       time.Duration
 }
 
 // Option represents a functional option of a Client.
@@ -105,6 +106,17 @@ func WithResponseTimeoutDuration(x time.Duration) Option {
 	}
 }
 
+// WithWriteTimeoutDuration sets the time we're willing to wait for a single
+// outgoing websocket write to finish before giving up on it. The default is
+// 10 seconds.
+func WithWriteTimeoutDuration(x time.Duration) Option {
+	if x <= 0 {
+		x = 10 * time.Second
+	}
+
+	return func(o *Client) { o.writeTimeout = x }
+}
+
 // WithScheme sets the protocol scheme to use when connecting to the server,
 // e.g. "ws" or "wss". The default is "ws". Please note however that the
 // obs-websocket server does not currently support connecting over wss (ref:
@@ -160,6 +172,9 @@ func (c *Client) Disconnect() error {
 func (c *Client) writeMessage(messageType int, data []byte) error {
 	c.connWLocker.Lock()
 	defer c.connWLocker.Unlock()
+	if err := c.conn.SetWriteDeadline(time.Now().Add(c.writeTimeout)); err != nil {
+		return err
+	}
 	return c.conn.WriteMessage(
 		messageType,
 		data,
@@ -191,6 +206,7 @@ func New(host string, opts ...Option) (*Client, error) {
 		dialer:             websocket.DefaultDialer,
 		requestHeader:      http.Header{"User-Agent": []string{"goobs/" + LibraryVersion}},
 		eventSubscriptions: subscriptions.All,
+		writeTimeout:       10 * time.Second,
 		client: &api.Client{
 			Disconnected:      make(chan struct{}),
 			IncomingResponses: make(chan *opcodes.RequestResponse),

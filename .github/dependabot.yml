@@ -1,20 +1,22 @@
 ---
 version: 2
 updates:
+  # The root module and /internal/sample are linked via a `replace` directive,
+  # so any shared dependency (e.g. jsonparser) MUST be bumped in both go.mod
+  # files atomically. Using `directories:` (plural) tells dependabot to open a
+  # single PR spanning both modules instead of two racing PRs.
   - package-ecosystem: gomod
-    directory: /
-    schedule:
-      interval: weekly
-  - package-ecosystem: gomod
-    directory: /internal
-    schedule:
-      interval: weekly
-  - package-ecosystem: gomod
-    directory: /internal/sample
+    directories:
+      - /
+      - /internal/sample
     schedule:
       interval: weekly
     allow:
       - dependency-type: all
+  - package-ecosystem: gomod
+    directory: /internal
+    schedule:
+      interval: weekly
   - package-ecosystem: github-actions
     directory: /
     schedule:

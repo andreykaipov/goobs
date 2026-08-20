@@ -27,8 +27,8 @@ jobs:
         filters: |
           go:
           - '**/*.go'
-          - go.mod
-          - go.sum
+          - '**/go.mod'
+          - '**/go.sum'
 
   test:
     needs: check-changes
@@ -49,6 +49,24 @@ jobs:
     - uses: magnetikonline/action-golang-cache@v5
       with:
         go-version-file: go.mod
+    - name: Verify go.mod is tidy in all modules
+      run: |
+        set -e
+        for dir in . internal internal/sample; do
+          (
+            cd "$dir"
+            cp go.mod go.mod.bak
+            cp go.sum go.sum.bak
+            go mod tidy
+            if ! diff -q go.mod go.mod.bak || ! diff -q go.sum go.sum.bak; then
+              echo "::error::go.mod/go.sum in $dir is not tidy; run 'go mod tidy' in that directory"
+              diff -u go.mod.bak go.mod || true
+              diff -u go.sum.bak go.sum || true
+              exit 1
+            fi
+            rm go.mod.bak go.sum.bak
+          )
+        done
     - name: make test
       run: |
         make test.unit

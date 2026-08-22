@@ -9,7 +9,7 @@ require (
 	github.com/mitchellh/mapstructure v1.5.0
 	github.com/mmcloughlin/profile v0.1.1
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d
-	github.com/stretchr/testify v1.12.0
+	github.com/stretchr/testify v1.12.1
 )
 
-require gopkg.in/yaml.v3 v3.0.1 // indirect
+require go.yaml.in/yaml/v3 v3.0.5 // indirect
